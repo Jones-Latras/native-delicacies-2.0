@@ -1,0 +1,300 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ── Enums ──
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum OrderStatus {
+  NEW
+  CONFIRMED
+  PREPARING
+  READY
+  OUT_FOR_DELIVERY
+  COMPLETED
+  CANCELLED
+}
+
+enum OrderType {
+  DELIVERY
+  PICKUP
+}
+
+enum PaymentMethod {
+  CARD
+  CASH_ON_DELIVERY
+  CASH_AT_PICKUP
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+// ── Models ──
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  name          String
+  phone         String?
+  role          UserRole  @default(CUSTOMER)
+  emailVerified Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  addresses      Address[]
+  orders         Order[]
+  activityLogs   ActivityLog[]
+  promoRedemptions PromoRedemption[]
+
+  @@map("users")
+}
+
+model Address {
+  id                   String  @id @default(cuid())
+  userId               String
+  label                String  @default("Home")
+  street               String
+  city                 String
+  state                String?
+  postalCode           String
+  deliveryInstructions String?
+  isDefault            Boolean @default(false)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("addresses")
+}
+
+model Category {
+  id                String    @id @default(cuid())
+  name              String    @unique
+  slug              String    @unique
+  description       String?
+  displayOrder      Int       @default(0)
+  isVisible         Boolean   @default(true)
+  availabilityStart DateTime?
+  availabilityEnd   DateTime?
+  imageUrl          String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  menuItems MenuItem[]
+
+  @@map("categories")
+}
+
+model MenuItem {
+  id                  String   @id @default(cuid())
+  name                String
+  slug                String   @unique
+  description         String
+  categoryId          String
+  price               Float
+  imageUrl            String?
+  isAvailable         Boolean  @default(true)
+  isFeatured          Boolean  @default(false)
+  originRegion        String?
+  shelfLifeDays       Int?
+  storageInstructions String?
+  heritageStory       String?
+  dietaryTags         String[] @default([])
+  preparationMinutes  Int?
+  ingredients         String?
+  allergenInfo        String?
+  dailyLimit          Int?
+  soldToday           Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  category   Category         @relation(fields: [categoryId], references: [id])
+  options    MenuItemOption[]
+  orderItems OrderItem[]
+
+  @@map("menu_items")
+}
+
+model MenuItemOption {
+  id            String @id @default(cuid())
+  menuItemId    String
+  optionGroup   String
+  name          String
+  priceModifier Float  @default(0)
+  isRequired    Boolean @default(false)
+  displayOrder  Int     @default(0)
+
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  @@map("menu_item_options")
+}
+
+model Order {
+  id                     String        @id @default(cuid())
+  orderNumber            String        @unique
+  userId                 String?
+  customerName           String
+  customerEmail          String
+  customerPhone          String
+  orderType              OrderType
+  status                 OrderStatus   @default(NEW)
+  deliveryAddress        Json?
+  pickupTime             DateTime?
+  scheduledTime          DateTime?
+  subtotal               Float
+  deliveryFee            Float         @default(0)
+  tax                    Float         @default(0)
+  tip                    Float         @default(0)
+  discount               Float         @default(0)
+  total                  Float
+  paymentMethod          PaymentMethod
+  paymentStatus          PaymentStatus @default(PENDING)
+  stripePaymentIntentId  String?
+  isGift                 Boolean       @default(false)
+  giftMessage            String?
+  specialInstructions    String?
+  estimatedReadyTime     DateTime?
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+
+  user            User?               @relation(fields: [userId], references: [id])
+  items           OrderItem[]
+  statusHistory   OrderStatusHistory[]
+  promoRedemption PromoRedemption?
+
+  @@index([orderNumber])
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+model OrderItem {
+  id                  String @id @default(cuid())
+  orderId             String
+  menuItemId          String
+  quantity            Int
+  priceAtOrder        Float
+  customizations      Json?
+  specialInstructions String?
+
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@map("order_items")
+}
+
+model OrderStatusHistory {
+  id        String      @id @default(cuid())
+  orderId   String
+  status    OrderStatus
+  changedBy String?
+  note      String?
+  createdAt DateTime    @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@map("order_status_history")
+}
+
+model BusinessSettings {
+  id                    String  @id @default("default")
+  businessName          String  @default("Filipino Native Delicacies")
+  phone                 String  @default("")
+  email                 String  @default("")
+  address               Json    @default("{}")
+  operatingHours        Json    @default("{}")
+  deliveryZones         Json    @default("[]")
+  deliveryFee           Float   @default(0)
+  minimumOrder          Float   @default(0)
+  freeDeliveryThreshold Float?
+  isAcceptingOrders     Boolean @default(true)
+  taxRate               Float   @default(0)
+  timezone              String  @default("Asia/Manila")
+  heroImageUrl          String?
+  aboutText             String?
+  updatedAt             DateTime @updatedAt
+
+  @@map("business_settings")
+}
+
+model PromoCode {
+  id             String       @id @default(cuid())
+  code           String       @unique
+  discountType   DiscountType
+  discountValue  Float
+  minOrderAmount Float?
+  maxDiscount    Float?
+  expiryDate     DateTime?
+  isActive       Boolean      @default(true)
+  usageLimit     Int?
+  usedCount      Int          @default(0)
+  applicableTo   Json?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  redemptions PromoRedemption[]
+
+  @@map("promo_codes")
+}
+
+model PromoRedemption {
+  id              String   @id @default(cuid())
+  promoCodeId     String
+  orderId         String   @unique
+  userId          String?
+  discountApplied Float
+  createdAt       DateTime @default(now())
+
+  promoCode PromoCode @relation(fields: [promoCodeId], references: [id])
+  order     Order     @relation(fields: [orderId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id])
+
+  @@map("promo_redemptions")
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  details   Json?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("activity_logs")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@map("password_reset_tokens")
+}
