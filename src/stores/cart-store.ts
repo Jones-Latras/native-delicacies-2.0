@@ -18,6 +18,7 @@ interface CartStore {
   // Computed
   getSubtotal: () => number;
   getItemCount: () => number;
+  getTotal: () => number;
 }
 
 function calculateLineTotal(item: Omit<CartItem, "id" | "lineTotal">): number {
@@ -86,6 +87,11 @@ export const useCartStore = create<CartStore>()(
       getSubtotal: () => get().items.reduce((sum, item) => sum + item.lineTotal, 0),
 
       getItemCount: () => get().items.reduce((sum, item) => sum + item.quantity, 0),
+
+      getTotal: () => {
+        const subtotal = get().getSubtotal();
+        return Math.max(0, subtotal - get().promoDiscount);
+      },
     }),
     {
       name: "delicacies-cart",

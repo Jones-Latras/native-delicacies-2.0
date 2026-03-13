@@ -48,12 +48,12 @@
 
 ### Steps:
 
-- [ ] **1.1 — Initialize Next.js project**
+- [x] **1.1 — Initialize Next.js project**
   ```
   npx create-next-app@latest delicacies-2 --typescript --tailwind --eslint --app --src-dir
   ```
 
-- [ ] **1.2 — Install core dependencies**
+- [x] **1.2 — Install core dependencies**
   ```
   npm install prisma @prisma/client next-auth @auth/prisma-adapter
   npm install zustand stripe @stripe/stripe-js @stripe/react-stripe-js
@@ -63,7 +63,7 @@
   npm install -D prisma @types/node
   ```
 
-- [ ] **1.3 — Set up project folder structure**
+- [x] **1.3 — Set up project folder structure**
   ```
   src/
   ├── app/
@@ -122,12 +122,12 @@
   └── middleware.ts              # Auth + admin route protection
   ```
 
-- [ ] **1.4 — Configure Tailwind CSS with Filipino heritage theme**
+- [x] **1.4 — Configure Tailwind CSS with Filipino heritage theme**
   - Define custom color palette (warm wood tones, earthy heritage colors)
   - Set up custom fonts (clean modern serif + sans-serif pairing)
   - Configure spacing, border-radius, and shadow tokens for premium feel
 
-- [ ] **1.5 — Set up environment variables file**
+- [x] **1.5 — Set up environment variables file**
   ```env
   # .env.local
   DATABASE_URL=
@@ -141,12 +141,12 @@
   NEXT_PUBLIC_APP_URL=http://localhost:3000
   ```
 
-- [ ] **1.6 — Create shared UI components**
+- [x] **1.6 — Create shared UI components**
   - Button, Input, Select, Textarea, Badge, Card, Modal, Toast/Notification
   - Loading skeletons
   - Responsive navbar shell and footer shell
 
-- [ ] **1.7 — Set up ESLint, Prettier, and commit hooks**
+- [x] **1.7 — Set up ESLint, Prettier, and commit hooks**
 
 ### Deliverable: Running `npm run dev` shows a styled placeholder homepage with navbar and footer.
 
@@ -158,13 +158,13 @@
 
 ### Steps:
 
-- [ ] **2.1 — Initialize Prisma and connect to PostgreSQL**
+- [x] **2.1 — Initialize Prisma and connect to PostgreSQL**
   ```
   npx prisma init
   ```
   Configure `DATABASE_URL` pointing to local or hosted Postgres.
 
-- [ ] **2.2 — Define complete Prisma schema**
+- [x] **2.2 — Define complete Prisma schema**
 
   **Models to create:**
 
@@ -183,27 +183,27 @@
   | `PromoRedemption` | id, promoCodeId, orderId, userId?, discountApplied, createdAt |
   | `ActivityLog` | id, userId, action, details (JSON), ipAddress, createdAt |
 
-- [ ] **2.3 — Run initial migration**
+- [x] **2.3 — Run initial migration**
   ```
   npx prisma migrate dev --name init
   ```
 
-- [ ] **2.4 — Create seed script** (`prisma/seed.ts`)
+- [x] **2.4 — Create seed script** (`prisma/seed.ts`)
   - Default admin user (owner role)
   - Sample categories: Kakanin, Pastries, Biscuits, Sweets, Pasalubong Bundles
   - Sample menu items with heritage stories, dietary tags, images
   - Default business settings (hours, delivery zones, tax rate)
 
-- [ ] **2.5 — Create Prisma client singleton** (`src/lib/prisma.ts`)
+- [x] **2.5 — Create Prisma client singleton** (`src/lib/prisma.ts`)
 
-- [ ] **2.6 — Build core API utilities**
+- [x] **2.6 — Build core API utilities**
   - Response helpers (success, error, paginated)
   - Zod validation middleware
   - Rate limiting utility (in-memory for MVP, Redis later)
   - Error handling wrapper for API routes
   - Auth guards (requireAuth, requireAdmin, requireRole)
 
-- [ ] **2.7 — Create Zod validation schemas** (`src/lib/validators/`)
+- [x] **2.7 — Create Zod validation schemas** (`src/lib/validators/`)
   - `menu.ts` — item creation/update schemas
   - `order.ts` — order placement schema
   - `auth.ts` — login, register, profile update schemas
@@ -220,56 +220,56 @@
 
 ### Steps:
 
-- [ ] **3.1 — Configure NextAuth.js**
+- [x] **3.1 — Configure NextAuth.js**
   - Credentials provider (email + password)
   - JWT strategy with role in token
   - Custom sign-in/sign-up pages
   - Session callback to include userId and role
 
-- [ ] **3.2 — Build registration API** (`POST /api/auth/register`)
+- [x] **3.2 — Build registration API** (`POST /api/auth/register`)
   - Validate with Zod (email, password strength, name, phone)
   - Hash password with bcrypt
   - Create user in database
   - Send welcome email (via Resend)
   - Return session token
 
-- [ ] **3.3 — Build login page** (`/login`)
+- [x] **3.3 — Build login page** (`/login`)
   - Email + password form
   - "Remember me" option
   - Link to register page
   - Link to forgot password
   - Redirect to previous page after login
 
-- [ ] **3.4 — Build registration page** (`/register`)
+- [x] **3.4 — Build registration page** (`/register`)
   - Name, email, phone, password, confirm password
   - Password strength indicator
   - Terms acceptance checkbox
   - Post-registration redirect
 
-- [ ] **3.5 — Build forgot password flow**
+- [x] **3.5 — Build forgot password flow**
   - Request reset: email input → send reset link via email
   - Reset page: token validation → new password form
   - API routes: `POST /api/auth/forgot-password`, `POST /api/auth/reset-password`
 
-- [ ] **3.6 — Build user profile page** (`/profile`)
+- [x] **3.6 — Build user profile page** (`/profile`)
   - Edit name, phone, email
   - Manage saved addresses (add/edit/delete, set default)
   - View order history (links to order detail pages)
   - Change password
   - Notification preferences
 
-- [ ] **3.7 — Implement middleware route protection** (`src/middleware.ts`)
+- [x] **3.7 — Implement middleware route protection** (`src/middleware.ts`)
   - Protect `/admin/*` routes — require ADMIN/MANAGER/STAFF role
   - Protect `/profile` — require authenticated user
   - Allow all storefront routes for guests
   - Redirect unauthenticated admin access to `/admin/login`
 
-- [ ] **3.8 — Build admin login page** (`/admin/login`)
+- [x] **3.8 — Build admin login page** (`/admin/login`)
   - Separate branded login page for admin portal
   - IP restriction check (optional, via environment config)
   - Log login attempts to ActivityLog
 
-- [ ] **3.9 — Implement session timeout (30 min inactivity for admin)**
+- [x] **3.9 — Implement session timeout (30 min inactivity for admin)**
 
 ### Deliverable: Users can register, log in, reset password, manage profile. Admin login is separate and protected. Guest users can browse freely.
 
@@ -281,14 +281,14 @@
 
 ### Steps:
 
-- [ ] **4.1 — Build menu API routes**
+- [x] **4.1 — Build menu API routes**
   - `GET /api/menu/categories` — all visible categories (ordered)
   - `GET /api/menu/items` — paginated, filterable (category, region, dietary, search query, availability)
   - `GET /api/menu/items/[slug]` — single item with options and heritage story
   - `GET /api/menu/featured` — featured/popular items
   - `GET /api/menu/bundles` — pasalubong gift bundles
 
-- [ ] **4.2 — Build the Homepage**
+- [x] **4.2 — Build the Homepage**
   > 📌 **PROVIDE YOUR EXISTING HOME PAGE CODE HERE** — I will integrate it with the backend data fetching and ensure it connects to live menu data, business hours, and featured items.
 
   **Homepage sections to wire up:**
@@ -301,7 +301,7 @@
   - About us preview
   - Footer with contact info, socials, policy links
 
-- [ ] **4.3 — Build the Menu page** (`/menu`)
+- [x] **4.3 — Build the Menu page** (`/menu`)
   - Sticky category navigation bar (horizontal scroll on mobile)
   - Grid layout of menu items (responsive: 1 col mobile, 2 tablet, 3-4 desktop)
   - Each item card shows: image, name, price, origin region badge, dietary icons, availability
@@ -309,14 +309,14 @@
   - Smooth scroll to category sections
   - "Sold Out" overlay for unavailable items
 
-- [ ] **4.4 — Build search and filter bar**
+- [x] **4.4 — Build search and filter bar**
   - Text search (debounced, searches name + description)
   - Filter by region (Luzon, Visayas, Mindanao)
   - Filter by dietary tags (vegetarian, vegan, gluten-free)
   - Sort by: Popular, Price (low-high, high-low), Name (A-Z)
   - Clear all filters button
 
-- [ ] **4.5 — Build Item Detail modal/page** (`/menu/[slug]`)
+- [x] **4.5 — Build Item Detail modal/page** (`/menu/[slug]`)
   - Large hero image (with gallery if multiple images)
   - Name, price, origin region, dietary badges
   - Full description
@@ -332,17 +332,17 @@
   - "Add to Cart" button (with running total based on selections)
   - "Back to Menu" link
 
-- [ ] **4.6 — Build "Popular / Chef's Recommendations" section**
+- [x] **4.6 — Build "Popular / Chef's Recommendations" section**
   - Horizontal scrollable row or dedicated section on menu page
   - Based on order frequency (or manually flagged by admin)
 
-- [ ] **4.7 — Implement image optimization**
+- [x] **4.7 — Implement image optimization**
   - Use Next.js `<Image>` component throughout
   - Cloudinary transformations for responsive sizes
   - Blur placeholder while loading
   - Lazy loading for off-screen images
 
-- [ ] **4.8 — Implement business hours logic**
+- [x] **4.8 — Implement business hours logic**
   - Utility function: `isCurrentlyOpen(operatingHours, timezone)`
   - Show "Currently Closed — Opens at [time]" banner when closed
   - Disable "Order Now" when closed (allow schedule-for-later only)
@@ -358,20 +358,20 @@
 
 ### Steps:
 
-- [ ] **5.1 — Build Zustand cart store** (`src/stores/cart-store.ts`)
+- [x] **5.1 — Build Zustand cart store** (`src/stores/cart-store.ts`)
   - State: cart items array, each with: menuItemId, name, price, quantity, size, addOns[], modifications[], specialInstructions, imageUrl, lineTotal
   - Actions: addItem, removeItem, updateQuantity, updateCustomizations, clearCart, applyPromoCode, removePromoCode
   - Computed: subtotal, itemCount, deliveryFee, tax, total
   - **Persist to localStorage** for guest users (via Zustand persist middleware)
   - Sync to server for logged-in users (via API)
 
-- [ ] **5.2 — Build cart API for logged-in users**
+- [x] **5.2 — Build cart API for logged-in users**
   - `GET /api/cart` — fetch saved cart
   - `POST /api/cart` — save/sync cart
   - `DELETE /api/cart` — clear cart
   - Merge guest cart with server cart on login
 
-- [ ] **5.3 — Build the Shopping Cart UI**
+- [x] **5.3 — Build the Shopping Cart UI**
   > 📌 **PROVIDE YOUR EXISTING SHOPPING CART CODE HERE** — I will connect it to the Zustand store, wire up the API sync for logged-in users, and ensure all customization editing works.
 
   **Cart features to wire up:**
@@ -389,7 +389,7 @@
   - Empty cart state with CTA to browse menu
   - Cart badge on navbar showing item count
 
-- [ ] **5.4 — Build the Bilao Builder page** (`/bilao-builder`)
+- [x] **5.4 — Build the Bilao Builder page** (`/bilao-builder`)
   > 📌 **PROVIDE YOUR EXISTING BILAO BUILDER CODE HERE** — I will integrate it with the menu item data from the database and connect the "Add Bilao to Cart" action to the Zustand cart store.
 
   **Bilao Builder features to wire up:**
@@ -400,11 +400,11 @@
   - Running total as items are added
   - "Add to Cart" — adds the complete bilao as a single cart item with all selected contents as customizations
 
-- [ ] **5.5 — Implement cart persistence and cross-tab sync**
+- [x] **5.5 — Implement cart persistence and cross-tab sync**
   - localStorage listener for cross-tab updates
   - Cart merge logic when guest logs in
 
-- [ ] **5.6 — Implement promo code validation**
+- [x] **5.6 — Implement promo code validation**
   - `POST /api/promo/validate` — check code validity, return discount info
   - Client-side display of applied discount
   - Re-validate at checkout

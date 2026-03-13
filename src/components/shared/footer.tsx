@@ -26,7 +26,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <h3 className="text-lg font-bold text-amber-800">Native Delicacies</h3>
+            <h3 className="text-lg font-bold text-brown-600">Native Delicacies</h3>
             <p className="mt-2 text-sm text-stone-500">
               Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and
               regional specialties made with love and tradition.
@@ -39,7 +39,7 @@ export function Footer() {
             <ul className="mt-3 space-y-2">
               {footerLinks.shop.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-stone-500 hover:text-amber-700">
+                  <Link href={link.href} className="text-sm text-stone-500 hover:text-brown-600">
                     {link.label}
                   </Link>
                 </li>
@@ -55,7 +55,7 @@ export function Footer() {
             <ul className="mt-3 space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-stone-500 hover:text-amber-700">
+                  <Link href={link.href} className="text-sm text-stone-500 hover:text-brown-600">
                     {link.label}
                   </Link>
                 </li>
@@ -71,7 +71,7 @@ export function Footer() {
             <ul className="mt-3 space-y-2">
               {footerLinks.policies.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-stone-500 hover:text-amber-700">
+                  <Link href={link.href} className="text-sm text-stone-500 hover:text-brown-600">
                     {link.label}
                   </Link>
                 </li>

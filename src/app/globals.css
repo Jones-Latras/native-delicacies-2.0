@@ -13,6 +13,18 @@
   --color-amber-800: #78350f;
   --color-amber-900: #451a03;
 
+  /* Primary — Saddle Brown from user design */
+  --color-brown-50: #fdf8f3;
+  --color-brown-100: #f5e6d3;
+  --color-brown-200: #e8c9a0;
+  --color-brown-300: #d4a56e;
+  --color-brown-400: #c08545;
+  --color-brown-500: #a36b2d;
+  --color-brown-600: #8b4513;
+  --color-brown-700: #723810;
+  --color-brown-800: #5a2c0c;
+  --color-brown-900: #3d1e08;
+
   --color-stone-50: #fafaf9;
   --color-stone-100: #f5f5f4;
   --color-stone-200: #e7e5e4;
@@ -25,7 +37,7 @@
   --color-stone-900: #1c1917;
 
   /* Fonts */
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-vietnam-pro);
   --font-mono: var(--font-geist-mono);
 }
 

@@ -58,6 +58,7 @@ export interface MenuItem {
   price: number;
   imageUrl?: string;
   isAvailable: boolean;
+  isFeatured: boolean;
   originRegion?: OriginRegion;
   shelfLifeDays?: number;
   storageInstructions?: string;
