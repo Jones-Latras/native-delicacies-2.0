@@ -12,6 +12,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/menu", label: "Menu" },
   { href: "/bilao-builder", label: "Bilao Builder" },
+  { href: "/track", label: "Track Order" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -101,7 +102,7 @@ export function Navbar() {
                   )}
                   <hr className="my-1 border-stone-100" />
                   <button
-                    onClick={() => { setUserMenuOpen(false); signOut({ callbackUrl: "/" }); }}
+                    onClick={async () => { setUserMenuOpen(false); await signOut({ redirect: false }); window.location.href = "/"; }}
                     className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                   >
                     <LogOut className="h-4 w-4" /> Sign Out
@@ -180,7 +181,7 @@ export function Navbar() {
                 </Link>
               )}
               <button
-                onClick={() => { closeMobileMenu(); signOut({ callbackUrl: "/" }); }}
+                onClick={async () => { closeMobileMenu(); await signOut({ redirect: false }); window.location.href = "/"; }}
                 className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-600 hover:bg-red-50"
               >
                 Sign Out

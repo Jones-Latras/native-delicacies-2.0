@@ -77,7 +77,7 @@ export default function ProfilePage() {
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => signOut({ callbackUrl: "/" })}
+          onClick={async () => { await signOut({ redirect: false }); window.location.href = "/"; }}
           className="text-stone-500"
         >
           <LogOut className="mr-2 h-4 w-4" /> Sign Out
