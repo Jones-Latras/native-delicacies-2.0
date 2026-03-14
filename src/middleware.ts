@@ -7,7 +7,7 @@ const { auth } = NextAuth(authConfig);
 
 const ADMIN_ROLES = ["ADMIN", "MANAGER", "STAFF"];
 
-const protectedRoutes = ["/profile", "/checkout"];
+const protectedRoutes = ["/profile"];
 const adminRoutes = ["/admin"];
 const authRoutes = ["/login", "/register", "/forgot-password", "/reset-password"];
 

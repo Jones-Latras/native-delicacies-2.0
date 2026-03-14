@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useCartStore } from "@/stores/cart-store";
 import {
   CheckCircle2,
   Package,
@@ -64,6 +65,12 @@ export function ConfirmationClient() {
   const [order, setOrder] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const clearCart = useCartStore((s) => s.clearCart);
+
+  // Clear cart when confirmation page loads (handles Stripe 3DS redirect)
+  useEffect(() => {
+    clearCart();
+  }, [clearCart]);
 
   useEffect(() => {
     if (!params.id) return;

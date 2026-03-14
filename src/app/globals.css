@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme inline {
+  /* ── Primary Brand Color ── */
+  --color-primary: #8b4513;
+
   /* ── Filipino Heritage Color Palette ── */
   --color-amber-50: #fffbeb;
   --color-amber-100: #fef3c7;
