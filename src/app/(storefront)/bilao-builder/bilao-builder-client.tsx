@@ -38,7 +38,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
   const progress = maxPieces > 0 ? Math.min(100, Math.round((totalPieces / maxPieces) * 100)) : 0;
   const isFull = totalPieces >= maxPieces;
   const canAddMore = selectedSize !== null && totalPieces < maxPieces;
-  const bilaoTotal = selectedSize ? selectedSize.basePrice : 0;
+  const bilaoTotal = bilaoItems.reduce((sum, bi) => sum + bi.menuItem.price * bi.quantity, 0);
 
   const filteredItems = useMemo(() => {
     if (!search.trim()) return items;
@@ -88,17 +88,18 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
   function handleAddToCart() {
     if (!selectedSize || !isFull) return;
 
-    const modifications = bilaoItems.map(
-      (bi) => `${bi.menuItem.name} × ${bi.quantity}`
-    );
+    const bilaoLabel = `${selectedSize.name} Bilao`;
 
-    addItem({
-      menuItemId: `bilao-${selectedSize.id}`,
-      name: `${selectedSize.name} Bilao (${selectedSize.pieces} pcs)`,
-      price: bilaoTotal,
-      quantity: 1,
-      customizations: { modifications },
-    });
+    for (const bi of bilaoItems) {
+      addItem({
+        menuItemId: bi.menuItem.id,
+        name: bi.menuItem.name,
+        price: bi.menuItem.price,
+        quantity: bi.quantity,
+        customizations: {},
+        specialInstructions: `Part of ${bilaoLabel} (${selectedSize.pieces} pcs)`,
+      });
+    }
 
     setAdded(true);
     setTimeout(() => {
@@ -189,8 +190,8 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                     >
                       <div className="text-lg font-bold text-stone-900">{size.name}</div>
                       <div className="text-sm text-stone-500">{size.pieces} pieces</div>
-                      <div className="mt-2 text-lg font-bold text-primary">
-                        {formatCurrency(size.basePrice)}
+                      <div className="mt-2 text-sm text-stone-400">
+                        Price based on items
                       </div>
                     </button>
                   );

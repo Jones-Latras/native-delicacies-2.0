@@ -78,6 +78,9 @@ export const useCartStore = create<CartStore>()(
 
       clearCart: () => {
         set({ items: [], promoCode: null, promoDiscount: 0 });
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("delicacies-cart");
+        }
       },
 
       setPromoCode: (code, discount) => {

@@ -1,8 +1,8 @@
 // Bilao size configurations — shared between server and client components
 export const BILAO_SIZES = [
-  { id: "small", name: "Small", pieces: 30, basePrice: 450 },
-  { id: "medium", name: "Medium", pieces: 60, basePrice: 850 },
-  { id: "large", name: "Large", pieces: 100, basePrice: 1350 },
+  { id: "small", name: "Small", pieces: 30 },
+  { id: "medium", name: "Medium", pieces: 60 },
+  { id: "large", name: "Large", pieces: 100 },
 ] as const;
 
 export type BilaoSize = typeof BILAO_SIZES[number];
