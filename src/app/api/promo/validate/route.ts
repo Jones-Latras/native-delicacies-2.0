@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { successResponse, errorResponse, parseBody } from "@/lib/api-utils";
+import { rateLimit, getClientIp, rateLimitResponse } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const validatePromoSchema = z.object({
@@ -10,6 +11,10 @@ const validatePromoSchema = z.object({
 
 // POST /api/promo/validate — check code validity and return discount info
 export async function POST(request: NextRequest) {
+  const ip = getClientIp(request);
+  const rl = rateLimit(`promo:${ip}`, { maxRequests: 10, windowMs: 60_000 });
+  if (!rl.success) return rateLimitResponse(rl.resetAt);
+
   const parsed = await parseBody(request, validatePromoSchema);
   if ("error" in parsed) return parsed.error;
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { errorResponse } from "./api-utils";
+import { captureError } from "./monitoring";
 
 type RouteHandler = (request: NextRequest, context?: unknown) => Promise<NextResponse>;
 
@@ -12,7 +13,10 @@ export function withErrorHandler(handler: RouteHandler): RouteHandler {
     try {
       return await handler(request, context);
     } catch (error) {
-      console.error(`[API Error] ${request.method} ${request.nextUrl.pathname}:`, error);
+      captureError(error, {
+        route: request.nextUrl.pathname,
+        action: request.method,
+      });
       return errorResponse("Internal server error", 500);
     }
   };

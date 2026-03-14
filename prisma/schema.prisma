@@ -84,6 +84,7 @@ model Address {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map("addresses")
 }
 
@@ -132,6 +133,8 @@ model MenuItem {
   options    MenuItemOption[]
   orderItems OrderItem[]
 
+  @@index([categoryId])
+  @@index([isAvailable, isFeatured])
   @@map("menu_items")
 }
 
@@ -146,6 +149,7 @@ model MenuItemOption {
 
   menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
 
+  @@index([menuItemId])
   @@map("menu_item_options")
 }
 
@@ -201,6 +205,8 @@ model OrderItem {
   order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   menuItem MenuItem @relation(fields: [menuItemId], references: [id])
 
+  @@index([orderId])
+  @@index([menuItemId])
   @@map("order_items")
 }
 
@@ -234,6 +240,9 @@ model BusinessSettings {
   timezone              String  @default("Asia/Manila")
   heroImageUrl          String?
   aboutText             String?
+  announcementText      String?
+  announcementActive    Boolean  @default(false)
+  announcementBgColor   String   @default("#8b4513")
   updatedAt             DateTime @updatedAt
 
   @@map("business_settings")
@@ -271,6 +280,8 @@ model PromoRedemption {
   order     Order     @relation(fields: [orderId], references: [id])
   user      User?     @relation(fields: [userId], references: [id])
 
+  @@index([promoCodeId])
+  @@index([userId])
   @@map("promo_redemptions")
 }
 
@@ -298,4 +309,29 @@ model PasswordResetToken {
 
   @@index([email])
   @@map("password_reset_tokens")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String   // NEW_ORDER, ORDER_CANCELLED, LOW_STOCK, CONTACT_MESSAGE
+  title     String
+  message   String
+  data      Json?    // Extra payload (orderId, orderNumber, etc.)
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([isRead])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model ContentPage {
+  id        String   @id @default(cuid())
+  slug      String   @unique // about, delivery, refund, privacy, terms
+  title     String
+  content   String   @db.Text
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  @@map("content_pages")
 }

@@ -419,7 +419,7 @@
 
 ### Steps:
 
-- [ ] **6.1 — Build checkout page** (`/checkout`)
+- [x] **6.1 — Build checkout page** (`/checkout`)
   - Single-page checkout layout with sections:
     1. Order Type (Delivery / Pickup toggle)
     2. Contact Information (name, email, phone)
@@ -436,7 +436,7 @@
   - Date/time picker for scheduled orders
   - Validate delivery address is within delivery zones
 
-- [ ] **6.2 — Set up Stripe server-side** (`src/lib/stripe.ts`)
+- [x] **6.2 — Set up Stripe server-side** (`src/lib/stripe.ts`)
   - Initialize Stripe with secret key
   - Create Payment Intent endpoint: `POST /api/stripe/create-payment-intent`
     - Calculate final total server-side (never trust client total)
@@ -447,19 +447,19 @@
     - Update order payment status in database
     - Trigger confirmation email
 
-- [ ] **6.3 — Build Stripe Elements payment form**
+- [x] **6.3 — Build Stripe Elements payment form**
   - Card number, expiry, CVC (Stripe Elements)
   - 3D Secure handling (automatic via Stripe)
   - Loading state during processing
   - Clear error messages for declined cards
   - "Save card for future" checkbox (Stripe Customer + SetupIntent)
 
-- [ ] **6.4 — Implement cash payment options**
+- [x] **6.4 — Implement cash payment options**
   - "Cash on Delivery" — order placed with paymentStatus: PENDING
   - "Cash at Pickup" — order placed with paymentStatus: PENDING
   - Admin marks as paid when cash collected
 
-- [ ] **6.5 — Build checkout validation and order creation API** (`POST /api/orders`)
+- [x] **6.5 — Build checkout validation and order creation API** (`POST /api/orders`)
   - Validate all checkout data with Zod
   - Re-validate cart items (prices, availability) server-side
   - Re-validate promo code
@@ -472,7 +472,7 @@
   - For cash: create order with PENDING payment status
   - Return order confirmation data
 
-- [ ] **6.6 — Build order confirmation page** (`/order/[id]/confirmation`)
+- [x] **6.6 — Build order confirmation page** (`/order/[id]/confirmation`)
   - Order number prominently displayed
   - Order summary (items, totals)
   - Delivery/pickup details
@@ -482,13 +482,13 @@
   - Print receipt option
   - Prompt to create account (for guest users)
 
-- [ ] **6.7 — Send order confirmation email**
+- [x] **6.7 — Send order confirmation email**
   - Trigger on successful order creation
   - Include: order number, items, total, delivery/pickup details, estimated time
   - Branded email template (heritage look)
   - Include order tracking link
 
-- [ ] **6.8 — Implement delivery fee calculation**
+- [x] **6.8 — Implement delivery fee calculation**
   - Based on delivery zones from BusinessSettings
   - Free delivery threshold check
   - Display fee in checkout dynamically
@@ -503,7 +503,7 @@
 
 ### Steps:
 
-- [ ] **7.1 — Build order tracking page** (`/track/[orderNumber]`)
+- [x] **7.1 — Build order tracking page** (`/track/[orderNumber]`)
   > 📌 **PROVIDE YOUR EXISTING ORDER TRACKING CODE HERE** — I will connect it to live order data via API/WebSocket and wire up the real-time status updates.
 
   **Tracking features to wire up:**
@@ -515,30 +515,30 @@
   - "Contact Restaurant" button (phone link)
   - Auto-refresh status (polling every 30 seconds or WebSocket)
 
-- [ ] **7.2 — Build order status API**
+- [x] **7.2 — Build order status API**
   - `GET /api/orders/[orderNumber]/status` — public endpoint (by order number)
   - `GET /api/orders/[id]` — authenticated endpoint (full order details)
   - `GET /api/orders/user` — logged-in user's order history
 
-- [ ] **7.3 — Implement real-time order updates**
+- [x] **7.3 — Implement real-time order updates**
   - **Option A (simpler):** Polling every 30 seconds from tracking page
   - **Option B (better UX):** Socket.IO / Pusher channel per order
     - Admin status change → emit event → customer tracking page updates instantly
   - Start with polling for MVP, upgrade to WebSocket if time allows
 
-- [ ] **7.4 — Build order history page** (`/profile/orders`)
+- [x] **7.4 — Build order history page** (`/profile/orders`)
   - List all past orders (paginated)
   - Each shows: order number, date, items summary, total, status
   - Click to expand full details
   - **"Reorder" button** — adds all items from past order to cart
   - Download receipt (PDF or printable page)
 
-- [ ] **7.5 — Implement status change email notifications**
+- [x] **7.5 — Implement status change email notifications**
   - Email on: Order Confirmed, Preparing, Ready for Pickup / Out for Delivery, Completed
   - Each email includes order number, current status, estimated time
   - Unsubscribe option for non-essential notifications
 
-- [ ] **7.6 — Build order cancellation flow**
+- [x] **7.6 — Build order cancellation flow**
   - Customer can cancel within X minutes (configurable)
   - `POST /api/orders/[id]/cancel`
   - Trigger refund via Stripe if already paid

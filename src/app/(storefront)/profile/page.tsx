@@ -400,11 +400,33 @@ function AddressForm({ onSaved, onCancel }: { onSaved: () => void; onCancel: () 
 
 // ── Orders Tab ──
 
+interface OrderItemSummary {
+  id: string;
+  menuItemName: string;
+  menuItemImage: string | null;
+  menuItemSlug: string;
+  quantity: number;
+  priceAtOrder: number;
+}
+
+interface UserOrder {
+  id: string;
+  orderNumber: string;
+  status: string;
+  orderType: string;
+  total: number;
+  subtotal: number;
+  deliveryFee: number;
+  paymentMethod: string;
+  paymentStatus: string;
+  createdAt: string;
+  items: OrderItemSummary[];
+}
+
 function OrdersTab() {
-  const [orders, setOrders] = useState<
-    { id: string; orderNumber: string; status: string; total: number; createdAt: string }[]
-  >([]);
+  const [orders, setOrders] = useState<UserOrder[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/user/orders")
@@ -434,12 +456,25 @@ function OrdersTab() {
     );
   }
 
+  const statusColor: Record<string, string> = {
+    NEW: "bg-blue-100 text-blue-800",
+    CONFIRMED: "bg-amber-100 text-amber-800",
+    PREPARING: "bg-orange-100 text-orange-800",
+    READY: "bg-green-100 text-green-800",
+    OUT_FOR_DELIVERY: "bg-indigo-100 text-indigo-800",
+    COMPLETED: "bg-emerald-100 text-emerald-800",
+    CANCELLED: "bg-red-100 text-red-800",
+  };
+
   return (
     <div className="space-y-3">
       {orders.map((order) => (
         <Card key={order.id}>
           <CardContent>
-            <div className="flex items-center justify-between">
+            <div
+              className="flex cursor-pointer items-center justify-between"
+              onClick={() => setExpandedId(expandedId === order.id ? null : order.id)}
+            >
               <div>
                 <p className="font-medium text-stone-900">Order #{order.orderNumber}</p>
                 <p className="text-sm text-stone-500">
@@ -454,11 +489,52 @@ function OrdersTab() {
                 <p className="font-semibold text-stone-900">
                   ₱{order.total.toLocaleString("en-PH", { minimumFractionDigits: 2 })}
                 </p>
-                <span className="inline-block rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
-                  {order.status}
+                <span
+                  className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
+                    statusColor[order.status] ?? "bg-stone-100 text-stone-700"
+                  }`}
+                >
+                  {order.status.replace(/_/g, " ")}
                 </span>
               </div>
             </div>
+
+            {/* Expanded Details */}
+            {expandedId === order.id && (
+              <div className="mt-4 border-t border-stone-100 pt-4">
+                {/* Items */}
+                <div className="space-y-2">
+                  {order.items.map((item) => (
+                    <div key={item.id} className="flex items-center justify-between text-sm">
+                      <span className="text-stone-700">
+                        {item.quantity}x {item.menuItemName}
+                      </span>
+                      <span className="text-stone-600">
+                        ₱{(item.priceAtOrder * item.quantity).toLocaleString("en-PH", { minimumFractionDigits: 2 })}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Actions */}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <a
+                    href={`/track/${order.orderNumber}`}
+                    className="inline-flex items-center gap-1 rounded-lg bg-amber-100 px-3 py-1.5 text-xs font-medium text-amber-800 hover:bg-amber-200"
+                  >
+                    Track Order
+                  </a>
+                  {order.status === "COMPLETED" && (
+                    <a
+                      href={`/order/${order.id}/confirmation`}
+                      className="inline-flex items-center gap-1 rounded-lg bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-200"
+                    >
+                      View Receipt
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
       ))}

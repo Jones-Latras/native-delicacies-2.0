@@ -48,6 +48,9 @@ export const businessSettingsSchema = z.object({
   timezone: z.string().min(1),
   heroImageUrl: z.string().url().optional().nullable(),
   aboutText: z.string().optional().nullable(),
+  announcementText: z.string().optional().nullable(),
+  announcementActive: z.boolean().optional(),
+  announcementBgColor: z.string().optional(),
 });
 
 // ── Promo Code ──

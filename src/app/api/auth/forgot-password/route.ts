@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { forgotPasswordSchema } from "@/lib/validators";
 import { successResponse, parseBody } from "@/lib/api-utils";
 import { sendEmail } from "@/lib/email";
+import { passwordResetEmailHtml } from "@/lib/email-templates";
 import { rateLimit, getClientIp, rateLimitResponse } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
@@ -37,17 +38,7 @@ export async function POST(request: NextRequest) {
     sendEmail({
       to: email,
       subject: "Reset Your Password — Native Delicacies",
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #92400e;">Password Reset Request</h1>
-          <p>Hi ${user.name},</p>
-          <p>We received a request to reset your password. Click the button below to set a new password:</p>
-          <a href="${resetUrl}" style="display:inline-block;background:#92400e;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;margin:16px 0;">
-            Reset Password
-          </a>
-          <p style="color:#666;font-size:14px;">This link expires in 1 hour. If you didn't request this, you can safely ignore this email.</p>
-        </div>
-      `,
+      html: passwordResetEmailHtml(user.name, resetUrl),
     }).catch(console.error);
   }
 

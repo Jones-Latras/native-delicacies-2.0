@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 import { ToastProvider } from "@/components/ui";
 import { AuthProvider } from "@/components/shared/auth-provider";
+import { ServiceWorkerRegistration } from "@/components/shared/sw-register";
 import "./globals.css";
 
 const vietnamPro = Be_Vietnam_Pro({
@@ -16,6 +17,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#8b4513",
+};
+
 export const metadata: Metadata = {
   title: {
     default: "Native Delicacies — Filipino Heritage Treats",
@@ -23,6 +28,12 @@ export const metadata: Metadata = {
   },
   description:
     "Order authentic Filipino native delicacies online. Kakanin, regional specialties, and heritage snacks crafted with tradition and love.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Native Delicacies",
+  },
 };
 
 export default function RootLayout({
@@ -38,6 +49,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <ToastProvider />
+          <ServiceWorkerRegistration />
         </AuthProvider>
       </body>
     </html>
