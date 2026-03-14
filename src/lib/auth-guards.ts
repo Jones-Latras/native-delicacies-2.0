@@ -15,7 +15,8 @@ interface SessionUser {
  * Returns null if unauthenticated.
  */
 export async function getSessionUser(request: NextRequest): Promise<SessionUser | null> {
-  const token = await getToken({ req: request });
+  const secret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
+  const token = await getToken({ req: request, secret });
   if (!token?.sub) return null;
 
   return {
