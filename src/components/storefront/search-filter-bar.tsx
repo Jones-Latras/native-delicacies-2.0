@@ -13,8 +13,6 @@ const SORT_OPTIONS = [
   { value: "name", label: "Name A–Z" },
 ];
 
-const REGION_OPTIONS = ["Luzon", "Visayas", "Mindanao"];
-
 const DIETARY_OPTIONS = [
   "Vegetarian",
   "Vegan",
@@ -38,7 +36,6 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
   const [showFilters, setShowFilters] = useState(false);
 
   const currentCategory = searchParams.get("category") ?? "";
-  const currentRegion = searchParams.get("region") ?? "";
   const currentDietary = searchParams.get("dietary") ?? "";
   const currentSort = searchParams.get("sort") ?? "popular";
 
@@ -71,7 +68,7 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
     return () => clearTimeout(timer);
   }, [searchValue, searchParams, updateParams]);
 
-  const activeFilterCount = [currentCategory, currentRegion, currentDietary].filter(Boolean).length;
+  const activeFilterCount = [currentCategory, currentDietary].filter(Boolean).length;
 
   return (
     <div className="space-y-4">
@@ -132,7 +129,7 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
       {/* Expanded Filters */}
       {showFilters && (
         <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
-          <div className="grid gap-5 sm:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2">
             {/* Category */}
             <div>
               <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-stone-500">Category</h4>
@@ -160,38 +157,6 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
                     )}
                   >
                     {cat.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Region */}
-            <div>
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-stone-500">Region</h4>
-              <div className="flex flex-wrap gap-1.5">
-                <button
-                  onClick={() => updateParams({ region: "" })}
-                  className={cn(
-                    "rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
-                    !currentRegion
-                      ? "bg-brown-600 text-white"
-                      : "bg-stone-100 text-stone-600 hover:bg-stone-200"
-                  )}
-                >
-                  All
-                </button>
-                {REGION_OPTIONS.map((region) => (
-                  <button
-                    key={region}
-                    onClick={() => updateParams({ region })}
-                    className={cn(
-                      "rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
-                      currentRegion === region
-                        ? "bg-brown-600 text-white"
-                        : "bg-stone-100 text-stone-600 hover:bg-stone-200"
-                    )}
-                  >
-                    {region}
                   </button>
                 ))}
               </div>
@@ -249,7 +214,7 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
           {/* Clear filters */}
           {activeFilterCount > 0 && (
             <button
-              onClick={() => updateParams({ category: "", region: "", dietary: "", search: "" })}
+              onClick={() => updateParams({ category: "", dietary: "", search: "" })}
               className="mt-4 text-sm font-medium text-brown-600 hover:text-brown-800"
             >
               Clear all filters

@@ -356,6 +356,7 @@ function ItemModal({
     isAvailable: item?.isAvailable ?? true,
     isFeatured: item?.isFeatured ?? false,
     dailyLimit: item?.dailyLimit ?? "",
+    dietaryTags: [] as string[],
   });
 
   // Load full item data for edit
@@ -375,6 +376,7 @@ function ItemModal({
               isAvailable: d.isAvailable,
               isFeatured: d.isFeatured,
               dailyLimit: d.dailyLimit ?? "",
+              dietaryTags: d.dietaryTags ?? [],
             });
           }
         });
@@ -393,6 +395,7 @@ function ItemModal({
       price: Number(form.price),
       dailyLimit: form.dailyLimit === "" ? null : Number(form.dailyLimit),
       imageUrl: form.imageUrl || undefined,
+      dietaryTags: form.dietaryTags,
     };
 
     const url = isEdit ? `/api/admin/menu-items/${item!.id}` : "/api/admin/menu-items";
@@ -508,6 +511,29 @@ function ItemModal({
           <div>
             <label className="mb-1 block text-sm font-medium text-[#5d4037]">Daily Limit</label>
             <input type="number" min="1" value={form.dailyLimit} onChange={(e) => set("dailyLimit", e.target.value)} placeholder="No limit" className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-[#5d4037]">Dietary Tags</label>
+            <div className="flex flex-wrap gap-2">
+              {["Vegetarian", "Vegan", "Gluten-Free", "Nut-Free", "Contains Coconut", "Contains Egg", "Contains Dairy"].map((tag) => (
+                <label key={tag} className="flex items-center gap-1.5 text-sm text-[#5d4037]">
+                  <input
+                    type="checkbox"
+                    checked={form.dietaryTags.includes(tag)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        set("dietaryTags", [...form.dietaryTags, tag]);
+                      } else {
+                        set("dietaryTags", form.dietaryTags.filter((t: string) => t !== tag));
+                      }
+                    }}
+                    className="rounded border-[#d7ccc8]"
+                  />
+                  {tag}
+                </label>
+              ))}
+            </div>
           </div>
 
           <div className="flex gap-4">

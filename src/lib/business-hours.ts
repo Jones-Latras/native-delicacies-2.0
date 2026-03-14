@@ -45,6 +45,27 @@ export function isCurrentlyOpen(
   const currentMinutes = timeToMinutes(currentTimeStr);
   const schedule: DaySchedule = operatingHours[currentDay];
 
+  // Check if yesterday's overnight slot is still active
+  const yesterdayIdx = (DAY_NAMES.indexOf(currentDay) + 6) % 7;
+  const yesterdayKey = DAY_NAMES[yesterdayIdx];
+  const yesterdaySchedule = operatingHours[yesterdayKey];
+  if (yesterdaySchedule && !yesterdaySchedule.isClosed) {
+    for (const slot of yesterdaySchedule.slots) {
+      const openMin = timeToMinutes(slot.open);
+      const closeMin = timeToMinutes(slot.close);
+      // Overnight slot: close <= open means it wraps past midnight
+      if (closeMin > 0 && closeMin <= openMin && currentMinutes < closeMin) {
+        return {
+          isOpen: true,
+          nextChange: `Closes at ${formatTime12h(slot.close)}`,
+          todayHours: schedule?.slots
+            ?.map((s) => `${formatTime12h(s.open)} - ${formatTime12h(s.close)}`)
+            .join(", ") ?? "Closed today",
+        };
+      }
+    }
+  }
+
   if (!schedule || schedule.isClosed || schedule.slots.length === 0) {
     const nextOpenDay = findNextOpenDay(operatingHours, currentDay);
     return {
@@ -59,7 +80,12 @@ export function isCurrentlyOpen(
   // Check if currently within any slot
   for (const slot of schedule.slots) {
     const openMin = timeToMinutes(slot.open);
-    const closeMin = timeToMinutes(slot.close);
+    let closeMin = timeToMinutes(slot.close);
+
+    // Handle midnight (00:00) as end of day, and overnight slots
+    if (closeMin <= openMin) {
+      closeMin += 24 * 60;
+    }
 
     if (currentMinutes >= openMin && currentMinutes < closeMin) {
       return {
