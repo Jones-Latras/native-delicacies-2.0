@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import {
   Search, Plus, Pencil, Trash2, ToggleLeft, ToggleRight,
-  ChevronLeft, ChevronRight, FolderOpen, Loader2,
+  ChevronLeft, ChevronRight, FolderOpen, Loader2, Upload, X, ImageIcon,
 } from "lucide-react";
 
 interface Category {
@@ -345,6 +345,7 @@ function ItemModal({
   const isEdit = !!item;
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const [form, setForm] = useState({
     name: item?.name ?? "",
@@ -446,8 +447,62 @@ function ItemModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-[#5d4037]">Image URL</label>
-            <input value={form.imageUrl} onChange={(e) => set("imageUrl", e.target.value)} placeholder="https://..." className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+            <label className="mb-1 block text-sm font-medium text-[#5d4037]">Product Image</label>
+            {/* Preview */}
+            {form.imageUrl && (
+              <div className="relative mb-2 inline-block">
+                <img src={form.imageUrl} alt="Preview" className="h-24 w-24 rounded-lg border border-[#d7ccc8] object-cover" />
+                <button
+                  type="button"
+                  onClick={() => set("imageUrl", "")}
+                  className="absolute -right-2 -top-2 rounded-full bg-red-500 p-0.5 text-white hover:bg-red-600"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            )}
+            {/* Upload button */}
+            <div className="flex items-center gap-2">
+              <label className={`flex cursor-pointer items-center gap-2 rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm font-medium text-[#5d4037] transition-colors hover:bg-[#f5f0eb] ${uploading ? "pointer-events-none opacity-50" : ""}`}>
+                <Upload size={16} />
+                {uploading ? "Uploading..." : "Upload Photo"}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/avif"
+                  className="hidden"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    setUploading(true);
+                    setError("");
+                    try {
+                      const fd = new FormData();
+                      fd.append("file", file);
+                      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+                      const json = await res.json();
+                      if (json.success) {
+                        set("imageUrl", json.data.url);
+                      } else {
+                        setError(json.error || "Upload failed");
+                      }
+                    } catch {
+                      setError("Upload failed. Please try again.");
+                    } finally {
+                      setUploading(false);
+                      e.target.value = "";
+                    }
+                  }}
+                />
+              </label>
+              <span className="text-xs text-[#a1887f]">or</span>
+              <input
+                value={form.imageUrl}
+                onChange={(e) => set("imageUrl", e.target.value)}
+                placeholder="Paste image URL..."
+                className="flex-1 rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]"
+              />
+            </div>
+            <p className="mt-1 text-xs text-[#a1887f]">JPEG, PNG, WebP or AVIF. Max 5 MB.</p>
           </div>
 
           <div>
