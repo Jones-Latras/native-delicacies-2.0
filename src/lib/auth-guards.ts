@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { auth } from "@/lib/auth";
 import type { UserRole } from "@/types";
 import { errorResponse } from "./api-utils";
 
@@ -11,19 +11,18 @@ interface SessionUser {
 }
 
 /**
- * Extract the authenticated user from the JWT token.
+ * Extract the authenticated user from the session.
  * Returns null if unauthenticated.
  */
-export async function getSessionUser(request: NextRequest): Promise<SessionUser | null> {
-  const secret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
-  const token = await getToken({ req: request, secret });
-  if (!token?.sub) return null;
+export async function getSessionUser(_request: NextRequest): Promise<SessionUser | null> {
+  const session = await auth();
+  if (!session?.user?.id) return null;
 
   return {
-    id: token.sub,
-    email: token.email as string,
-    name: token.name as string,
-    role: (token.role as UserRole) ?? "CUSTOMER",
+    id: session.user.id,
+    email: session.user.email ?? "",
+    name: session.user.name ?? "",
+    role: (session.user.role as UserRole) ?? "CUSTOMER",
   };
 }
 
