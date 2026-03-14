@@ -76,9 +76,14 @@ export function CartSync() {
     const interval = setInterval(() => {
       const state = useCartStore.getState();
       const currentJson = JSON.stringify({ items: state.items, promoCode: state.promoCode, promoDiscount: state.promoDiscount });
-      if (currentJson !== lastSavedJson && state.items.length > 0) {
+      if (currentJson !== lastSavedJson) {
         lastSavedJson = currentJson;
-        saveCartToServer();
+        if (state.items.length > 0) {
+          saveCartToServer();
+        } else {
+          // Sync empty cart to server so cleared carts stay cleared
+          fetch("/api/cart", { method: "DELETE" }).catch(() => {});
+        }
       }
     }, 30000);
 
