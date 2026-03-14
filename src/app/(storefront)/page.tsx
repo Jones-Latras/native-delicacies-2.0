@@ -6,7 +6,7 @@ import { CategoryCard, BusinessStatus } from "@/components/storefront";
 import { FeaturedGrid } from "@/components/storefront/featured-grid";
 import type { MenuItem, MenuCategory, OperatingHours } from "@/types";
 
-export const revalidate = 60; // ISR: revalidate every 60 seconds
+export const dynamic = "force-dynamic";
 
 async function getFeaturedItems(): Promise<MenuItem[]> {
   const items = await prisma.menuItem.findMany({
