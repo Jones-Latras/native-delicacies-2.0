@@ -246,6 +246,7 @@ export function CheckoutClient() {
 
       // For cash payments, go straight to confirmation
       clearCart();
+      useCartStore.persist.clearStorage();
       router.push(`/order/${order.id}/confirmation`);
     } catch {
       setSubmitError("Something went wrong. Please try again.");

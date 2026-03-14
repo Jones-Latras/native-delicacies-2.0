@@ -111,6 +111,7 @@ function PaymentForm({ orderId }: { orderId: string }) {
 
     // Payment succeeded without redirect (e.g., no 3DS)
     clearCart();
+    useCartStore.persist.clearStorage();
     router.push(`/order/${orderId}/confirmation`);
   }
 

@@ -70,6 +70,7 @@ export function ConfirmationClient() {
   // Clear cart when confirmation page loads (handles Stripe 3DS redirect)
   useEffect(() => {
     clearCart();
+    useCartStore.persist.clearStorage();
   }, [clearCart]);
 
   useEffect(() => {
