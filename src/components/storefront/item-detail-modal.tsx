@@ -32,6 +32,9 @@ export function ItemDetailModal({ item, isOpen, onClose }: ItemDetailModalProps)
 
   if (!isOpen || !item) return null;
 
+  const stockLeft = item.dailyLimit == null ? null : Math.max(item.dailyLimit - (item.soldToday ?? 0), 0);
+  const isOutOfStock = !item.isAvailable || stockLeft === 0;
+
   // Group options by optionGroup
   const optionGroups = item.options.reduce<Record<string, MenuItemOption[]>>((acc, opt) => {
     const group = opt.optionGroup;
@@ -57,6 +60,7 @@ export function ItemDetailModal({ item, isOpen, onClose }: ItemDetailModalProps)
   }
 
   function handleAddToCart() {
+    if (isOutOfStock) return;
     const sizeOption = selectedOptions["Size"];
     const addOns = Object.entries(selectedOptions)
       .filter(([group]) => group !== "Size")
@@ -76,6 +80,7 @@ export function ItemDetailModal({ item, isOpen, onClose }: ItemDetailModalProps)
       name: item!.name,
       price: item!.price,
       quantity,
+      maxQuantity: stockLeft ?? undefined,
       imageUrl: item!.imageUrl,
       customizations,
       specialInstructions: specialInstructions || undefined,
@@ -151,6 +156,10 @@ export function ItemDetailModal({ item, isOpen, onClose }: ItemDetailModalProps)
             <span className="text-2xl font-bold text-brown-600">
               {formatCurrency(item.price)}
             </span>
+          </div>
+
+          <div className="mt-2 text-sm text-stone-500">
+            {stockLeft === null ? "In stock" : `${stockLeft} remaining today`}
           </div>
 
           {/* Description */}
@@ -270,7 +279,12 @@ export function ItemDetailModal({ item, isOpen, onClose }: ItemDetailModalProps)
               </button>
               <span className="w-10 text-center font-semibold text-stone-900">{quantity}</span>
               <button
-                onClick={() => setQuantity((q) => q + 1)}
+                onClick={() =>
+                  setQuantity((q) => {
+                    const cap = stockLeft ?? 99;
+                    return Math.min(cap, q + 1);
+                  })
+                }
                 className="flex h-10 w-10 items-center justify-center text-stone-500 hover:text-stone-900"
                 aria-label="Increase quantity"
               >
@@ -280,11 +294,11 @@ export function ItemDetailModal({ item, isOpen, onClose }: ItemDetailModalProps)
 
             <button
               onClick={handleAddToCart}
-              disabled={!item.isAvailable}
+              disabled={isOutOfStock}
               className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brown-600 py-3 font-semibold text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <ShoppingCart className="h-5 w-5" />
-              Add to Cart — {formatCurrency(calculateTotal())}
+              {isOutOfStock ? "Out of Stock" : `Add to Cart — ${formatCurrency(calculateTotal())}`}
             </button>
           </div>
         </div>

@@ -172,6 +172,13 @@ interface StatusEmailOrder {
   orderType: string;
   status: string;
   estimatedReadyTime?: Date | null;
+  items?: { name: string; quantity: number; priceAtOrder?: number }[];
+  subtotal?: number;
+  discount?: number;
+  deliveryFee?: number;
+  tax?: number;
+  tip?: number;
+  total?: number;
 }
 
 const STATUS_EMAIL_CONFIG: Record<
@@ -233,6 +240,20 @@ export async function sendOrderStatusEmail(order: StatusEmailOrder) {
       ? "Your order is ready and will be dispatched for delivery shortly."
       : config.message;
 
+  const itemsHtml = (order.items ?? [])
+    .map(
+      (item) => `
+        <tr>
+          <td style="padding:8px 0;border-bottom:1px solid #f0ebe5;font-size:14px;color:#3d1e08;">
+            ${item.quantity}x ${item.name}
+          </td>
+          <td style="padding:8px 0;border-bottom:1px solid #f0ebe5;font-size:14px;color:#3d1e08;text-align:right;">
+            ${typeof item.priceAtOrder === "number" ? formatCurrency(item.priceAtOrder * item.quantity) : ""}
+          </td>
+        </tr>`
+    )
+    .join("");
+
   const html = `
 <!DOCTYPE html>
 <html>
@@ -261,6 +282,36 @@ export async function sendOrderStatusEmail(order: StatusEmailOrder) {
           ${order.status.replace(/_/g, " ")}
         </p>
       </div>
+
+      ${
+        itemsHtml
+          ? `<table style="width:100%;border-collapse:collapse;margin:0 0 16px;">
+              <tr>
+                <th style="text-align:left;padding:8px 0;border-bottom:2px solid #8b4513;font-size:12px;color:#a08060;text-transform:uppercase;letter-spacing:1px;">Items</th>
+                <th style="text-align:right;padding:8px 0;border-bottom:2px solid #8b4513;font-size:12px;color:#a08060;text-transform:uppercase;letter-spacing:1px;">Amount</th>
+              </tr>
+              ${itemsHtml}
+            </table>`
+          : ""
+      }
+
+      ${
+        typeof order.total === "number"
+          ? `<div style="border-top:2px solid #f0ebe5;padding-top:12px;margin-bottom:16px;">
+              <table style="width:100%;border-collapse:collapse;">
+                ${typeof order.subtotal === "number" ? `<tr><td style="padding:4px 0;font-size:14px;color:#78716c;">Subtotal</td><td style="padding:4px 0;font-size:14px;color:#3d1e08;text-align:right;">${formatCurrency(order.subtotal)}</td></tr>` : ""}
+                ${(order.discount ?? 0) > 0 ? `<tr><td style="padding:4px 0;font-size:14px;color:#16a34a;">Discount</td><td style="padding:4px 0;font-size:14px;color:#16a34a;text-align:right;">-${formatCurrency(order.discount as number)}</td></tr>` : ""}
+                ${(order.deliveryFee ?? 0) > 0 ? `<tr><td style="padding:4px 0;font-size:14px;color:#78716c;">Delivery Fee</td><td style="padding:4px 0;font-size:14px;color:#3d1e08;text-align:right;">${formatCurrency(order.deliveryFee as number)}</td></tr>` : ""}
+                ${(order.tax ?? 0) > 0 ? `<tr><td style="padding:4px 0;font-size:14px;color:#78716c;">Tax</td><td style="padding:4px 0;font-size:14px;color:#3d1e08;text-align:right;">${formatCurrency(order.tax as number)}</td></tr>` : ""}
+                ${(order.tip ?? 0) > 0 ? `<tr><td style="padding:4px 0;font-size:14px;color:#78716c;">Tip</td><td style="padding:4px 0;font-size:14px;color:#3d1e08;text-align:right;">${formatCurrency(order.tip as number)}</td></tr>` : ""}
+                <tr>
+                  <td style="padding:12px 0 4px;font-size:18px;font-weight:bold;color:#3d1e08;border-top:2px solid #8b4513;">Total</td>
+                  <td style="padding:12px 0 4px;font-size:18px;font-weight:bold;color:#8b4513;text-align:right;border-top:2px solid #8b4513;">${formatCurrency(order.total)}</td>
+                </tr>
+              </table>
+            </div>`
+          : ""
+      }
 
       ${
         order.estimatedReadyTime

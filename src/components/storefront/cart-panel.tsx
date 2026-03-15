@@ -330,14 +330,32 @@ function CartItemRow({
             <span className="w-7 text-center text-xs font-semibold text-stone-900">
               {item.quantity}
             </span>
+            <input
+              type="number"
+              min={1}
+              max={item.maxQuantity ?? 99}
+              value={item.quantity}
+              onChange={(e) => {
+                const next = Number(e.target.value);
+                if (!Number.isFinite(next)) return;
+                onUpdateQuantity(item.id, next);
+              }}
+              className="h-7 w-14 border-x border-stone-200 text-center text-xs text-stone-900 focus:outline-none"
+              aria-label={`Quantity for ${item.name}`}
+            />
             <button
               onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+              disabled={item.maxQuantity !== undefined && item.quantity >= item.maxQuantity}
               className="flex h-7 w-7 items-center justify-center text-stone-500 hover:text-stone-900"
               aria-label="Increase"
             >
               <Plus className="h-3 w-3" />
             </button>
           </div>
+
+          {item.maxQuantity !== undefined && (
+            <span className="text-[11px] text-stone-400">Max {item.maxQuantity}</span>
+          )}
 
           {confirmRemove ? (
             <div className="flex items-center gap-1">

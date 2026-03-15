@@ -47,6 +47,14 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
 
   const menuItemMap = new Map(menuItems.map((m) => [m.id, m]));
 
+  const requestedByMenuItem = new Map<string, number>();
+  for (const item of input.items) {
+    requestedByMenuItem.set(
+      item.menuItemId,
+      (requestedByMenuItem.get(item.menuItemId) ?? 0) + item.quantity
+    );
+  }
+
   for (const item of input.items) {
     const dbItem = menuItemMap.get(item.menuItemId);
     if (!dbItem) {
@@ -55,7 +63,18 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
         400
       );
     }
-    // Check daily limit
+    // Check daily limit against requested quantity across all duplicate cart lines.
+    if (dbItem.dailyLimit !== null) {
+      const requestedQty = requestedByMenuItem.get(item.menuItemId) ?? 0;
+      const remaining = Math.max(dbItem.dailyLimit - dbItem.soldToday, 0);
+      if (requestedQty > remaining) {
+        return errorResponse(
+          `Only ${remaining} stock left for "${dbItem.name}" today`,
+          400
+        );
+      }
+    }
+
     if (dbItem.dailyLimit !== null && dbItem.soldToday >= dbItem.dailyLimit) {
       return errorResponse(
         `"${dbItem.name}" has sold out for today`,

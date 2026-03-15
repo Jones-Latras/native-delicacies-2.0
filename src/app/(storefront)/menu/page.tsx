@@ -120,6 +120,8 @@ async function getItems(params: {
     ingredients: item.ingredients ?? undefined,
     allergenInfo: item.allergenInfo ?? undefined,
     dailyLimit: item.dailyLimit,
+    soldToday: item.soldToday,
+    stockLeft: item.dailyLimit == null ? null : Math.max(item.dailyLimit - item.soldToday, 0),
     options: item.options.map((o) => ({
       id: o.id,
       optionGroup: o.optionGroup,

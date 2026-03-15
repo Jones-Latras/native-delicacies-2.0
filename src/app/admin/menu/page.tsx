@@ -172,7 +172,7 @@ export default function MenuManagementPage() {
                   <th className="px-4 py-3">Category</th>
                   <th className="px-4 py-3 text-right">Price</th>
                   <th className="px-4 py-3 text-center">Available</th>
-                  <th className="px-4 py-3 text-center">Sold Today</th>
+                  <th className="px-4 py-3 text-center">Stock Left</th>
                   <th className="px-4 py-3 text-right">Actions</th>
                 </tr>
               </thead>
@@ -209,7 +209,7 @@ export default function MenuManagementPage() {
                       </button>
                     </td>
                     <td className="px-4 py-3 text-center text-[#6d4c41]">
-                      {item.soldToday}{item.dailyLimit ? `/${item.dailyLimit}` : ""}
+                      {item.dailyLimit == null ? "Unlimited" : Math.max(item.dailyLimit - item.soldToday, 0)}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1">
@@ -356,6 +356,7 @@ function ItemModal({
     isAvailable: item?.isAvailable ?? true,
     isFeatured: item?.isFeatured ?? false,
     dailyLimit: item?.dailyLimit ?? "",
+    soldToday: item?.soldToday ?? 0,
     dietaryTags: [] as string[],
   });
 
@@ -376,6 +377,7 @@ function ItemModal({
               isAvailable: d.isAvailable,
               isFeatured: d.isFeatured,
               dailyLimit: d.dailyLimit ?? "",
+              soldToday: d.soldToday ?? 0,
               dietaryTags: d.dietaryTags ?? [],
             });
           }
@@ -390,13 +392,17 @@ function ItemModal({
     setSaving(true);
     setError("");
 
-    const payload = {
+    const payload: Record<string, unknown> = {
       ...form,
       price: Number(form.price),
       dailyLimit: form.dailyLimit === "" ? null : Number(form.dailyLimit),
       imageUrl: form.imageUrl || undefined,
       dietaryTags: form.dietaryTags,
     };
+
+    if (isEdit) {
+      payload.soldToday = Number(form.soldToday);
+    }
 
     const url = isEdit ? `/api/admin/menu-items/${item!.id}` : "/api/admin/menu-items";
     const method = isEdit ? "PATCH" : "POST";
@@ -508,9 +514,15 @@ function ItemModal({
             <p className="mt-1 text-xs text-[#a1887f]">JPEG, PNG, WebP or AVIF. Max 5 MB.</p>
           </div>
 
-          <div>
-            <label className="mb-1 block text-sm font-medium text-[#5d4037]">Daily Limit</label>
-            <input type="number" min="1" value={form.dailyLimit} onChange={(e) => set("dailyLimit", e.target.value)} placeholder="No limit" className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-[#5d4037]">Daily Limit</label>
+              <input type="number" min="1" value={form.dailyLimit} onChange={(e) => set("dailyLimit", e.target.value)} placeholder="No limit" className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-[#5d4037]">Sold Today</label>
+              <input type="number" min="0" value={form.soldToday} onChange={(e) => set("soldToday", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+            </div>
           </div>
 
           <div>

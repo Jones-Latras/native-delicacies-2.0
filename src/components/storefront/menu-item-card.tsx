@@ -1,9 +1,11 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { ShoppingCart, Info, Clock, MapPin } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
 import { formatCurrency } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui";
 import type { MenuItem } from "@/types";
 
@@ -14,13 +16,25 @@ interface MenuItemCardProps {
 
 export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
   const addItem = useCartStore((s) => s.addItem);
+  const [quantity, setQuantity] = useState(1);
+
+  const stockLeft = useMemo(() => {
+    if (item.dailyLimit === null || item.dailyLimit === undefined) return null;
+    return Math.max(item.dailyLimit - (item.soldToday ?? 0), 0);
+  }, [item.dailyLimit, item.soldToday]);
+
+  const isOutOfStock = !item.isAvailable || stockLeft === 0;
+
+  const maxOrderable = stockLeft ?? undefined;
 
   function handleAddToCart() {
+    if (isOutOfStock) return;
     addItem({
       menuItemId: item.id,
       name: item.name,
       price: item.price,
-      quantity: 1,
+      quantity,
+      maxQuantity: maxOrderable,
       imageUrl: item.imageUrl,
       customizations: {},
     });
@@ -35,7 +49,10 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
             src={item.imageUrl}
             alt={item.name}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className={cn(
+              "object-cover transition-transform duration-300 group-hover:scale-105",
+              isOutOfStock && "grayscale"
+            )}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
         ) : (
@@ -51,9 +68,14 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
               Featured
             </Badge>
           )}
-          {!item.isAvailable && (
+          {isOutOfStock && (
             <Badge variant="danger" className="text-[10px] font-semibold">
-              Sold Out
+              Out of Stock
+            </Badge>
+          )}
+          {!isOutOfStock && stockLeft !== null && (
+            <Badge variant="warning" className="bg-stone-900 text-[10px] font-semibold text-white">
+              {stockLeft} left
             </Badge>
           )}
         </div>
@@ -112,18 +134,42 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
         )}
 
         {/* Price & CTA */}
-        <div className="mt-3 flex items-center justify-between border-t border-stone-100 pt-3">
+        <div className="mt-3 border-t border-stone-100 pt-3">
+          <div className="mb-2 flex items-center justify-between text-xs text-stone-500">
+            <span>
+              {stockLeft === null ? "In stock" : `${stockLeft} remaining today`}
+            </span>
+          </div>
+          <div className="flex items-center justify-between gap-2">
           <span className="text-lg font-bold text-brown-600">
             {formatCurrency(item.price)}
           </span>
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              min={1}
+              max={maxOrderable ?? 99}
+              value={quantity}
+              onChange={(e) => {
+                const next = Number(e.target.value);
+                if (!Number.isFinite(next)) return;
+                const cap = maxOrderable ?? 99;
+                setQuantity(Math.max(1, Math.min(cap, next)));
+              }}
+              disabled={isOutOfStock}
+              className="w-16 rounded-lg border border-stone-200 px-2 py-2 text-center text-sm disabled:cursor-not-allowed disabled:bg-stone-100"
+              aria-label={`Quantity for ${item.name}`}
+            />
           <button
             onClick={handleAddToCart}
-            disabled={!item.isAvailable}
+            disabled={isOutOfStock}
             className="flex items-center gap-1.5 rounded-xl bg-brown-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <ShoppingCart className="h-4 w-4" />
             Add
           </button>
+          </div>
+          </div>
         </div>
       </div>
     </div>

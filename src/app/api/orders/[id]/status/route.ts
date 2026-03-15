@@ -44,14 +44,14 @@ export async function PATCH(
 
     const order = await prisma.order.findUnique({
       where: { id },
-      select: {
-        id: true,
-        orderNumber: true,
-        status: true,
-        customerName: true,
-        customerEmail: true,
-        orderType: true,
-        estimatedReadyTime: true,
+      include: {
+        items: {
+          select: {
+            quantity: true,
+            priceAtOrder: true,
+            menuItem: { select: { name: true } },
+          },
+        },
       },
     });
 
@@ -95,6 +95,17 @@ export async function PATCH(
       orderType: order.orderType,
       status: newStatus,
       estimatedReadyTime: order.estimatedReadyTime,
+      items: order.items.map((item) => ({
+        name: item.menuItem.name,
+        quantity: item.quantity,
+        priceAtOrder: item.priceAtOrder,
+      })),
+      subtotal: order.subtotal,
+      discount: order.discount,
+      deliveryFee: order.deliveryFee,
+      tax: order.tax,
+      tip: order.tip,
+      total: order.total,
     }).catch((err) => console.error("[StatusUpdate] Email failed:", err));
 
     return successResponse({

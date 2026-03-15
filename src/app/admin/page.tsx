@@ -31,7 +31,7 @@ interface DashboardData {
     paymentStatus: string;
     createdAt: string;
     deliveryAddress: { city?: string } | null;
-    items: { menuItemName: string; quantity: number }[];
+    items: { menuItem: { name: string }; quantity: number }[];
   }[];
   products: {
     id: string;
@@ -213,7 +213,7 @@ export default function AdminDashboard() {
                       </div>
                     </td>
                     <td className="max-w-[200px] truncate px-6 py-4 text-sm">
-                      {order.items.map((i) => `${i.menuItemName}${i.quantity > 1 ? ` x${i.quantity}` : ""}`).join(", ")}
+                      {order.items.map((i) => `${i.menuItem.name}${i.quantity > 1 ? ` x${i.quantity}` : ""}`).join(", ")}
                     </td>
                     <td className="px-6 py-4 text-sm font-bold">{formatCurrency(order.total)}</td>
                     <td className="px-6 py-4">

@@ -39,7 +39,7 @@ export const PATCH = withErrorHandler(async (request: NextRequest, context: unkn
   const allowed = [
     "name", "description", "categoryId", "price", "imageUrl", "isAvailable", "isFeatured",
     "originRegion", "shelfLifeDays", "storageInstructions", "heritageStory",
-    "dietaryTags", "preparationMinutes", "ingredients", "allergenInfo", "dailyLimit",
+    "dietaryTags", "preparationMinutes", "ingredients", "allergenInfo", "dailyLimit", "soldToday",
   ];
   const data: Record<string, unknown> = {};
   for (const key of allowed) {

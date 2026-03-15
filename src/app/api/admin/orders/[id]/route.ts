@@ -43,7 +43,18 @@ export const PATCH = withErrorHandler(async (request: NextRequest, context: unkn
   if ("error" in parsed) return parsed.error;
   const { status, note, estimatedReadyTime } = parsed.data;
 
-  const order = await prisma.order.findUnique({ where: { id } });
+  const order = await prisma.order.findUnique({
+    where: { id },
+    include: {
+      items: {
+        select: {
+          quantity: true,
+          priceAtOrder: true,
+          menuItem: { select: { name: true } },
+        },
+      },
+    },
+  });
   if (!order) return errorResponse("Order not found", 404);
 
   // Valid transitions
@@ -89,6 +100,17 @@ export const PATCH = withErrorHandler(async (request: NextRequest, context: unkn
     orderNumber: order.orderNumber,
     status,
     orderType: order.orderType,
+    items: order.items.map((item) => ({
+      name: item.menuItem.name,
+      quantity: item.quantity,
+      priceAtOrder: item.priceAtOrder,
+    })),
+    subtotal: order.subtotal,
+    discount: order.discount,
+    deliveryFee: order.deliveryFee,
+    tax: order.tax,
+    tip: order.tip,
+    total: order.total,
   }).catch(() => {});
 
   logActivity("ORDER_STATUS_UPDATE", { orderId: id, from: order.status, to: status }, auth.user.id);

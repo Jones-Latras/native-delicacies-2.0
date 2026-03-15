@@ -23,6 +23,7 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  maxQuantity?: number;
   imageUrl?: string;
   customizations: CartItemCustomization;
   specialInstructions?: string;
@@ -68,6 +69,8 @@ export interface MenuItem {
   ingredients?: string;
   allergenInfo?: string;
   dailyLimit?: number | null;
+  soldToday?: number;
+  stockLeft?: number | null;
   options: MenuItemOption[];
 }
 
