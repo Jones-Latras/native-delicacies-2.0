@@ -1,90 +1,26 @@
-# Production Deployment Guide
+# Production Deployment Guide — Vercel + Railway PostgreSQL
 
-## Railway Quick Deploy
+## Architecture
 
-Use this path if you are switching from Vercel to Railway.
-
-### 1. Create services in Railway
-
-1. Create a new Railway project.
-2. Add a PostgreSQL service.
-3. Add your GitHub repo as a service.
-
-### 2. Configure environment variables
-
-Set these in your Railway app service variables:
-
-```env
-# Runtime/Build
-NIXPACKS_NODE_VERSION=20
-
-# Database
-DATABASE_URL=<Railway Postgres URL>
-DIRECT_DATABASE_URL=<Railway Postgres URL>
-
-# Auth
-NEXTAUTH_URL=https://<your-railway-domain-or-custom-domain>
-NEXTAUTH_SECRET=<generate with: openssl rand -base64 32>
-
-# Stripe
-STRIPE_SECRET_KEY=sk_live_...
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
-STRIPE_WEBHOOK_SECRET=whsec_...
-
-# Email
-RESEND_API_KEY=re_...
-EMAIL_FROM_NAME=Native Delicacies
-EMAIL_FROM_ADDRESS=orders@yourdomain.com
-
-# App
-NEXT_PUBLIC_APP_URL=https://<your-railway-domain-or-custom-domain>
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
-```
-
-### 3. Deploy settings
-
-This repository now includes `railway.json` with these defaults:
-
-1. Build command: `npm install && npm run build`
-2. Start command: `npx prisma migrate deploy && npm run start`
-
-### 4. Seed one time
-
-After first successful deploy, run this once from the Railway shell for your app service:
-
-```bash
-npm run db:seed
-```
-
-### 5. Verify data endpoints
-
-Check these URLs after deployment:
-
-1. `/api/menu/items`
-2. `/api/menu/categories`
-3. `/api/settings`
-
-If these endpoints return data, storefront and admin data loading should work.
-
-## Prerequisites
-
-- [Vercel](https://vercel.com) account connected to your Git repository
-- Production PostgreSQL database (Neon or Supabase recommended)
-- Stripe account with live API keys
-- Resend account with verified sender domain
-- Cloudinary account for image hosting
-- Custom domain name
+- **App hosting:** Vercel (Next.js serverless)
+- **Database:** Railway PostgreSQL (external)
 
 ---
 
-## 1. Environment Variables
+## 1. Railway PostgreSQL Setup
 
-Set these in your Vercel project settings → Environment Variables:
+1. Create a PostgreSQL service in your [Railway](https://railway.app) project.
+2. Copy the **public** connection string from Railway → PostgreSQL → Variables → `DATABASE_URL`.
+
+---
+
+## 2. Environment Variables (Vercel)
+
+Set these in **Vercel → Project → Settings → Environment Variables**:
 
 ```env
-# Database (use pooled connection URL for Vercel serverless)
-DATABASE_URL=postgres://user:pass@host:5432/dbname?sslmode=require
-DIRECT_DATABASE_URL=postgres://user:pass@host:5432/dbname?sslmode=require
+# Database (Railway Postgres public URL)
+DATABASE_URL=postgresql://postgres:xxx@xxx.proxy.rlwy.net:PORT/railway
 
 # NextAuth
 NEXTAUTH_URL=https://yourdomain.com
@@ -97,80 +33,66 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 
 # Resend
 RESEND_API_KEY=re_...
-EMAIL_FROM=orders@yourdomain.com
-BUSINESS_EMAIL=admin@yourdomain.com
-
-# Cloudinary
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your-cloud-name
+EMAIL_FROM_NAME=Native Delicacies
+EMAIL_FROM_ADDRESS=orders@yourdomain.com
 
 # App
-NEXT_PUBLIC_BASE_URL=https://yourdomain.com
+NEXT_PUBLIC_APP_URL=https://yourdomain.com
 ```
 
 ---
 
-## 2. Database Setup
+## 3. Deploy to Vercel
 
-### Using Neon (recommended)
+### Option A — Git integration (recommended)
 
-1. Create a new project at [neon.tech](https://neon.tech)
-2. Copy the connection string (pooled for `DATABASE_URL`, direct for `DIRECT_DATABASE_URL`)
-3. Run migrations:
-   ```bash
-   npx prisma migrate deploy
-   ```
-4. Seed production data:
-   ```bash
-   npx tsx prisma/seed-production.ts
-   ```
+1. Connect your GitHub repo to Vercel.
+2. Set the environment variables above.
+3. Vercel will auto-deploy on each push.
 
-### Using Supabase
-
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Go to Settings → Database → Connection string
-3. Use the "Session" mode URL for `DIRECT_DATABASE_URL`
-4. Follow same migrate + seed steps above
-
----
-
-## 3. Stripe Configuration
-
-1. Switch to Live mode in Stripe Dashboard
-2. Copy live API keys to environment variables
-3. Set up webhook endpoint:
-   - URL: `https://yourdomain.com/api/stripe/webhook`
-   - Events: `payment_intent.succeeded`, `payment_intent.payment_failed`
-4. Copy webhook signing secret to `STRIPE_WEBHOOK_SECRET`
-
----
-
-## 4. Email Configuration (Resend)
-
-1. Add and verify your sender domain
-2. Create an API key
-3. Set `EMAIL_FROM` to a verified sender address
-4. Test email delivery in staging first
-
----
-
-## 5. Deploy to Vercel
+### Option B — CLI
 
 ```bash
-# Install Vercel CLI
 npm i -g vercel
-
-# Deploy
 vercel --prod
 ```
-
-Or connect your Git repository for automatic deployments on push.
 
 ### Vercel Project Settings
 
 - **Framework Preset:** Next.js
-- **Build Command:** `npx prisma generate && next build`
+- **Build Command:** `prisma generate && next build`
 - **Output Directory:** `.next`
 - **Node.js Version:** 20.x
+
+---
+
+## 4. Run Migrations (one-time)
+
+After setting `DATABASE_URL` in your local `.env.local`, run:
+
+```bash
+npx prisma migrate deploy
+```
+
+Then seed production data:
+
+```bash
+npx tsx prisma/seed-production.ts
+```
+
+---
+
+## 5. Post-Deployment Checklist
+
+- [ ] All environment variables set in Vercel
+- [ ] Migrations applied to Railway Postgres
+- [ ] Production seeded (admin account + business settings)
+- [ ] Test Stripe live payments
+- [ ] Verify email delivery (registration, order confirmation)
+- [ ] Test all user flows (browse → cart → checkout → track)
+- [ ] Test admin dashboard (login, orders, settings)
+- [ ] Verify PWA manifest and service worker
+- [ ] Configure custom domain + SSL (automatic on Vercel)
 
 ---
 
@@ -179,66 +101,5 @@ Or connect your Git repository for automatic deployments on push.
 1. In Vercel → Project → Settings → Domains
 2. Add your custom domain
 3. Update DNS records as instructed
-4. SSL is automatic with Vercel
-
----
-
-## 7. Post-Deployment Checklist
-
-- [ ] Verify all environment variables are set
-- [ ] Run `prisma migrate deploy` against production DB
-- [ ] Seed production data (admin account, business settings, menu items)
-- [ ] Test Stripe live payments with a small amount
-- [ ] Verify email delivery (registration, order confirmation)
-- [ ] Test all user flows (browse, cart, checkout, track order)
-- [ ] Test admin dashboard (login, order management, settings)
-- [ ] Verify PWA manifest and service worker
-- [ ] Check security headers (use securityheaders.com)
-- [ ] Check Lighthouse scores (target >90)
-- [ ] Set up uptime monitoring (UptimeRobot, BetterUptime)
-- [ ] Configure Vercel Analytics
-- [ ] Set up error alerting (Sentry or Vercel Log Drains)
-
----
-
-## 8. Monitoring
-
-### Vercel Analytics
-Enable in Vercel Dashboard → Analytics. Tracks Web Vitals automatically.
-
-### Error Tracking
-Install Sentry when ready:
-```bash
-npm install @sentry/nextjs
-npx @sentry/wizard@latest -i nextjs
-```
-
-### Uptime Monitoring
-Set up a free monitor at [uptimerobot.com](https://uptimerobot.com):
-- Monitor URL: `https://yourdomain.com`
-- Check interval: 5 minutes
-- Alert contacts: your email + SMS
-
----
-
-## 9. Backup Strategy
-
-### Database
-- **Neon:** Automatic point-in-time recovery (7 days on free tier)
-- **Supabase:** Daily automatic backups (7 days on free tier)
-
-### Images
-- Cloudinary handles asset durability and CDN
-- Periodically export asset list for records
-
----
-
-## 10. Scaling Notes
-
-- **Database:** Neon auto-scales compute. Monitor connection count.
-- **Serverless Functions:** Vercel auto-scales. Monitor function duration.
-- **Images:** Cloudinary CDN handles load. Set up transformations for thumbnails.
-- **Rate Limiting:** Current in-memory limiter works per-instance. For high traffic, switch to Upstash Redis:
-  ```bash
-  npm install @upstash/ratelimit @upstash/redis
-  ```
+4. Update `NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` to match
+5. Update Stripe webhook endpoint URL

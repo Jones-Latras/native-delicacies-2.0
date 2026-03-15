@@ -269,6 +269,9 @@ CREATE TABLE "content_pages" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
+CREATE INDEX "addresses_userId_idx" ON "addresses"("userId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "categories_name_key" ON "categories"("name");
 
 -- CreateIndex
@@ -276,6 +279,15 @@ CREATE UNIQUE INDEX "categories_slug_key" ON "categories"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "menu_items_slug_key" ON "menu_items"("slug");
+
+-- CreateIndex
+CREATE INDEX "menu_items_categoryId_idx" ON "menu_items"("categoryId");
+
+-- CreateIndex
+CREATE INDEX "menu_items_isAvailable_isFeatured_idx" ON "menu_items"("isAvailable", "isFeatured");
+
+-- CreateIndex
+CREATE INDEX "menu_item_options_menuItemId_idx" ON "menu_item_options"("menuItemId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "orders_orderNumber_key" ON "orders"("orderNumber");
@@ -293,6 +305,12 @@ CREATE INDEX "orders_status_idx" ON "orders"("status");
 CREATE INDEX "orders_createdAt_idx" ON "orders"("createdAt");
 
 -- CreateIndex
+CREATE INDEX "order_items_orderId_idx" ON "order_items"("orderId");
+
+-- CreateIndex
+CREATE INDEX "order_items_menuItemId_idx" ON "order_items"("menuItemId");
+
+-- CreateIndex
 CREATE INDEX "order_status_history_orderId_idx" ON "order_status_history"("orderId");
 
 -- CreateIndex
@@ -300,6 +318,12 @@ CREATE UNIQUE INDEX "promo_codes_code_key" ON "promo_codes"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "promo_redemptions_orderId_key" ON "promo_redemptions"("orderId");
+
+-- CreateIndex
+CREATE INDEX "promo_redemptions_promoCodeId_idx" ON "promo_redemptions"("promoCodeId");
+
+-- CreateIndex
+CREATE INDEX "promo_redemptions_userId_idx" ON "promo_redemptions"("userId");
 
 -- CreateIndex
 CREATE INDEX "activity_logs_userId_idx" ON "activity_logs"("userId");
