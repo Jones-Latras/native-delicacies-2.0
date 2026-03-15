@@ -15,6 +15,9 @@ Use this path if you are switching from Vercel to Railway.
 Set these in your Railway app service variables:
 
 ```env
+# Runtime/Build
+NIXPACKS_NODE_VERSION=20
+
 # Database
 DATABASE_URL=<Railway Postgres URL>
 DIRECT_DATABASE_URL=<Railway Postgres URL>
