@@ -1,7 +1,11 @@
-import "dotenv/config";
+import { config as loadEnv } from "dotenv";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { hash } from "bcryptjs";
+
+// Match Next.js env precedence so seed data is written to the active app database.
+loadEnv({ path: ".env.local" });
+loadEnv();
 
 const connectionString = process.env.DIRECT_DATABASE_URL ?? process.env.DATABASE_URL!;
 const adapter = new PrismaPg({ connectionString });
