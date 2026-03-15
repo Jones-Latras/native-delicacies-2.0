@@ -21,11 +21,16 @@ interface MenuPageProps {
 }
 
 async function getCategories() {
-  return prisma.category.findMany({
-    where: { isVisible: true },
-    orderBy: { displayOrder: "asc" },
-    select: { slug: true, name: true },
-  });
+  try {
+    return await prisma.category.findMany({
+      where: { isVisible: true },
+      orderBy: { displayOrder: "asc" },
+      select: { slug: true, name: true },
+    });
+  } catch (error) {
+    console.error("Failed to load menu categories", error);
+    return [];
+  }
 }
 
 async function getItems(params: {
@@ -77,16 +82,24 @@ async function getItems(params: {
       break;
   }
 
-  const [items, total] = await Promise.all([
-    prisma.menuItem.findMany({
-      where,
-      include: { category: true, options: true },
-      orderBy,
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-    }),
-    prisma.menuItem.count({ where }),
-  ]);
+  let items;
+  let total;
+
+  try {
+    [items, total] = await Promise.all([
+      prisma.menuItem.findMany({
+        where,
+        include: { category: true, options: true },
+        orderBy,
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+      }),
+      prisma.menuItem.count({ where }),
+    ]);
+  } catch (error) {
+    console.error("Failed to load menu items", error);
+    return { items: [], total: 0 };
+  }
 
   const mapped: MenuItem[] = items.map((item) => ({
     id: item.id,

@@ -18,10 +18,10 @@ const prisma = new PrismaClient({ adapter });
  */
 
 // ── CONFIGURE THESE VALUES BEFORE RUNNING ──
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "owner@yourdomain.com";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "CHANGE_ME_BEFORE_PRODUCTION";
-const ADMIN_NAME = process.env.ADMIN_NAME || "Shop Owner";
-const ADMIN_PHONE = process.env.ADMIN_PHONE || "+639170000000";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "latrasjones@gmail.com";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "TWILIGHTplayZ123";
+const ADMIN_NAME = process.env.ADMIN_NAME || "Jones Latras";
+const ADMIN_PHONE = process.env.ADMIN_PHONE || "09857653360";
 
 async function main() {
   console.log("🚀 Production seeding...\n");

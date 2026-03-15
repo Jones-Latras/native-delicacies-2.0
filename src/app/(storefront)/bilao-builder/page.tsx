@@ -10,17 +10,24 @@ export const metadata = {
 };
 
 async function getKakaninItems(): Promise<MenuItem[]> {
-  const items = await prisma.menuItem.findMany({
-    where: {
-      isAvailable: true,
-      category: { slug: "kakanin" },
-    },
-    include: {
-      category: true,
-      options: { orderBy: { displayOrder: "asc" } },
-    },
-    orderBy: { name: "asc" },
-  });
+  let items;
+
+  try {
+    items = await prisma.menuItem.findMany({
+      where: {
+        isAvailable: true,
+        category: { slug: "kakanin" },
+      },
+      include: {
+        category: true,
+        options: { orderBy: { displayOrder: "asc" } },
+      },
+      orderBy: { name: "asc" },
+    });
+  } catch (error) {
+    console.error("Failed to load bilao items", error);
+    return [];
+  }
 
   return items.map((item) => ({
     id: item.id,

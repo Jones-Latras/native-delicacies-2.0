@@ -9,54 +9,69 @@ import type { MenuItem, MenuCategory, OperatingHours } from "@/types";
 export const dynamic = "force-dynamic";
 
 async function getFeaturedItems(): Promise<MenuItem[]> {
-  const items = await prisma.menuItem.findMany({
-    where: { isAvailable: true, isFeatured: true },
-    include: { category: true, options: true },
-    orderBy: { createdAt: "desc" },
-    take: 8,
-  });
-  return items.map((item) => ({
-    id: item.id,
-    name: item.name,
-    slug: item.slug,
-    description: item.description,
-    category: item.category as MenuCategory,
-    price: Number(item.price),
-    imageUrl: item.imageUrl ?? undefined,
-    isAvailable: item.isAvailable,
-    isFeatured: item.isFeatured,
-    originRegion: item.originRegion as MenuItem["originRegion"],
-    shelfLifeDays: item.shelfLifeDays ?? undefined,
-    storageInstructions: item.storageInstructions ?? undefined,
-    heritageStory: item.heritageStory ?? undefined,
-    dietaryTags: item.dietaryTags,
-    preparationMinutes: item.preparationMinutes ?? undefined,
-    ingredients: item.ingredients ?? undefined,
-    allergenInfo: item.allergenInfo ?? undefined,
-    dailyLimit: item.dailyLimit,
-    options: item.options.map((o) => ({
-      id: o.id,
-      optionGroup: o.optionGroup,
-      name: o.name,
-      priceModifier: Number(o.priceModifier),
-      isRequired: o.isRequired,
-      displayOrder: o.displayOrder,
-    })),
-  }));
+  try {
+    const items = await prisma.menuItem.findMany({
+      where: { isAvailable: true, isFeatured: true },
+      include: { category: true, options: true },
+      orderBy: { createdAt: "desc" },
+      take: 8,
+    });
+    return items.map((item) => ({
+      id: item.id,
+      name: item.name,
+      slug: item.slug,
+      description: item.description,
+      category: item.category as MenuCategory,
+      price: Number(item.price),
+      imageUrl: item.imageUrl ?? undefined,
+      isAvailable: item.isAvailable,
+      isFeatured: item.isFeatured,
+      originRegion: item.originRegion as MenuItem["originRegion"],
+      shelfLifeDays: item.shelfLifeDays ?? undefined,
+      storageInstructions: item.storageInstructions ?? undefined,
+      heritageStory: item.heritageStory ?? undefined,
+      dietaryTags: item.dietaryTags,
+      preparationMinutes: item.preparationMinutes ?? undefined,
+      ingredients: item.ingredients ?? undefined,
+      allergenInfo: item.allergenInfo ?? undefined,
+      dailyLimit: item.dailyLimit,
+      options: item.options.map((o) => ({
+        id: o.id,
+        optionGroup: o.optionGroup,
+        name: o.name,
+        priceModifier: Number(o.priceModifier),
+        isRequired: o.isRequired,
+        displayOrder: o.displayOrder,
+      })),
+    }));
+  } catch (error) {
+    console.error("Failed to load featured items", error);
+    return [];
+  }
 }
 
 async function getCategories() {
-  return prisma.category.findMany({
-    where: { isVisible: true },
-    orderBy: { displayOrder: "asc" },
-    include: {
-      _count: { select: { menuItems: { where: { isAvailable: true } } } },
-    },
-  });
+  try {
+    return await prisma.category.findMany({
+      where: { isVisible: true },
+      orderBy: { displayOrder: "asc" },
+      include: {
+        _count: { select: { menuItems: { where: { isAvailable: true } } } },
+      },
+    });
+  } catch (error) {
+    console.error("Failed to load categories", error);
+    return [];
+  }
 }
 
 async function getBusinessSettings() {
-  return prisma.businessSettings.findUnique({ where: { id: "default" } });
+  try {
+    return await prisma.businessSettings.findUnique({ where: { id: "default" } });
+  } catch (error) {
+    console.error("Failed to load business settings", error);
+    return null;
+  }
 }
 
 export default async function HomePage() {
