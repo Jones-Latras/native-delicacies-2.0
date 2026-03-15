@@ -1,5 +1,68 @@
 # Production Deployment Guide
 
+## Railway Quick Deploy
+
+Use this path if you are switching from Vercel to Railway.
+
+### 1. Create services in Railway
+
+1. Create a new Railway project.
+2. Add a PostgreSQL service.
+3. Add your GitHub repo as a service.
+
+### 2. Configure environment variables
+
+Set these in your Railway app service variables:
+
+```env
+# Database
+DATABASE_URL=<Railway Postgres URL>
+DIRECT_DATABASE_URL=<Railway Postgres URL>
+
+# Auth
+NEXTAUTH_URL=https://<your-railway-domain-or-custom-domain>
+NEXTAUTH_SECRET=<generate with: openssl rand -base64 32>
+
+# Stripe
+STRIPE_SECRET_KEY=sk_live_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# Email
+RESEND_API_KEY=re_...
+EMAIL_FROM_NAME=Native Delicacies
+EMAIL_FROM_ADDRESS=orders@yourdomain.com
+
+# App
+NEXT_PUBLIC_APP_URL=https://<your-railway-domain-or-custom-domain>
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
+```
+
+### 3. Deploy settings
+
+This repository now includes `railway.json` with these defaults:
+
+1. Build command: `npm install && npm run build`
+2. Start command: `npx prisma migrate deploy && npm run start`
+
+### 4. Seed one time
+
+After first successful deploy, run this once from the Railway shell for your app service:
+
+```bash
+npm run db:seed
+```
+
+### 5. Verify data endpoints
+
+Check these URLs after deployment:
+
+1. `/api/menu/items`
+2. `/api/menu/categories`
+3. `/api/settings`
+
+If these endpoints return data, storefront and admin data loading should work.
+
 ## Prerequisites
 
 - [Vercel](https://vercel.com) account connected to your Git repository
