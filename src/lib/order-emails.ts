@@ -192,27 +192,6 @@ const STATUS_EMAIL_CONFIG: Record<
     message: "We've received your order and it will be prepared shortly.",
     color: "#16a34a",
   },
-  PREPARING: {
-    subject: "Now Preparing Your Order",
-    heading: "We're Preparing Your Order! 👨‍🍳",
-    emoji: "👨‍🍳",
-    message: "Our kitchen is now working on your delicious order. Hang tight!",
-    color: "#d97706",
-  },
-  READY: {
-    subject: "Order Ready",
-    heading: "Your Order is Ready! 🎉",
-    emoji: "🎉",
-    message: "Your order has been prepared and is ready for pickup.",
-    color: "#16a34a",
-  },
-  OUT_FOR_DELIVERY: {
-    subject: "Out for Delivery",
-    heading: "Your Order is On Its Way! 🚗",
-    emoji: "🚗",
-    message: "Your order is now out for delivery. It will arrive soon!",
-    color: "#4f46e5",
-  },
   COMPLETED: {
     subject: "Order Completed",
     heading: "Order Complete! 🙏",
@@ -234,11 +213,6 @@ export async function sendOrderStatusEmail(order: StatusEmailOrder) {
   if (!config) return; // No email for statuses without a config (e.g. NEW)
 
   const trackingUrl = `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/track/${order.orderNumber}`;
-
-  const readyMessage =
-    order.status === "READY" && order.orderType === "DELIVERY"
-      ? "Your order is ready and will be dispatched for delivery shortly."
-      : config.message;
 
   const itemsHtml = (order.items ?? [])
     .map(
@@ -268,7 +242,7 @@ export async function sendOrderStatusEmail(order: StatusEmailOrder) {
     <div style="background:#fff;padding:32px;border-radius:0 0 16px 16px;border:1px solid #f0ebe5;border-top:none;">
       <h2 style="margin:0 0 8px;color:#3d1e08;font-size:20px;">${config.heading}</h2>
       <p style="margin:0 0 24px;color:#78716c;font-size:14px;">
-        Hi ${order.customerName}, ${readyMessage}
+        Hi ${order.customerName}, ${config.message}
       </p>
 
       <div style="background:#fdf8f3;border:2px dashed #deb887;border-radius:12px;padding:16px;text-align:center;margin-bottom:24px;">

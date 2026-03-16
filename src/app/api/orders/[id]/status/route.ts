@@ -68,11 +68,20 @@ export async function PATCH(
       );
     }
 
+    const isCashOnDelivery = order.paymentMethod === "CASH_ON_DELIVERY";
+    const shouldMarkPaid =
+      newStatus === "COMPLETED" &&
+      isCashOnDelivery &&
+      order.paymentStatus === "PENDING";
+
     // Update order status in a transaction
     const updated = await prisma.$transaction(async (tx) => {
       const result = await tx.order.update({
         where: { id: order.id },
-        data: { status: newStatus as never },
+        data: {
+          status: newStatus as never,
+          ...(shouldMarkPaid ? { paymentStatus: "PAID" as never } : {}),
+        },
       });
 
       await tx.orderStatusHistory.create({

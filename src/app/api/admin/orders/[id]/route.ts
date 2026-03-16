@@ -75,6 +75,12 @@ export const PATCH = withErrorHandler(async (request: NextRequest, context: unkn
   }
 
   const updateData: Record<string, unknown> = { status };
+  const isCashOnDelivery = order.paymentMethod === "CASH_ON_DELIVERY";
+
+  if (status === "COMPLETED" && isCashOnDelivery && order.paymentStatus === "PENDING") {
+    updateData.paymentStatus = "PAID";
+  }
+
   if (estimatedReadyTime) {
     updateData.estimatedReadyTime = new Date(estimatedReadyTime);
   }

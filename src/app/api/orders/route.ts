@@ -10,7 +10,6 @@ import { withErrorHandler } from "@/lib/api-error-handler";
 import { checkoutSchema } from "@/lib/validators/order";
 import { getSessionUser } from "@/lib/auth-guards";
 import { generateOrderNumber } from "@/lib/utils";
-import { sendOrderConfirmationEmail } from "@/lib/order-emails";
 import { sendEmail } from "@/lib/email";
 import { adminNewOrderAlertHtml } from "@/lib/email-templates";
 import { rateLimit, getClientIp, rateLimitResponse } from "@/lib/rate-limit";
@@ -306,29 +305,7 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     );
   }
 
-  // For cash payments: confirm order immediately
-  await prisma.order.update({
-    where: { id: order.id },
-    data: { status: "CONFIRMED" },
-  });
-
-  await prisma.orderStatusHistory.create({
-    data: {
-      orderId: order.id,
-      status: "CONFIRMED",
-      note: "Cash order confirmed",
-    },
-  });
-
-  // Send confirmation email for cash orders
-  try {
-    await sendOrderConfirmationEmail({
-      ...order,
-      status: "CONFIRMED",
-    });
-  } catch (error) {
-    console.error("Failed to send confirmation email:", error);
-  }
+  // Keep cash orders in NEW (pending) until staff confirms in admin.
 
   // Create admin notification + send admin alert email (fire and forget)
   prisma.notification.create({
