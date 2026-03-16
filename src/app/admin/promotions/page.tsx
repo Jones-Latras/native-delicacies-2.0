@@ -47,7 +47,13 @@ export default function PromotionsPage() {
     setLoading(false);
   }, [page, search, filterActive]);
 
-  useEffect(() => { fetchPromos(); }, [fetchPromos]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      void fetchPromos();
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [fetchPromos]);
 
   const toggleActive = async (p: Promo) => {
     await fetch(`/api/admin/promotions/${p.id}`, {

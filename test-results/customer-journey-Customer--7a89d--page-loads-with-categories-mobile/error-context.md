@@ -1,0 +1,126 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Native Delicacies" [ref=e5]:
+          - /url: /
+          - generic [ref=e6]: Native Delicacies
+        - generic [ref=e7]:
+          - button "Shopping cart" [ref=e8]:
+            - img [ref=e9]
+          - button "Toggle menu" [ref=e13]:
+            - img [ref=e14]
+      - navigation [ref=e15]:
+        - link "Home" [ref=e16]:
+          - /url: /
+        - link "Menu" [ref=e17]:
+          - /url: /menu
+        - link "Bilao Builder" [ref=e18]:
+          - /url: /bilao-builder
+        - link "Track Order" [ref=e19]:
+          - /url: /track
+        - link "About" [ref=e20]:
+          - /url: /about
+        - link "Contact" [ref=e21]:
+          - /url: /contact
+        - link "Sign In" [ref=e22]:
+          - /url: /login
+    - main [ref=e23]:
+      - generic [ref=e25]:
+        - navigation [ref=e26]:
+          - link "Home" [ref=e27]:
+            - /url: /
+          - img [ref=e28]
+          - link "Menu" [ref=e30]:
+            - /url: /menu
+          - img [ref=e31]
+          - generic [ref=e33]: Bilao Builder
+        - generic [ref=e34]:
+          - heading "Build Your Bilao" [level=1] [ref=e35]
+          - paragraph [ref=e36]: Create your perfect bilao platter by choosing a size and filling it with your favorite delicacies
+        - generic [ref=e39]:
+          - 'heading "Step 1: Choose Your Bilao Size" [level=2] [ref=e40]'
+          - generic [ref=e41]:
+            - button "Small 30 pieces Price based on items" [ref=e42]:
+              - generic [ref=e43]: Small
+              - generic [ref=e44]: 30 pieces
+              - generic [ref=e45]: Price based on items
+            - button "Medium 60 pieces Price based on items" [ref=e46]:
+              - generic [ref=e47]: Medium
+              - generic [ref=e48]: 60 pieces
+              - generic [ref=e49]: Price based on items
+            - button "Large 100 pieces Price based on items" [ref=e50]:
+              - generic [ref=e51]: Large
+              - generic [ref=e52]: 100 pieces
+              - generic [ref=e53]: Price based on items
+        - link "Back to Menu" [ref=e55]:
+          - /url: /menu
+          - img [ref=e56]
+          - text: Back to Menu
+    - contentinfo [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - heading "Native Delicacies" [level=3] [ref=e62]
+            - paragraph [ref=e63]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+          - generic [ref=e64]:
+            - heading "Shop" [level=4] [ref=e65]
+            - list [ref=e66]:
+              - listitem [ref=e67]:
+                - link "Browse Menu" [ref=e68]:
+                  - /url: /menu
+              - listitem [ref=e69]:
+                - link "Bilao Builder" [ref=e70]:
+                  - /url: /bilao-builder
+              - listitem [ref=e71]:
+                - link "Popular Items" [ref=e72]:
+                  - /url: /menu?filter=popular
+              - listitem [ref=e73]:
+                - link "Gift Bundles" [ref=e74]:
+                  - /url: /menu?filter=bundles
+          - generic [ref=e75]:
+            - heading "Company" [level=4] [ref=e76]
+            - list [ref=e77]:
+              - listitem [ref=e78]:
+                - link "Our Story" [ref=e79]:
+                  - /url: /about
+              - listitem [ref=e80]:
+                - link "Contact Us" [ref=e81]:
+                  - /url: /contact
+          - generic [ref=e82]:
+            - heading "Policies" [level=4] [ref=e83]
+            - list [ref=e84]:
+              - listitem [ref=e85]:
+                - link "Delivery Info" [ref=e86]:
+                  - /url: /policies/delivery
+              - listitem [ref=e87]:
+                - link "Refund Policy" [ref=e88]:
+                  - /url: /policies/refund
+              - listitem [ref=e89]:
+                - link "Privacy Policy" [ref=e90]:
+                  - /url: /policies/privacy
+              - listitem [ref=e91]:
+                - link "Terms & Conditions" [ref=e92]:
+                  - /url: /policies/terms
+        - paragraph [ref=e94]: © 2026 Native Delicacies. All rights reserved.
+    - generic [ref=e95]:
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - img [ref=e98]
+          - heading "Your Cart" [level=2] [ref=e101]
+        - button "Close cart" [ref=e102]:
+          - img [ref=e103]
+      - generic [ref=e106]:
+        - img [ref=e108]
+        - heading "Your cart is empty" [level=3] [ref=e111]
+        - paragraph [ref=e112]: Discover our authentic Filipino delicacies and add your favorites!
+        - link "Browse Menu" [ref=e113]:
+          - /url: /menu
+          - text: Browse Menu
+          - img [ref=e114]
+  - button "Open Next.js Dev Tools" [ref=e121] [cursor=pointer]:
+    - img [ref=e122]
+```

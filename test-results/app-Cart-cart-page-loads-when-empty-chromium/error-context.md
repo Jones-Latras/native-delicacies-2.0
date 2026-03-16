@@ -1,0 +1,106 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Native Delicacies" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: Native Delicacies
+        - navigation [ref=e7]:
+          - link "Home" [ref=e8] [cursor=pointer]:
+            - /url: /
+          - link "Menu" [ref=e9] [cursor=pointer]:
+            - /url: /menu
+          - link "Bilao Builder" [ref=e10] [cursor=pointer]:
+            - /url: /bilao-builder
+          - link "Track Order" [ref=e11] [cursor=pointer]:
+            - /url: /track
+          - link "About" [ref=e12] [cursor=pointer]:
+            - /url: /about
+          - link "Contact" [ref=e13] [cursor=pointer]:
+            - /url: /contact
+        - generic [ref=e14]:
+          - link "Search" [ref=e15] [cursor=pointer]:
+            - /url: /menu
+            - img [ref=e16]
+          - link "Account" [ref=e19] [cursor=pointer]:
+            - /url: /login
+            - img [ref=e20]
+          - button "Shopping cart" [ref=e23]:
+            - img [ref=e24]
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - img [ref=e32]
+        - heading "Your cart is empty" [level=1] [ref=e35]
+        - paragraph [ref=e36]: Looks like you haven't added any delicacies yet. Browse our menu to find your favorites!
+        - link "Browse Menu" [ref=e37] [cursor=pointer]:
+          - /url: /menu
+          - text: Browse Menu
+          - img [ref=e38]
+    - contentinfo [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - heading "Native Delicacies" [level=3] [ref=e44]
+            - paragraph [ref=e45]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+          - generic [ref=e46]:
+            - heading "Shop" [level=4] [ref=e47]
+            - list [ref=e48]:
+              - listitem [ref=e49]:
+                - link "Browse Menu" [ref=e50] [cursor=pointer]:
+                  - /url: /menu
+              - listitem [ref=e51]:
+                - link "Bilao Builder" [ref=e52] [cursor=pointer]:
+                  - /url: /bilao-builder
+              - listitem [ref=e53]:
+                - link "Popular Items" [ref=e54] [cursor=pointer]:
+                  - /url: /menu?filter=popular
+              - listitem [ref=e55]:
+                - link "Gift Bundles" [ref=e56] [cursor=pointer]:
+                  - /url: /menu?filter=bundles
+          - generic [ref=e57]:
+            - heading "Company" [level=4] [ref=e58]
+            - list [ref=e59]:
+              - listitem [ref=e60]:
+                - link "Our Story" [ref=e61] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e62]:
+                - link "Contact Us" [ref=e63] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e64]:
+            - heading "Policies" [level=4] [ref=e65]
+            - list [ref=e66]:
+              - listitem [ref=e67]:
+                - link "Delivery Info" [ref=e68] [cursor=pointer]:
+                  - /url: /policies/delivery
+              - listitem [ref=e69]:
+                - link "Refund Policy" [ref=e70] [cursor=pointer]:
+                  - /url: /policies/refund
+              - listitem [ref=e71]:
+                - link "Privacy Policy" [ref=e72] [cursor=pointer]:
+                  - /url: /policies/privacy
+              - listitem [ref=e73]:
+                - link "Terms & Conditions" [ref=e74] [cursor=pointer]:
+                  - /url: /policies/terms
+        - paragraph [ref=e76]: © 2026 Native Delicacies. All rights reserved.
+    - generic [ref=e77]:
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - img [ref=e80]
+          - heading "Your Cart" [level=2] [ref=e83]
+        - button "Close cart" [ref=e84]:
+          - img [ref=e85]
+      - generic [ref=e88]:
+        - img [ref=e90]
+        - heading "Your cart is empty" [level=3] [ref=e93]
+        - paragraph [ref=e94]: Discover our authentic Filipino delicacies and add your favorites!
+        - link "Browse Menu" [ref=e95] [cursor=pointer]:
+          - /url: /menu
+          - text: Browse Menu
+          - img [ref=e96]
+  - button "Open Next.js Dev Tools" [ref=e103] [cursor=pointer]:
+    - img [ref=e104]
+  - alert [ref=e107]
+```

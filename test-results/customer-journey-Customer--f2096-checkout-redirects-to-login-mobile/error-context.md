@@ -1,0 +1,231 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Native Delicacies" [ref=e5]:
+          - /url: /
+          - generic [ref=e6]: Native Delicacies
+        - generic [ref=e7]:
+          - button "Shopping cart" [ref=e8]:
+            - img [ref=e9]
+          - button "Toggle menu" [ref=e13]:
+            - img [ref=e14]
+      - navigation [ref=e15]:
+        - link "Home" [ref=e16]:
+          - /url: /
+        - link "Menu" [ref=e17]:
+          - /url: /menu
+        - link "Bilao Builder" [ref=e18]:
+          - /url: /bilao-builder
+        - link "Track Order" [ref=e19]:
+          - /url: /track
+        - link "About" [ref=e20]:
+          - /url: /about
+        - link "Contact" [ref=e21]:
+          - /url: /contact
+        - link "Sign In" [ref=e22]:
+          - /url: /login
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - navigation [ref=e25]:
+          - link "Home" [ref=e26]:
+            - /url: /
+          - img [ref=e27]
+          - generic [ref=e29]: Menu
+        - generic [ref=e30]:
+          - heading "Our Menu" [level=1] [ref=e31]
+          - paragraph [ref=e32]: 5 delicacies to explore
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - img [ref=e37]
+            - textbox "Search delicacies..." [ref=e40]
+          - button "Filters" [ref=e41]:
+            - img [ref=e42]
+            - text: Filters
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e45]:
+              - img "Sapin-sapin" [ref=e46]
+              - generic [ref=e47]:
+                - generic [ref=e48]: Featured
+                - generic [ref=e49]: Out of Stock
+              - button "View details for Sapin-sapin" [ref=e50]:
+                - img [ref=e51]
+            - generic [ref=e53]:
+              - generic [ref=e55]: Kakanin
+              - heading "Sapin-sapin" [level=3] [ref=e56]
+              - paragraph [ref=e57]: Sapin-sapin is a traditional Filipino layered rice cake known for its vibrant colors and soft, chewy texture. Made primarily from glutinous rice flour, coconut milk, and sugar, it features distinct layers—often flavored with ube (purple yam), jackfruit, and plain coconut—steamed one at a time and typically topped with latik (caramelized coconut curds) or toasted coconut flakes. This festive dessert is a staple during celebrations and showcases the rich culinary heritage of the Philippines
+              - generic [ref=e58]:
+                - generic [ref=e59]: Contains Egg
+                - generic [ref=e60]: Contains Coconut
+                - generic [ref=e61]: Nut-Free
+              - generic [ref=e62]:
+                - generic [ref=e64]: 0 remaining today
+                - generic [ref=e65]:
+                  - generic [ref=e66]: ₱8.00
+                  - generic [ref=e67]:
+                    - spinbutton "Quantity for Sapin-sapin" [disabled] [ref=e68]: "1"
+                    - button "Add" [disabled] [ref=e69]:
+                      - img [ref=e70]
+                      - text: Add
+          - generic [ref=e74]:
+            - generic [ref=e75]:
+              - img "Cassava Pudding" [ref=e76]
+              - button "View details for Cassava Pudding" [ref=e77]:
+                - img [ref=e78]
+            - generic [ref=e80]:
+              - generic [ref=e82]: Kakanin
+              - heading "Cassava Pudding" [level=3] [ref=e83]
+              - paragraph [ref=e84]: Cassava Pudding holds a special place as one of the most beloved kakanins in the Philippines. This delightful dessert is made from grated cassava, brown sugar, and a few strips of coconut to add a distinct and tropical flavor.
+              - generic [ref=e85]:
+                - generic [ref=e86]: Contains Coconut
+                - generic [ref=e87]: Contains Egg
+                - generic [ref=e88]: Gluten-Free
+                - generic [ref=e89]: Nut-Free
+                - generic [ref=e90]: Contains Dairy
+              - generic [ref=e91]:
+                - generic [ref=e93]: In stock
+                - generic [ref=e94]:
+                  - generic [ref=e95]: ₱8.00
+                  - generic [ref=e96]:
+                    - spinbutton "Quantity for Cassava Pudding" [ref=e97]: "1"
+                    - button "Add" [ref=e98]:
+                      - img [ref=e99]
+                      - text: Add
+          - generic [ref=e103]:
+            - generic [ref=e104]:
+              - img "Suman Latik" [ref=e105]
+              - button "View details for Suman Latik" [ref=e106]:
+                - img [ref=e107]
+            - generic [ref=e109]:
+              - generic [ref=e111]: Kakanin
+              - heading "Suman Latik" [level=3] [ref=e112]
+              - paragraph [ref=e113]: Suman Latik is a delectable rice cake showcasing coconut milk’s rich flavors and the art of traditional wrapping. This Filipino delicacy is made by combining rice with coconut milk and wrapping it in banana leaves. What sets Suman Latik apart is the addition of “Latik” or coco jam, which is generously spread on top of the rice cake when served, adding a burst of sweetness and enhancing its overall taste.
+              - generic [ref=e114]:
+                - generic [ref=e115]: Contains Coconut
+                - generic [ref=e116]: Contains Egg
+              - generic [ref=e117]:
+                - generic [ref=e119]: In stock
+                - generic [ref=e120]:
+                  - generic [ref=e121]: ₱5.00
+                  - generic [ref=e122]:
+                    - spinbutton "Quantity for Suman Latik" [ref=e123]: "1"
+                    - button "Add" [ref=e124]:
+                      - img [ref=e125]
+                      - text: Add
+          - generic [ref=e129]:
+            - generic [ref=e130]:
+              - img "Kutsinta" [ref=e131]
+              - button "View details for Kutsinta" [ref=e132]:
+                - img [ref=e133]
+            - generic [ref=e135]:
+              - generic [ref=e137]: Kakanin
+              - heading "Kutsinta" [level=3] [ref=e138]
+              - paragraph [ref=e139]: Kutsinta, a favorite of mine, is a delicious kakanin that never fails to delight. This treat is topped with grated coconut or cheese for added flavor and texture, made from a mixture of rice flour, sugar, lye, and food coloring. Carefully blending these ingredients and steaming results in a firm and satisfying texture.
+              - generic [ref=e140]:
+                - generic [ref=e141]: Contains Coconut
+                - generic [ref=e142]: Contains Egg
+                - generic [ref=e143]: Nut-Free
+                - generic [ref=e144]: Contains Dairy
+                - generic [ref=e145]: Gluten-Free
+              - generic [ref=e146]:
+                - generic [ref=e148]: In stock
+                - generic [ref=e149]:
+                  - generic [ref=e150]: ₱8.00
+                  - generic [ref=e151]:
+                    - spinbutton "Quantity for Kutsinta" [ref=e152]: "1"
+                    - button "Add" [ref=e153]:
+                      - img [ref=e154]
+                      - text: Add
+          - generic [ref=e158]:
+            - generic [ref=e159]:
+              - img "Palitaw" [ref=e160]
+              - button "View details for Palitaw" [ref=e161]:
+                - img [ref=e162]
+            - generic [ref=e164]:
+              - generic [ref=e166]: Kakanin
+              - heading "Palitaw" [level=3] [ref=e167]
+              - paragraph [ref=e168]: Palitaw is a delightful Filipino delicacy consisting of flattened sweet rice cakes. Made from a simple rice flour and water mixture, Palitaw is prepared by shaping the dough into small balls and then flattening them into discs. These discs are dropped into boiling water, and they are perfectly cooked once they rise to the surface.
+              - generic [ref=e169]:
+                - generic [ref=e170]: Contains Coconut
+                - generic [ref=e171]: Nut-Free
+                - generic [ref=e172]: Contains Egg
+                - generic [ref=e173]: Contains Dairy
+                - generic [ref=e174]: Gluten-Free
+              - generic [ref=e175]:
+                - generic [ref=e177]: In stock
+                - generic [ref=e178]:
+                  - generic [ref=e179]: ₱8.00
+                  - generic [ref=e180]:
+                    - spinbutton "Quantity for Palitaw" [ref=e181]: "1"
+                    - button "Add" [ref=e182]:
+                      - img [ref=e183]
+                      - text: Add
+    - contentinfo [ref=e187]:
+      - generic [ref=e188]:
+        - generic [ref=e189]:
+          - generic [ref=e190]:
+            - heading "Native Delicacies" [level=3] [ref=e191]
+            - paragraph [ref=e192]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+          - generic [ref=e193]:
+            - heading "Shop" [level=4] [ref=e194]
+            - list [ref=e195]:
+              - listitem [ref=e196]:
+                - link "Browse Menu" [ref=e197]:
+                  - /url: /menu
+              - listitem [ref=e198]:
+                - link "Bilao Builder" [ref=e199]:
+                  - /url: /bilao-builder
+              - listitem [ref=e200]:
+                - link "Popular Items" [ref=e201]:
+                  - /url: /menu?filter=popular
+              - listitem [ref=e202]:
+                - link "Gift Bundles" [ref=e203]:
+                  - /url: /menu?filter=bundles
+          - generic [ref=e204]:
+            - heading "Company" [level=4] [ref=e205]
+            - list [ref=e206]:
+              - listitem [ref=e207]:
+                - link "Our Story" [ref=e208]:
+                  - /url: /about
+              - listitem [ref=e209]:
+                - link "Contact Us" [ref=e210]:
+                  - /url: /contact
+          - generic [ref=e211]:
+            - heading "Policies" [level=4] [ref=e212]
+            - list [ref=e213]:
+              - listitem [ref=e214]:
+                - link "Delivery Info" [ref=e215]:
+                  - /url: /policies/delivery
+              - listitem [ref=e216]:
+                - link "Refund Policy" [ref=e217]:
+                  - /url: /policies/refund
+              - listitem [ref=e218]:
+                - link "Privacy Policy" [ref=e219]:
+                  - /url: /policies/privacy
+              - listitem [ref=e220]:
+                - link "Terms & Conditions" [ref=e221]:
+                  - /url: /policies/terms
+        - paragraph [ref=e223]: © 2026 Native Delicacies. All rights reserved.
+    - generic [ref=e224]:
+      - generic [ref=e225]:
+        - generic [ref=e226]:
+          - img [ref=e227]
+          - heading "Your Cart" [level=2] [ref=e230]
+        - button "Close cart" [ref=e231]:
+          - img [ref=e232]
+      - generic [ref=e235]:
+        - img [ref=e237]
+        - heading "Your cart is empty" [level=3] [ref=e240]
+        - paragraph [ref=e241]: Discover our authentic Filipino delicacies and add your favorites!
+        - link "Browse Menu" [ref=e242]:
+          - /url: /menu
+          - text: Browse Menu
+          - img [ref=e243]
+  - button "Open Next.js Dev Tools" [ref=e250] [cursor=pointer]:
+    - img [ref=e251]
+  - alert [ref=e256]: Native Delicacies — Filipino Heritage Treats
+```

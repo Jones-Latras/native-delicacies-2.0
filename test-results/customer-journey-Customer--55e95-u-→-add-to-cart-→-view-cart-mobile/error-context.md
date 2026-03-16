@@ -1,0 +1,192 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Native Delicacies" [ref=e5]:
+          - /url: /
+          - generic [ref=e6]: Native Delicacies
+        - generic [ref=e7]:
+          - button "Shopping cart" [ref=e8]:
+            - img [ref=e9]
+          - button "Toggle menu" [ref=e13]:
+            - img [ref=e14]
+      - navigation [ref=e15]:
+        - link "Home" [ref=e16]:
+          - /url: /
+        - link "Menu" [ref=e17]:
+          - /url: /menu
+        - link "Bilao Builder" [ref=e18]:
+          - /url: /bilao-builder
+        - link "Track Order" [ref=e19]:
+          - /url: /track
+        - link "About" [ref=e20]:
+          - /url: /about
+        - link "Contact" [ref=e21]:
+          - /url: /contact
+        - link "Sign In" [ref=e22]:
+          - /url: /login
+    - main [ref=e23]:
+      - generic [ref=e26]:
+        - generic [ref=e28]:
+          - generic [ref=e30]: Open Now
+          - generic [ref=e31]: ·
+          - img [ref=e32]
+          - generic [ref=e35]: Closes at 8:00 PM
+        - paragraph [ref=e36]: Authentic Filipino Heritage
+        - heading "Build Your Own Bilao" [level=1] [ref=e37]
+        - paragraph [ref=e38]: Handcrafted kakanin and regional specialties made with love, tradition, and the finest local ingredients. Taste the heritage of the Philippines.
+        - generic [ref=e39]:
+          - link "Build Your Bilao" [ref=e40]:
+            - /url: /bilao-builder
+            - button "Build Your Bilao" [ref=e41]:
+              - text: Build Your Bilao
+              - img [ref=e42]
+          - link "Browse Menu" [ref=e44]:
+            - /url: /menu
+            - button "Browse Menu" [ref=e45]
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - img [ref=e48]
+            - text: Free Delivery Over ₱500
+          - generic [ref=e53]:
+            - img [ref=e54]
+            - text: Freshness Guaranteed
+          - generic [ref=e57]:
+            - img [ref=e58]
+            - text: 4.9★ Rated
+      - generic [ref=e60]:
+        - generic [ref=e62]:
+          - heading "Shop by Category" [level=2] [ref=e63]
+          - paragraph [ref=e64]: Explore our curated collection of native treats
+        - link "🍘 Kakanin 5 items" [ref=e66]:
+          - /url: /menu?category=kakanin
+          - generic [ref=e67]:
+            - generic [ref=e69]: 🍘
+            - generic [ref=e71]:
+              - heading "Kakanin" [level=3] [ref=e72]
+              - paragraph [ref=e73]: 5 items
+      - generic [ref=e75]:
+        - generic [ref=e77]:
+          - heading "Popular Delicacies" [level=2] [ref=e78]
+          - paragraph [ref=e79]: Our most loved traditional treats, freshly prepared for you
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - img "Sapin-sapin" [ref=e84]
+            - generic [ref=e85]:
+              - generic [ref=e86]: Featured
+              - generic [ref=e87]: 20 left
+            - button "View details for Sapin-sapin" [ref=e88]:
+              - img [ref=e89]
+          - generic [ref=e91]:
+            - generic [ref=e93]: Kakanin
+            - heading "Sapin-sapin" [level=3] [ref=e94]
+            - paragraph [ref=e95]: Sapin-sapin is a traditional Filipino layered rice cake known for its vibrant colors and soft, chewy texture. Made primarily from glutinous rice flour, coconut milk, and sugar, it features distinct layers—often flavored with ube (purple yam), jackfruit, and plain coconut—steamed one at a time and typically topped with latik (caramelized coconut curds) or toasted coconut flakes. This festive dessert is a staple during celebrations and showcases the rich culinary heritage of the Philippines
+            - generic [ref=e96]:
+              - generic [ref=e97]: Contains Egg
+              - generic [ref=e98]: Contains Coconut
+              - generic [ref=e99]: Nut-Free
+            - generic [ref=e100]:
+              - generic [ref=e102]: 20 remaining today
+              - generic [ref=e103]:
+                - generic [ref=e104]: ₱8.00
+                - generic [ref=e105]:
+                  - spinbutton "Quantity for Sapin-sapin" [ref=e106]: "1"
+                  - button "Add" [ref=e107]:
+                    - img [ref=e108]
+                    - text: Add
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - paragraph [ref=e115]: Our Heritage
+          - heading "A Taste of Filipino Tradition" [level=2] [ref=e116]
+          - paragraph [ref=e117]: Every delicacy we create carries generations of Filipino culinary wisdom. From the sticky-sweet bibingka of Luzon to the rich flavors of Visayan treats, we preserve and share the authentic tastes that make our culture so rich.
+          - paragraph [ref=e118]: We source the finest local ingredients — fresh coconut, native rice varieties, muscovado sugar — and prepare each item with the same care and attention to detail that our lolas practiced for generations.
+          - link "Read Our Story" [ref=e119]:
+            - /url: /about
+            - button "Read Our Story" [ref=e120]:
+              - text: Read Our Story
+              - img [ref=e121]
+        - generic [ref=e124]:
+          - generic [ref=e126]: 🍚
+          - generic [ref=e128]: 🥥
+          - generic [ref=e130]: 🌾
+          - generic [ref=e132]: 🍃
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - img [ref=e138]
+            - text: Perfect for Gifting
+          - heading "Pasalubong & Gift Bundles" [level=2] [ref=e142]
+          - paragraph [ref=e143]: Send the gift of tradition. Our curated gift bundles are perfect for sharing with loved ones near and far.
+        - link "View Gift Bundles" [ref=e145]:
+          - /url: /menu?category=pasalubong-bundles
+          - button "View Gift Bundles" [ref=e146]:
+            - text: View Gift Bundles
+            - img [ref=e147]
+    - contentinfo [ref=e149]:
+      - generic [ref=e150]:
+        - generic [ref=e151]:
+          - generic [ref=e152]:
+            - heading "Native Delicacies" [level=3] [ref=e153]
+            - paragraph [ref=e154]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+          - generic [ref=e155]:
+            - heading "Shop" [level=4] [ref=e156]
+            - list [ref=e157]:
+              - listitem [ref=e158]:
+                - link "Browse Menu" [ref=e159]:
+                  - /url: /menu
+              - listitem [ref=e160]:
+                - link "Bilao Builder" [ref=e161]:
+                  - /url: /bilao-builder
+              - listitem [ref=e162]:
+                - link "Popular Items" [ref=e163]:
+                  - /url: /menu?filter=popular
+              - listitem [ref=e164]:
+                - link "Gift Bundles" [ref=e165]:
+                  - /url: /menu?filter=bundles
+          - generic [ref=e166]:
+            - heading "Company" [level=4] [ref=e167]
+            - list [ref=e168]:
+              - listitem [ref=e169]:
+                - link "Our Story" [ref=e170]:
+                  - /url: /about
+              - listitem [ref=e171]:
+                - link "Contact Us" [ref=e172]:
+                  - /url: /contact
+          - generic [ref=e173]:
+            - heading "Policies" [level=4] [ref=e174]
+            - list [ref=e175]:
+              - listitem [ref=e176]:
+                - link "Delivery Info" [ref=e177]:
+                  - /url: /policies/delivery
+              - listitem [ref=e178]:
+                - link "Refund Policy" [ref=e179]:
+                  - /url: /policies/refund
+              - listitem [ref=e180]:
+                - link "Privacy Policy" [ref=e181]:
+                  - /url: /policies/privacy
+              - listitem [ref=e182]:
+                - link "Terms & Conditions" [ref=e183]:
+                  - /url: /policies/terms
+        - paragraph [ref=e185]: © 2026 Native Delicacies. All rights reserved.
+    - generic [ref=e186]:
+      - generic [ref=e187]:
+        - generic [ref=e188]:
+          - img [ref=e189]
+          - heading "Your Cart" [level=2] [ref=e192]
+        - button "Close cart" [ref=e193]:
+          - img [ref=e194]
+      - generic [ref=e197]:
+        - img [ref=e199]
+        - heading "Your cart is empty" [level=3] [ref=e202]
+        - paragraph [ref=e203]: Discover our authentic Filipino delicacies and add your favorites!
+        - link "Browse Menu" [ref=e204]:
+          - /url: /menu
+          - text: Browse Menu
+          - img [ref=e205]
+  - button "Open Next.js Dev Tools" [ref=e212] [cursor=pointer]:
+    - img [ref=e213]
+  - alert [ref=e218]
+```

@@ -11,10 +11,11 @@ interface BusinessStatusProps {
 }
 
 export function BusinessStatus({ operatingHours, timezone = "Asia/Manila" }: BusinessStatusProps) {
-  const [status, setStatus] = useState<ReturnType<typeof isCurrentlyOpen> | null>(null);
+  const [status, setStatus] = useState<ReturnType<typeof isCurrentlyOpen> | null>(() =>
+    isCurrentlyOpen(operatingHours, timezone)
+  );
 
   useEffect(() => {
-    setStatus(isCurrentlyOpen(operatingHours, timezone));
     const interval = setInterval(() => {
       setStatus(isCurrentlyOpen(operatingHours, timezone));
     }, 60_000);

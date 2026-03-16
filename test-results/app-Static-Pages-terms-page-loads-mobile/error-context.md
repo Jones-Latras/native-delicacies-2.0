@@ -1,0 +1,165 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Native Delicacies" [ref=e5]:
+        - /url: /
+        - generic [ref=e6]: Native Delicacies
+      - generic [ref=e7]:
+        - button "Shopping cart" [ref=e8]:
+          - img [ref=e9]
+        - button "Toggle menu" [ref=e13]:
+          - img [ref=e14]
+    - navigation [ref=e15]:
+      - link "Home" [ref=e16]:
+        - /url: /
+      - link "Menu" [ref=e17]:
+        - /url: /menu
+      - link "Bilao Builder" [ref=e18]:
+        - /url: /bilao-builder
+      - link "Track Order" [ref=e19]:
+        - /url: /track
+      - link "About" [ref=e20]:
+        - /url: /about
+      - link "Contact" [ref=e21]:
+        - /url: /contact
+      - link "Sign In" [ref=e22]:
+        - /url: /login
+  - main [ref=e23]:
+    - generic [ref=e25]:
+      - complementary [ref=e26]:
+        - heading "Policies" [level=2] [ref=e27]
+        - navigation [ref=e28]:
+          - link "Delivery Areas & Fees" [ref=e29]:
+            - /url: /policies/delivery
+            - generic [ref=e30]: Delivery Areas & Fees
+            - img [ref=e31]
+          - link "Refund & Cancellation" [ref=e33]:
+            - /url: /policies/refund
+            - generic [ref=e34]: Refund & Cancellation
+            - img [ref=e35]
+          - link "Privacy Policy" [ref=e37]:
+            - /url: /policies/privacy
+            - generic [ref=e38]: Privacy Policy
+            - img [ref=e39]
+          - link "Terms & Conditions" [ref=e41]:
+            - /url: /policies/terms
+            - generic [ref=e42]: Terms & Conditions
+            - img [ref=e43]
+      - generic [ref=e47]:
+        - heading "Terms & Conditions" [level=1] [ref=e48]
+        - paragraph [ref=e49]:
+          - emphasis [ref=e50]: "Last updated: March 2025"
+        - heading "1. Acceptance of Terms" [level=2] [ref=e51]
+        - paragraph [ref=e52]: By accessing and using the Native Delicacies website and services, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.
+        - heading "2. Services" [level=2] [ref=e53]
+        - paragraph [ref=e54]: Native Delicacies provides an online platform for ordering Filipino native delicacies for delivery or pickup. We reserve the right to modify, suspend, or discontinue any aspect of our services at any time.
+        - heading "3. Account Registration" [level=2] [ref=e55]
+        - list [ref=e56]:
+          - listitem [ref=e57]: You must provide accurate and complete information when creating an account
+          - listitem [ref=e58]: You are responsible for maintaining the confidentiality of your account credentials
+          - listitem [ref=e59]: You must be at least 16 years old to create an account
+          - listitem [ref=e60]: One account per person; duplicate accounts may be suspended
+        - heading "4. Orders & Payments" [level=2] [ref=e61]
+        - list [ref=e62]:
+          - listitem [ref=e63]: All prices are displayed in Philippine Pesos (₱) and include applicable taxes unless stated otherwise
+          - listitem [ref=e64]: We reserve the right to refuse or cancel any order at our discretion
+          - listitem [ref=e65]: Prices and availability are subject to change without notice
+          - listitem [ref=e66]: Payment must be completed in full before or upon delivery
+          - listitem [ref=e67]: We accept credit/debit cards and cash payments
+        - heading "5. Delivery" [level=2] [ref=e68]
+        - list [ref=e69]:
+          - listitem [ref=e70]: Delivery times are estimates and may vary depending on order volume and distance
+          - listitem [ref=e71]: We are not liable for delays caused by circumstances beyond our control
+          - listitem [ref=e72]: The customer must be available at the delivery address to receive the order
+          - listitem [ref=e73]: Additional delivery attempts may incur extra charges
+        - heading "6. Product Information" [level=2] [ref=e74]
+        - list [ref=e75]:
+          - listitem [ref=e76]: We strive to provide accurate product descriptions and images
+          - listitem [ref=e77]: Due to the handcrafted nature of our products, slight variations in appearance are normal
+          - listitem [ref=e78]: Allergen information is provided as guidance; please contact us for specific dietary concerns
+          - listitem [ref=e79]: Shelf life information is provided for optimal freshness; consume within the recommended period
+        - heading "7. Promotional Offers" [level=2] [ref=e80]
+        - list [ref=e81]:
+          - listitem [ref=e82]: Promotional codes are valid for the specified period and conditions only
+          - listitem [ref=e83]: Promotions cannot be combined unless explicitly stated
+          - listitem [ref=e84]: We reserve the right to cancel or modify promotions at any time
+        - heading "8. Intellectual Property" [level=2] [ref=e85]
+        - paragraph [ref=e86]: All content on this website, including text, images, logos, and designs, is the property of Native Delicacies and is protected by intellectual property laws. You may not reproduce, distribute, or use our content without written permission.
+        - heading "9. Limitation of Liability" [level=2] [ref=e87]
+        - paragraph [ref=e88]: To the fullest extent permitted by law, Native Delicacies shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services. Our maximum liability for any claim shall not exceed the amount you paid for the order in question.
+        - heading "10. Governing Law" [level=2] [ref=e89]
+        - paragraph [ref=e90]: These Terms are governed by and construed in accordance with the laws of the Republic of the Philippines. Any disputes shall be subject to the exclusive jurisdiction of the courts in Quezon City.
+        - heading "11. Changes to Terms" [level=2] [ref=e91]
+        - paragraph [ref=e92]: We may update these Terms from time to time. Continued use of our services after changes constitutes acceptance of the updated Terms.
+        - heading "12. Contact" [level=2] [ref=e93]
+        - paragraph [ref=e94]:
+          - text: For questions about these Terms, please contact us at
+          - strong [ref=e95]: hello@nativedelicacies.ph
+          - text: or
+          - strong [ref=e96]: +63 917 123 4567
+          - text: .
+  - contentinfo [ref=e97]:
+    - generic [ref=e98]:
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - heading "Native Delicacies" [level=3] [ref=e101]
+          - paragraph [ref=e102]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+        - generic [ref=e103]:
+          - heading "Shop" [level=4] [ref=e104]
+          - list [ref=e105]:
+            - listitem [ref=e106]:
+              - link "Browse Menu" [ref=e107]:
+                - /url: /menu
+            - listitem [ref=e108]:
+              - link "Bilao Builder" [ref=e109]:
+                - /url: /bilao-builder
+            - listitem [ref=e110]:
+              - link "Popular Items" [ref=e111]:
+                - /url: /menu?filter=popular
+            - listitem [ref=e112]:
+              - link "Gift Bundles" [ref=e113]:
+                - /url: /menu?filter=bundles
+        - generic [ref=e114]:
+          - heading "Company" [level=4] [ref=e115]
+          - list [ref=e116]:
+            - listitem [ref=e117]:
+              - link "Our Story" [ref=e118]:
+                - /url: /about
+            - listitem [ref=e119]:
+              - link "Contact Us" [ref=e120]:
+                - /url: /contact
+        - generic [ref=e121]:
+          - heading "Policies" [level=4] [ref=e122]
+          - list [ref=e123]:
+            - listitem [ref=e124]:
+              - link "Delivery Info" [ref=e125]:
+                - /url: /policies/delivery
+            - listitem [ref=e126]:
+              - link "Refund Policy" [ref=e127]:
+                - /url: /policies/refund
+            - listitem [ref=e128]:
+              - link "Privacy Policy" [ref=e129]:
+                - /url: /policies/privacy
+            - listitem [ref=e130]:
+              - link "Terms & Conditions" [ref=e131]:
+                - /url: /policies/terms
+      - paragraph [ref=e133]: © 2026 Native Delicacies. All rights reserved.
+  - generic [ref=e134]:
+    - generic [ref=e135]:
+      - generic [ref=e136]:
+        - img [ref=e137]
+        - heading "Your Cart" [level=2] [ref=e140]
+      - button "Close cart" [ref=e141]:
+        - img [ref=e142]
+    - generic [ref=e145]:
+      - img [ref=e147]
+      - heading "Your cart is empty" [level=3] [ref=e150]
+      - paragraph [ref=e151]: Discover our authentic Filipino delicacies and add your favorites!
+      - link "Browse Menu" [ref=e152]:
+        - /url: /menu
+        - text: Browse Menu
+        - img [ref=e153]
+```

@@ -69,8 +69,21 @@ export default function MenuManagementPage() {
     setLoading(false);
   }, [page, search, filterCategory]);
 
-  useEffect(() => { fetchCategories(); }, [fetchCategories]);
-  useEffect(() => { fetchItems(); }, [fetchItems]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      void fetchCategories();
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [fetchCategories]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      void fetchItems();
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [fetchItems]);
 
   const toggleAvailability = async (item: MenuItem) => {
     await fetch(`/api/admin/menu-items/${item.id}`, {

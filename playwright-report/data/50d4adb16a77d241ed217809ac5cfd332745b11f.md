@@ -1,0 +1,172 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Native Delicacies" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: Native Delicacies
+        - navigation [ref=e7]:
+          - link "Home" [ref=e8] [cursor=pointer]:
+            - /url: /
+          - link "Menu" [ref=e9] [cursor=pointer]:
+            - /url: /menu
+          - link "Bilao Builder" [ref=e10] [cursor=pointer]:
+            - /url: /bilao-builder
+          - link "Track Order" [ref=e11] [cursor=pointer]:
+            - /url: /track
+          - link "About" [ref=e12] [cursor=pointer]:
+            - /url: /about
+          - link "Contact" [ref=e13] [cursor=pointer]:
+            - /url: /contact
+        - generic [ref=e14]:
+          - link "Search" [ref=e15] [cursor=pointer]:
+            - /url: /menu
+            - img [ref=e16]
+          - link "Account" [ref=e19] [cursor=pointer]:
+            - /url: /login
+            - img [ref=e20]
+          - button "Shopping cart" [ref=e23]:
+            - img [ref=e24]
+    - main [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - paragraph [ref=e31]: Get In Touch
+          - heading "Contact Us" [level=1] [ref=e32]
+          - paragraph [ref=e33]: Have a question, special order request, or just want to say hello? We’d love to hear from you.
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e36]:
+              - generic [ref=e37]:
+                - img [ref=e39]
+                - generic [ref=e42]:
+                  - heading "Visit Us" [level=3] [ref=e43]
+                  - paragraph [ref=e44]:
+                    - text: 123 Heritage Street, Barangay San Jose
+                    - text: Quezon City, Metro Manila 1100
+              - generic [ref=e45]:
+                - img [ref=e47]
+                - generic [ref=e49]:
+                  - heading "Call Us" [level=3] [ref=e50]
+                  - paragraph [ref=e51]:
+                    - text: +63 917 123 4567
+                    - text: +63 2 8123 4567
+              - generic [ref=e52]:
+                - img [ref=e54]
+                - generic [ref=e57]:
+                  - heading "Email Us" [level=3] [ref=e58]
+                  - paragraph [ref=e59]:
+                    - text: hello@nativedelicacies.ph
+                    - text: orders@nativedelicacies.ph
+              - generic [ref=e60]:
+                - img [ref=e62]
+                - generic [ref=e65]:
+                  - heading "Business Hours" [level=3] [ref=e66]
+                  - paragraph [ref=e67]:
+                    - text: "Mon — Sat: 7:00 AM — 7:00 PM"
+                    - text: "Sunday: 8:00 AM — 5:00 PM"
+            - generic [ref=e68]:
+              - heading "Follow Us" [level=3] [ref=e69]
+              - generic [ref=e70]:
+                - link "Facebook" [ref=e71] [cursor=pointer]:
+                  - /url: "#"
+                  - img [ref=e72]
+                - link "Instagram" [ref=e74] [cursor=pointer]:
+                  - /url: "#"
+                  - img [ref=e75]
+          - generic [ref=e80]:
+            - generic [ref=e81]:
+              - generic [ref=e82]:
+                - generic [ref=e83]: Name *
+                - textbox "Name *" [ref=e84]:
+                  - /placeholder: Your name
+              - generic [ref=e85]:
+                - generic [ref=e86]: Email *
+                - textbox "Email *" [ref=e87]:
+                  - /placeholder: you@example.com
+            - generic [ref=e88]:
+              - generic [ref=e89]:
+                - generic [ref=e90]: Phone (optional)
+                - textbox "Phone (optional)" [ref=e91]:
+                  - /placeholder: +63 917 123 4567
+              - generic [ref=e92]:
+                - generic [ref=e93]: Subject *
+                - textbox "Subject *" [ref=e94]:
+                  - /placeholder: What is this about?
+            - generic [ref=e95]:
+              - generic [ref=e96]: Message *
+              - textbox "Message *" [ref=e97]:
+                - /placeholder: Tell us how we can help...
+            - button "Send Message" [ref=e98]:
+              - img [ref=e99]
+              - text: Send Message
+        - generic [ref=e105]:
+          - img [ref=e106]
+          - paragraph [ref=e109]: Google Maps embed — configure with your Google Maps API key
+    - contentinfo [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - heading "Native Delicacies" [level=3] [ref=e114]
+            - paragraph [ref=e115]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+          - generic [ref=e116]:
+            - heading "Shop" [level=4] [ref=e117]
+            - list [ref=e118]:
+              - listitem [ref=e119]:
+                - link "Browse Menu" [ref=e120] [cursor=pointer]:
+                  - /url: /menu
+              - listitem [ref=e121]:
+                - link "Bilao Builder" [ref=e122] [cursor=pointer]:
+                  - /url: /bilao-builder
+              - listitem [ref=e123]:
+                - link "Popular Items" [ref=e124] [cursor=pointer]:
+                  - /url: /menu?filter=popular
+              - listitem [ref=e125]:
+                - link "Gift Bundles" [ref=e126] [cursor=pointer]:
+                  - /url: /menu?filter=bundles
+          - generic [ref=e127]:
+            - heading "Company" [level=4] [ref=e128]
+            - list [ref=e129]:
+              - listitem [ref=e130]:
+                - link "Our Story" [ref=e131] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e132]:
+                - link "Contact Us" [ref=e133] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e134]:
+            - heading "Policies" [level=4] [ref=e135]
+            - list [ref=e136]:
+              - listitem [ref=e137]:
+                - link "Delivery Info" [ref=e138] [cursor=pointer]:
+                  - /url: /policies/delivery
+              - listitem [ref=e139]:
+                - link "Refund Policy" [ref=e140] [cursor=pointer]:
+                  - /url: /policies/refund
+              - listitem [ref=e141]:
+                - link "Privacy Policy" [ref=e142] [cursor=pointer]:
+                  - /url: /policies/privacy
+              - listitem [ref=e143]:
+                - link "Terms & Conditions" [ref=e144] [cursor=pointer]:
+                  - /url: /policies/terms
+        - paragraph [ref=e146]: © 2026 Native Delicacies. All rights reserved.
+    - generic [ref=e147]:
+      - generic [ref=e148]:
+        - generic [ref=e149]:
+          - img [ref=e150]
+          - heading "Your Cart" [level=2] [ref=e153]
+        - button "Close cart" [ref=e154]:
+          - img [ref=e155]
+      - generic [ref=e158]:
+        - img [ref=e160]
+        - heading "Your cart is empty" [level=3] [ref=e163]
+        - paragraph [ref=e164]: Discover our authentic Filipino delicacies and add your favorites!
+        - link "Browse Menu" [ref=e165] [cursor=pointer]:
+          - /url: /menu
+          - text: Browse Menu
+          - img [ref=e166]
+  - button "Open Next.js Dev Tools" [ref=e173] [cursor=pointer]:
+    - img [ref=e174]
+  - alert [ref=e177]
+```

@@ -1,0 +1,208 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Native Delicacies" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: Native Delicacies
+        - navigation [ref=e7]:
+          - link "Home" [ref=e8] [cursor=pointer]:
+            - /url: /
+          - link "Menu" [ref=e9] [cursor=pointer]:
+            - /url: /menu
+          - link "Bilao Builder" [ref=e10] [cursor=pointer]:
+            - /url: /bilao-builder
+          - link "Track Order" [ref=e11] [cursor=pointer]:
+            - /url: /track
+          - link "About" [ref=e12] [cursor=pointer]:
+            - /url: /about
+          - link "Contact" [ref=e13] [cursor=pointer]:
+            - /url: /contact
+        - generic [ref=e14]:
+          - link "Search" [ref=e15] [cursor=pointer]:
+            - /url: /menu
+            - img [ref=e16]
+          - link "Account" [ref=e19] [cursor=pointer]:
+            - /url: /login
+            - img [ref=e20]
+          - button "Shopping cart" [ref=e23]:
+            - img [ref=e24]
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - complementary [ref=e31]:
+          - heading "Policies" [level=2] [ref=e32]
+          - navigation [ref=e33]:
+            - link "Delivery Areas & Fees" [ref=e34] [cursor=pointer]:
+              - /url: /policies/delivery
+              - generic [ref=e35]: Delivery Areas & Fees
+              - img [ref=e36]
+            - link "Refund & Cancellation" [ref=e38] [cursor=pointer]:
+              - /url: /policies/refund
+              - generic [ref=e39]: Refund & Cancellation
+              - img [ref=e40]
+            - link "Privacy Policy" [ref=e42] [cursor=pointer]:
+              - /url: /policies/privacy
+              - generic [ref=e43]: Privacy Policy
+              - img [ref=e44]
+            - link "Terms & Conditions" [ref=e46] [cursor=pointer]:
+              - /url: /policies/terms
+              - generic [ref=e47]: Terms & Conditions
+              - img [ref=e48]
+        - generic [ref=e52]:
+          - heading "Privacy Policy" [level=1] [ref=e53]
+          - paragraph [ref=e54]:
+            - emphasis [ref=e55]: "Last updated: March 2025"
+          - heading "Introduction" [level=2] [ref=e56]
+          - paragraph [ref=e57]: Native Delicacies (“we,” “us,” or “our”) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our website and services.
+          - heading "Information We Collect" [level=2] [ref=e58]
+          - heading "Information You Provide" [level=3] [ref=e59]
+          - list [ref=e60]:
+            - listitem [ref=e61]:
+              - strong [ref=e62]: "Account information:"
+              - text: Name, email address, phone number, and password when you create an account
+            - listitem [ref=e63]:
+              - strong [ref=e64]: "Order information:"
+              - text: Delivery addresses, payment details, order preferences, and special instructions
+            - listitem [ref=e65]:
+              - strong [ref=e66]: "Communication:"
+              - text: Messages you send through our contact form or customer support
+          - heading "Information Collected Automatically" [level=3] [ref=e67]
+          - list [ref=e68]:
+            - listitem [ref=e69]:
+              - strong [ref=e70]: "Usage data:"
+              - text: Pages visited, time spent, and features used
+            - listitem [ref=e71]:
+              - strong [ref=e72]: "Device information:"
+              - text: Browser type, operating system, and screen resolution
+            - listitem [ref=e73]:
+              - strong [ref=e74]: "Location data:"
+              - text: Approximate location based on IP address (for delivery area verification)
+          - heading "How We Use Your Information" [level=2] [ref=e75]
+          - list [ref=e76]:
+            - listitem [ref=e77]: Process and deliver your orders
+            - listitem [ref=e78]: Send order confirmations, status updates, and delivery notifications
+            - listitem [ref=e79]: Create and manage your account
+            - listitem [ref=e80]: Respond to your inquiries and provide customer support
+            - listitem [ref=e81]: Improve our products, services, and website experience
+            - listitem [ref=e82]: Send promotional offers (only with your consent)
+            - listitem [ref=e83]: Prevent fraud and ensure the security of our services
+          - heading "Information Sharing" [level=2] [ref=e84]
+          - paragraph [ref=e85]: "We do not sell your personal information. We may share your information with:"
+          - list [ref=e86]:
+            - listitem [ref=e87]:
+              - strong [ref=e88]: "Payment processors:"
+              - text: To process your payments securely (e.g., Stripe)
+            - listitem [ref=e89]:
+              - strong [ref=e90]: "Delivery partners:"
+              - text: Your name, phone, and delivery address to fulfill orders
+            - listitem [ref=e91]:
+              - strong [ref=e92]: "Email service providers:"
+              - text: To send transactional emails (e.g., Resend)
+            - listitem [ref=e93]:
+              - strong [ref=e94]: "Legal authorities:"
+              - text: When required by law or to protect our rights
+          - heading "Data Security" [level=2] [ref=e95]
+          - paragraph [ref=e96]: "We implement industry-standard security measures to protect your data, including:"
+          - list [ref=e97]:
+            - listitem [ref=e98]: Encrypted data transmission (HTTPS/TLS)
+            - listitem [ref=e99]: Secure password hashing (bcrypt)
+            - listitem [ref=e100]: Secure payment processing through Stripe (PCI-DSS compliant)
+            - listitem [ref=e101]: Regular security reviews and updates
+          - heading "Your Rights" [level=2] [ref=e102]
+          - paragraph [ref=e103]: "You have the right to:"
+          - list [ref=e104]:
+            - listitem [ref=e105]:
+              - strong [ref=e106]: Access
+              - text: the personal data we hold about you
+            - listitem [ref=e107]:
+              - strong [ref=e108]: Correct
+              - text: inaccurate personal data
+            - listitem [ref=e109]:
+              - strong [ref=e110]: Delete
+              - text: your account and personal data
+            - listitem [ref=e111]:
+              - strong [ref=e112]: Opt out
+              - text: of promotional communications
+          - heading "Cookies" [level=2] [ref=e113]
+          - paragraph [ref=e114]: We use essential cookies to maintain your session and remember your preferences (e.g., shopping cart). We do not use third-party tracking cookies.
+          - heading "Children’s Privacy" [level=2] [ref=e115]
+          - paragraph [ref=e116]: Our services are not directed to individuals under 16. We do not knowingly collect personal information from children.
+          - heading "Changes to This Policy" [level=2] [ref=e117]
+          - paragraph [ref=e118]: We may update this Privacy Policy from time to time. We will notify you of significant changes via email or a notice on our website.
+          - heading "Contact Us" [level=2] [ref=e119]
+          - paragraph [ref=e120]: "If you have questions about this Privacy Policy, please contact us:"
+          - list [ref=e121]:
+            - listitem [ref=e122]:
+              - strong [ref=e123]: "Email:"
+              - text: hello@nativedelicacies.ph
+            - listitem [ref=e124]:
+              - strong [ref=e125]: "Phone:"
+              - text: +63 917 123 4567
+    - contentinfo [ref=e126]:
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - generic [ref=e129]:
+            - heading "Native Delicacies" [level=3] [ref=e130]
+            - paragraph [ref=e131]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+          - generic [ref=e132]:
+            - heading "Shop" [level=4] [ref=e133]
+            - list [ref=e134]:
+              - listitem [ref=e135]:
+                - link "Browse Menu" [ref=e136] [cursor=pointer]:
+                  - /url: /menu
+              - listitem [ref=e137]:
+                - link "Bilao Builder" [ref=e138] [cursor=pointer]:
+                  - /url: /bilao-builder
+              - listitem [ref=e139]:
+                - link "Popular Items" [ref=e140] [cursor=pointer]:
+                  - /url: /menu?filter=popular
+              - listitem [ref=e141]:
+                - link "Gift Bundles" [ref=e142] [cursor=pointer]:
+                  - /url: /menu?filter=bundles
+          - generic [ref=e143]:
+            - heading "Company" [level=4] [ref=e144]
+            - list [ref=e145]:
+              - listitem [ref=e146]:
+                - link "Our Story" [ref=e147] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e148]:
+                - link "Contact Us" [ref=e149] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e150]:
+            - heading "Policies" [level=4] [ref=e151]
+            - list [ref=e152]:
+              - listitem [ref=e153]:
+                - link "Delivery Info" [ref=e154] [cursor=pointer]:
+                  - /url: /policies/delivery
+              - listitem [ref=e155]:
+                - link "Refund Policy" [ref=e156] [cursor=pointer]:
+                  - /url: /policies/refund
+              - listitem [ref=e157]:
+                - link "Privacy Policy" [ref=e158] [cursor=pointer]:
+                  - /url: /policies/privacy
+              - listitem [ref=e159]:
+                - link "Terms & Conditions" [ref=e160] [cursor=pointer]:
+                  - /url: /policies/terms
+        - paragraph [ref=e162]: © 2026 Native Delicacies. All rights reserved.
+    - generic [ref=e163]:
+      - generic [ref=e164]:
+        - generic [ref=e165]:
+          - img [ref=e166]
+          - heading "Your Cart" [level=2] [ref=e169]
+        - button "Close cart" [ref=e170]:
+          - img [ref=e171]
+      - generic [ref=e174]:
+        - img [ref=e176]
+        - heading "Your cart is empty" [level=3] [ref=e179]
+        - paragraph [ref=e180]: Discover our authentic Filipino delicacies and add your favorites!
+        - link "Browse Menu" [ref=e181] [cursor=pointer]:
+          - /url: /menu
+          - text: Browse Menu
+          - img [ref=e182]
+  - button "Open Next.js Dev Tools" [ref=e189] [cursor=pointer]:
+    - img [ref=e190]
+  - alert [ref=e193]
+```

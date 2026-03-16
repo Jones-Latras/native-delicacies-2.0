@@ -1,0 +1,100 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Native Delicacies" [ref=e5]:
+        - /url: /
+        - generic [ref=e6]: Native Delicacies
+      - generic [ref=e7]:
+        - button "Shopping cart" [ref=e8]:
+          - img [ref=e9]
+        - button "Toggle menu" [ref=e13]:
+          - img [ref=e14]
+    - navigation [ref=e15]:
+      - link "Home" [ref=e16]:
+        - /url: /
+      - link "Menu" [ref=e17]:
+        - /url: /menu
+      - link "Bilao Builder" [ref=e18]:
+        - /url: /bilao-builder
+      - link "Track Order" [ref=e19]:
+        - /url: /track
+      - link "About" [ref=e20]:
+        - /url: /about
+      - link "Contact" [ref=e21]:
+        - /url: /contact
+      - link "Sign In" [ref=e22]:
+        - /url: /login
+  - main [ref=e23]:
+    - generic [ref=e25]:
+      - img [ref=e27]
+      - heading "Your cart is empty" [level=1] [ref=e30]
+      - paragraph [ref=e31]: Looks like you haven't added any delicacies yet. Browse our menu to find your favorites!
+      - link "Browse Menu" [ref=e32]:
+        - /url: /menu
+        - text: Browse Menu
+        - img [ref=e33]
+  - contentinfo [ref=e35]:
+    - generic [ref=e36]:
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - heading "Native Delicacies" [level=3] [ref=e39]
+          - paragraph [ref=e40]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+        - generic [ref=e41]:
+          - heading "Shop" [level=4] [ref=e42]
+          - list [ref=e43]:
+            - listitem [ref=e44]:
+              - link "Browse Menu" [ref=e45]:
+                - /url: /menu
+            - listitem [ref=e46]:
+              - link "Bilao Builder" [ref=e47]:
+                - /url: /bilao-builder
+            - listitem [ref=e48]:
+              - link "Popular Items" [ref=e49]:
+                - /url: /menu?filter=popular
+            - listitem [ref=e50]:
+              - link "Gift Bundles" [ref=e51]:
+                - /url: /menu?filter=bundles
+        - generic [ref=e52]:
+          - heading "Company" [level=4] [ref=e53]
+          - list [ref=e54]:
+            - listitem [ref=e55]:
+              - link "Our Story" [ref=e56]:
+                - /url: /about
+            - listitem [ref=e57]:
+              - link "Contact Us" [ref=e58]:
+                - /url: /contact
+        - generic [ref=e59]:
+          - heading "Policies" [level=4] [ref=e60]
+          - list [ref=e61]:
+            - listitem [ref=e62]:
+              - link "Delivery Info" [ref=e63]:
+                - /url: /policies/delivery
+            - listitem [ref=e64]:
+              - link "Refund Policy" [ref=e65]:
+                - /url: /policies/refund
+            - listitem [ref=e66]:
+              - link "Privacy Policy" [ref=e67]:
+                - /url: /policies/privacy
+            - listitem [ref=e68]:
+              - link "Terms & Conditions" [ref=e69]:
+                - /url: /policies/terms
+      - paragraph [ref=e71]: © 2026 Native Delicacies. All rights reserved.
+  - generic [ref=e72]:
+    - generic [ref=e73]:
+      - generic [ref=e74]:
+        - img [ref=e75]
+        - heading "Your Cart" [level=2] [ref=e78]
+      - button "Close cart" [ref=e79]:
+        - img [ref=e80]
+    - generic [ref=e83]:
+      - img [ref=e85]
+      - heading "Your cart is empty" [level=3] [ref=e88]
+      - paragraph [ref=e89]: Discover our authentic Filipino delicacies and add your favorites!
+      - link "Browse Menu" [ref=e90]:
+        - /url: /menu
+        - text: Browse Menu
+        - img [ref=e91]
+```

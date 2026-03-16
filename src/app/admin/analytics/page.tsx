@@ -31,13 +31,13 @@ export default function AnalyticsPage() {
   const [range, setRange] = useState("30d");
 
   useEffect(() => {
-    setLoading(true);
     fetch(`/api/admin/reports?range=${range}`)
       .then((r) => r.json())
       .then((json) => {
         if (json.success) setData(json.data);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [range]);
 
   if (loading || !data) {
@@ -55,7 +55,10 @@ export default function AnalyticsPage() {
           {(["7d", "30d", "90d"] as const).map((r) => (
             <button
               key={r}
-              onClick={() => setRange(r)}
+              onClick={() => {
+                setLoading(true);
+                setRange(r);
+              }}
               className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                 range === r ? "bg-white text-[#8b4513] shadow-sm" : "text-[#6d4c41] hover:text-[#3e2723]"
               }`}

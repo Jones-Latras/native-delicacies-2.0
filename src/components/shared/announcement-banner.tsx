@@ -5,14 +5,13 @@ import { X } from "lucide-react";
 
 export function AnnouncementBanner() {
   const [announcement, setAnnouncement] = useState<{ text: string; bgColor: string } | null>(null);
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return sessionStorage.getItem("announcement-dismissed") === "true";
+  });
 
   useEffect(() => {
-    // Check sessionStorage to avoid re-showing dismissed banner
-    if (sessionStorage.getItem("announcement-dismissed") === "true") {
-      setDismissed(true);
-      return;
-    }
+    if (dismissed) return;
 
     fetch("/api/announcement")
       .then((res) => res.json())
@@ -22,7 +21,7 @@ export function AnnouncementBanner() {
         }
       })
       .catch(() => {});
-  }, []);
+  }, [dismissed]);
 
   if (dismissed || !announcement) return null;
 

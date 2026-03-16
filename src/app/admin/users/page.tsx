@@ -43,7 +43,13 @@ export default function UsersManagementPage() {
     setLoading(false);
   }, [page, search]);
 
-  useEffect(() => { fetchUsers(); }, [fetchUsers]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      void fetchUsers();
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [fetchUsers]);
 
   const changeRole = async (id: string, role: string) => {
     await fetch(`/api/admin/users/${id}`, {

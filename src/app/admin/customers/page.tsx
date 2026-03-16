@@ -54,7 +54,13 @@ export default function CustomersPage() {
     setLoading(false);
   }, [page, search, filterRole]);
 
-  useEffect(() => { fetchCustomers(); }, [fetchCustomers]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      void fetchCustomers();
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [fetchCustomers]);
 
   const openDetail = async (id: string) => {
     setDetailLoading(true);

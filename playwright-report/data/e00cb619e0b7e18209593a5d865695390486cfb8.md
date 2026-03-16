@@ -1,0 +1,176 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Native Delicacies" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e6]: Native Delicacies
+        - navigation [ref=e7]:
+          - link "Home" [ref=e8] [cursor=pointer]:
+            - /url: /
+          - link "Menu" [ref=e9] [cursor=pointer]:
+            - /url: /menu
+          - link "Bilao Builder" [ref=e10] [cursor=pointer]:
+            - /url: /bilao-builder
+          - link "Track Order" [ref=e11] [cursor=pointer]:
+            - /url: /track
+          - link "About" [ref=e12] [cursor=pointer]:
+            - /url: /about
+          - link "Contact" [ref=e13] [cursor=pointer]:
+            - /url: /contact
+        - generic [ref=e14]:
+          - link "Search" [ref=e15] [cursor=pointer]:
+            - /url: /menu
+            - img [ref=e16]
+          - link "Account" [ref=e19] [cursor=pointer]:
+            - /url: /login
+            - img [ref=e20]
+          - button "Shopping cart" [ref=e23]:
+            - img [ref=e24]
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - complementary [ref=e31]:
+          - heading "Policies" [level=2] [ref=e32]
+          - navigation [ref=e33]:
+            - link "Delivery Areas & Fees" [ref=e34] [cursor=pointer]:
+              - /url: /policies/delivery
+              - generic [ref=e35]: Delivery Areas & Fees
+              - img [ref=e36]
+            - link "Refund & Cancellation" [ref=e38] [cursor=pointer]:
+              - /url: /policies/refund
+              - generic [ref=e39]: Refund & Cancellation
+              - img [ref=e40]
+            - link "Privacy Policy" [ref=e42] [cursor=pointer]:
+              - /url: /policies/privacy
+              - generic [ref=e43]: Privacy Policy
+              - img [ref=e44]
+            - link "Terms & Conditions" [ref=e46] [cursor=pointer]:
+              - /url: /policies/terms
+              - generic [ref=e47]: Terms & Conditions
+              - img [ref=e48]
+        - generic [ref=e52]:
+          - heading "Delivery Areas & Fees" [level=1] [ref=e53]
+          - paragraph [ref=e54]:
+            - emphasis [ref=e55]: "Last updated: March 2025"
+          - heading "Delivery Coverage" [level=2] [ref=e56]
+          - paragraph [ref=e57]: We currently deliver to select areas within Metro Manila. Our delivery coverage is expanding regularly, so please check back if your area is not yet served.
+          - heading "Areas We Serve" [level=3] [ref=e58]
+          - list [ref=e59]:
+            - listitem [ref=e60]: Quezon City (all barangays)
+            - listitem [ref=e61]: Manila City
+            - listitem [ref=e62]: Makati City
+            - listitem [ref=e63]: Pasig City
+            - listitem [ref=e64]: Mandaluyong City
+            - listitem [ref=e65]: San Juan City
+            - listitem [ref=e66]: Marikina City
+            - listitem [ref=e67]: Taguig City
+            - listitem [ref=e68]: Parañaque City
+            - listitem [ref=e69]: Pasay City
+          - heading "Delivery Fees" [level=2] [ref=e70]
+          - table [ref=e71]:
+            - rowgroup [ref=e72]:
+              - row "Distance from Store Delivery Fee" [ref=e73]:
+                - columnheader "Distance from Store" [ref=e74]
+                - columnheader "Delivery Fee" [ref=e75]
+            - rowgroup [ref=e76]:
+              - row "Within 5 km ₱50.00" [ref=e77]:
+                - cell "Within 5 km" [ref=e78]
+                - cell "₱50.00" [ref=e79]
+              - row "5 — 10 km ₱80.00" [ref=e80]:
+                - cell "5 — 10 km" [ref=e81]
+                - cell "₱80.00" [ref=e82]
+              - row "10 — 15 km ₱120.00" [ref=e83]:
+                - cell "10 — 15 km" [ref=e84]
+                - cell "₱120.00" [ref=e85]
+              - row "15+ km ₱150.00" [ref=e86]:
+                - cell "15+ km" [ref=e87]
+                - cell "₱150.00" [ref=e88]
+          - paragraph [ref=e89]:
+            - strong [ref=e90]: Free delivery
+            - text: is available for orders ₱1,500 and above within our delivery area.
+          - heading "Delivery Times" [level=2] [ref=e91]
+          - list [ref=e92]:
+            - listitem [ref=e93]:
+              - strong [ref=e94]: "Standard orders:"
+              - text: 45 minutes — 1.5 hours from confirmation
+            - listitem [ref=e95]:
+              - strong [ref=e96]: "Scheduled orders:"
+              - text: Delivered at your chosen time
+            - listitem [ref=e97]:
+              - strong [ref=e98]: "Peak hours (11 AM — 1 PM, 5 PM — 7 PM):"
+              - text: Delivery may take up to 2 hours
+          - heading "Minimum Order" [level=2] [ref=e99]
+          - paragraph [ref=e100]:
+            - text: A minimum order of
+            - strong [ref=e101]: ₱200
+            - text: is required for all delivery orders. There is no minimum for pickup orders.
+          - heading "Pickup Option" [level=2] [ref=e102]
+          - paragraph [ref=e103]: You can always choose to pick up your order at our store. Pickup orders are typically ready within 30 — 45 minutes of confirmation.
+    - contentinfo [ref=e104]:
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - heading "Native Delicacies" [level=3] [ref=e108]
+            - paragraph [ref=e109]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+          - generic [ref=e110]:
+            - heading "Shop" [level=4] [ref=e111]
+            - list [ref=e112]:
+              - listitem [ref=e113]:
+                - link "Browse Menu" [ref=e114] [cursor=pointer]:
+                  - /url: /menu
+              - listitem [ref=e115]:
+                - link "Bilao Builder" [ref=e116] [cursor=pointer]:
+                  - /url: /bilao-builder
+              - listitem [ref=e117]:
+                - link "Popular Items" [ref=e118] [cursor=pointer]:
+                  - /url: /menu?filter=popular
+              - listitem [ref=e119]:
+                - link "Gift Bundles" [ref=e120] [cursor=pointer]:
+                  - /url: /menu?filter=bundles
+          - generic [ref=e121]:
+            - heading "Company" [level=4] [ref=e122]
+            - list [ref=e123]:
+              - listitem [ref=e124]:
+                - link "Our Story" [ref=e125] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e126]:
+                - link "Contact Us" [ref=e127] [cursor=pointer]:
+                  - /url: /contact
+          - generic [ref=e128]:
+            - heading "Policies" [level=4] [ref=e129]
+            - list [ref=e130]:
+              - listitem [ref=e131]:
+                - link "Delivery Info" [ref=e132] [cursor=pointer]:
+                  - /url: /policies/delivery
+              - listitem [ref=e133]:
+                - link "Refund Policy" [ref=e134] [cursor=pointer]:
+                  - /url: /policies/refund
+              - listitem [ref=e135]:
+                - link "Privacy Policy" [ref=e136] [cursor=pointer]:
+                  - /url: /policies/privacy
+              - listitem [ref=e137]:
+                - link "Terms & Conditions" [ref=e138] [cursor=pointer]:
+                  - /url: /policies/terms
+        - paragraph [ref=e140]: © 2026 Native Delicacies. All rights reserved.
+    - generic [ref=e141]:
+      - generic [ref=e142]:
+        - generic [ref=e143]:
+          - img [ref=e144]
+          - heading "Your Cart" [level=2] [ref=e147]
+        - button "Close cart" [ref=e148]:
+          - img [ref=e149]
+      - generic [ref=e152]:
+        - img [ref=e154]
+        - heading "Your cart is empty" [level=3] [ref=e157]
+        - paragraph [ref=e158]: Discover our authentic Filipino delicacies and add your favorites!
+        - link "Browse Menu" [ref=e159] [cursor=pointer]:
+          - /url: /menu
+          - text: Browse Menu
+          - img [ref=e160]
+  - button "Open Next.js Dev Tools" [ref=e167] [cursor=pointer]:
+    - img [ref=e168]
+  - alert [ref=e171]
+```

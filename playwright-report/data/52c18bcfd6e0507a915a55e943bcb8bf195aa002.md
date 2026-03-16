@@ -1,0 +1,137 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Native Delicacies" [ref=e5]:
+          - /url: /
+          - generic [ref=e6]: Native Delicacies
+        - generic [ref=e7]:
+          - button "Shopping cart" [ref=e8]:
+            - img [ref=e9]
+          - button "Toggle menu" [ref=e13]:
+            - img [ref=e14]
+      - navigation [ref=e15]:
+        - link "Home" [ref=e16]:
+          - /url: /
+        - link "Menu" [ref=e17]:
+          - /url: /menu
+        - link "Bilao Builder" [ref=e18]:
+          - /url: /bilao-builder
+        - link "Track Order" [ref=e19]:
+          - /url: /track
+        - link "About" [ref=e20]:
+          - /url: /about
+        - link "Contact" [ref=e21]:
+          - /url: /contact
+        - link "Sign In" [ref=e22]:
+          - /url: /login
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - paragraph [ref=e26]: Our Story
+          - heading "Preserving Filipino Culinary Heritage" [level=1] [ref=e27]
+          - paragraph [ref=e28]: From humble beginnings to your table — we’re on a mission to share the authentic flavors of Filipino native delicacies with the world.
+        - generic [ref=e29]:
+          - generic [ref=e33]:
+            - text: 🍘
+            - paragraph [ref=e34]: Heritage Recipe Collection
+          - generic [ref=e35]:
+            - heading "A Heritage Worth Sharing" [level=2] [ref=e36]
+            - generic [ref=e37]:
+              - paragraph [ref=e38]: Native Delicacies was born from a deep love for Filipino culinary traditions. What started as a family kitchen preparing kakanin for local fiestas has grown into a beloved destination for authentic Filipino treats.
+              - paragraph [ref=e39]: Our founder, inspired by their lola’s time-tested recipes, set out to preserve the flavors that define Filipino celebrations — from the sticky sweetness of kutsinta to the delicate layers of bibingka, each delicacy is a tribute to our rich cultural heritage.
+              - paragraph [ref=e40]: We believe that every bite of kakanin tells a story of regionalpride, family tradition, and the warmth of Filipino hospitality. That’s why we prepare each item with the same care and dedication that our ancestors put into their cooking.
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - heading "What We Stand For" [level=2] [ref=e43]
+            - paragraph [ref=e44]: Our values guide everything we do — from sourcing ingredients to serving our customers.
+          - generic [ref=e45]:
+            - generic [ref=e46]:
+              - img [ref=e48]
+              - heading "Made with Love" [level=3] [ref=e50]
+              - paragraph [ref=e51]: Every delicacy is handcrafted using traditional methods passed down through generations, preserving the authentic taste of Filipino heritage.
+            - generic [ref=e52]:
+              - img [ref=e54]
+              - heading "Quality Ingredients" [level=3] [ref=e57]
+              - paragraph [ref=e58]: We source the finest local ingredients — freshly harvested coconut, premium rice flour, and natural sweeteners — for an uncompromising taste experience.
+            - generic [ref=e59]:
+              - img [ref=e61]
+              - heading "Tradition & Heritage" [level=3] [ref=e64]
+              - paragraph [ref=e65]: Our recipes are rooted in centuries-old Filipino culinary traditions. Each kakanin carries a story of regional pride and cultural identity.
+            - generic [ref=e66]:
+              - img [ref=e68]
+              - heading "Community First" [level=3] [ref=e73]
+              - paragraph [ref=e74]: We work closely with local farmers and artisans, supporting the communities that have kept these culinary traditions alive for generations.
+        - generic [ref=e75]:
+          - heading "Ready to Taste Tradition?" [level=2] [ref=e76]
+          - paragraph [ref=e77]: Browse our handcrafted selection of Filipino native delicacies and bring a taste of heritage to your table.
+          - link "Explore Our Menu →" [ref=e78]:
+            - /url: /menu
+    - contentinfo [ref=e79]:
+      - generic [ref=e80]:
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - heading "Native Delicacies" [level=3] [ref=e83]
+            - paragraph [ref=e84]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+          - generic [ref=e85]:
+            - heading "Shop" [level=4] [ref=e86]
+            - list [ref=e87]:
+              - listitem [ref=e88]:
+                - link "Browse Menu" [ref=e89]:
+                  - /url: /menu
+              - listitem [ref=e90]:
+                - link "Bilao Builder" [ref=e91]:
+                  - /url: /bilao-builder
+              - listitem [ref=e92]:
+                - link "Popular Items" [ref=e93]:
+                  - /url: /menu?filter=popular
+              - listitem [ref=e94]:
+                - link "Gift Bundles" [ref=e95]:
+                  - /url: /menu?filter=bundles
+          - generic [ref=e96]:
+            - heading "Company" [level=4] [ref=e97]
+            - list [ref=e98]:
+              - listitem [ref=e99]:
+                - link "Our Story" [ref=e100]:
+                  - /url: /about
+              - listitem [ref=e101]:
+                - link "Contact Us" [ref=e102]:
+                  - /url: /contact
+          - generic [ref=e103]:
+            - heading "Policies" [level=4] [ref=e104]
+            - list [ref=e105]:
+              - listitem [ref=e106]:
+                - link "Delivery Info" [ref=e107]:
+                  - /url: /policies/delivery
+              - listitem [ref=e108]:
+                - link "Refund Policy" [ref=e109]:
+                  - /url: /policies/refund
+              - listitem [ref=e110]:
+                - link "Privacy Policy" [ref=e111]:
+                  - /url: /policies/privacy
+              - listitem [ref=e112]:
+                - link "Terms & Conditions" [ref=e113]:
+                  - /url: /policies/terms
+        - paragraph [ref=e115]: © 2026 Native Delicacies. All rights reserved.
+    - generic [ref=e116]:
+      - generic [ref=e117]:
+        - generic [ref=e118]:
+          - img [ref=e119]
+          - heading "Your Cart" [level=2] [ref=e122]
+        - button "Close cart" [ref=e123]:
+          - img [ref=e124]
+      - generic [ref=e127]:
+        - img [ref=e129]
+        - heading "Your cart is empty" [level=3] [ref=e132]
+        - paragraph [ref=e133]: Discover our authentic Filipino delicacies and add your favorites!
+        - link "Browse Menu" [ref=e134]:
+          - /url: /menu
+          - text: Browse Menu
+          - img [ref=e135]
+  - button "Open Next.js Dev Tools" [ref=e142] [cursor=pointer]:
+    - img [ref=e143]
+  - alert [ref=e148]
+```

@@ -57,9 +57,14 @@ export function NotificationPanel() {
   }, []);
 
   useEffect(() => {
-    fetchNotifications();
+    const timer = setTimeout(() => {
+      void fetchNotifications();
+    }, 0);
     const interval = setInterval(fetchNotifications, 30_000); // poll every 30s
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(interval);
+    };
   }, [fetchNotifications]);
 
   // Close on outside click

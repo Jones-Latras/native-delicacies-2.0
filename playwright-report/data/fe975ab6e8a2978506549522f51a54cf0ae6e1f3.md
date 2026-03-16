@@ -1,0 +1,170 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Native Delicacies" [ref=e5]:
+        - /url: /
+        - generic [ref=e6]: Native Delicacies
+      - generic [ref=e7]:
+        - button "Shopping cart" [ref=e8]:
+          - img [ref=e9]
+        - button "Toggle menu" [ref=e13]:
+          - img [ref=e14]
+    - navigation [ref=e15]:
+      - link "Home" [ref=e16]:
+        - /url: /
+      - link "Menu" [ref=e17]:
+        - /url: /menu
+      - link "Bilao Builder" [ref=e18]:
+        - /url: /bilao-builder
+      - link "Track Order" [ref=e19]:
+        - /url: /track
+      - link "About" [ref=e20]:
+        - /url: /about
+      - link "Contact" [ref=e21]:
+        - /url: /contact
+      - link "Sign In" [ref=e22]:
+        - /url: /login
+  - main [ref=e23]:
+    - generic [ref=e25]:
+      - complementary [ref=e26]:
+        - heading "Policies" [level=2] [ref=e27]
+        - navigation [ref=e28]:
+          - link "Delivery Areas & Fees" [ref=e29]:
+            - /url: /policies/delivery
+            - generic [ref=e30]: Delivery Areas & Fees
+            - img [ref=e31]
+          - link "Refund & Cancellation" [ref=e33]:
+            - /url: /policies/refund
+            - generic [ref=e34]: Refund & Cancellation
+            - img [ref=e35]
+          - link "Privacy Policy" [ref=e37]:
+            - /url: /policies/privacy
+            - generic [ref=e38]: Privacy Policy
+            - img [ref=e39]
+          - link "Terms & Conditions" [ref=e41]:
+            - /url: /policies/terms
+            - generic [ref=e42]: Terms & Conditions
+            - img [ref=e43]
+      - generic [ref=e47]:
+        - heading "Delivery Areas & Fees" [level=1] [ref=e48]
+        - paragraph [ref=e49]:
+          - emphasis [ref=e50]: "Last updated: March 2025"
+        - heading "Delivery Coverage" [level=2] [ref=e51]
+        - paragraph [ref=e52]: We currently deliver to select areas within Metro Manila. Our delivery coverage is expanding regularly, so please check back if your area is not yet served.
+        - heading "Areas We Serve" [level=3] [ref=e53]
+        - list [ref=e54]:
+          - listitem [ref=e55]: Quezon City (all barangays)
+          - listitem [ref=e56]: Manila City
+          - listitem [ref=e57]: Makati City
+          - listitem [ref=e58]: Pasig City
+          - listitem [ref=e59]: Mandaluyong City
+          - listitem [ref=e60]: San Juan City
+          - listitem [ref=e61]: Marikina City
+          - listitem [ref=e62]: Taguig City
+          - listitem [ref=e63]: Parañaque City
+          - listitem [ref=e64]: Pasay City
+        - heading "Delivery Fees" [level=2] [ref=e65]
+        - table [ref=e66]:
+          - rowgroup [ref=e67]:
+            - row "Distance from Store Delivery Fee" [ref=e68]:
+              - columnheader "Distance from Store" [ref=e69]
+              - columnheader "Delivery Fee" [ref=e70]
+          - rowgroup [ref=e71]:
+            - row "Within 5 km ₱50.00" [ref=e72]:
+              - cell "Within 5 km" [ref=e73]
+              - cell "₱50.00" [ref=e74]
+            - row "5 — 10 km ₱80.00" [ref=e75]:
+              - cell "5 — 10 km" [ref=e76]
+              - cell "₱80.00" [ref=e77]
+            - row "10 — 15 km ₱120.00" [ref=e78]:
+              - cell "10 — 15 km" [ref=e79]
+              - cell "₱120.00" [ref=e80]
+            - row "15+ km ₱150.00" [ref=e81]:
+              - cell "15+ km" [ref=e82]
+              - cell "₱150.00" [ref=e83]
+        - paragraph [ref=e84]:
+          - strong [ref=e85]: Free delivery
+          - text: is available for orders ₱1,500 and above within our delivery area.
+        - heading "Delivery Times" [level=2] [ref=e86]
+        - list [ref=e87]:
+          - listitem [ref=e88]:
+            - strong [ref=e89]: "Standard orders:"
+            - text: 45 minutes — 1.5 hours from confirmation
+          - listitem [ref=e90]:
+            - strong [ref=e91]: "Scheduled orders:"
+            - text: Delivered at your chosen time
+          - listitem [ref=e92]:
+            - strong [ref=e93]: "Peak hours (11 AM — 1 PM, 5 PM — 7 PM):"
+            - text: Delivery may take up to 2 hours
+        - heading "Minimum Order" [level=2] [ref=e94]
+        - paragraph [ref=e95]:
+          - text: A minimum order of
+          - strong [ref=e96]: ₱200
+          - text: is required for all delivery orders. There is no minimum for pickup orders.
+        - heading "Pickup Option" [level=2] [ref=e97]
+        - paragraph [ref=e98]: You can always choose to pick up your order at our store. Pickup orders are typically ready within 30 — 45 minutes of confirmation.
+  - contentinfo [ref=e99]:
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - heading "Native Delicacies" [level=3] [ref=e103]
+          - paragraph [ref=e104]: Preserving Filipino culinary heritage, one delicacy at a time. Handcrafted kakanin and regional specialties made with love and tradition.
+        - generic [ref=e105]:
+          - heading "Shop" [level=4] [ref=e106]
+          - list [ref=e107]:
+            - listitem [ref=e108]:
+              - link "Browse Menu" [ref=e109]:
+                - /url: /menu
+            - listitem [ref=e110]:
+              - link "Bilao Builder" [ref=e111]:
+                - /url: /bilao-builder
+            - listitem [ref=e112]:
+              - link "Popular Items" [ref=e113]:
+                - /url: /menu?filter=popular
+            - listitem [ref=e114]:
+              - link "Gift Bundles" [ref=e115]:
+                - /url: /menu?filter=bundles
+        - generic [ref=e116]:
+          - heading "Company" [level=4] [ref=e117]
+          - list [ref=e118]:
+            - listitem [ref=e119]:
+              - link "Our Story" [ref=e120]:
+                - /url: /about
+            - listitem [ref=e121]:
+              - link "Contact Us" [ref=e122]:
+                - /url: /contact
+        - generic [ref=e123]:
+          - heading "Policies" [level=4] [ref=e124]
+          - list [ref=e125]:
+            - listitem [ref=e126]:
+              - link "Delivery Info" [ref=e127]:
+                - /url: /policies/delivery
+            - listitem [ref=e128]:
+              - link "Refund Policy" [ref=e129]:
+                - /url: /policies/refund
+            - listitem [ref=e130]:
+              - link "Privacy Policy" [ref=e131]:
+                - /url: /policies/privacy
+            - listitem [ref=e132]:
+              - link "Terms & Conditions" [ref=e133]:
+                - /url: /policies/terms
+      - paragraph [ref=e135]: © 2026 Native Delicacies. All rights reserved.
+  - generic [ref=e136]:
+    - generic [ref=e137]:
+      - generic [ref=e138]:
+        - img [ref=e139]
+        - heading "Your Cart" [level=2] [ref=e142]
+      - button "Close cart" [ref=e143]:
+        - img [ref=e144]
+    - generic [ref=e147]:
+      - img [ref=e149]
+      - heading "Your cart is empty" [level=3] [ref=e152]
+      - paragraph [ref=e153]: Discover our authentic Filipino delicacies and add your favorites!
+      - link "Browse Menu" [ref=e154]:
+        - /url: /menu
+        - text: Browse Menu
+        - img [ref=e155]
+```
