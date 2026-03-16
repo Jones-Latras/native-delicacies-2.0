@@ -17,8 +17,8 @@ function resolveFromAddress() {
   const configured = (process.env.EMAIL_FROM_ADDRESS || "").trim();
 
   if (!configured || configured.endsWith("@example.com")) {
-    console.warn("EMAIL_FROM_ADDRESS is not configured to a verified sender. Falling back to onboarding@resend.dev.");
-    return "onboarding@resend.dev";
+    console.warn("EMAIL_FROM_ADDRESS is not configured to a verified sender. Falling back to orders@jltrs.dev.");
+    return "orders@jltrs.dev";
   }
 
   return configured;
