@@ -9,7 +9,7 @@ const POLICIES = [
   { href: "/policies/refund", slug: "refund", icon: RefreshCw, description: "How to cancel orders and request refunds." },
   { href: "/policies/privacy", slug: "privacy", icon: Shield, description: "How we collect, use, and protect your personal data." },
   { href: "/policies/terms", slug: "terms", icon: FileText, description: "The rules and guidelines governing use of our services." },
-];
+] as const;
 
 export default async function PoliciesIndexPage() {
   const titles = await getPolicyTitles();

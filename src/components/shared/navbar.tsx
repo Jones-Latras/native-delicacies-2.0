@@ -30,7 +30,6 @@ export function Navbar() {
   const itemCount = useCartStore((s) => s.getItemCount());
   const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu, toggleCart } = useUIStore();
   const { data: session, status } = useSession();
-  const [isClientReady, setIsClientReady] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -50,12 +49,8 @@ export function Navbar() {
     "p-1.5 sm:p-2 hover:bg-[rgba(125,75,35,0.09)] focus-visible:bg-[rgba(125,75,35,0.09)] active:scale-[0.98]";
   const actionIconClass = "h-[18px] w-[18px] sm:h-5 sm:w-5";
 
-  const isLoggedIn = isClientReady && status === "authenticated" && session?.user;
+  const isLoggedIn = status === "authenticated" && session?.user;
   const isAdmin = session?.user?.role === "ADMIN" || session?.user?.role === "MANAGER" || session?.user?.role === "STAFF";
-
-  useEffect(() => {
-    setIsClientReady(true);
-  }, []);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -182,7 +177,7 @@ export function Navbar() {
             aria-label="Shopping cart"
           >
             <ShoppingCart className={actionIconClass} strokeWidth={2.1} />
-            {isClientReady && itemCount > 0 && (
+            {itemCount > 0 && (
               <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-brown-600 text-[9px] font-bold text-white sm:h-5 sm:w-5 sm:text-[10px]">
                 {itemCount > 99 ? "99+" : itemCount}
               </span>
