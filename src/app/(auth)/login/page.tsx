@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginInput } from "@/lib/validators";
-import { Button, Input } from "@/components/ui";
+import { Button, Input, SurfaceCard } from "@/components/ui";
 import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
@@ -63,7 +63,7 @@ function LoginForm() {
         </div>
 
         {/* Form */}
-        <div className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">
+        <SurfaceCard className="p-8">
           {error && (
             <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
               {error}
@@ -121,7 +121,7 @@ function LoginForm() {
               Sign In
             </Button>
           </form>
-        </div>
+        </SurfaceCard>
 
         {/* Footer */}
         <p className="mt-6 text-center text-sm text-stone-500">

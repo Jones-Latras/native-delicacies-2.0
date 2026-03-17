@@ -19,6 +19,7 @@ interface AnnouncementSettings {
 
 const DEFAULT_PAGES = [
   { slug: "about", title: "About Us" },
+  { slug: "contact", title: "Contact Us" },
   { slug: "delivery", title: "Delivery Areas & Fees" },
   { slug: "refund", title: "Refund & Cancellation Policy" },
   { slug: "privacy", title: "Privacy Policy" },

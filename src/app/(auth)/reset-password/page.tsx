@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resetPasswordSchema, type ResetPasswordInput } from "@/lib/validators";
-import { Button, Input } from "@/components/ui";
+import { Button, Input, SurfaceCard } from "@/components/ui";
 import { Eye, EyeOff, CheckCircle } from "lucide-react";
 
 export default function ResetPasswordPage() {
@@ -36,7 +36,7 @@ function ResetPasswordForm() {
   if (!token) {
     return (
       <div className="flex min-h-screen items-center justify-center px-4">
-        <div className="w-full max-w-md rounded-2xl border border-stone-200 bg-white p-8 text-center shadow-sm">
+        <SurfaceCard className="w-full max-w-md p-8 text-center">
           <h1 className="text-xl font-bold text-stone-900">Invalid Reset Link</h1>
           <p className="mt-2 text-stone-500">
             This password reset link is invalid or has expired.
@@ -47,7 +47,7 @@ function ResetPasswordForm() {
           >
             Request a new link
           </Link>
-        </div>
+        </SurfaceCard>
       </div>
     );
   }
@@ -75,7 +75,7 @@ function ResetPasswordForm() {
   if (success) {
     return (
       <div className="flex min-h-screen items-center justify-center px-4">
-        <div className="w-full max-w-md rounded-2xl border border-stone-200 bg-white p-8 text-center shadow-sm">
+        <SurfaceCard className="w-full max-w-md p-8 text-center">
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
             <CheckCircle className="h-6 w-6 text-green-600" />
           </div>
@@ -83,7 +83,7 @@ function ResetPasswordForm() {
           <p className="mt-2 text-stone-500">
             Your password has been updated. Redirecting to sign in...
           </p>
-        </div>
+        </SurfaceCard>
       </div>
     );
   }
@@ -101,7 +101,7 @@ function ResetPasswordForm() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">
+        <SurfaceCard className="p-8">
           {error && (
             <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</div>
           )}
@@ -141,7 +141,7 @@ function ResetPasswordForm() {
               Reset Password
             </Button>
           </form>
-        </div>
+        </SurfaceCard>
       </div>
     </div>
   );

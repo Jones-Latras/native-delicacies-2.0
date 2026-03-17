@@ -2,14 +2,9 @@ import Link from "next/link";
 
 const footerLinks = {
   shop: [
-    { href: "/menu", label: "Browse Menu" },
-    { href: "/bilao-builder", label: "Bilao Builder" },
-    { href: "/menu?filter=popular", label: "Popular Items" },
-    { href: "/menu?filter=bundles", label: "Gift Bundles" },
-  ],
-  company: [
-    { href: "/about", label: "Our Story" },
-    { href: "/contact", label: "Contact Us" },
+    { href: "/menu", label: "All Products" },
+    { href: "/menu?sort=popular", label: "Popular Delicacies" },
+    { href: "/bilao-builder", label: "Build Your Bilao" },
   ],
   policies: [
     { href: "/policies/delivery", label: "Delivery Info" },
@@ -23,7 +18,7 @@ export function Footer() {
   return (
     <footer className="border-t border-stone-200 bg-stone-50">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {/* Brand */}
           <div>
             <h3 className="text-lg font-bold text-brown-600">J&J Native Delicacies</h3>
@@ -38,22 +33,6 @@ export function Footer() {
             <h4 className="text-sm font-semibold uppercase tracking-wider text-stone-900">Shop</h4>
             <ul className="mt-3 space-y-2">
               {footerLinks.shop.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-stone-500 hover:text-brown-600">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-stone-900">
-              Company
-            </h4>
-            <ul className="mt-3 space-y-2">
-              {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm text-stone-500 hover:text-brown-600">
                     {link.label}

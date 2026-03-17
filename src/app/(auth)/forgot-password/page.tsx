@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { forgotPasswordSchema, type ForgotPasswordInput } from "@/lib/validators";
-import { Button, Input } from "@/components/ui";
+import { Button, Input, SurfaceCard } from "@/components/ui";
 import { ArrowLeft, Mail } from "lucide-react";
 
 export default function ForgotPasswordPage() {
@@ -42,7 +42,7 @@ export default function ForgotPasswordPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">
+        <SurfaceCard className="p-8">
           {submitted ? (
             <div className="text-center">
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
@@ -76,7 +76,7 @@ export default function ForgotPasswordPage() {
               </Button>
             </form>
           )}
-        </div>
+        </SurfaceCard>
 
         {!submitted && (
           <p className="mt-6 text-center">

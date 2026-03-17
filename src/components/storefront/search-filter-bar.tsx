@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SurfaceCard } from "@/components/ui";
 
 const SORT_OPTIONS = [
   { value: "popular", label: "Most Popular" },
@@ -128,7 +129,7 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
 
       {/* Expanded Filters */}
       {showFilters && (
-        <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+        <SurfaceCard className="p-5">
           <div className="grid gap-5 sm:grid-cols-2">
             {/* Category */}
             <div>
@@ -220,7 +221,7 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
               Clear all filters
             </button>
           )}
-        </div>
+        </SurfaceCard>
       )}
     </div>
   );

@@ -1,14 +1,19 @@
 import Link from "next/link";
 import { Truck, RefreshCw, Shield, FileText } from "lucide-react";
+import { getPolicyTitles } from "@/lib/policy-content";
+
+export const dynamic = "force-dynamic";
 
 const POLICIES = [
-  { href: "/policies/delivery", label: "Delivery Areas & Fees", icon: Truck, description: "Our delivery coverage, fees, and estimated delivery times." },
-  { href: "/policies/refund", label: "Refund & Cancellation", icon: RefreshCw, description: "How to cancel orders and request refunds." },
-  { href: "/policies/privacy", label: "Privacy Policy", icon: Shield, description: "How we collect, use, and protect your personal data." },
-  { href: "/policies/terms", label: "Terms & Conditions", icon: FileText, description: "The rules and guidelines governing use of our services." },
+  { href: "/policies/delivery", slug: "delivery", icon: Truck, description: "Our delivery coverage, fees, and estimated delivery times." },
+  { href: "/policies/refund", slug: "refund", icon: RefreshCw, description: "How to cancel orders and request refunds." },
+  { href: "/policies/privacy", slug: "privacy", icon: Shield, description: "How we collect, use, and protect your personal data." },
+  { href: "/policies/terms", slug: "terms", icon: FileText, description: "The rules and guidelines governing use of our services." },
 ];
 
-export default function PoliciesIndexPage() {
+export default async function PoliciesIndexPage() {
+  const titles = await getPolicyTitles();
+
   return (
     <div>
       <h1 className="text-3xl font-bold text-stone-900">Our Policies</h1>
@@ -26,7 +31,7 @@ export default function PoliciesIndexPage() {
               <p.icon className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-semibold text-stone-900">{p.label}</h3>
+              <h3 className="font-semibold text-stone-900">{titles[p.slug]}</h3>
               <p className="mt-1 text-sm text-stone-500">{p.description}</p>
             </div>
           </Link>

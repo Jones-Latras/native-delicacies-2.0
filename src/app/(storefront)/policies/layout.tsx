@@ -1,14 +1,19 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { getPolicyTitles } from "@/lib/policy-content";
+
+export const dynamic = "force-dynamic";
 
 const POLICY_LINKS = [
-  { href: "/policies/delivery", label: "Delivery Areas & Fees" },
-  { href: "/policies/refund", label: "Refund & Cancellation" },
-  { href: "/policies/privacy", label: "Privacy Policy" },
-  { href: "/policies/terms", label: "Terms & Conditions" },
-];
+  { href: "/policies/delivery", slug: "delivery" },
+  { href: "/policies/refund", slug: "refund" },
+  { href: "/policies/privacy", slug: "privacy" },
+  { href: "/policies/terms", slug: "terms" },
+] as const;
 
-export default function PoliciesLayout({ children }: { children: React.ReactNode }) {
+export default async function PoliciesLayout({ children }: { children: React.ReactNode }) {
+  const titles = await getPolicyTitles();
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="grid gap-12 lg:grid-cols-4">
@@ -22,7 +27,7 @@ export default function PoliciesLayout({ children }: { children: React.ReactNode
                 href={link.href}
                 className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-stone-600 transition-colors hover:bg-primary/5 hover:text-primary"
               >
-                <span>{link.label}</span>
+                <span>{titles[link.slug]}</span>
                 <ChevronRight className="h-4 w-4 text-stone-300" />
               </Link>
             ))}

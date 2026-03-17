@@ -11,6 +11,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { Loader2, ShieldCheck, AlertCircle } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
+import { SurfaceCard } from "@/components/ui";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -47,7 +48,7 @@ export function StripePaymentClient() {
         </p>
       </div>
 
-      <div className="mt-8 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+      <SurfaceCard className="mt-8 p-6">
         <Elements
           stripe={stripePromise}
           options={{
@@ -63,7 +64,7 @@ export function StripePaymentClient() {
         >
           <PaymentForm orderId={orderId} />
         </Elements>
-      </div>
+      </SurfaceCard>
 
       <p className="mt-4 text-center text-xs text-stone-400">
         Secured by Stripe. Your card info never touches our servers.

@@ -1,13 +1,61 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Facebook, Instagram } from "lucide-react";
+
+interface ContactSettings {
+  phone?: string;
+  email?: string;
+  address?: {
+    street?: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+  };
+  operatingHours?: Record<string, { isClosed: boolean; slots: { open: string; close: string }[] }>;
+}
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [contactSettings, setContactSettings] = useState<ContactSettings | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadSettings() {
+      try {
+        const res = await fetch("/api/settings", { cache: "no-store" });
+        if (!res.ok) return;
+
+        const json = await res.json();
+        if (isMounted && json?.data) {
+          setContactSettings(json.data);
+        }
+      } catch {
+        // Keep current fallback UI when settings fetch fails.
+      }
+    }
+
+    loadSettings();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const address = contactSettings?.address;
+  const addressLines = [address?.street, [address?.city, address?.state, address?.postalCode].filter(Boolean).join(", ")]
+    .filter((line) => line && line.trim().length > 0) as string[];
+
+  const formatDayHours = (day: string) => {
+    const dayInfo = contactSettings?.operatingHours?.[day];
+    if (!dayInfo || dayInfo.isClosed || !dayInfo.slots?.[0]) return "Closed";
+    const slot = dayInfo.slots[0];
+    return `${slot.open} - ${slot.close}`;
+  };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -56,8 +104,19 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-semibold text-stone-900">Visit Us</h3>
                 <p className="mt-1 text-sm text-stone-500">
-                  123 Heritage Street, Barangay San Jose<br />
-                  Quezon City, Metro Manila 1100
+                  {addressLines.length > 0 ? (
+                    addressLines.map((line) => (
+                      <span key={line}>
+                        {line}
+                        <br />
+                      </span>
+                    ))
+                  ) : (
+                    <>
+                      123 Heritage Street, Barangay San Jose<br />
+                      Quezon City, Metro Manila 1100
+                    </>
+                  )}
                 </p>
               </div>
             </div>
@@ -69,8 +128,7 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-semibold text-stone-900">Call Us</h3>
                 <p className="mt-1 text-sm text-stone-500">
-                  +63 917 123 4567<br />
-                  +63 2 8123 4567
+                  {contactSettings?.phone || "+63 917 123 4567"}
                 </p>
               </div>
             </div>
@@ -82,8 +140,7 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-semibold text-stone-900">Email Us</h3>
                 <p className="mt-1 text-sm text-stone-500">
-                  hello@jjnativedelicacies.ph<br />
-                  orders@jjnativedelicacies.ph
+                  {contactSettings?.email || "hello@jjnativedelicacies.ph"}
                 </p>
               </div>
             </div>
@@ -95,8 +152,13 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-semibold text-stone-900">Business Hours</h3>
                 <p className="mt-1 text-sm text-stone-500">
-                  Mon — Sat: 7:00 AM — 7:00 PM<br />
-                  Sunday: 8:00 AM — 5:00 PM
+                  Monday: {formatDayHours("monday")}<br />
+                  Tuesday: {formatDayHours("tuesday")}<br />
+                  Wednesday: {formatDayHours("wednesday")}<br />
+                  Thursday: {formatDayHours("thursday")}<br />
+                  Friday: {formatDayHours("friday")}<br />
+                  Saturday: {formatDayHours("saturday")}<br />
+                  Sunday: {formatDayHours("sunday")}
                 </p>
               </div>
             </div>

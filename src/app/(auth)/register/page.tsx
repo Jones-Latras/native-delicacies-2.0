@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, type RegisterInput } from "@/lib/validators";
-import { Button, Input } from "@/components/ui";
+import { Button, Input, SurfaceCard } from "@/components/ui";
 import { Eye, EyeOff, Check, X } from "lucide-react";
 
 function PasswordStrength({ password }: { password: string }) {
@@ -82,7 +82,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Form */}
-        <div className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">
+        <SurfaceCard className="p-8">
           {error && (
             <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
               {error}
@@ -170,7 +170,7 @@ export default function RegisterPage() {
               Create Account
             </Button>
           </form>
-        </div>
+        </SurfaceCard>
 
         {/* Footer */}
         <p className="mt-6 text-center text-sm text-stone-500">

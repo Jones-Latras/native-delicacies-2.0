@@ -20,6 +20,7 @@ import {
 import { useCartStore } from "@/stores/cart-store";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { BusinessSettings, CartItem } from "@/types";
+import { SurfaceCard } from "@/components/ui";
 
 // ── Types ──
 interface CheckoutForm {
@@ -533,7 +534,7 @@ export function CheckoutClient() {
 
         {/* ── Right: Order Summary ── */}
         <div className="mt-8 lg:mt-0">
-          <div className="sticky top-24 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+          <SurfaceCard className="sticky top-24 p-6">
             <h2 className="flex items-center gap-2 text-lg font-bold text-stone-900">
               <ShoppingBag className="h-5 w-5 text-brown-600" />
               Order Summary
@@ -627,7 +628,7 @@ export function CheckoutClient() {
                 ? "You'll be redirected to complete payment"
                 : "Your order will be confirmed shortly"}
             </p>
-          </div>
+          </SurfaceCard>
         </div>
       </div>
     </div>
@@ -646,13 +647,13 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+    <SurfaceCard className="p-6">
       <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-900">
         {icon && <span className="text-brown-600">{icon}</span>}
         {title}
       </h2>
       {children}
-    </div>
+    </SurfaceCard>
   );
 }
 

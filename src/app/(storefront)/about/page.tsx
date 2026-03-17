@@ -1,4 +1,7 @@
 import { Heart, Award, Leaf, Users } from "lucide-react";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 const VALUES = [
   {
@@ -27,7 +30,25 @@ const VALUES = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const contentPage = await prisma.contentPage.findUnique({
+    where: { slug: "about" },
+    select: { title: true, content: true },
+  });
+
+  if (contentPage) {
+    return (
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
+          {contentPage.title}
+        </h1>
+        <div className="prose prose-stone mt-8 max-w-none prose-headings:text-stone-900 prose-p:text-stone-600 prose-li:text-stone-600 prose-strong:text-stone-900">
+          <div dangerouslySetInnerHTML={{ __html: contentPage.content }} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Hero Section */}

@@ -44,9 +44,30 @@
   --font-mono: var(--font-geist-mono);
 }
 
+:root {
+  /* Core surfaces and text */
+  --surface-page: var(--color-stone-50);
+  --text-primary: var(--color-stone-900);
+
+  /* Form controls */
+  --control-radius: 0.5rem;
+  --control-height: 2.5rem;
+  --control-padding-x: 0.75rem;
+  --control-padding-y: 0.5rem;
+  --control-font-size: 0.875rem;
+  --control-line-height: 1.25rem;
+
+  /* Scrollbar */
+  --scrollbar-size: 8px;
+  --scrollbar-radius: 4px;
+  --scrollbar-track: var(--color-stone-100);
+  --scrollbar-thumb: var(--color-stone-300);
+  --scrollbar-thumb-hover: var(--color-stone-400);
+}
+
 body {
-  background: var(--color-stone-50);
-  color: var(--color-stone-900);
+  background: var(--surface-page);
+  color: var(--text-primary);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
@@ -57,15 +78,15 @@ html {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: var(--scrollbar-size);
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-stone-100);
+  background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-stone-300);
-  border-radius: 4px;
+  background: var(--scrollbar-thumb);
+  border-radius: var(--scrollbar-radius);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-stone-400);
+  background: var(--scrollbar-thumb-hover);
 }

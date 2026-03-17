@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { SURFACE_CARD_BASE_CLASS } from "@/components/ui";
 
 interface CategoryCardProps {
   name: string;
@@ -21,7 +23,10 @@ export function CategoryCard({ name, slug, description, imageUrl, itemCount }: C
   return (
     <Link
       href={`/menu?category=${slug}`}
-      className="group relative overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5"
+      className={cn(
+        SURFACE_CARD_BASE_CLASS,
+        "group relative overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-lg"
+      )}
     >
       <div className="relative h-36 overflow-hidden bg-gradient-to-br from-brown-50 to-amber-100">
         {imageUrl ? (

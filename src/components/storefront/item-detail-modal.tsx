@@ -47,18 +47,6 @@ export function ItemDetailModal({ item, isOpen, onClose }: ItemDetailModalProps)
     setSelectedOptions((prev) => ({ ...prev, [group]: option }));
   }
 
-  function calculateTotal(): number {
-    let base = item!.price;
-    const sizeOption = selectedOptions["Size"];
-    if (sizeOption) base = sizeOption.priceModifier;
-
-    const addOnTotal = Object.entries(selectedOptions)
-      .filter(([group]) => group !== "Size")
-      .reduce((sum, [, opt]) => sum + opt.priceModifier, 0);
-
-    return (base + addOnTotal) * quantity;
-  }
-
   function handleAddToCart() {
     if (isOutOfStock) return;
     const sizeOption = selectedOptions["Size"];
@@ -298,7 +286,7 @@ export function ItemDetailModal({ item, isOpen, onClose }: ItemDetailModalProps)
               className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-brown-600 py-3 font-semibold text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <ShoppingCart className="h-5 w-5" />
-              {isOutOfStock ? "Out of Stock" : `Add to Cart — ${formatCurrency(calculateTotal())}`}
+              {isOutOfStock ? "Out of Stock" : "Add to Cart"}
             </button>
           </div>
         </div>

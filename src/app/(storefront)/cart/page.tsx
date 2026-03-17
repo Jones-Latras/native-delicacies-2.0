@@ -18,6 +18,7 @@ import { useCartStore } from "@/stores/cart-store";
 import { formatCurrency } from "@/lib/utils";
 import type { CartItem } from "@/types";
 
+import { SurfaceCard } from "@/components/ui";
 export default function CartPage() {
   const items = useCartStore((s) => s.items);
   const subtotal = useCartStore((s) => s.getSubtotal());
@@ -170,7 +171,7 @@ export default function CartPage() {
 
         {/* Order Summary */}
         <div className="lg:col-span-1">
-          <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+          <SurfaceCard className="p-6">
             <h2 className="text-lg font-bold text-stone-900">Order Summary</h2>
 
             {/* Promo Code */}
@@ -262,7 +263,7 @@ export default function CartPage() {
               <span>🔒 Secure Checkout</span>
               <span>📦 Fresh & Packed with Care</span>
             </div>
-          </div>
+          </SurfaceCard>
         </div>
       </div>
     </div>
@@ -294,7 +295,7 @@ function CartItemCard({
   }
 
   return (
-    <div className="flex gap-4 rounded-2xl border border-stone-200 bg-white p-4 shadow-sm sm:p-5">
+    <SurfaceCard className="flex gap-4 p-4 sm:p-5">
       {/* Image */}
       <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-brown-100 to-amber-100 sm:h-28 sm:w-28">
         {item.imageUrl ? (
@@ -396,6 +397,6 @@ function CartItemCard({
           )}
         </div>
       </div>
-    </div>
+    </SurfaceCard>
   );
 }

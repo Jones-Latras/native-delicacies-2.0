@@ -1,4 +1,19 @@
-export default function PrivacyPolicyPage() {
+import { getPolicyContentPage } from "@/lib/policy-content";
+
+export const dynamic = "force-dynamic";
+
+export default async function PrivacyPolicyPage() {
+  const page = await getPolicyContentPage("privacy");
+
+  if (page) {
+    return (
+      <div>
+        <h1>{page.title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: page.content }} />
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1>Privacy Policy</h1>

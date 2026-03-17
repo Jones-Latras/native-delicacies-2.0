@@ -6,7 +6,7 @@ import { ShoppingCart, Info, Clock, MapPin } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
 import { formatCurrency } from "@/lib/utils";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui";
+import { Badge, SURFACE_CARD_BASE_CLASS } from "@/components/ui";
 import type { MenuItem } from "@/types";
 
 interface MenuItemCardProps {
@@ -41,7 +41,12 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
   }
 
   return (
-    <div className="group overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5">
+    <div
+      className={cn(
+        SURFACE_CARD_BASE_CLASS,
+        "group overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-lg"
+      )}
+    >
       {/* Image */}
       <div className="relative h-48 overflow-hidden bg-gradient-to-br from-brown-100 to-amber-100">
         {item.imageUrl ? (
@@ -84,7 +89,7 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
         {onViewDetails && (
           <button
             onClick={() => onViewDetails(item)}
-            className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-stone-600 opacity-0 shadow-sm backdrop-blur-sm transition-all hover:bg-white hover:text-brown-600 group-hover:opacity-100"
+            className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-stone-600 opacity-100 shadow-sm backdrop-blur-sm transition-all hover:bg-white hover:text-brown-600 md:opacity-0 md:group-hover:opacity-100"
             aria-label={`View details for ${item.name}`}
           >
             <Info className="h-4 w-4" />
