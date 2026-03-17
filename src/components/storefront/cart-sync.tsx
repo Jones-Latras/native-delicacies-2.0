@@ -14,7 +14,7 @@ export function CartSync() {
   // Cross-tab sync via storage event
   useEffect(() => {
     function handleStorageChange(e: StorageEvent) {
-      if (e.key === "delicacies-cart" && e.newValue) {
+      if (e.key === "jj-native-delicacies-cart" && e.newValue) {
         try {
           const parsed = JSON.parse(e.newValue);
           if (parsed?.state) {

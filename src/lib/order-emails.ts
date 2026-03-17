@@ -59,7 +59,7 @@ export async function sendOrderConfirmationEmail(order: OrderWithItems) {
   <div style="max-width:600px;margin:0 auto;padding:24px;">
     <!-- Header -->
     <div style="text-align:center;padding:32px 0;background:linear-gradient(135deg,#8b4513 0%,#a0522d 100%);border-radius:16px 16px 0 0;">
-      <h1 style="margin:0;color:#fff;font-size:24px;letter-spacing:1px;">🍘 Native Delicacies</h1>
+      <h1 style="margin:0;color:#fff;font-size:24px;letter-spacing:1px;">🍘 J&J Native Delicacies</h1>
       <p style="margin:8px 0 0;color:#deb887;font-size:14px;">Authentic Filipino Heritage Flavors</p>
     </div>
 
@@ -149,7 +149,7 @@ export async function sendOrderConfirmationEmail(order: OrderWithItems) {
 
     <!-- Footer -->
     <div style="text-align:center;padding:24px 0;color:#a08060;font-size:12px;">
-      <p style="margin:0;">Thank you for choosing Native Delicacies!</p>
+      <p style="margin:0;">Thank you for choosing J&J Native Delicacies!</p>
       <p style="margin:4px 0 0;">Questions? Reply to this email or call us.</p>
     </div>
   </div>
@@ -158,7 +158,7 @@ export async function sendOrderConfirmationEmail(order: OrderWithItems) {
 
   await sendEmail({
     to: order.customerEmail,
-    subject: `Order Confirmed — ${order.orderNumber} | Native Delicacies`,
+    subject: `Order Confirmed — ${order.orderNumber} | J&J Native Delicacies`,
     html,
   });
 }
@@ -235,7 +235,7 @@ export async function sendOrderStatusEmail(order: StatusEmailOrder) {
 <body style="margin:0;padding:0;background:#fdf8f3;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:24px;">
     <div style="text-align:center;padding:32px 0;background:linear-gradient(135deg,#8b4513 0%,#a0522d 100%);border-radius:16px 16px 0 0;">
-      <h1 style="margin:0;color:#fff;font-size:24px;letter-spacing:1px;">🍘 Native Delicacies</h1>
+      <h1 style="margin:0;color:#fff;font-size:24px;letter-spacing:1px;">🍘 J&J Native Delicacies</h1>
       <p style="margin:8px 0 0;color:#deb887;font-size:14px;">Authentic Filipino Heritage Flavors</p>
     </div>
 
@@ -304,7 +304,7 @@ export async function sendOrderStatusEmail(order: StatusEmailOrder) {
     </div>
 
     <div style="text-align:center;padding:24px 0;color:#a08060;font-size:12px;">
-      <p style="margin:0;">Thank you for choosing Native Delicacies!</p>
+      <p style="margin:0;">Thank you for choosing J&J Native Delicacies!</p>
       <p style="margin:4px 0 0;">Questions? Reply to this email or call us.</p>
     </div>
   </div>
@@ -313,7 +313,8 @@ export async function sendOrderStatusEmail(order: StatusEmailOrder) {
 
   await sendEmail({
     to: order.customerEmail,
-    subject: `${config.subject} — ${order.orderNumber} | Native Delicacies`,
+    subject: `${config.subject} — ${order.orderNumber} | J&J Native Delicacies`,
     html,
   });
 }
+

@@ -37,7 +37,7 @@ export default function AboutPage() {
           Preserving Filipino Culinary Heritage
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-stone-500">
-          From humble beginnings to your table — we&rsquo;re on a mission to share the authentic flavors of Filipino native delicacies with the world.
+          From humble beginnings to your table — we&rsquo;re on a mission to share the authentic flavors of J&J Native Delicacies with the world.
         </p>
       </div>
 
@@ -62,7 +62,7 @@ export default function AboutPage() {
           <h2 className="text-3xl font-bold text-stone-900">A Heritage Worth Sharing</h2>
           <div className="mt-6 space-y-4 text-stone-600 leading-relaxed">
             <p>
-              Native Delicacies was born from a deep love for Filipino culinary traditions. What started as a family kitchen preparing kakanin for local fiestas has grown into a beloved destination for authentic Filipino treats.
+              J&J Native Delicacies was born from a deep love for Filipino culinary traditions. What started as a family kitchen preparing kakanin for local fiestas has grown into a beloved destination for authentic Filipino treats.
             </p>
             <p>
               Our founder, inspired by their lola&rsquo;s time-tested recipes, set out to preserve the flavors that define Filipino celebrations — from the sticky sweetness of kutsinta to the delicate layers of bibingka, each delicacy is a tribute to our rich cultural heritage.
@@ -103,7 +103,7 @@ export default function AboutPage() {
       <div className="mt-24 rounded-2xl bg-gradient-to-r from-primary to-primary/80 px-8 py-16 text-center text-white">
         <h2 className="text-3xl font-bold">Ready to Taste Tradition?</h2>
         <p className="mx-auto mt-3 max-w-lg text-white/80">
-          Browse our handcrafted selection of Filipino native delicacies and bring a taste of heritage to your table.
+          Browse our handcrafted selection of J&J Native Delicacies and bring a taste of heritage to your table.
         </p>
         <a
           href="/menu"
@@ -115,3 +115,4 @@ export default function AboutPage() {
     </div>
   );
 }
+

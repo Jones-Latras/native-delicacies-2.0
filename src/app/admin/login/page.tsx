@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
                 label="Email"
                 type="email"
                 autoComplete="email"
-                placeholder="admin@delicacies.ph"
+                placeholder="admin@jjnativedelicacies.ph"
                 error={errors.email?.message}
                 {...register("email")}
               />

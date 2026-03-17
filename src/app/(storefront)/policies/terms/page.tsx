@@ -6,12 +6,12 @@ export default function TermsPage() {
 
       <h2>1. Acceptance of Terms</h2>
       <p>
-        By accessing and using the Native Delicacies website and services, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.
+        By accessing and using the J&J Native Delicacies website and services, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.
       </p>
 
       <h2>2. Services</h2>
       <p>
-        Native Delicacies provides an online platform for ordering Filipino native delicacies for delivery or pickup. We reserve the right to modify, suspend, or discontinue any aspect of our services at any time.
+        J&J Native Delicacies provides an online platform for ordering J&J Native Delicacies for delivery or pickup. We reserve the right to modify, suspend, or discontinue any aspect of our services at any time.
       </p>
 
       <h2>3. Account Registration</h2>
@@ -56,12 +56,12 @@ export default function TermsPage() {
 
       <h2>8. Intellectual Property</h2>
       <p>
-        All content on this website, including text, images, logos, and designs, is the property of Native Delicacies and is protected by intellectual property laws. You may not reproduce, distribute, or use our content without written permission.
+        All content on this website, including text, images, logos, and designs, is the property of J&J Native Delicacies and is protected by intellectual property laws. You may not reproduce, distribute, or use our content without written permission.
       </p>
 
       <h2>9. Limitation of Liability</h2>
       <p>
-        To the fullest extent permitted by law, Native Delicacies shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services. Our maximum liability for any claim shall not exceed the amount you paid for the order in question.
+        To the fullest extent permitted by law, J&J Native Delicacies shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services. Our maximum liability for any claim shall not exceed the amount you paid for the order in question.
       </p>
 
       <h2>10. Governing Law</h2>
@@ -76,8 +76,9 @@ export default function TermsPage() {
 
       <h2>12. Contact</h2>
       <p>
-        For questions about these Terms, please contact us at <strong>hello@nativedelicacies.ph</strong> or <strong>+63 917 123 4567</strong>.
+        For questions about these Terms, please contact us at <strong>hello@jjnativedelicacies.ph</strong> or <strong>+63 917 123 4567</strong>.
       </p>
     </div>
   );
 }
+

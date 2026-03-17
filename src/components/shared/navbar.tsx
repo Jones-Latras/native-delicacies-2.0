@@ -43,7 +43,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
           <span className="text-xl font-bold tracking-tight text-brown-600">
-            Native Delicacies
+            J&J Native Delicacies
           </span>
         </Link>
 
@@ -201,3 +201,4 @@ export function Navbar() {
     </header>
   );
 }
+

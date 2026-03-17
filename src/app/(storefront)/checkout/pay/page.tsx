@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { StripePaymentClient } from "./stripe-payment-client";
 
 export const metadata = {
-  title: "Complete Payment | Native Delicacies",
+  title: "Complete Payment | J&J Native Delicacies",
   description: "Complete your card payment",
 };
 
@@ -19,3 +19,4 @@ export default function PayPage() {
     </Suspense>
   );
 }
+

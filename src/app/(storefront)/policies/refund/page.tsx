@@ -57,7 +57,7 @@ export default function RefundPolicyPage() {
       </p>
       <ul>
         <li><strong>Phone:</strong> +63 917 123 4567</li>
-        <li><strong>Email:</strong> orders@nativedelicacies.ph</li>
+        <li><strong>Email:</strong> orders@jjnativedelicacies.ph</li>
         <li><strong>Hours:</strong> Mon — Sat, 7 AM — 7 PM</li>
       </ul>
     </div>

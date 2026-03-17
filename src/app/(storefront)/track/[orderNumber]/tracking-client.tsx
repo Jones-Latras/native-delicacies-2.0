@@ -98,7 +98,7 @@ interface TimelineStep {
 const PICKUP_STEPS: TimelineStep[] = [
   { key: "NEW", label: "Order Received", description: "We've confirmed your order and sent it to the kitchen.", icon: <CheckCircle2 className="h-5 w-5" /> },
   { key: "CONFIRMED", label: "Confirmed", description: "Your order has been accepted and queued for preparation.", icon: <CheckCircle2 className="h-5 w-5" /> },
-  { key: "PREPARING", label: "Preparing", description: "Chef is working on your traditional native delicacies.", icon: <ChefHat className="h-5 w-5" /> },
+  { key: "PREPARING", label: "Preparing", description: "Chef is working on your traditional J&J Native Delicacies.", icon: <ChefHat className="h-5 w-5" /> },
   { key: "READY", label: "Ready for Pickup", description: "Your order is ready! Come pick it up at our store.", icon: <Package className="h-5 w-5" /> },
   { key: "COMPLETED", label: "Completed", description: "Enjoy your authentic native feast!", icon: <CheckCircle2 className="h-5 w-5" /> },
 ];
@@ -106,7 +106,7 @@ const PICKUP_STEPS: TimelineStep[] = [
 const DELIVERY_STEPS: TimelineStep[] = [
   { key: "NEW", label: "Order Received", description: "We've confirmed your order and sent it to the kitchen.", icon: <CheckCircle2 className="h-5 w-5" /> },
   { key: "CONFIRMED", label: "Confirmed", description: "Your order has been accepted and queued for preparation.", icon: <CheckCircle2 className="h-5 w-5" /> },
-  { key: "PREPARING", label: "Preparing", description: "Chef is working on your traditional native delicacies.", icon: <ChefHat className="h-5 w-5" /> },
+  { key: "PREPARING", label: "Preparing", description: "Chef is working on your traditional J&J Native Delicacies.", icon: <ChefHat className="h-5 w-5" /> },
   { key: "READY", label: "Ready", description: "Your order is packed and waiting for a rider.", icon: <Package className="h-5 w-5" /> },
   { key: "OUT_FOR_DELIVERY", label: "Out for Delivery", description: "A rider has picked up your order and is on the way.", icon: <Bike className="h-5 w-5" /> },
   { key: "COMPLETED", label: "Delivered", description: "Enjoy your authentic native feast!", icon: <CheckCircle2 className="h-5 w-5" /> },
@@ -674,3 +674,4 @@ function SearchBar({
     </form>
   );
 }
+

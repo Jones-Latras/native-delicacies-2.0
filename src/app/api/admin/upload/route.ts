@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
   try {
     const timestamp = Math.floor(Date.now() / 1000).toString();
     const params: Record<string, string> = {
-      folder: "delicacies",
+      folder: "jj-native-delicacies",
       timestamp,
     };
 
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
 
     const uploadData = new FormData();
     uploadData.append("file", file);
-    uploadData.append("folder", "delicacies");
+    uploadData.append("folder", "jj-native-delicacies");
     uploadData.append("timestamp", timestamp);
     uploadData.append("signature", signature);
     uploadData.append("api_key", CLOUDINARY_API_KEY!);

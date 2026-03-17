@@ -46,9 +46,10 @@ export async function POST(request: NextRequest) {
   // Send welcome email (fire and forget)
   sendEmail({
     to: email,
-    subject: "Welcome to Native Delicacies! 🎉",
+    subject: "Welcome to J&J Native Delicacies! 🎉",
     html: welcomeEmailHtml(name),
   }).catch(console.error);
 
   return successResponse(user, 201);
 }
+

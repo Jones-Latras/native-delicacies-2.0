@@ -157,7 +157,7 @@ export const useCartStore = create<CartStore>()(
       },
     }),
     {
-      name: "delicacies-cart",
+      name: "jj-native-delicacies-cart",
     }
   )
 );

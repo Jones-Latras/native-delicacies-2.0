@@ -4,7 +4,7 @@ test.describe("Customer Journey", () => {
   test("complete flow: homepage → menu → add to cart → view cart", async ({ page }) => {
     // 1. Start at homepage
     await page.goto("/");
-    await expect(page).toHaveTitle(/Native Delicacies/);
+    await expect(page).toHaveTitle(/J&J Native Delicacies/);
 
     // 2. Navigate to menu
     await page.getByRole("link", { name: /browse menu|menu/i }).first().click();
@@ -108,3 +108,4 @@ test.describe("API Security", () => {
     expect(ordersResp.status()).toBe(401);
   });
 });
+

@@ -1,6 +1,6 @@
-# Native Delicacies — Filipino Heritage Treats
+# J&J Native Delicacies — Filipino Heritage Treats
 
-A full-stack e-commerce platform for ordering authentic Filipino native delicacies online. Customers can browse a curated menu of traditional kakanin, pastries, sweets, and regional specialties — build custom bilao trays, checkout with Stripe, track orders in real time, and more.
+A full-stack e-commerce platform for ordering authentic J&J Native Delicacies online. Customers can browse a curated menu of traditional kakanin, pastries, sweets, and regional specialties — build custom bilao trays, checkout with Stripe, track orders in real time, and more.
 
 ## Features
 
@@ -59,8 +59,8 @@ A full-stack e-commerce platform for ordering authentic Filipino native delicaci
 ### Installation
 
 ```bash
-git clone https://github.com/Jones-Latras/native-delicacies-2.0.git
-cd native-delicacies-2.0
+git clone https://github.com/Jones-Latras/jj-native-delicacies.git
+cd jj-native-delicacies
 npm install
 ```
 
@@ -88,7 +88,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the storefront.
 
-**Default admin login:** `admin@delicacies.ph` / `Admin123!`
+**Default admin login:** `admin@jjnativedelicacies.ph` / `Admin123!`
 
 ### Available Scripts
 
@@ -138,3 +138,5 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for the full production deployment guide cove
 ## License
 
 This project is private and not licensed for redistribution.
+
+

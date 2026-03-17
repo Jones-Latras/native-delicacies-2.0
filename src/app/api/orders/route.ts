@@ -321,7 +321,7 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   if (bizSettings?.email) {
     sendEmail({
       to: bizSettings.email,
-      subject: `New Order ${order.orderNumber} | Native Delicacies`,
+      subject: `New Order ${order.orderNumber} | J&J Native Delicacies`,
       html: adminNewOrderAlertHtml({
         orderNumber: order.orderNumber,
         customerName: order.customerName,
@@ -342,3 +342,4 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     201
   );
 });
+

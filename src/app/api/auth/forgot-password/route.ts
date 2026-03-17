@@ -37,10 +37,11 @@ export async function POST(request: NextRequest) {
 
     sendEmail({
       to: email,
-      subject: "Reset Your Password — Native Delicacies",
+      subject: "Reset Your Password — J&J Native Delicacies",
       html: passwordResetEmailHtml(user.name, resetUrl),
     }).catch(console.error);
   }
 
   return successResponse({ message: "If an account with that email exists, a reset link has been sent." });
 }
+

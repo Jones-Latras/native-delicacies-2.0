@@ -1,7 +1,7 @@
 {
-  "name": "Native Delicacies",
-  "short_name": "Delicacies",
-  "description": "Authentic Filipino Native Delicacies — Handcrafted kakanin and regional specialties",
+  "name": "J&J Native Delicacies",
+  "short_name": "J&J Native",
+  "description": "Authentic J&J Native Delicacies — Handcrafted kakanin and regional specialties",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8f7f6",
@@ -23,3 +23,4 @@
     }
   ]
 }
+

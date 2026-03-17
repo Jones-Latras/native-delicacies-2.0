@@ -33,7 +33,7 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 
 # Resend
 RESEND_API_KEY=re_...
-EMAIL_FROM_NAME=Native Delicacies
+EMAIL_FROM_NAME=J&J Native Delicacies
 EMAIL_FROM_ADDRESS=orders@yourdomain.com
 
 # App
@@ -103,3 +103,4 @@ npx tsx prisma/seed-production.ts
 3. Update DNS records as instructed
 4. Update `NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` to match
 5. Update Stripe webhook endpoint URL
+

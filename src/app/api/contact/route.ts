@@ -38,7 +38,7 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   // Send confirmation to the customer
   sendEmail({
     to: email,
-    subject: "We received your message — Native Delicacies",
+    subject: "We received your message — J&J Native Delicacies",
     html: contactFormConfirmationHtml(name),
   }).catch(console.error);
 
@@ -47,10 +47,11 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   if (settings?.email) {
     sendEmail({
       to: settings.email,
-      subject: `Contact Form: ${subject} — Native Delicacies`,
+      subject: `Contact Form: ${subject} — J&J Native Delicacies`,
       html: adminContactFormHtml({ name, email, phone, subject, message }),
     }).catch(console.error);
   }
 
   return successResponse({ success: true });
 });
+

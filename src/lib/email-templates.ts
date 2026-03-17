@@ -1,7 +1,7 @@
 // ── Branded Email Template System ──
 
 const BRAND = {
-  name: "Native Delicacies",
+  name: "J&J Native Delicacies",
   tagline: "Authentic Filipino Heritage Flavors",
   primaryColor: "#8b4513",
   secondaryColor: "#a0522d",
@@ -199,3 +199,4 @@ export function adminContactFormHtml(data: ContactMessageData) {
     </div>
   `);
 }
+

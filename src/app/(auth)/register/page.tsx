@@ -75,7 +75,7 @@ export default function RegisterPage() {
         {/* Header */}
         <div className="mb-8 text-center">
           <Link href="/" className="inline-block text-2xl font-bold text-amber-800">
-            Native Delicacies
+            J&J Native Delicacies
           </Link>
           <h1 className="mt-4 text-2xl font-bold text-stone-900">Create your account</h1>
           <p className="mt-2 text-stone-500">Join us to order authentic Filipino treats</p>
@@ -183,3 +183,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

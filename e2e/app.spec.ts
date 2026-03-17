@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("Homepage", () => {
   test("loads homepage with hero section", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/Native Delicacies/);
+    await expect(page).toHaveTitle(/J&J Native Delicacies/);
     await expect(page.getByRole("heading", { name: /build your own/i })).toBeVisible();
   });
 
@@ -131,3 +131,4 @@ test.describe("Security Headers", () => {
     expect(headers["x-xss-protection"]).toBe("1; mode=block");
   });
 });
+

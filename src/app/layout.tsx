@@ -23,16 +23,16 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Native Delicacies — Filipino Heritage Treats",
-    template: "%s | Native Delicacies",
+    default: "J&J Native Delicacies — Filipino Heritage Treats",
+    template: "%s | J&J Native Delicacies",
   },
   description:
-    "Order authentic Filipino native delicacies online. Kakanin, regional specialties, and heritage snacks crafted with tradition and love.",
+    "Order authentic J&J Native Delicacies online. Kakanin, regional specialties, and heritage snacks crafted with tradition and love.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Native Delicacies",
+    title: "J&J Native Delicacies",
   },
 };
 
@@ -55,3 +55,4 @@ export default function RootLayout({
     </html>
   );
 }
+

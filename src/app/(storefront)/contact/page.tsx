@@ -82,8 +82,8 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-semibold text-stone-900">Email Us</h3>
                 <p className="mt-1 text-sm text-stone-500">
-                  hello@nativedelicacies.ph<br />
-                  orders@nativedelicacies.ph
+                  hello@jjnativedelicacies.ph<br />
+                  orders@jjnativedelicacies.ph
                 </p>
               </div>
             </div>

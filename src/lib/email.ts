@@ -39,7 +39,7 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions) {
     return null;
   }
 
-  const fromName = (process.env.EMAIL_FROM_NAME || "Native Delicacies").trim() || "Native Delicacies";
+  const fromName = (process.env.EMAIL_FROM_NAME || "J&J Native Delicacies").trim() || "J&J Native Delicacies";
   const fromAddress = resolveFromAddress();
 
   const { data, error } = await resend.emails.send({
@@ -56,3 +56,4 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions) {
 
   return data;
 }
+

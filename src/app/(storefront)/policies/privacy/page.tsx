@@ -6,7 +6,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>Introduction</h2>
       <p>
-        Native Delicacies (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our website and services.
+        J&J Native Delicacies (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our website and services.
       </p>
 
       <h2>Information We Collect</h2>
@@ -84,9 +84,10 @@ export default function PrivacyPolicyPage() {
         If you have questions about this Privacy Policy, please contact us:
       </p>
       <ul>
-        <li><strong>Email:</strong> hello@nativedelicacies.ph</li>
+        <li><strong>Email:</strong> hello@jjnativedelicacies.ph</li>
         <li><strong>Phone:</strong> +63 917 123 4567</li>
       </ul>
     </div>
   );
 }
+

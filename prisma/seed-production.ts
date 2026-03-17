@@ -56,7 +56,7 @@ async function main() {
     update: {},
     create: {
       id: "default",
-      businessName: "Filipino Native Delicacies",
+      businessName: "J&J Native Delicacies",
       phone: ADMIN_PHONE,
       email: ADMIN_EMAIL,
       address: {
@@ -94,7 +94,7 @@ async function main() {
     { name: "Pastries & Baked Goods", slug: "pastries", description: "Heritage Filipino pastries", displayOrder: 2 },
     { name: "Biscuits & Cookies", slug: "biscuits-cookies", description: "Filipino biscuits and cookies", displayOrder: 3 },
     { name: "Sweets & Preserves", slug: "sweets-preserves", description: "Traditional Filipino sweet treats", displayOrder: 4 },
-    { name: "Pasalubong Bundles", slug: "pasalubong-bundles", description: "Curated gift sets of native delicacies", displayOrder: 5 },
+    { name: "Pasalubong Bundles", slug: "pasalubong-bundles", description: "Curated gift sets of J&J Native Delicacies", displayOrder: 5 },
   ];
 
   for (const cat of categories) {
@@ -121,3 +121,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+

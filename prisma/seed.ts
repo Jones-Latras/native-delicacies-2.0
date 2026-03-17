@@ -17,10 +17,10 @@ async function main() {
   // ── Admin user ──
   const adminPassword = await hash("Admin123!", 12);
   const admin = await prisma.user.upsert({
-    where: { email: "admin@delicacies.ph" },
+    where: { email: "admin@jjnativedelicacies.ph" },
     update: {},
     create: {
-      email: "admin@delicacies.ph",
+      email: "admin@jjnativedelicacies.ph",
       passwordHash: adminPassword,
       name: "Shop Owner",
       phone: "+639171234567",
@@ -82,7 +82,7 @@ async function main() {
       create: {
         name: "Pasalubong Bundles",
         slug: "pasalubong-bundles",
-        description: "Curated gift sets of native delicacies — perfect for sharing and gifting.",
+        description: "Curated gift sets of J&J Native Delicacies — perfect for sharing and gifting.",
         displayOrder: 5,
         isVisible: true,
       },
@@ -405,9 +405,9 @@ async function main() {
     update: {},
     create: {
       id: "default",
-      businessName: "Filipino Native Delicacies",
+      businessName: "J&J Native Delicacies",
       phone: "+639171234567",
-      email: "hello@delicacies.ph",
+      email: "hello@jjnativedelicacies.ph",
       address: {
         street: "123 Heritage Street",
         city: "Quezon City",
@@ -435,7 +435,7 @@ async function main() {
       taxRate: 12,
       timezone: "Asia/Manila",
       aboutText:
-        "We are passionate about preserving and sharing the rich culinary heritage of the Philippines through our native delicacies. Every product is handcrafted using traditional recipes passed down through generations, using only the finest local ingredients.",
+        "We are passionate about preserving and sharing the rich culinary heritage of the Philippines through our J&J Native Delicacies. Every product is handcrafted using traditional recipes passed down through generations, using only the finest local ingredients.",
     },
   });
   console.log("  ✓ Business settings created");
@@ -479,3 +479,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
