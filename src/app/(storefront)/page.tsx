@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Star, Truck, ShieldCheck } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui";
 import { CategoryCard, BusinessStatus, MenuGrid } from "@/components/storefront";
@@ -137,12 +137,12 @@ export default async function HomePage() {
     <>
       {/* ── Hero Section ── */}
       <section
-        className="relative overflow-hidden bg-brown-900 bg-cover bg-center bg-no-repeat px-4 py-20 text-white sm:px-6 lg:px-8 lg:py-28"
+        className="relative overflow-hidden bg-brown-900 bg-cover bg-center bg-no-repeat px-4 text-white sm:px-6 lg:px-8"
         style={{
           backgroundImage: `linear-gradient(180deg, rgba(255, 248, 239, 0.22) 0%, rgba(255, 248, 239, 0.08) 16%, rgba(255, 248, 239, 0) 34%), linear-gradient(135deg, rgba(41, 23, 12, 0.78), rgba(56, 35, 20, 0.62)), url('${HERO_BACKGROUND_IMAGE_URL}')`,
         }}
       >
-        <div className="relative mx-auto flex max-w-7xl flex-col items-center text-center">
+        <div className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-2 pb-24 pt-28 text-center sm:px-4 sm:pb-28 sm:pt-32 lg:px-0 lg:pb-32 lg:pt-36">
           {/* Business Status */}
           {operatingHours && (
             <div className="mb-8">
@@ -153,13 +153,13 @@ export default async function HomePage() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-300">
             Authentic Filipino Heritage
           </p>
-          <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 max-w-4xl text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
             J&J NATIVE{" "}
             <span className="bg-gradient-to-r from-amber-300 to-amber-100 bg-clip-text text-transparent">
               DELICACIES
             </span>
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-brown-100">
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-brown-100 sm:text-xl">
             Handcrafted kakanin made with love and tradition. Taste the heritage of the Philippines.
           </p>
 
@@ -183,11 +183,23 @@ export default async function HomePage() {
               </Button>
             </Link>
           </div>
+
+          <Link
+            href="#homepage-categories"
+            className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center text-center transition-opacity duration-200 hover:opacity-100"
+          >
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/75 sm:text-sm">
+              Scroll down to see more
+            </span>
+            <span className="mt-3 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-lg backdrop-blur-sm">
+              <ArrowDown className="h-5 w-5 animate-bounce" />
+            </span>
+          </Link>
         </div>
       </section>
 
       {/* ── Categories Section ── */}
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
+      <section id="homepage-categories" className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between">
             <div>
