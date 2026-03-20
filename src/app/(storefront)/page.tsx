@@ -137,47 +137,47 @@ export default async function HomePage() {
     <>
       {/* ── Hero Section ── */}
       <section
-        className="relative overflow-hidden bg-brown-900 bg-cover bg-center bg-no-repeat px-4 text-white sm:px-6 lg:px-8"
+        className="relative overflow-hidden bg-kape bg-cover bg-center bg-no-repeat px-4 text-asukal sm:px-6 lg:px-8"
         style={{
-          backgroundImage: `linear-gradient(180deg, rgba(255, 248, 239, 0.22) 0%, rgba(255, 248, 239, 0.08) 16%, rgba(255, 248, 239, 0) 34%), linear-gradient(135deg, rgba(41, 23, 12, 0.78), rgba(56, 35, 20, 0.62)), url('${HERO_BACKGROUND_IMAGE_URL}')`,
+          backgroundImage: `linear-gradient(180deg, rgba(255, 247, 229, 0.14) 0%, rgba(255, 247, 229, 0.02) 20%, rgba(255, 247, 229, 0) 38%), linear-gradient(135deg, rgba(59, 31, 14, 0.86), rgba(91, 48, 16, 0.72), rgba(42, 26, 15, 0.82)), url('${HERO_BACKGROUND_IMAGE_URL}')`,
         }}
       >
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(194,133,42,0.24),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(74,124,89,0.18),transparent_30%)]" />
         <div className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-2 pb-24 pt-28 text-center sm:px-4 sm:pb-28 sm:pt-32 lg:px-0 lg:pb-32 lg:pt-36">
-          {/* Business Status */}
           {operatingHours && (
             <div className="mb-8">
               <BusinessStatus operatingHours={operatingHours} timezone={timezone} />
             </div>
           )}
 
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-300">
+          <p className="text-[0.78rem] font-medium uppercase tracking-[0.34em] text-pulot">
             Authentic Filipino Heritage
           </p>
-          <h1 className="mt-4 max-w-4xl text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
-            J&J NATIVE{" "}
-            <span className="bg-gradient-to-r from-amber-300 to-amber-100 bg-clip-text text-transparent">
-              DELICACIES
+          <h1 className="mt-5 max-w-5xl font-[family-name:var(--font-display)] text-5xl tracking-[-0.04em] text-asukal sm:text-6xl lg:text-[5.5rem]">
+            Handcrafted{" "}
+            <span className="bg-gradient-to-r from-pulot via-amber-100 to-asukal bg-clip-text text-transparent">
+              Filipino Delicacies
             </span>
           </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-brown-100 sm:text-xl">
-            Handcrafted kakanin made with love and tradition. Taste the heritage of the Philippines.
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-asukal/78 sm:text-xl">
+            Bibingka warmth, puto bumbong comfort, and heirloom recipes brought together in a storefront that feels like a festive Filipino pasalubong table.
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row">
             <Link href="/bilao-builder">
               <Button
                 size="lg"
-                className="rounded-2xl bg-white px-8 font-semibold text-brown-700 shadow-lg hover:bg-amber-50"
+                className="px-8"
               >
                 Build Your Bilao
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
               </Button>
             </Link>
             <Link href="/menu">
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-2xl border-white/50 px-8 text-white hover:bg-white/10"
+                className="border-asukal/35 px-8 text-asukal hover:bg-asukal/8 hover:text-asukal"
               >
                 Browse Menu
               </Button>
@@ -188,33 +188,32 @@ export default async function HomePage() {
             href="#homepage-categories"
             className="mt-10 flex flex-col items-center text-center transition-opacity duration-200 hover:opacity-100 sm:absolute sm:bottom-7 sm:left-1/2 sm:mt-0 sm:-translate-x-1/2"
           >
-            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/75 sm:text-sm">
+            <span className="text-[0.68rem] font-medium uppercase tracking-[0.34em] text-asukal/72 sm:text-[0.74rem]">
               Scroll down to see more
             </span>
-            <span className="mt-3 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-lg backdrop-blur-sm">
-              <ArrowDown className="h-5 w-5 animate-bounce" />
+            <span className="mt-3 flex h-11 w-11 items-center justify-center rounded-full border border-asukal/25 bg-asukal/10 text-asukal shadow-[0_14px_28px_rgba(59,31,14,0.16)] backdrop-blur-sm">
+              <ArrowDown className="h-5 w-5 animate-bounce" strokeWidth={1.5} />
             </span>
           </Link>
         </div>
       </section>
 
-      {/* ── Categories Section ── */}
-      <section id="homepage-categories" className="px-4 py-16 sm:px-6 lg:px-8">
+      <section id="homepage-categories" className="section-divider px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-stone-900 sm:text-3xl">
+              <h2 className="font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
                 Shop by Category
               </h2>
-              <p className="mt-1 text-stone-500">
+              <p className="mt-2 text-latik/70">
                 Explore our curated collection of native treats
               </p>
             </div>
             <Link
               href="/menu"
-              className="hidden items-center gap-1 text-sm font-semibold text-brown-600 hover:text-brown-800 sm:flex"
+              className="hidden items-center gap-1 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik hover:text-pulot sm:flex"
             >
-              View all <ArrowRight className="h-4 w-4" />
+              View all <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
             </Link>
           </div>
 
@@ -233,23 +232,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Featured Products ── */}
-      <section className="bg-stone-100/60 px-4 py-16 sm:px-6 lg:px-8">
+      <section className="section-divider bg-gatas/72 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-stone-900 sm:text-3xl">
+              <h2 className="font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
                 Popular Delicacies
               </h2>
-              <p className="mt-1 text-stone-500">
+              <p className="mt-2 text-latik/70">
                 Our most loved traditional treats, freshly prepared for you
               </p>
             </div>
             <Link
               href="/menu?sort=popular"
-              className="hidden items-center gap-1 text-sm font-semibold text-brown-600 hover:text-brown-800 sm:flex"
+              className="hidden items-center gap-1 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik hover:text-pulot sm:flex"
             >
-              See all <ArrowRight className="h-4 w-4" />
+              See all <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
             </Link>
           </div>
 
@@ -259,23 +257,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── All Products Section ── */}
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
+      <section className="section-divider px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-stone-900 sm:text-3xl">
+              <h2 className="font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
                 All Products
               </h2>
-              <p className="mt-1 text-stone-500">
+              <p className="mt-2 text-latik/70">
                 Browse every available delicacy from our shop
               </p>
             </div>
             <Link
               href="/menu"
-              className="hidden items-center gap-1 text-sm font-semibold text-brown-600 hover:text-brown-800 sm:flex"
+              className="hidden items-center gap-1 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik hover:text-pulot sm:flex"
             >
-              View full menu <ArrowRight className="h-4 w-4" />
+              View full menu <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
             </Link>
           </div>
 
@@ -285,48 +282,44 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Heritage / Brand Story ── */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-brown-50 to-amber-50 p-8 sm:p-12 lg:flex lg:gap-12 lg:p-16">
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="overflow-hidden rounded-[2rem] border border-latik/12 bg-[linear-gradient(135deg,rgba(194,133,42,0.14),rgba(253,246,227,0.98),rgba(74,124,89,0.10))] p-8 shadow-[0_24px_42px_rgba(59,31,14,0.12)] sm:p-12 lg:flex lg:gap-12 lg:p-16">
           <div className="flex-1">
-            <p className="text-sm font-semibold uppercase tracking-wider text-brown-500">
+            <p className="text-[0.72rem] font-medium uppercase tracking-[0.32em] text-latik/62">
               Our Heritage
             </p>
-            <h2 className="mt-3 text-2xl font-bold text-stone-900 sm:text-3xl">
+            <h2 className="mt-4 font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
               A Taste of Filipino Tradition
             </h2>
-            <p className="mt-4 leading-relaxed text-stone-600">
+            <p className="mt-4 leading-8 text-latik/75">
               Every delicacy we create carries generations of Filipino culinary wisdom. From the
               sticky-sweet bibingka of Luzon to the rich flavors of Visayan treats, we preserve
               and share the authentic tastes that make our culture so rich.
             </p>
-            <p className="mt-3 leading-relaxed text-stone-600">
+            <p className="mt-3 leading-8 text-latik/75">
               We source the finest local ingredients — fresh coconut, native rice varieties,
               muscovado sugar — and prepare each item with the same care and attention to detail
               that our lolas practiced for generations.
             </p>
             <Link href="/about">
-              <Button
-                variant="outline"
-                className="mt-6 rounded-xl border-brown-600 text-brown-600 hover:bg-brown-50"
-              >
+              <Button variant="outline" className="mt-6 border-latik/30 text-latik hover:bg-gatas/90">
                 Read Our Story
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
               </Button>
             </Link>
           </div>
           <div className="mt-8 flex items-center justify-center lg:mt-0">
             <div className="grid grid-cols-2 gap-3">
-              <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-white shadow-sm">
+              <div className="flex h-28 w-28 items-center justify-center rounded-[1.4rem] border border-latik/12 bg-asukal/82 shadow-[0_14px_24px_rgba(59,31,14,0.08)]">
                 <span className="text-4xl">🍚</span>
               </div>
-              <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-white shadow-sm">
+              <div className="flex h-28 w-28 items-center justify-center rounded-[1.4rem] border border-latik/12 bg-asukal/82 shadow-[0_14px_24px_rgba(59,31,14,0.08)]">
                 <span className="text-4xl">🥥</span>
               </div>
-              <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-white shadow-sm">
+              <div className="flex h-28 w-28 items-center justify-center rounded-[1.4rem] border border-latik/12 bg-asukal/82 shadow-[0_14px_24px_rgba(59,31,14,0.08)]">
                 <span className="text-4xl">🌾</span>
               </div>
-              <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-white shadow-sm">
+              <div className="flex h-28 w-28 items-center justify-center rounded-[1.4rem] border border-latik/12 bg-asukal/82 shadow-[0_14px_24px_rgba(59,31,14,0.08)]">
                 <span className="text-4xl">🍃</span>
               </div>
             </div>

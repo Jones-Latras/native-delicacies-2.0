@@ -19,7 +19,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           id={id}
           className={cn(
-            "flex min-h-[80px]",
+            "flex min-h-[110px] resize-y",
             UI_FIELD_BASE_CLASS,
             error && UI_FIELD_ERROR_STATE_CLASS,
             className

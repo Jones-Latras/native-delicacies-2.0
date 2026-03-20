@@ -68,7 +68,7 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8">
+    <div className="artisan-profile mx-auto max-w-4xl px-4 py-8">
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-stone-900">My Account</h1>
@@ -85,7 +85,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Tabs */}
-      <div className="mb-6 flex gap-1 overflow-x-auto rounded-lg bg-stone-100 p-1">
+      <div className="mb-6 flex gap-1 overflow-x-auto rounded-[1.25rem] border border-latik/12 bg-asukal/80 p-1.5 shadow-[var(--shadow-warm)]">
         {tabs.map((tab) => (
           <button
             key={tab.id}

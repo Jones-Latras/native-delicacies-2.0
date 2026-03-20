@@ -33,11 +33,11 @@ export default function ForgotPasswordPage() {
     <div className="flex min-h-screen items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <Link href="/" className="inline-block text-2xl font-bold text-amber-800">
+          <Link href="/" className="inline-block font-[family-name:var(--font-display)] text-3xl uppercase tracking-[0.18em] text-latik">
             J&J Native Delicacies
           </Link>
-          <h1 className="mt-4 text-2xl font-bold text-stone-900">Forgot your password?</h1>
-          <p className="mt-2 text-stone-500">
+          <h1 className="mt-4 font-[family-name:var(--font-display)] text-4xl text-kape">Forgot your password?</h1>
+          <p className="mt-3 text-latik/68">
             No worries, we&apos;ll send you a reset link.
           </p>
         </div>
@@ -45,19 +45,19 @@ export default function ForgotPasswordPage() {
         <SurfaceCard className="p-8">
           {submitted ? (
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                <Mail className="h-6 w-6 text-green-600" />
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pandan/12">
+                <Mail className="h-6 w-6 text-pandan" strokeWidth={1.5} />
               </div>
-              <h2 className="text-lg font-semibold text-stone-900">Check your email</h2>
-              <p className="mt-2 text-sm text-stone-500">
+              <h2 className="font-[family-name:var(--font-display)] text-2xl text-kape">Check your email</h2>
+              <p className="mt-2 text-sm leading-6 text-latik/68">
                 If an account exists with that email, we&apos;ve sent a password reset link.
                 Please check your inbox and spam folder.
               </p>
               <Link
                 href="/login"
-                className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-amber-700 hover:text-amber-800"
+                className="mt-6 inline-flex items-center gap-2 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik hover:text-pulot"
               >
-                <ArrowLeft className="h-4 w-4" /> Back to sign in
+                <ArrowLeft className="h-4 w-4" strokeWidth={1.5} /> Back to sign in
               </Link>
             </div>
           ) : (
@@ -82,9 +82,9 @@ export default function ForgotPasswordPage() {
           <p className="mt-6 text-center">
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 text-sm text-stone-500 hover:text-stone-700"
+              className="inline-flex items-center gap-2 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik/62 hover:text-pulot"
             >
-              <ArrowLeft className="h-4 w-4" /> Back to sign in
+              <ArrowLeft className="h-4 w-4" strokeWidth={1.5} /> Back to sign in
             </Link>
           </p>
         )}

@@ -81,21 +81,21 @@ export default function CartPage() {
     return (
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-center">
-          <div className="flex h-24 w-24 items-center justify-center rounded-full bg-brown-50">
-            <ShoppingBag className="h-12 w-12 text-brown-300" />
+          <div className="flex h-24 w-24 items-center justify-center rounded-full bg-pulot/12">
+            <ShoppingBag className="h-12 w-12 text-pulot/55" strokeWidth={1.5} />
           </div>
-          <h1 className="mt-6 text-2xl font-bold text-stone-900">
+          <h1 className="mt-6 font-[family-name:var(--font-display)] text-4xl text-kape">
             Your cart is empty
           </h1>
-          <p className="mt-2 text-center text-stone-500">
+          <p className="mt-3 max-w-lg text-center leading-7 text-latik/68">
             Looks like you haven&apos;t added any delicacies yet. Browse our menu to find your favorites!
           </p>
           <Link
             href="/menu"
-            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-brown-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-brown-700"
+            className="mt-8 inline-flex items-center gap-2 rounded-[var(--radius-btn)] border border-pulot bg-pulot px-8 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-asukal shadow-[0_16px_28px_rgba(59,31,14,0.14)] transition-all duration-300 ease-in-out hover:-translate-y-px hover:brightness-110"
           >
             Browse Menu
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
           </Link>
         </div>
       </div>
@@ -103,42 +103,41 @@ export default function CartPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-1 text-sm text-stone-500">
-        <Link href="/" className="hover:text-brown-600">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <nav className="mb-8 flex items-center gap-1 text-[0.72rem] uppercase tracking-[0.18em] text-latik/55">
+        <Link href="/" className="hover:text-pulot">
           Home
         </Link>
-        <ChevronRight className="h-3.5 w-3.5" />
-        <span className="font-medium text-stone-900">Shopping Cart</span>
+        <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+        <span className="font-medium text-kape">Shopping Cart</span>
       </nav>
 
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-stone-900">
+        <h1 className="font-[family-name:var(--font-display)] text-4xl text-kape">
           Shopping Cart
-          <span className="ml-2 text-lg font-normal text-stone-500">
+          <span className="ml-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik/55">
             ({itemCount} {itemCount === 1 ? "item" : "items"})
           </span>
         </h1>
         {!clearConfirm ? (
           <button
             onClick={() => setClearConfirm(true)}
-            className="text-sm text-stone-500 transition-colors hover:text-red-600"
+            className="text-[0.72rem] font-medium uppercase tracking-[0.16em] text-latik/60 transition-colors hover:text-red-800/75"
           >
             Clear Cart
           </button>
         ) : (
           <div className="flex items-center gap-2">
-            <span className="text-sm text-stone-500">Clear all items?</span>
+            <span className="text-sm text-latik/68">Clear all items?</span>
             <button
               onClick={handleClearCart}
-              className="rounded-lg bg-red-50 px-3 py-1 text-sm font-medium text-red-600 hover:bg-red-100"
+              className="rounded-full bg-red-900/8 px-3 py-1.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-red-800/85 hover:bg-red-900/12"
             >
               Yes, clear
             </button>
             <button
               onClick={() => setClearConfirm(false)}
-              className="rounded-lg px-3 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              className="rounded-full px-3 py-1.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-latik/72 hover:bg-kape/5"
             >
               Cancel
             </button>
@@ -162,9 +161,9 @@ export default function CartPage() {
 
           <Link
             href="/menu"
-            className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-brown-600 transition-colors hover:text-brown-700"
+            className="mt-6 inline-flex items-center gap-2 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik transition-colors hover:text-pulot"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
             Continue Shopping
           </Link>
         </div>
@@ -172,26 +171,26 @@ export default function CartPage() {
         {/* Order Summary */}
         <div className="lg:col-span-1">
           <SurfaceCard className="p-6">
-            <h2 className="text-lg font-bold text-stone-900">Order Summary</h2>
+            <h2 className="font-[family-name:var(--font-display)] text-2xl text-kape">Order Summary</h2>
 
             {/* Promo Code */}
             <div className="mt-5">
               {promoCode ? (
-                <div className="flex items-center justify-between rounded-lg bg-green-50 px-3 py-2">
+                <div className="flex items-center justify-between rounded-[1rem] border border-pandan/20 bg-pandan/10 px-3 py-3">
                   <div className="flex items-center gap-2">
-                    <Tag className="h-4 w-4 text-green-600" />
+                    <Tag className="h-4 w-4 text-pandan" strokeWidth={1.5} />
                     <div>
-                      <span className="text-sm font-medium text-green-700">
+                      <span className="text-sm font-medium text-pandan">
                         {promoCode}
                       </span>
                       {promoMessage && (
-                        <p className="text-xs text-green-600">{promoMessage}</p>
+                        <p className="text-xs text-pandan/75">{promoMessage}</p>
                       )}
                     </div>
                   </div>
                   <button
                     onClick={handleRemovePromo}
-                    className="text-xs font-medium text-green-600 hover:text-green-800"
+                    className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-pandan hover:text-kape"
                   >
                     Remove
                   </button>
@@ -207,59 +206,56 @@ export default function CartPage() {
                         setPromoError("");
                       }}
                       placeholder="Enter promo code"
-                      className="flex-1 rounded-lg border border-stone-200 px-3 py-2 text-sm placeholder:text-stone-400 focus:border-brown-500 focus:outline-none focus:ring-2 focus:ring-brown-500/20"
+                      className="flex-1 rounded-[1rem] border border-latik/18 bg-asukal/88 px-4 py-2.5 text-sm text-kape placeholder:text-latik/45 focus:border-pandan focus:outline-none focus:ring-2 focus:ring-pandan/20"
                       onKeyDown={(e) => e.key === "Enter" && handleApplyPromo()}
                     />
                     <button
                       onClick={handleApplyPromo}
                       disabled={promoLoading || !promoInput.trim()}
-                      className="rounded-lg bg-stone-100 px-4 py-2 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-200 disabled:opacity-50"
+                      className="rounded-[1rem] border border-latik/18 bg-gatas/80 px-4 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-latik transition-all duration-300 ease-in-out hover:bg-gatas disabled:opacity-50"
                     >
                       {promoLoading ? "..." : "Apply"}
                     </button>
                   </div>
                   {promoError && (
-                    <p className="mt-1 text-xs text-red-500">{promoError}</p>
+                    <p className="mt-1.5 text-[0.68rem] uppercase tracking-[0.16em] text-red-800/85">{promoError}</p>
                   )}
                 </>
               )}
             </div>
 
-            {/* Price Breakdown */}
             <div className="mt-5 space-y-3 text-sm">
-              <div className="flex justify-between text-stone-600">
+              <div className="flex justify-between text-latik/72">
                 <span>Subtotal</span>
                 <span>{formatCurrency(subtotal)}</span>
               </div>
               {promoDiscount > 0 && (
-                <div className="flex justify-between text-green-600">
+                <div className="flex justify-between text-pandan">
                   <span>Promo Discount</span>
                   <span>-{formatCurrency(promoDiscount)}</span>
                 </div>
               )}
-              <div className="flex items-center gap-1.5 text-xs text-stone-400">
-                <Clock className="h-3.5 w-3.5" />
+              <div className="flex items-center gap-1.5 text-[0.68rem] uppercase tracking-[0.16em] text-latik/52">
+                <Clock className="h-3.5 w-3.5" strokeWidth={1.5} />
                 <span>Delivery fee calculated at checkout</span>
               </div>
-              <div className="border-t border-stone-200 pt-3">
-                <div className="flex justify-between text-lg font-bold text-stone-900">
+              <div className="border-t border-latik/10 pt-3">
+                <div className="flex justify-between font-[family-name:var(--font-display)] text-2xl text-kape">
                   <span>Total</span>
                   <span>{formatCurrency(total)}</span>
                 </div>
               </div>
             </div>
 
-            {/* Checkout Button */}
             <Link
               href="/checkout"
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3.5 font-semibold text-white transition-colors hover:bg-brown-700"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-[var(--radius-btn)] border border-pulot bg-pulot py-3.5 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-asukal shadow-[0_16px_28px_rgba(59,31,14,0.14)] transition-all duration-300 ease-in-out hover:-translate-y-px hover:brightness-110"
             >
               Proceed to Checkout
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
             </Link>
 
-            {/* Trust badges */}
-            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-stone-400">
+            <div className="mt-4 flex items-center justify-center gap-4 text-[0.68rem] uppercase tracking-[0.14em] text-latik/45">
               <span>🔒 Secure Checkout</span>
               <span>📦 Fresh & Packed with Care</span>
             </div>

@@ -129,7 +129,7 @@ export function ConfirmationClient() {
         : "Cash at Pickup";
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+    <div className="artisan-confirmation mx-auto max-w-3xl px-4 py-8 sm:px-6">
       {/* Success Header */}
       <div className="text-center">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">

@@ -37,13 +37,13 @@ function ResetPasswordForm() {
     return (
       <div className="flex min-h-screen items-center justify-center px-4">
         <SurfaceCard className="w-full max-w-md p-8 text-center">
-          <h1 className="text-xl font-bold text-stone-900">Invalid Reset Link</h1>
-          <p className="mt-2 text-stone-500">
+          <h1 className="font-[family-name:var(--font-display)] text-3xl text-kape">Invalid Reset Link</h1>
+          <p className="mt-2 text-latik/68">
             This password reset link is invalid or has expired.
           </p>
           <Link
             href="/forgot-password"
-            className="mt-4 inline-block text-sm font-medium text-amber-700 hover:text-amber-800"
+            className="mt-4 inline-block text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik hover:text-pulot"
           >
             Request a new link
           </Link>
@@ -76,11 +76,11 @@ function ResetPasswordForm() {
     return (
       <div className="flex min-h-screen items-center justify-center px-4">
         <SurfaceCard className="w-full max-w-md p-8 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-            <CheckCircle className="h-6 w-6 text-green-600" />
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pandan/12">
+            <CheckCircle className="h-6 w-6 text-pandan" strokeWidth={1.5} />
           </div>
-          <h1 className="text-xl font-bold text-stone-900">Password Reset!</h1>
-          <p className="mt-2 text-stone-500">
+          <h1 className="font-[family-name:var(--font-display)] text-3xl text-kape">Password Reset!</h1>
+          <p className="mt-2 text-latik/68">
             Your password has been updated. Redirecting to sign in...
           </p>
         </SurfaceCard>
@@ -92,18 +92,18 @@ function ResetPasswordForm() {
     <div className="flex min-h-screen items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <Link href="/" className="inline-block text-2xl font-bold text-amber-800">
+          <Link href="/" className="inline-block font-[family-name:var(--font-display)] text-3xl uppercase tracking-[0.18em] text-latik">
             J&J Native Delicacies
           </Link>
-          <h1 className="mt-4 text-2xl font-bold text-stone-900">Set new password</h1>
-          <p className="mt-2 text-stone-500">
+          <h1 className="mt-4 font-[family-name:var(--font-display)] text-4xl text-kape">Set new password</h1>
+          <p className="mt-3 text-latik/68">
             Choose a strong password for your account.
           </p>
         </div>
 
         <SurfaceCard className="p-8">
           {error && (
-            <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</div>
+            <div className="mb-4 rounded-[1rem] border border-red-900/15 bg-red-900/8 p-3 text-sm text-red-800/85">{error}</div>
           )}
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -120,10 +120,10 @@ function ResetPasswordForm() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-[34px] text-stone-400 hover:text-stone-600"
+                className="absolute right-4 top-[38px] text-latik/45 hover:text-latik"
                 tabIndex={-1}
               >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showPassword ? <EyeOff className="h-4 w-4" strokeWidth={1.5} /> : <Eye className="h-4 w-4" strokeWidth={1.5} />}
               </button>
             </div>
 

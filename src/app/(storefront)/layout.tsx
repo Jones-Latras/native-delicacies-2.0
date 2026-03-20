@@ -6,10 +6,10 @@ import { AnnouncementBanner } from "@/components/shared/announcement-banner";
 
 export default function StorefrontLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col bg-gatas text-kape">
       <AnnouncementBanner />
       <Navbar />
-      <main className="flex-1">{children}</main>
+      <main className="relative flex-1">{children}</main>
       <Footer />
       <CartPanel />
       <CartSync />

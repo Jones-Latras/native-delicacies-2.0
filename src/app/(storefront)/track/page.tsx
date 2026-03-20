@@ -17,19 +17,20 @@ export default function TrackOrderPage() {
   };
 
   return (
-    <div className="mx-auto max-w-lg px-4 py-16 sm:px-6">
-      <div className="text-center">
+    <div className="artisan-track mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <div className="surface-woven rounded-[2rem] border border-latik/14 px-8 py-12 text-center shadow-[var(--shadow-warm)]">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brown-100">
           <Package className="h-8 w-8 text-brown-600" />
         </div>
-        <h1 className="mt-4 text-2xl font-bold text-stone-900">Track Your Order</h1>
-        <p className="mt-2 text-stone-500">
+        <p className="mt-5 text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">Live Updates</p>
+        <h1 className="mt-3 text-3xl font-black text-kape sm:text-4xl">Track Your Order</h1>
+        <p className="mt-3 leading-7 text-latik/74">
           Enter the order number from your confirmation to see real-time status updates.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8">
-        <div className="flex gap-2">
+        <div className="surface-woven flex gap-2 rounded-[1.6rem] border border-latik/14 p-3 shadow-[var(--shadow-warm)]">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-stone-400" />
             <input
@@ -42,7 +43,7 @@ export default function TrackOrderPage() {
           </div>
           <button
             type="submit"
-            className="rounded-xl bg-brown-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brown-700"
+            className="rounded-[1rem] bg-brown-600 px-6 py-3 text-[0.78rem] font-medium uppercase tracking-[0.18em] text-white transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:bg-brown-700"
           >
             Track
           </button>

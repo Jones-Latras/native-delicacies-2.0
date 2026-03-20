@@ -14,30 +14,30 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         className={cn(
-          "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+          "inline-flex items-center justify-center gap-2 rounded-[var(--radius-btn)] border font-medium uppercase tracking-[0.18em] transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pandan/40 focus-visible:ring-offset-2 focus-visible:ring-offset-gatas disabled:pointer-events-none disabled:opacity-50",
           {
-            "bg-amber-700 text-white hover:bg-amber-800 active:bg-amber-900":
+            "border-pulot bg-pulot text-asukal shadow-[0_14px_26px_rgba(59,31,14,0.14)] hover:-translate-y-px hover:brightness-110 hover:shadow-[0_18px_30px_rgba(59,31,14,0.18)] active:translate-y-0":
               variant === "primary",
-            "bg-stone-100 text-stone-900 hover:bg-stone-200 active:bg-stone-300":
+            "border-latik/20 bg-asukal text-latik shadow-[0_10px_22px_rgba(59,31,14,0.08)] hover:-translate-y-px hover:bg-gatas/95 hover:shadow-[0_16px_28px_rgba(59,31,14,0.12)] active:translate-y-0":
               variant === "secondary",
-            "border-2 border-amber-700 text-amber-700 hover:bg-amber-50 active:bg-amber-100":
+            "border-latik/40 bg-transparent text-latik shadow-none hover:-translate-y-px hover:bg-latik/8 hover:shadow-[0_12px_20px_rgba(59,31,14,0.08)] active:translate-y-0":
               variant === "outline",
-            "text-stone-700 hover:bg-stone-100 active:bg-stone-200":
+            "border-transparent bg-transparent text-pandan shadow-none hover:bg-pandan/8 hover:text-pandan active:translate-y-0":
               variant === "ghost",
-            "bg-red-600 text-white hover:bg-red-700 active:bg-red-800":
+            "border-red-900/20 bg-red-800/82 text-asukal shadow-[0_14px_26px_rgba(59,31,14,0.14)] hover:-translate-y-px hover:bg-red-800 hover:shadow-[0_18px_30px_rgba(59,31,14,0.18)] active:translate-y-0":
               variant === "danger",
           },
           {
-            "h-8 px-3 text-sm": size === "sm",
-            "h-10 px-5 text-sm": size === "md",
-            "h-12 px-8 text-base": size === "lg",
+            "h-9 px-4 text-[0.68rem]": size === "sm",
+            "h-11 px-5 text-[0.72rem]": size === "md",
+            "h-[3.25rem] px-8 text-[0.8rem]": size === "lg",
           },
           className
         )}
         {...props}
       >
         {isLoading ? (
-          <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
         ) : null}
         {children}
       </button>

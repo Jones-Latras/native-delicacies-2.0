@@ -40,20 +40,20 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-stone-100 px-4">
+    <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-amber-100">
-            <Shield className="h-7 w-7 text-amber-800" />
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-pulot/14">
+            <Shield className="h-7 w-7 text-pulot" strokeWidth={1.5} />
           </div>
-          <h1 className="text-2xl font-bold text-stone-900">Admin Portal</h1>
-          <p className="mt-1 text-stone-500">Sign in to manage your business</p>
+          <h1 className="font-[family-name:var(--font-display)] text-4xl text-kape">Admin Portal</h1>
+          <p className="mt-2 text-latik/68">Sign in to manage your business</p>
         </div>
 
         <Card>
           <CardContent>
             {error && (
-              <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</div>
+              <div className="mb-4 rounded-[1rem] border border-red-900/15 bg-red-900/8 p-3 text-sm text-red-800/85">{error}</div>
             )}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -79,10 +79,10 @@ export default function AdminLoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-[34px] right-3 text-stone-400 hover:text-stone-600"
+                  className="absolute right-4 top-[38px] text-latik/45 hover:text-latik"
                   tabIndex={-1}
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPassword ? <EyeOff className="h-4 w-4" strokeWidth={1.5} /> : <Eye className="h-4 w-4" strokeWidth={1.5} />}
                 </button>
               </div>
 
@@ -93,7 +93,7 @@ export default function AdminLoginPage() {
           </CardContent>
         </Card>
 
-        <p className="mt-6 text-center text-sm text-stone-400">
+        <p className="mt-6 text-center text-sm text-latik/52">
           This portal is restricted to authorized personnel only.
         </p>
       </div>

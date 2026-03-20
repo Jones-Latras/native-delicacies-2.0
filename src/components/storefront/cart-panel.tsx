@@ -80,7 +80,7 @@ export function CartPanel() {
       {/* Backdrop */}
       {isCartOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 transition-opacity"
+          className="fixed inset-0 z-40 bg-kape/55 backdrop-blur-sm transition-opacity"
           onClick={closeCart}
         />
       )}
@@ -88,18 +88,17 @@ export function CartPanel() {
       {/* Panel */}
       <div
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col bg-white shadow-2xl transition-transform duration-300 ease-in-out",
+          "fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col border-l border-latik/15 bg-asukal/98 shadow-[0_24px_48px_rgba(59,31,14,0.22)] backdrop-blur-xl transition-transform duration-300 ease-in-out",
           isCartOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-stone-200 px-6 py-4">
+        <div className="flex items-center justify-between border-b border-latik/10 px-6 py-5">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="h-5 w-5 text-brown-600" />
-            <h2 className="text-lg font-bold text-stone-900">
+            <ShoppingBag className="h-5 w-5 text-pulot" strokeWidth={1.5} />
+            <h2 className="font-[family-name:var(--font-display)] text-2xl text-kape">
               Your Cart
               {itemCount > 0 && (
-                <span className="ml-2 text-sm font-normal text-stone-500">
+                <span className="ml-2 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-latik/55">
                   ({itemCount} {itemCount === 1 ? "item" : "items"})
                 </span>
               )}
@@ -107,32 +106,32 @@ export function CartPanel() {
           </div>
           <button
             onClick={closeCart}
-            className="rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600"
+            className="rounded-full border border-latik/12 bg-asukal p-2 text-latik/55 transition-all duration-300 ease-in-out hover:border-pulot/30 hover:bg-pulot/10 hover:text-pulot"
             aria-label="Close cart"
           >
-            <X className="h-5 w-5" />
+            <X className="h-5 w-5" strokeWidth={1.5} />
           </button>
         </div>
 
         {items.length === 0 ? (
           /* Empty State */
           <div className="flex flex-1 flex-col items-center justify-center px-6">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-brown-50">
-              <ShoppingBag className="h-10 w-10 text-brown-300" />
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-pulot/12">
+              <ShoppingBag className="h-10 w-10 text-pulot/55" strokeWidth={1.5} />
             </div>
-            <h3 className="mt-4 text-lg font-semibold text-stone-900">
+            <h3 className="mt-4 font-[family-name:var(--font-display)] text-2xl text-kape">
               Your cart is empty
             </h3>
-            <p className="mt-1 text-center text-sm text-stone-500">
+            <p className="mt-2 max-w-sm text-center text-sm leading-6 text-latik/68">
               Discover our authentic Filipino delicacies and add your favorites!
             </p>
             <Link
               href="/menu"
               onClick={closeCart}
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-brown-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brown-700"
+              className="mt-6 inline-flex items-center gap-2 rounded-[var(--radius-btn)] border border-pulot bg-pulot px-6 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-asukal shadow-[0_16px_28px_rgba(59,31,14,0.14)] transition-all duration-300 ease-in-out hover:-translate-y-px hover:brightness-110"
             >
               Browse Menu
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
             </Link>
           </div>
         ) : (
@@ -151,25 +150,23 @@ export function CartPanel() {
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="border-t border-stone-200 px-6 py-4">
-              {/* Promo Code */}
+            <div className="border-t border-latik/10 px-6 py-4">
               {promoCode ? (
-                <div className="mb-4 flex items-center justify-between rounded-lg bg-green-50 px-3 py-2">
+                <div className="mb-4 flex items-center justify-between rounded-[1rem] border border-pandan/20 bg-pandan/10 px-3 py-3">
                   <div className="flex items-center gap-2">
-                    <Tag className="h-4 w-4 text-green-600" />
-                    <span className="text-sm font-medium text-green-700">
+                    <Tag className="h-4 w-4 text-pandan" strokeWidth={1.5} />
+                    <span className="text-sm font-medium text-pandan">
                       {promoCode}
                     </span>
                     {promoMessage && (
-                      <span className="text-xs text-green-600">
-                        — {promoMessage}
+                      <span className="text-xs text-pandan/75">
+                        · {promoMessage}
                       </span>
                     )}
                   </div>
                   <button
                     onClick={handleRemovePromo}
-                    className="text-xs text-green-600 hover:text-green-800"
+                    className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-pandan transition-colors duration-300 hover:text-kape"
                   >
                     Remove
                   </button>
@@ -185,61 +182,58 @@ export function CartPanel() {
                         setPromoError("");
                       }}
                       placeholder="Promo code"
-                      className="flex-1 rounded-lg border border-stone-200 px-3 py-2 text-sm placeholder:text-stone-400 focus:border-brown-500 focus:outline-none focus:ring-2 focus:ring-brown-500/20"
+                      className="flex-1 rounded-[1rem] border border-latik/18 bg-asukal/88 px-4 py-2.5 text-sm text-kape placeholder:text-latik/45 focus:border-pandan focus:outline-none focus:ring-2 focus:ring-pandan/20"
                       onKeyDown={(e) => e.key === "Enter" && handleApplyPromo()}
                     />
                     <button
                       onClick={handleApplyPromo}
                       disabled={promoLoading || !promoInput.trim()}
-                      className="rounded-lg bg-stone-100 px-4 py-2 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-200 disabled:opacity-50"
+                      className="rounded-[1rem] border border-latik/18 bg-gatas/80 px-4 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-latik transition-all duration-300 ease-in-out hover:bg-gatas disabled:opacity-50"
                     >
                       {promoLoading ? "..." : "Apply"}
                     </button>
                   </div>
                   {promoError && (
-                    <p className="mt-1 text-xs text-red-500">{promoError}</p>
+                    <p className="mt-1.5 text-[0.68rem] uppercase tracking-[0.16em] text-red-800/85">{promoError}</p>
                   )}
                 </div>
               )}
 
-              {/* Price Breakdown */}
               <div className="space-y-2 text-sm">
-                <div className="flex justify-between text-stone-600">
+                <div className="flex justify-between text-latik/72">
                   <span>Subtotal</span>
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
                 {promoDiscount > 0 && (
-                  <div className="flex justify-between text-green-600">
+                  <div className="flex justify-between text-pandan">
                     <span>Promo Discount</span>
                     <span>-{formatCurrency(promoDiscount)}</span>
                   </div>
                 )}
-                <div className="flex justify-between border-t border-stone-200 pt-2 text-base font-bold text-stone-900">
+                <div className="flex justify-between border-t border-latik/10 pt-3 font-[family-name:var(--font-display)] text-xl text-kape">
                   <span>Total</span>
                   <span>{formatCurrency(total)}</span>
                 </div>
               </div>
 
-              {/* Estimated Prep Time */}
-              <div className="mt-3 flex items-center gap-1.5 text-xs text-stone-500">
-                <Clock className="h-3.5 w-3.5" />
+              <div className="mt-3 flex items-center gap-1.5 text-[0.68rem] uppercase tracking-[0.16em] text-latik/55">
+                <Clock className="h-3.5 w-3.5" strokeWidth={1.5} />
                 <span>Estimated preparation: ~{estimatedPrepTime} min</span>
               </div>
 
-              {/* Action Buttons */}
               <div className="mt-4 space-y-2">
                 <Link
                   href="/checkout"
                   onClick={closeCart}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3 font-semibold text-white transition-colors hover:bg-brown-700"
+                  className="flex w-full items-center justify-center gap-2 rounded-[var(--radius-btn)] border border-pulot bg-pulot py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-asukal shadow-[0_16px_28px_rgba(59,31,14,0.14)] transition-all duration-300 ease-in-out hover:-translate-y-px hover:brightness-110"
                 >
                   Proceed to Checkout
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
                 </Link>
                 <Link
                   href="/cart"
                   onClick={closeCart}
-                  className="flex w-full items-center justify-center rounded-xl border border-stone-200 py-3 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-50"
+                  className="flex w-full items-center justify-center rounded-[var(--radius-btn)] border border-latik/20 bg-asukal/70 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik transition-all duration-300 ease-in-out hover:bg-gatas/90"
                 >
                   View Full Cart
                 </Link>
@@ -275,9 +269,9 @@ function CartItemRow({
   }
 
   return (
-    <div className="flex gap-3 rounded-xl bg-stone-50 p-3">
+    <div className="flex gap-3 rounded-[1.2rem] border border-latik/10 bg-gatas/52 p-3">
       {/* Image */}
-      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-gradient-to-br from-brown-100 to-amber-100">
+      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[1rem] bg-[linear-gradient(135deg,rgba(194,133,42,0.28),rgba(253,246,227,0.94),rgba(74,124,89,0.14))]">
         {item.imageUrl ? (
           <Image
             src={item.imageUrl}
@@ -296,38 +290,37 @@ function CartItemRow({
       {/* Details */}
       <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-2">
-          <h4 className="truncate text-sm font-semibold text-stone-900">
+          <h4 className="truncate font-[family-name:var(--font-display)] text-lg text-kape">
             {item.name}
           </h4>
-          <span className="shrink-0 text-sm font-semibold text-brown-600">
+          <span className="shrink-0 font-[family-name:var(--font-display)] text-lg text-pulot">
             {formatCurrency(item.lineTotal)}
           </span>
         </div>
 
         {customizationSummary.length > 0 && (
-          <p className="mt-0.5 truncate text-xs text-stone-500">
+          <p className="mt-0.5 truncate text-xs text-latik/68">
             {customizationSummary.join(" · ")}
           </p>
         )}
 
         {item.specialInstructions && (
-          <p className="mt-0.5 truncate text-xs italic text-stone-400">
+          <p className="mt-0.5 truncate text-xs italic text-latik/48">
             &quot;{item.specialInstructions}&quot;
           </p>
         )}
 
-        {/* Quantity & Remove */}
         <div className="mt-2 flex items-center justify-between">
-          <div className="flex items-center rounded-lg border border-stone-200 bg-white">
+          <div className="flex items-center rounded-full border border-latik/16 bg-asukal/80">
             <button
               onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
               disabled={item.quantity <= 1}
-              className="flex h-7 w-7 items-center justify-center text-stone-500 hover:text-stone-900 disabled:opacity-30"
+              className="flex h-7 w-7 items-center justify-center text-latik/65 hover:text-kape disabled:opacity-30"
               aria-label="Decrease"
             >
-              <Minus className="h-3 w-3" />
+              <Minus className="h-3 w-3" strokeWidth={1.5} />
             </button>
-            <span className="w-7 text-center text-xs font-semibold text-stone-900">
+            <span className="w-7 text-center text-xs font-semibold text-kape">
               {item.quantity}
             </span>
             <input
@@ -340,21 +333,21 @@ function CartItemRow({
                 if (!Number.isFinite(next)) return;
                 onUpdateQuantity(item.id, next);
               }}
-              className="h-7 w-14 border-x border-stone-200 text-center text-xs text-stone-900 focus:outline-none"
+              className="h-7 w-14 border-x border-latik/14 bg-transparent text-center text-xs text-kape focus:outline-none"
               aria-label={`Quantity for ${item.name}`}
             />
             <button
               onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
               disabled={item.maxQuantity !== undefined && item.quantity >= item.maxQuantity}
-              className="flex h-7 w-7 items-center justify-center text-stone-500 hover:text-stone-900"
+              className="flex h-7 w-7 items-center justify-center text-latik/65 hover:text-kape"
               aria-label="Increase"
             >
-              <Plus className="h-3 w-3" />
+              <Plus className="h-3 w-3" strokeWidth={1.5} />
             </button>
           </div>
 
           {item.maxQuantity !== undefined && (
-            <span className="text-[11px] text-stone-400">Max {item.maxQuantity}</span>
+            <span className="text-[11px] uppercase tracking-[0.12em] text-latik/40">Max {item.maxQuantity}</span>
           )}
 
           {confirmRemove ? (
@@ -367,7 +360,7 @@ function CartItemRow({
               </button>
               <button
                 onClick={() => setConfirmRemove(false)}
-                className="rounded px-2 py-0.5 text-xs text-stone-500 hover:bg-stone-100"
+                className="rounded px-2 py-0.5 text-xs text-latik/68 hover:bg-kape/5"
               >
                 Cancel
               </button>
@@ -375,10 +368,10 @@ function CartItemRow({
           ) : (
             <button
               onClick={() => setConfirmRemove(true)}
-              className="rounded p-1 text-stone-400 transition-colors hover:bg-red-50 hover:text-red-500"
+              className="rounded-full p-1.5 text-latik/40 transition-all duration-300 ease-in-out hover:bg-red-900/8 hover:text-red-800/75"
               aria-label="Remove item"
             >
-              <Trash2 className="h-4 w-4" />
+              <Trash2 className="h-4 w-4" strokeWidth={1.5} />
             </button>
           )}
         </div>

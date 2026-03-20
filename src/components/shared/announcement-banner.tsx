@@ -27,19 +27,23 @@ export function AnnouncementBanner() {
 
   return (
     <div
-      className="relative flex items-center justify-center px-4 py-2.5 text-sm font-medium text-white"
+      className="relative isolate flex items-center justify-center overflow-hidden border-b border-kape/10 px-4 py-3 text-center text-[0.72rem] font-medium uppercase tracking-[0.28em] text-asukal shadow-[0_10px_24px_rgba(59,31,14,0.12)]"
       style={{ backgroundColor: announcement.bgColor }}
     >
-      <span className="text-center">{announcement.text}</span>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.18),transparent_28%,rgba(59,31,14,0.14))]"
+      />
+      <span className="relative z-10 text-center">{announcement.text}</span>
       <button
         onClick={() => {
           setDismissed(true);
           sessionStorage.setItem("announcement-dismissed", "true");
         }}
-        className="absolute right-3 rounded p-0.5 text-white/80 transition-colors hover:text-white"
+        className="absolute right-3 z-10 rounded-full border border-white/20 bg-white/10 p-1 text-white/82 transition-all duration-300 ease-in-out hover:bg-white/18 hover:text-white"
         aria-label="Dismiss announcement"
       >
-        <X className="h-4 w-4" />
+        <X className="h-4 w-4" strokeWidth={1.5} />
       </button>
     </div>
   );

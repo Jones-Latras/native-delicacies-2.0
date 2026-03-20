@@ -81,23 +81,23 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="artisan-contact mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-primary">Get In Touch</p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
+      <div className="surface-woven rounded-[2rem] border border-latik/15 px-8 py-12 text-center shadow-[var(--shadow-warm)] sm:px-12 sm:py-16">
+        <p className="text-[0.72rem] font-medium uppercase tracking-[0.3em] text-pulot">Get In Touch</p>
+        <h1 className="mt-3 text-4xl font-black tracking-tight text-kape sm:text-5xl">
           Contact Us
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-stone-500">
+        <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-latik/76">
           Have a question, special order request, or just want to say hello? We&rsquo;d love to hear from you.
         </p>
       </div>
 
-      <div className="mt-16 grid gap-12 lg:grid-cols-5">
+      <div className="section-divider mt-16 grid gap-12 pt-10 lg:grid-cols-5">
         {/* Contact Info */}
         <div className="lg:col-span-2">
-          <div className="space-y-8">
-            <div className="flex items-start gap-4">
+          <div className="space-y-5">
+            <div className="surface-woven flex items-start gap-4 rounded-[1.5rem] border border-latik/14 p-5">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <MapPin className="h-5 w-5" />
               </div>
@@ -121,7 +121,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
+            <div className="surface-woven flex items-start gap-4 rounded-[1.5rem] border border-latik/14 p-5">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Phone className="h-5 w-5" />
               </div>
@@ -133,7 +133,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
+            <div className="surface-woven flex items-start gap-4 rounded-[1.5rem] border border-latik/14 p-5">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Mail className="h-5 w-5" />
               </div>
@@ -145,7 +145,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
+            <div className="surface-woven flex items-start gap-4 rounded-[1.5rem] border border-latik/14 p-5">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Clock className="h-5 w-5" />
               </div>
@@ -165,7 +165,7 @@ export default function ContactPage() {
           </div>
 
           {/* Social Links */}
-          <div className="mt-10">
+          <div className="mt-10 rounded-[1.5rem] border border-latik/14 bg-asukal/80 p-5 shadow-[var(--shadow-warm)]">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-stone-900">Follow Us</h3>
             <div className="mt-3 flex gap-3">
               <a
@@ -188,7 +188,7 @@ export default function ContactPage() {
 
         {/* Contact Form */}
         <div className="lg:col-span-3">
-          <div className="rounded-2xl border border-stone-100 bg-white p-8 shadow-sm">
+          <div className="surface-woven rounded-[1.85rem] border border-latik/14 p-8 shadow-[var(--shadow-warm)]">
             {submitted ? (
               <div className="py-12 text-center">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
@@ -306,7 +306,7 @@ export default function ContactPage() {
 
       {/* Map Embed Placeholder */}
       <div className="mt-16">
-        <div className="overflow-hidden rounded-2xl border border-stone-200 bg-stone-100">
+        <div className="surface-woven overflow-hidden rounded-[1.85rem] border border-latik/14">
           <div className="flex h-80 items-center justify-center text-stone-400">
             <div className="text-center">
               <MapPin className="mx-auto h-12 w-12 text-stone-300" />

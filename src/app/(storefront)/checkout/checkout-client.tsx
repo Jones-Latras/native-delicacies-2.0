@@ -260,9 +260,12 @@ export function CheckoutClient() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold text-stone-900">Checkout</h1>
-      <p className="mt-1 text-stone-500">Complete your order details below</p>
+    <div className="artisan-checkout mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="rounded-[2rem] border border-latik/14 bg-asukal/88 px-7 py-8 shadow-[var(--shadow-warm)]">
+        <p className="text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">Final Step</p>
+        <h1 className="mt-3 text-4xl font-black text-kape">Checkout</h1>
+        <p className="mt-2 max-w-2xl leading-7 text-latik/76">Complete your order details below</p>
+      </div>
 
       <div className="mt-8 gap-8 lg:grid lg:grid-cols-3">
         {/* ── Left: Form Sections ── */}

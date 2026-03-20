@@ -141,7 +141,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
   }, [bilaoItems, itemColorMap]);
 
   return (
-    <div className="min-h-screen bg-[#f8f7f6]">
+    <div className="artisan-bilao min-h-screen bg-[linear-gradient(180deg,rgba(255,250,242,0.9),rgba(245,236,215,0.95))]">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="mb-6 flex items-center gap-2 text-sm text-stone-500">
@@ -157,9 +157,10 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
         </nav>
 
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-stone-900">Build Your Bilao</h1>
-          <p className="mt-1 text-stone-500">
+        <div className="mb-8 rounded-[2rem] border border-latik/14 bg-asukal/86 px-7 py-8 shadow-[var(--shadow-warm)]">
+          <p className="text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">Custom Feast</p>
+          <h1 className="mt-3 text-4xl font-black text-kape">Build Your Bilao</h1>
+          <p className="mt-2 max-w-3xl leading-7 text-latik/76">
             Create your perfect bilao platter by choosing a size and filling it with your favorite delicacies
           </p>
         </div>

@@ -41,14 +41,14 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-kape/60 p-4 backdrop-blur-sm"
       onClick={(e) => {
         if (e.target === overlayRef.current) onClose();
       }}
     >
       <div
         className={cn(
-          "relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-xl",
+          "animate-rise relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[1.4rem] border border-latik/20 bg-asukal/98 shadow-[0_24px_44px_rgba(59,31,14,0.18)]",
           className
         )}
         role="dialog"
@@ -56,18 +56,18 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
         aria-label={title}
       >
         {title && (
-          <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
-            <h2 className="text-lg font-semibold text-stone-900">{title}</h2>
+          <div className="flex items-center justify-between border-b border-latik/10 px-6 py-5">
+            <h2 className="font-[family-name:var(--font-display)] text-xl text-kape">{title}</h2>
             <button
               onClick={onClose}
-              className="rounded-lg p-1 text-stone-400 hover:bg-stone-100 hover:text-stone-600"
+              className="rounded-full border border-latik/12 bg-asukal p-2 text-latik/55 transition-all duration-300 ease-in-out hover:border-pulot/30 hover:bg-pulot/10 hover:text-pulot"
               aria-label="Close"
             >
-              <X className="h-5 w-5" />
+              <X className="h-5 w-5" strokeWidth={1.5} />
             </button>
           </div>
         )}
-        <div className="px-6 py-4">{children}</div>
+        <div className="px-6 py-5">{children}</div>
       </div>
     </div>
   );

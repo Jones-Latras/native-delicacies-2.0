@@ -53,25 +53,23 @@ function LoginForm() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Header */}
         <div className="mb-8 text-center">
-          <Link href="/" className="inline-block text-2xl font-bold text-amber-800">
+          <Link href="/" className="inline-block font-[family-name:var(--font-display)] text-3xl uppercase tracking-[0.18em] text-latik">
             J&J Native Delicacies
           </Link>
-          <h1 className="mt-4 text-2xl font-bold text-stone-900">Welcome back</h1>
-          <p className="mt-2 text-stone-500">Sign in to your account to continue</p>
+          <h1 className="mt-4 font-[family-name:var(--font-display)] text-4xl text-kape">Welcome back</h1>
+          <p className="mt-3 text-latik/68">Sign in to your account to continue</p>
         </div>
 
-        {/* Form */}
         <SurfaceCard className="p-8">
           {error && (
-            <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
+            <div className="mb-4 rounded-[1rem] border border-red-900/15 bg-red-900/8 p-3 text-sm text-red-800/85">
               {error}
             </div>
           )}
 
           {searchParams.get("registered") === "true" && (
-            <div className="mb-4 rounded-lg bg-green-50 p-3 text-sm text-green-700">
+            <div className="mb-4 rounded-[1rem] border border-pandan/15 bg-pandan/10 p-3 text-sm text-pandan">
               Account created successfully! Please sign in.
             </div>
           )}
@@ -100,19 +98,19 @@ function LoginForm() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-[34px] text-stone-400 hover:text-stone-600"
+                className="absolute right-4 top-[38px] text-latik/45 hover:text-latik"
                 tabIndex={-1}
               >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showPassword ? <EyeOff className="h-4 w-4" strokeWidth={1.5} /> : <Eye className="h-4 w-4" strokeWidth={1.5} />}
               </button>
             </div>
 
             <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 text-stone-600">
-                <input type="checkbox" className="rounded border-stone-300" />
+              <label className="flex items-center gap-2 text-latik/72">
+                <input type="checkbox" className="rounded border-latik/30 text-pandan focus:ring-pandan/20" />
                 Remember me
               </label>
-              <Link href="/forgot-password" className="text-amber-700 hover:text-amber-800">
+              <Link href="/forgot-password" className="text-latik hover:text-pulot">
                 Forgot password?
               </Link>
             </div>
@@ -123,10 +121,9 @@ function LoginForm() {
           </form>
         </SurfaceCard>
 
-        {/* Footer */}
-        <p className="mt-6 text-center text-sm text-stone-500">
+        <p className="mt-6 text-center text-sm text-latik/68">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="font-medium text-amber-700 hover:text-amber-800">
+          <Link href="/register" className="font-medium text-latik hover:text-pulot">
             Create one
           </Link>
         </p>

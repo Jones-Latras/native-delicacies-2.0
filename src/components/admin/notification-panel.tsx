@@ -21,10 +21,10 @@ const TYPE_ICONS: Record<string, typeof ShoppingBag> = {
 };
 
 const TYPE_COLORS: Record<string, string> = {
-  NEW_ORDER: "text-blue-600 bg-blue-50",
-  ORDER_CANCELLED: "text-red-600 bg-red-50",
-  CONTACT_MESSAGE: "text-green-600 bg-green-50",
-  LOW_STOCK: "text-amber-600 bg-amber-50",
+  NEW_ORDER: "bg-pulot/14 text-pulot",
+  ORDER_CANCELLED: "bg-red-900/10 text-red-800/85",
+  CONTACT_MESSAGE: "bg-pandan/14 text-pandan",
+  LOW_STOCK: "bg-amber-100 text-amber-700",
 };
 
 function timeAgo(dateStr: string) {
@@ -104,36 +104,34 @@ export function NotificationPanel() {
     <div ref={panelRef} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="relative rounded-lg bg-slate-100 p-2 text-slate-600 transition-colors hover:bg-slate-200"
+        className="relative rounded-full border border-latik/15 bg-asukal/80 p-2.5 text-latik transition-all duration-300 ease-in-out hover:border-pulot/30 hover:bg-pulot/10 hover:text-pulot"
       >
-        <Bell className="h-5 w-5" />
+        <Bell className="h-5 w-5" strokeWidth={1.5} />
         {unreadCount > 0 && (
-          <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+          <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-pulot px-1 text-[10px] font-bold text-asukal shadow-[0_8px_16px_rgba(59,31,14,0.18)]">
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-12 z-50 w-96 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl">
-          {/* Header */}
-          <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
-            <h3 className="text-sm font-semibold text-slate-900">Notifications</h3>
+        <div className="absolute right-0 top-14 z-50 w-96 overflow-hidden rounded-[1.5rem] border border-latik/15 bg-asukal/96 shadow-[0_24px_44px_rgba(59,31,14,0.18)] backdrop-blur-xl">
+          <div className="flex items-center justify-between border-b border-latik/10 px-5 py-4">
+            <h3 className="font-[family-name:var(--font-display)] text-lg text-kape">Notifications</h3>
             {unreadCount > 0 && (
               <button
                 onClick={markAllRead}
-                className="flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                className="flex items-center gap-1 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-latik transition-colors duration-300 hover:text-pulot"
               >
-                <Check className="h-3 w-3" />
+                <Check className="h-3 w-3" strokeWidth={1.5} />
                 Mark all read
               </button>
             )}
           </div>
 
-          {/* List */}
           <div className="max-h-96 overflow-y-auto">
             {notifications.length === 0 ? (
-              <div className="px-4 py-8 text-center text-sm text-slate-400">
+              <div className="px-4 py-8 text-center text-sm text-latik/55">
                 No notifications yet
               </div>
             ) : (
@@ -144,20 +142,20 @@ export function NotificationPanel() {
                   <button
                     key={n.id}
                     onClick={() => !n.isRead && markRead(n.id)}
-                    className={`flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-slate-50 ${!n.isRead ? "bg-primary/5" : ""}`}
+                    className={`flex w-full items-start gap-3 px-5 py-4 text-left transition-all duration-300 ease-in-out hover:bg-kape/4 ${!n.isRead ? "bg-pulot/8" : ""}`}
                   >
-                    <div className={`mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${colorClass}`}>
-                      <Icon className="h-4 w-4" />
+                    <div className={`mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full ${colorClass}`}>
+                      <Icon className="h-4 w-4" strokeWidth={1.5} />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className={`text-sm ${!n.isRead ? "font-semibold text-slate-900" : "text-slate-600"}`}>
+                      <p className={`text-sm ${!n.isRead ? "font-semibold text-kape" : "text-latik/80"}`}>
                         {n.title}
                       </p>
-                      <p className="mt-0.5 truncate text-xs text-slate-500">{n.message}</p>
-                      <p className="mt-1 text-xs text-slate-400">{timeAgo(n.createdAt)}</p>
+                      <p className="mt-0.5 truncate text-xs text-latik/65">{n.message}</p>
+                      <p className="mt-1 text-[0.68rem] uppercase tracking-[0.16em] text-latik/42">{timeAgo(n.createdAt)}</p>
                     </div>
                     {!n.isRead && (
-                      <div className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-primary" />
+                      <div className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-pulot" />
                     )}
                   </button>
                 );

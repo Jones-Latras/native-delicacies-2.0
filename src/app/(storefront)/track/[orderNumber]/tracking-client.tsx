@@ -222,7 +222,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
   // Loading
   if (loading) {
     return (
-      <div className="flex flex-1 justify-center py-12">
+      <div className="artisan-track flex flex-1 justify-center py-12">
         <div className="flex max-w-[960px] flex-1 flex-col items-center justify-center gap-4 px-4 py-20">
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
           <p className="text-slate-500">Loading order details...</p>
@@ -234,7 +234,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
   // No order / search state
   if (!order && !error) {
     return (
-      <div className="flex flex-1 justify-center py-8">
+      <div className="artisan-track flex flex-1 justify-center py-8">
         <div className="flex max-w-[960px] flex-1 flex-col gap-6 px-4 lg:px-0">
           <HeaderSection />
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} onSearch={handleSearch} />
@@ -251,7 +251,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
   // Error
   if (error) {
     return (
-      <div className="flex flex-1 justify-center py-8">
+      <div className="artisan-track flex flex-1 justify-center py-8">
         <div className="flex max-w-[960px] flex-1 flex-col gap-6 px-4 lg:px-0">
           <HeaderSection />
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} onSearch={handleSearch} />
@@ -280,7 +280,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
   }
 
   return (
-    <div className="flex flex-1 justify-center py-8">
+    <div className="artisan-track flex flex-1 justify-center py-8">
       <div className="flex max-w-[960px] flex-1 flex-col gap-6 px-4 lg:px-0">
 
         {/* ── Header Section ── */}

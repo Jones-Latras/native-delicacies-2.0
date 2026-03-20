@@ -25,16 +25,16 @@ export function BusinessStatus({ operatingHours, timezone = "Asia/Manila" }: Bus
   if (!status) return null;
 
   return (
-    <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur-sm">
+    <div className="inline-flex items-center gap-2 rounded-full border border-asukal/30 bg-asukal/90 px-4 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-kape shadow-[0_14px_28px_rgba(59,31,14,0.14)] backdrop-blur-xl">
       <span
-        className={`h-2.5 w-2.5 rounded-full ${status.isOpen ? "bg-green-500 animate-pulse" : "bg-red-400"}`}
+        className={`h-2.5 w-2.5 rounded-full ${status.isOpen ? "bg-pandan animate-pulse" : "bg-red-800/70"}`}
       />
-      <span className={status.isOpen ? "text-green-700" : "text-red-600"}>
+      <span className={status.isOpen ? "text-pandan" : "text-red-800/85"}>
         {status.isOpen ? "Open Now" : "Closed"}
       </span>
-      <span className="text-stone-400">·</span>
-      <Clock className="h-3.5 w-3.5 text-stone-400" />
-      <span className="text-stone-500">{status.nextChange}</span>
+      <span className="text-latik/35">·</span>
+      <Clock className="h-3.5 w-3.5 text-latik/45" strokeWidth={1.5} />
+      <span className="text-latik/70">{status.nextChange}</span>
     </div>
   );
 }

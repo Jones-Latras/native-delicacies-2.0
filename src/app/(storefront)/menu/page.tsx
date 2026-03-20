@@ -147,33 +147,31 @@ export default async function MenuPage({ searchParams }: MenuPageProps) {
   const totalPages = Math.ceil(total / pageSize);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-1.5 text-sm text-stone-500">
-        <Link href="/" className="hover:text-brown-600">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <nav className="mb-8 flex items-center gap-1.5 text-[0.72rem] uppercase tracking-[0.18em] text-latik/55">
+        <Link href="/" className="hover:text-pulot">
           Home
         </Link>
-        <ChevronRight className="h-3.5 w-3.5" />
-        <span className="font-medium text-stone-900">Menu</span>
+        <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+        <span className="font-medium text-kape">Menu</span>
         {params.category && (
           <>
-            <ChevronRight className="h-3.5 w-3.5" />
-            <span className="font-medium text-stone-900">
+            <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+            <span className="font-medium text-kape">
               {categories.find((c) => c.slug === params.category)?.name ?? params.category}
             </span>
           </>
         )}
       </nav>
 
-      {/* Title */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-stone-900">Our Menu</h1>
-        <p className="mt-1 text-stone-500">
+      <div className="mb-10 rounded-[1.8rem] border border-latik/12 bg-asukal/76 px-6 py-8 shadow-[0_18px_34px_rgba(59,31,14,0.10)]">
+        <p className="text-[0.72rem] font-medium uppercase tracking-[0.28em] text-latik/62">Traditional Selection</p>
+        <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl text-kape sm:text-5xl">Our Menu</h1>
+        <p className="mt-3 max-w-2xl text-latik/70">
           {total} {total === 1 ? "delicacy" : "delicacies"} to explore
         </p>
       </div>
 
-      {/* Search & Filters */}
       <div className="mb-8">
         <Suspense fallback={<Skeleton className="h-12 w-full rounded-xl" />}>
           <SearchFilterBar categories={categories} />
@@ -198,7 +196,7 @@ export default async function MenuPage({ searchParams }: MenuPageProps) {
               const showEllipsis = prev !== undefined && p - prev > 1;
               return (
                 <span key={p} className="flex items-center gap-2">
-                  {showEllipsis && <span className="px-1 text-stone-400">…</span>}
+                  {showEllipsis && <span className="px-1 text-latik/35">…</span>}
                   <PaginationLink params={params} page={p} isActive={p === page}>
                     {p}
                   </PaginationLink>
@@ -236,10 +234,10 @@ function PaginationLink({
   return (
     <Link
       href={`/menu?${sp.toString()}`}
-      className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+      className={`rounded-full border px-4 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out ${
         isActive
-          ? "bg-brown-600 text-white"
-          : "text-stone-600 hover:bg-stone-100"
+          ? "border-pulot bg-pulot text-asukal shadow-[0_12px_22px_rgba(59,31,14,0.12)]"
+          : "border-latik/16 bg-asukal/80 text-latik hover:border-latik/26 hover:bg-gatas/90"
       }`}
     >
       {children}

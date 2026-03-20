@@ -74,17 +74,17 @@ export default function RegisterPage() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="mb-8 text-center">
-          <Link href="/" className="inline-block text-2xl font-bold text-amber-800">
+          <Link href="/" className="inline-block font-[family-name:var(--font-display)] text-3xl uppercase tracking-[0.18em] text-latik">
             J&J Native Delicacies
           </Link>
-          <h1 className="mt-4 text-2xl font-bold text-stone-900">Create your account</h1>
-          <p className="mt-2 text-stone-500">Join us to order authentic Filipino treats</p>
+          <h1 className="mt-4 font-[family-name:var(--font-display)] text-4xl text-kape">Create your account</h1>
+          <p className="mt-3 text-latik/68">Join us to order authentic Filipino treats</p>
         </div>
 
         {/* Form */}
         <SurfaceCard className="p-8">
           {error && (
-            <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
+            <div className="mb-4 rounded-[1rem] border border-red-900/15 bg-red-900/8 p-3 text-sm text-red-800/85">
               {error}
             </div>
           )}
@@ -133,10 +133,10 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-[34px] text-stone-400 hover:text-stone-600"
+                  className="absolute right-4 top-[38px] text-latik/45 hover:text-latik"
                   tabIndex={-1}
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPassword ? <EyeOff className="h-4 w-4" strokeWidth={1.5} /> : <Eye className="h-4 w-4" strokeWidth={1.5} />}
                 </button>
               </div>
               <PasswordStrength password={password} />
@@ -152,15 +152,15 @@ export default function RegisterPage() {
               {...register("confirmPassword")}
             />
 
-            <label className="flex items-start gap-2 text-sm text-stone-600">
-              <input type="checkbox" required className="mt-0.5 rounded border-stone-300" />
+            <label className="flex items-start gap-2 text-sm text-latik/72">
+              <input type="checkbox" required className="mt-0.5 rounded border-latik/30 text-pandan focus:ring-pandan/20" />
               <span>
                 I agree to the{" "}
-                <Link href="/policies/terms" className="text-amber-700 hover:underline">
+                <Link href="/policies/terms" className="text-latik hover:text-pulot hover:underline">
                   Terms of Service
                 </Link>{" "}
                 and{" "}
-                <Link href="/policies/privacy" className="text-amber-700 hover:underline">
+                <Link href="/policies/privacy" className="text-latik hover:text-pulot hover:underline">
                   Privacy Policy
                 </Link>
               </span>
@@ -173,9 +173,9 @@ export default function RegisterPage() {
         </SurfaceCard>
 
         {/* Footer */}
-        <p className="mt-6 text-center text-sm text-stone-500">
+        <p className="mt-6 text-center text-sm text-latik/68">
           Already have an account?{" "}
-          <Link href="/login" className="font-medium text-amber-700 hover:text-amber-800">
+          <Link href="/login" className="font-medium text-latik hover:text-pulot">
             Sign in
           </Link>
         </p>

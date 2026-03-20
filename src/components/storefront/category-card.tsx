@@ -25,10 +25,10 @@ export function CategoryCard({ name, slug, description, imageUrl, itemCount }: C
       href={`/menu?category=${slug}`}
       className={cn(
         SURFACE_CARD_BASE_CLASS,
-        "group relative overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-lg"
+        "group relative overflow-hidden border-latik/18 bg-asukal/92 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-[0_20px_36px_rgba(59,31,14,0.16)]"
       )}
     >
-      <div className="relative h-36 overflow-hidden bg-gradient-to-br from-brown-50 to-amber-100">
+      <div className="relative h-40 overflow-hidden bg-[linear-gradient(135deg,rgba(194,133,42,0.34),rgba(253,246,227,0.92),rgba(74,124,89,0.18))]">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -44,15 +44,17 @@ export function CategoryCard({ name, slug, description, imageUrl, itemCount }: C
             </span>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-kape/72 via-kape/18 to-transparent" />
         <div className="absolute bottom-3 left-3 right-3">
-          <h3 className="font-semibold text-white drop-shadow-sm">{name}</h3>
-          <p className="text-xs text-white/80">{itemCount} items</p>
+          <h3 className="font-[family-name:var(--font-display)] text-xl text-asukal drop-shadow-sm">{name}</h3>
+          <p className="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-asukal/78">
+            {itemCount} items
+          </p>
         </div>
       </div>
       {description && (
-        <div className="p-3">
-          <p className="text-xs text-stone-500 line-clamp-2">{description}</p>
+        <div className="p-4">
+          <p className="line-clamp-2 text-sm leading-6 text-latik/72">{description}</p>
         </div>
       )}
     </Link>

@@ -1,15 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Be_Vietnam_Pro } from "next/font/google";
+import { DM_Sans, Lora, Playfair_Display } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
+import type { CSSProperties } from "react";
 import { ToastProvider } from "@/components/ui";
 import { AuthProvider } from "@/components/shared/auth-provider";
 import { ServiceWorkerRegistration } from "@/components/shared/sw-register";
 import "./globals.css";
 
-const vietnamPro = Be_Vietnam_Pro({
-  variable: "--font-vietnam-pro",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["700", "900"],
+});
+
+const lora = Lora({
+  variable: "--font-lora",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 const geistMono = Geist_Mono({
@@ -18,7 +31,7 @@ const geistMono = Geist_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#8b4513",
+  themeColor: "#7C4A1E",
 };
 
 export const metadata: Metadata = {
@@ -44,7 +57,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${vietnamPro.variable} ${geistMono.variable} antialiased`}
+        className={`${playfairDisplay.variable} ${lora.variable} ${dmSans.variable} ${geistMono.variable} antialiased`}
+        style={
+          {
+            "--font-display": playfairDisplay.style.fontFamily,
+            "--font-body": lora.style.fontFamily,
+            "--font-label": dmSans.style.fontFamily,
+          } as CSSProperties
+        }
       >
         <AuthProvider>
           {children}

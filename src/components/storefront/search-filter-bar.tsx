@@ -72,25 +72,24 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
   const activeFilterCount = [currentCategory, currentDietary].filter(Boolean).length;
 
   return (
-    <div className="space-y-4">
-      {/* Search + Filter Toggle */}
+    <div className="space-y-5">
       <div className="flex gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+          <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-latik/45" strokeWidth={1.5} />
           <input
             type="text"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search delicacies..."
-            className="w-full rounded-xl border border-stone-200 bg-white py-2.5 pl-10 pr-4 text-sm text-stone-800 placeholder:text-stone-400 focus:border-brown-500 focus:outline-none focus:ring-2 focus:ring-brown-500/20"
+            className="w-full rounded-[1.15rem] border border-latik/18 bg-asukal/88 py-3 pl-11 pr-4 text-sm text-kape shadow-[0_12px_24px_rgba(59,31,14,0.08)] transition-all duration-300 ease-in-out placeholder:text-latik/45 focus:border-pandan focus:outline-none focus:ring-2 focus:ring-pandan/20"
           />
           {searchValue && (
             <button
               onClick={() => setSearchValue("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-latik/45 transition-all duration-300 ease-in-out hover:bg-kape/5 hover:text-kape"
               aria-label="Clear search"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4" strokeWidth={1.5} />
             </button>
           )}
         </div>
@@ -98,26 +97,25 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
         <button
           onClick={() => setShowFilters(!showFilters)}
           className={cn(
-            "flex items-center gap-2 rounded-xl border border-stone-200 px-4 py-2.5 text-sm font-medium transition-colors",
+            "flex items-center gap-2 rounded-[1.15rem] border px-4 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] shadow-[0_12px_22px_rgba(59,31,14,0.08)] transition-all duration-300 ease-in-out",
             showFilters || activeFilterCount > 0
-              ? "border-brown-600 bg-brown-50 text-brown-700"
-              : "text-stone-600 hover:border-stone-300"
+              ? "border-pulot/35 bg-pulot/12 text-pulot"
+              : "border-latik/18 bg-asukal/88 text-latik hover:border-latik/28 hover:bg-gatas/90"
           )}
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal className="h-4 w-4" strokeWidth={1.5} />
           Filters
           {activeFilterCount > 0 && (
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brown-600 text-[10px] font-bold text-white">
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-pulot px-1 text-[10px] font-bold text-asukal">
               {activeFilterCount}
             </span>
           )}
         </button>
 
-        {/* Sort */}
         <select
           value={currentSort}
           onChange={(e) => updateParams({ sort: e.target.value })}
-          className="hidden rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-sm text-stone-700 focus:border-brown-500 focus:outline-none focus:ring-2 focus:ring-brown-500/20 sm:block"
+          className="hidden rounded-[1.15rem] border border-latik/18 bg-asukal/88 px-4 py-3 text-sm text-latik shadow-[0_12px_22px_rgba(59,31,14,0.08)] focus:border-pandan focus:outline-none focus:ring-2 focus:ring-pandan/20 sm:block"
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -131,17 +129,16 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
       {showFilters && (
         <SurfaceCard className="p-5">
           <div className="grid gap-5 sm:grid-cols-2">
-            {/* Category */}
             <div>
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-stone-500">Category</h4>
+              <h4 className="mb-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-latik/62">Category</h4>
               <div className="flex flex-wrap gap-1.5">
                 <button
                   onClick={() => updateParams({ category: "" })}
                   className={cn(
-                    "rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
+                    "rounded-full border px-3 py-1.5 text-[0.64rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out",
                     !currentCategory
-                      ? "bg-brown-600 text-white"
-                      : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                      ? "border-pulot bg-pulot text-asukal"
+                      : "border-latik/16 bg-gatas/75 text-latik/72 hover:border-latik/24 hover:bg-gatas"
                   )}
                 >
                   All
@@ -151,10 +148,10 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
                     key={cat.slug}
                     onClick={() => updateParams({ category: cat.slug })}
                     className={cn(
-                      "rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
+                      "rounded-full border px-3 py-1.5 text-[0.64rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out",
                       currentCategory === cat.slug
-                        ? "bg-brown-600 text-white"
-                        : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                        ? "border-pulot bg-pulot text-asukal"
+                        : "border-latik/16 bg-gatas/75 text-latik/72 hover:border-latik/24 hover:bg-gatas"
                     )}
                   >
                     {cat.name}
@@ -163,17 +160,16 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
               </div>
             </div>
 
-            {/* Dietary */}
             <div>
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-stone-500">Dietary</h4>
+              <h4 className="mb-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-latik/62">Dietary</h4>
               <div className="flex flex-wrap gap-1.5">
                 <button
                   onClick={() => updateParams({ dietary: "" })}
                   className={cn(
-                    "rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
+                    "rounded-full border px-3 py-1.5 text-[0.64rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out",
                     !currentDietary
-                      ? "bg-brown-600 text-white"
-                      : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                      ? "border-pulot bg-pulot text-asukal"
+                      : "border-latik/16 bg-gatas/75 text-latik/72 hover:border-latik/24 hover:bg-gatas"
                   )}
                 >
                   All
@@ -183,10 +179,10 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
                     key={tag}
                     onClick={() => updateParams({ dietary: tag })}
                     className={cn(
-                      "rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
+                      "rounded-full border px-3 py-1.5 text-[0.64rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out",
                       currentDietary === tag
-                        ? "bg-brown-600 text-white"
-                        : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                        ? "border-pulot bg-pulot text-asukal"
+                        : "border-latik/16 bg-gatas/75 text-latik/72 hover:border-latik/24 hover:bg-gatas"
                     )}
                   >
                     {tag}
@@ -196,13 +192,12 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
             </div>
           </div>
 
-          {/* Mobile sort - shown only on small screens */}
           <div className="mt-4 sm:hidden">
-            <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-stone-500">Sort By</h4>
+            <h4 className="mb-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-latik/62">Sort By</h4>
             <select
               value={currentSort}
               onChange={(e) => updateParams({ sort: e.target.value })}
-              className="w-full rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-sm text-stone-700 focus:border-brown-500 focus:outline-none focus:ring-2 focus:ring-brown-500/20"
+              className="w-full rounded-[1.15rem] border border-latik/18 bg-asukal/88 px-4 py-3 text-sm text-latik shadow-[0_12px_22px_rgba(59,31,14,0.08)] focus:border-pandan focus:outline-none focus:ring-2 focus:ring-pandan/20"
             >
               {SORT_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -212,11 +207,10 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
             </select>
           </div>
 
-          {/* Clear filters */}
           {activeFilterCount > 0 && (
             <button
               onClick={() => updateParams({ category: "", dietary: "", search: "" })}
-              className="mt-4 text-sm font-medium text-brown-600 hover:text-brown-800"
+              className="mt-4 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik transition-colors duration-300 hover:text-pulot"
             >
               Clear all filters
             </button>

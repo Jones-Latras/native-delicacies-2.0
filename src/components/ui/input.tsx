@@ -19,7 +19,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={id}
           className={cn(
-            "flex h-10",
+            "flex h-11",
             UI_FIELD_BASE_CLASS,
             error && UI_FIELD_ERROR_STATE_CLASS,
             className

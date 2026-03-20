@@ -28,13 +28,13 @@ interface OrderRow {
 }
 
 const STATUS_BADGE: Record<string, string> = {
-  NEW: "bg-slate-100 text-slate-700",
-  CONFIRMED: "bg-blue-100 text-blue-700",
-  PREPARING: "bg-orange-100 text-orange-700",
-  READY: "bg-amber-100 text-amber-700",
-  OUT_FOR_DELIVERY: "bg-blue-100 text-blue-700",
-  COMPLETED: "bg-emerald-100 text-emerald-700",
-  CANCELLED: "bg-red-100 text-red-700",
+  NEW: "bg-gatas text-latik",
+  CONFIRMED: "bg-pulot/10 text-pulot",
+  PREPARING: "bg-amber-100 text-amber-700",
+  READY: "bg-pandan/10 text-pandan",
+  OUT_FOR_DELIVERY: "bg-ube/10 text-ube",
+  COMPLETED: "bg-pandan/10 text-pandan",
+  CANCELLED: "bg-red-900/8 text-red-800/85",
 };
 
 const STATUS_LABEL: Record<string, string> = {
@@ -136,47 +136,46 @@ export default function AdminOrdersPage() {
     <>
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-black tracking-tight text-slate-900">Orders</h2>
-          <p className="mt-1 text-slate-500">
+          <h2 className="font-[family-name:var(--font-display)] text-4xl text-kape">Orders</h2>
+          <p className="mt-2 text-latik/68">
             {total} total order{total !== 1 ? "s" : ""}
           </p>
         </div>
         <button
           onClick={fetchOrders}
-          className="flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-2 text-sm font-bold text-primary transition-colors hover:bg-primary/20"
+          className="flex items-center gap-2 rounded-full border border-latik/18 bg-gatas/80 px-4 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik transition-all duration-300 ease-in-out hover:bg-gatas"
         >
-          <RefreshCw className="h-4 w-4" /> Refresh
+          <RefreshCw className="h-4 w-4" strokeWidth={1.5} /> Refresh
         </button>
       </div>
 
-      {/* Search + Filters */}
       <div className="mb-6 flex flex-wrap gap-3">
         <form onSubmit={handleSearch} className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-latik/45" strokeWidth={1.5} />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by order number, name, email, phone..."
-            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+            className="w-full rounded-full border border-latik/18 bg-asukal/88 py-3 pl-11 pr-4 text-sm text-kape placeholder:text-latik/45 focus:border-pandan focus:outline-none focus:ring-2 focus:ring-pandan/20"
           />
         </form>
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className={`flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors ${
-            showFilters ? "border-primary bg-primary/5 text-primary" : "border-slate-200 bg-white text-slate-600"
+          className={`flex items-center gap-2 rounded-full border px-4 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] transition-all duration-300 ease-in-out ${
+            showFilters ? "border-pulot/30 bg-pulot/10 text-pulot" : "border-latik/18 bg-asukal/88 text-latik"
           }`}
         >
-          <Filter className="h-4 w-4" /> Filters
+          <Filter className="h-4 w-4" strokeWidth={1.5} /> Filters
         </button>
       </div>
 
       {showFilters && (
-        <div className="mb-6 flex flex-wrap gap-3 rounded-lg border border-primary/10 bg-white p-4">
+        <div className="mb-6 flex flex-wrap gap-3 rounded-[1.25rem] border border-latik/12 bg-asukal/88 p-4 shadow-[0_16px_30px_rgba(59,31,14,0.08)]">
           <select
             value={statusFilter}
             onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
-            className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-primary focus:outline-none"
+            className="rounded-full border border-latik/18 bg-gatas/80 px-4 py-2.5 text-sm text-latik focus:border-pandan focus:outline-none"
           >
             <option value="">All Statuses</option>
             {STATUSES.filter(Boolean).map((s) => (
@@ -186,7 +185,7 @@ export default function AdminOrdersPage() {
           <select
             value={orderTypeFilter}
             onChange={(e) => { setOrderTypeFilter(e.target.value); setPage(1); }}
-            className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-primary focus:outline-none"
+            className="rounded-full border border-latik/18 bg-gatas/80 px-4 py-2.5 text-sm text-latik focus:border-pandan focus:outline-none"
           >
             <option value="">All Types</option>
             {ORDER_TYPES.filter(Boolean).map((t) => (
@@ -195,20 +194,19 @@ export default function AdminOrdersPage() {
           </select>
           <button
             onClick={() => { setStatusFilter(""); setOrderTypeFilter(""); setSearch(""); setPage(1); }}
-            className="text-sm font-medium text-primary hover:underline"
+            className="text-[0.72rem] font-medium uppercase tracking-[0.16em] text-latik hover:text-pulot"
           >
             Clear All
           </button>
         </div>
       )}
 
-      {/* Orders Table */}
-      <div className="overflow-hidden rounded-xl border border-primary/10 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-[1.5rem] border border-latik/12 bg-asukal/92 shadow-[0_18px_34px_rgba(59,31,14,0.10)]">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left">
             <thead>
-              <tr className="bg-slate-50">
-                <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Order</th>
+              <tr className="bg-gatas/70">
+                <th className="px-6 py-4 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">Order</th>
                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Customer</th>
                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Items</th>
                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Amount</th>
@@ -217,55 +215,55 @@ export default function AdminOrdersPage() {
                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-primary/5">
+            <tbody className="divide-y divide-latik/8">
               {loading ? (
                 Array.from({ length: 5 }).map((_, i) => (
                   <tr key={i}>
                     <td colSpan={7} className="px-6 py-4">
-                      <div className="h-4 w-full animate-pulse rounded bg-slate-100" />
+                      <div className="h-4 w-full animate-pulse rounded bg-latik/10" />
                     </td>
                   </tr>
                 ))
               ) : orders.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-sm text-slate-400">
+                  <td colSpan={7} className="px-6 py-12 text-center text-sm text-latik/48">
                     No orders found
                   </td>
                 </tr>
               ) : (
                 orders.map((order) => (
-                  <tr key={order.id} className="transition-colors hover:bg-primary/5">
+                  <tr key={order.id} className="transition-colors hover:bg-pulot/6">
                     <td className="px-6 py-4">
                       <p className="text-sm font-bold">{order.orderNumber}</p>
-                      <p className="text-xs text-slate-500">{order.orderType === "PICKUP" ? "Pickup" : "Delivery"}</p>
+                      <p className="text-xs text-latik/58">{order.orderType === "PICKUP" ? "Pickup" : "Delivery"}</p>
                     </td>
                     <td className="px-6 py-4">
                       <p className="text-sm font-bold">{order.customerName}</p>
-                      <p className="text-xs text-slate-500">{order.customerEmail}</p>
+                      <p className="text-xs text-latik/58">{order.customerEmail}</p>
                     </td>
-                    <td className="max-w-[200px] truncate px-6 py-4 text-sm text-slate-600">
+                    <td className="max-w-[200px] truncate px-6 py-4 text-sm text-latik/72">
                       {order.items.map((i) => `${i.menuItem.name}${i.quantity > 1 ? ` x${i.quantity}` : ""}`).join(", ")}
                     </td>
                     <td className="px-6 py-4 text-sm font-bold">{formatCurrency(order.total)}</td>
                     <td className="px-6 py-4">
-                      <span className={`rounded px-2 py-1 text-[10px] font-bold uppercase ${STATUS_BADGE[order.status] || "bg-slate-100 text-slate-700"}`}>
+                      <span className={`rounded-full px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.16em] ${STATUS_BADGE[order.status] || "bg-gatas text-latik"}`}>
                         {STATUS_LABEL[order.status] || order.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-xs text-slate-500">{timeSince(order.createdAt)}</td>
+                    <td className="px-6 py-4 text-xs text-latik/58">{timeSince(order.createdAt)}</td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         {order.status !== "COMPLETED" && order.status !== "CANCELLED" && (
                           <button
                             onClick={() => advanceStatus(order.id, order.status)}
-                            className="rounded bg-primary px-2 py-1 text-[10px] font-bold text-white transition-colors hover:bg-primary/80"
+                            className="rounded-full border border-pulot bg-pulot px-3 py-1.5 text-[0.62rem] font-medium uppercase tracking-[0.16em] text-asukal transition-all duration-300 ease-in-out hover:brightness-110"
                             title="Advance status"
                           >
                             Next →
                           </button>
                         )}
-                        <Link href={`/admin/orders/${order.id}`} className="text-primary hover:text-primary/70">
-                          <SquarePen className="h-4 w-4" />
+                        <Link href={`/admin/orders/${order.id}`} className="text-latik hover:text-pulot">
+                          <SquarePen className="h-4 w-4" strokeWidth={1.5} />
                         </Link>
                       </div>
                     </td>
@@ -278,24 +276,24 @@ export default function AdminOrdersPage() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-primary/10 px-6 py-4">
-            <p className="text-sm text-slate-500">
+          <div className="flex items-center justify-between border-t border-latik/10 px-6 py-4">
+            <p className="text-sm text-latik/62">
               Page {page} of {totalPages} ({total} orders)
             </p>
             <div className="flex gap-2">
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page <= 1}
-                className="rounded-lg border border-slate-200 p-2 text-slate-600 transition-colors hover:bg-slate-50 disabled:opacity-50"
+                className="rounded-full border border-latik/18 bg-gatas/80 p-2 text-latik transition-all duration-300 ease-in-out hover:bg-gatas disabled:opacity-50"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-4 w-4" strokeWidth={1.5} />
               </button>
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page >= totalPages}
-                className="rounded-lg border border-slate-200 p-2 text-slate-600 transition-colors hover:bg-slate-50 disabled:opacity-50"
+                className="rounded-full border border-latik/18 bg-gatas/80 p-2 text-latik transition-all duration-300 ease-in-out hover:bg-gatas disabled:opacity-50"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4" strokeWidth={1.5} />
               </button>
             </div>
           </div>

@@ -1,92 +1,1044 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* ── Primary Brand Color ── */
-  --color-primary: #8b4513;
+  --color-kape: #3b1f0e;
+  --color-latik: #7c4a1e;
+  --color-pandan: #4a7c59;
+  --color-gatas: #f5ecd7;
+  --color-asukal: #fdf6e3;
+  --color-pulot: #c2852a;
+  --color-ube: #6b4fa0;
 
-  /* ── Filipino Heritage Color Palette ── */
-  --color-amber-50: #fffbeb;
-  --color-amber-100: #fef3c7;
-  --color-amber-200: #fde68a;
-  --color-amber-300: #fcd34d;
-  --color-amber-400: #fbbf24;
-  --color-amber-500: #f59e0b;
-  --color-amber-600: #d97706;
-  --color-amber-700: #92400e;
-  --color-amber-800: #78350f;
-  --color-amber-900: #451a03;
+  /* Compatibility aliases for existing utilities while the redesign is applied */
+  --color-primary: var(--color-latik);
 
-  /* Primary — Saddle Brown from user design */
-  --color-brown-50: #fdf8f3;
-  --color-brown-100: #f5e6d3;
-  --color-brown-200: #e8c9a0;
-  --color-brown-300: #d4a56e;
-  --color-brown-400: #c08545;
-  --color-brown-500: #a36b2d;
-  --color-brown-600: #8b4513;
-  --color-brown-700: #723810;
-  --color-brown-800: #5a2c0c;
-  --color-brown-900: #3d1e08;
+  --color-brown-50: #fbf1e3;
+  --color-brown-100: #f4e0c1;
+  --color-brown-200: #e7c28d;
+  --color-brown-300: #d09c56;
+  --color-brown-400: #b87a35;
+  --color-brown-500: #985a23;
+  --color-brown-600: var(--color-latik);
+  --color-brown-700: #653510;
+  --color-brown-800: #4a2710;
+  --color-brown-900: var(--color-kape);
 
-  --color-stone-50: #fafaf9;
-  --color-stone-100: #f5f5f4;
-  --color-stone-200: #e7e5e4;
-  --color-stone-300: #d6d3d1;
-  --color-stone-400: #a8a29e;
-  --color-stone-500: #78716c;
-  --color-stone-600: #57534e;
-  --color-stone-700: #44403c;
-  --color-stone-800: #292524;
-  --color-stone-900: #1c1917;
+  --color-amber-50: #fff7e5;
+  --color-amber-100: #f6e5b8;
+  --color-amber-200: #ecd08a;
+  --color-amber-300: #ddb562;
+  --color-amber-400: #cf9a3f;
+  --color-amber-500: var(--color-pulot);
+  --color-amber-600: #9d6a1b;
+  --color-amber-700: #7a4f10;
+  --color-amber-800: #5c390b;
+  --color-amber-900: #412507;
 
-  /* Fonts */
-  --font-sans: var(--font-vietnam-pro);
+  --color-stone-50: #fffaf2;
+  --color-stone-100: #f5ebdb;
+  --color-stone-200: #e7d6bd;
+  --color-stone-300: #d1b89a;
+  --color-stone-400: #b08f73;
+  --color-stone-500: #8b6d56;
+  --color-stone-600: #6e5443;
+  --color-stone-700: #563d2e;
+  --color-stone-800: #3f2b22;
+  --color-stone-900: var(--color-kape);
+
+  --font-display: var(--font-playfair-display);
+  --font-body: var(--font-lora);
+  --font-label: var(--font-dm-sans);
+  --font-sans: var(--font-body);
   --font-mono: var(--font-geist-mono);
+
+  --radius-card: 1rem;
+  --radius-btn: 0.5rem;
+  --shadow-warm: 0 4px 24px rgba(59, 31, 14, 0.12);
 }
 
 :root {
-  /* Core surfaces and text */
-  --surface-page: var(--color-stone-50);
-  --text-primary: var(--color-stone-900);
+  --font-display: var(--font-playfair-display);
+  --font-body: var(--font-lora);
+  --font-label: var(--font-dm-sans);
 
-  /* Form controls */
-  --control-radius: 0.5rem;
+  --surface-page: var(--color-gatas);
+  --surface-page-alt: #efe0c3;
+  --surface-card: color-mix(in srgb, var(--color-asukal) 92%, white 8%);
+  --surface-card-strong: color-mix(in srgb, var(--color-asukal) 78%, var(--color-gatas) 22%);
+  --text-primary: var(--color-kape);
+  --text-muted: color-mix(in srgb, var(--color-kape) 72%, white 28%);
+  --border-soft: color-mix(in srgb, var(--color-latik) 18%, transparent);
+  --focus-ring: color-mix(in srgb, var(--color-pandan) 58%, transparent);
+
+  --font-vietnam-pro: var(--font-body);
+  --font-be-vietnam-pro: var(--font-label);
+
+  --control-radius: var(--radius-card);
   --control-height: 2.5rem;
-  --control-padding-x: 0.75rem;
+  --control-padding-x: 0.9rem;
   --control-padding-y: 0.5rem;
   --control-font-size: 0.875rem;
   --control-line-height: 1.25rem;
 
-  /* Scrollbar */
   --scrollbar-size: 8px;
   --scrollbar-radius: 4px;
-  --scrollbar-track: var(--color-stone-100);
-  --scrollbar-thumb: var(--color-stone-300);
-  --scrollbar-thumb-hover: var(--color-stone-400);
+  --scrollbar-track: color-mix(in srgb, var(--color-gatas) 85%, white 15%);
+  --scrollbar-thumb: color-mix(in srgb, var(--color-latik) 35%, white 65%);
+  --scrollbar-thumb-hover: color-mix(in srgb, var(--color-latik) 52%, white 48%);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--surface-page);
 }
 
 body {
-  background: var(--surface-page);
+  min-height: 100vh;
+  background-color: var(--surface-page);
+  background-image:
+    radial-gradient(circle at top, rgba(194, 133, 42, 0.16), transparent 32%),
+    linear-gradient(180deg, rgba(255, 249, 236, 0.88), rgba(245, 236, 215, 0.96)),
+    radial-gradient(rgba(59, 31, 14, 0.045) 0.6px, transparent 0.6px),
+    radial-gradient(rgba(124, 74, 30, 0.03) 0.8px, transparent 0.8px);
+  background-position: center top, center, 0 0, 10px 10px;
+  background-size: auto, auto, 18px 18px, 22px 22px;
   color: var(--text-primary);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-body), Georgia, serif !important;
+  text-rendering: optimizeLegibility;
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
+::selection {
+  background: color-mix(in srgb, var(--color-pulot) 34%, white 66%);
+  color: var(--color-kape);
 }
 
-/* Custom scrollbar */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), Georgia, serif !important;
+  letter-spacing: -0.03em;
+  color: var(--color-kape);
+}
+
+p,
+li,
+dd,
+dt,
+blockquote {
+  color: inherit;
+}
+
+button,
+label,
+nav a,
+[type="button"],
+[type="submit"],
+[type="reset"] {
+  font-family: var(--font-label), system-ui, sans-serif !important;
+}
+
+input,
+textarea,
+select {
+  font-family: var(--font-body), Georgia, serif !important;
+}
+
+a {
+  transition:
+    color 300ms ease-in-out,
+    border-color 300ms ease-in-out,
+    opacity 300ms ease-in-out,
+    transform 300ms ease-in-out,
+    box-shadow 300ms ease-in-out;
+}
+
+.surface-woven {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(124, 74, 30, 0.04)),
+    var(--surface-card);
+  box-shadow: var(--shadow-warm);
+}
+
+.section-divider {
+  position: relative;
+}
+
+.section-divider::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: min(7rem, 32vw);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(124, 74, 30, 0.65),
+    rgba(194, 133, 42, 0.28),
+    transparent
+  );
+}
+
+.animate-rise {
+  animation: rise-in 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  ) {
+  position: relative;
+  color: var(--color-kape);
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.24), transparent 34%),
+    radial-gradient(circle at top right, rgba(194, 133, 42, 0.12), transparent 32%);
+  pointer-events: none;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  > * {
+  position: relative;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-white,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-stone-50,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-slate-50,
+.artisan-admin .bg-\[\#f8f7f6\],
+.artisan-admin .bg-\[\#faf8f5\],
+.artisan-admin .bg-\[\#f5f0eb\] {
+  background-color: var(--surface-card) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-brown-50,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-amber-50,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-primary\/5,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-primary\/10,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-brown-100,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-stone-100,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-slate-100 {
+  background-color: color-mix(in srgb, var(--color-pulot) 12%, var(--color-asukal) 88%) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-primary,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .bg-brown-600,
+.artisan-admin .bg-\[\#8b4513\] {
+  background-color: var(--color-pulot) !important;
+  color: var(--color-asukal) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .hover\:bg-brown-700:hover,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .hover\:bg-primary\/90:hover,
+.artisan-admin .hover\:bg-\[\#a0522d\]:hover {
+  background-color: color-mix(in srgb, var(--color-pulot) 84%, var(--color-kape) 16%) !important;
+  color: var(--color-asukal) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .border-stone-100,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .border-stone-200,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .border-stone-300,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .border-slate-200,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .border-primary\/10,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .border-primary\/5,
+.artisan-admin .border-\[\#e8e0d8\],
+.artisan-admin .border-\[\#d7ccc8\] {
+  border-color: var(--border-soft) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .divide-stone-100
+  > :not([hidden])
+  ~ :not([hidden]),
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .divide-primary\/5
+  > :not([hidden])
+  ~ :not([hidden]),
+.artisan-admin .divide-\[\#f0ebe6\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--border-soft) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .shadow-sm,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .shadow-md,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .shadow-lg,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .shadow-xl {
+  box-shadow: var(--shadow-warm) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-stone-900,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-stone-800,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-slate-900,
+.artisan-admin .text-\[\#3e2723\],
+.artisan-admin .text-\[\#5d4037\] {
+  color: var(--color-kape) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-stone-700,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-stone-600,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-stone-500,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-stone-400,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-slate-700,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-slate-600,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-slate-500,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-slate-400,
+.artisan-admin .text-\[\#6d4c41\],
+.artisan-admin .text-\[\#8d6e63\],
+.artisan-admin .text-\[\#a1887f\] {
+  color: var(--text-muted) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-primary,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-brown-600,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-brown-700,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  .text-amber-800,
+.artisan-admin .text-\[\#8b4513\] {
+  color: var(--color-pulot) !important;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  input:not([type="checkbox"]):not([type="radio"]):not([type="color"]),
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  textarea,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  select {
+  background: color-mix(in srgb, var(--color-asukal) 92%, white 8%) !important;
+  border-color: var(--border-soft) !important;
+  color: var(--color-kape) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  input:not([type="checkbox"]):not([type="radio"]):not([type="color"]):focus,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  textarea:focus,
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  select:focus {
+  border-color: color-mix(in srgb, var(--color-pandan) 72%, white 28%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 0 0 3px color-mix(in srgb, var(--color-pandan) 18%, transparent) !important;
+  outline: none;
+}
+
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  input[type="checkbox"],
+:is(
+    .artisan-about,
+    .artisan-contact,
+    .artisan-policy-shell,
+    .artisan-track,
+    .artisan-bilao,
+    .artisan-checkout,
+    .artisan-confirmation,
+    .artisan-profile,
+    .artisan-payment,
+    .artisan-admin
+  )
+  input[type="radio"] {
+  accent-color: var(--color-pulot);
+}
+
+.artisan-policy-shell .prose,
+.artisan-about .prose {
+  color: var(--text-muted);
+}
+
+.artisan-policy-shell .prose :where(h1, h2, h3, h4, strong),
+.artisan-about .prose :where(h1, h2, h3, h4, strong) {
+  color: var(--color-kape);
+}
+
+.artisan-policy-shell .prose :where(a),
+.artisan-about .prose :where(a) {
+  color: var(--color-pulot);
+}
+
+.artisan-policy-shell .prose :where(table) {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  border-radius: 1rem;
+  background: var(--surface-card);
+  box-shadow: var(--shadow-warm);
+}
+
+.artisan-policy-shell .prose :where(th, td) {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.artisan-policy-shell .prose :where(thead th) {
+  background: color-mix(in srgb, var(--color-pulot) 11%, var(--color-asukal) 89%);
+  color: var(--text-muted);
+  font-family: var(--font-label), system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.artisan-policy-shell .prose :where(ul > li)::marker,
+.artisan-policy-shell .prose :where(ol > li)::marker {
+  color: var(--color-pulot);
+}
+
+.artisan-admin table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.artisan-admin th {
+  font-family: var(--font-label), system-ui, sans-serif !important;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.artisan-admin .hover\:bg-slate-50:hover,
+.artisan-admin .hover\:bg-\[\#f5f0eb\]:hover {
+  background-color: color-mix(in srgb, var(--color-pulot) 8%, var(--color-asukal) 92%) !important;
+}
+
+.artisan-admin .hover\:text-\[\#3e2723\]:hover,
+.artisan-admin .hover\:text-\[\#8b4513\]:hover,
+.artisan-admin .hover\:text-primary:hover {
+  color: var(--color-pulot) !important;
+}
+
+.artisan-admin .rounded-xl,
+.artisan-admin .rounded-2xl,
+.artisan-admin .rounded-lg {
+  backdrop-filter: blur(14px);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 ::-webkit-scrollbar {
   width: var(--scrollbar-size);
 }
+
 ::-webkit-scrollbar-track {
   background: var(--scrollbar-track);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
   border-radius: var(--scrollbar-radius);
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-thumb-hover);
 }

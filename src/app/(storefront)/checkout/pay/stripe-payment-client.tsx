@@ -24,7 +24,7 @@ export function StripePaymentClient() {
 
   if (!orderId || !clientSecret) {
     return (
-      <div className="mx-auto max-w-lg px-4 py-16 text-center">
+      <div className="artisan-payment mx-auto max-w-lg px-4 py-16 text-center">
         <AlertCircle className="mx-auto h-12 w-12 text-red-400" />
         <h1 className="mt-4 text-xl font-bold text-stone-900">
           Invalid Payment Link
@@ -37,7 +37,7 @@ export function StripePaymentClient() {
   }
 
   return (
-    <div className="mx-auto max-w-lg px-4 py-8 sm:px-6">
+    <div className="artisan-payment mx-auto max-w-lg px-4 py-8 sm:px-6">
       <div className="text-center">
         <ShieldCheck className="mx-auto h-10 w-10 text-green-600" />
         <h1 className="mt-3 text-2xl font-bold text-stone-900">
