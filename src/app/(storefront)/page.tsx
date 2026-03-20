@@ -186,7 +186,7 @@ export default async function HomePage() {
 
           <Link
             href="#homepage-categories"
-            className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center text-center transition-opacity duration-200 hover:opacity-100"
+            className="mt-10 flex flex-col items-center text-center transition-opacity duration-200 hover:opacity-100 sm:absolute sm:bottom-7 sm:left-1/2 sm:mt-0 sm:-translate-x-1/2"
           >
             <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/75 sm:text-sm">
               Scroll down to see more
