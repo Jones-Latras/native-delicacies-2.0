@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import {
   Search, Plus, Pencil, Trash2, ToggleLeft, ToggleRight,
-  ChevronLeft, ChevronRight, FolderOpen, Loader2, Upload, X, ImageIcon,
+  ChevronLeft, ChevronRight, FolderOpen, Loader2, Upload, X,
 } from "lucide-react";
 
 interface Category {
@@ -27,6 +27,9 @@ interface MenuItem {
   category: { id: string; name: string };
   dailyLimit: number | null;
   soldToday: number;
+  originRegion?: "Luzon" | "Visayas" | "Mindanao" | null;
+  storageInstructions?: string | null;
+  heritageStory?: string | null;
 }
 
 type Tab = "items" | "categories";
@@ -368,6 +371,9 @@ function ItemModal({
     imageUrl: item?.imageUrl ?? "",
     isAvailable: item?.isAvailable ?? true,
     isFeatured: item?.isFeatured ?? false,
+    originRegion: "",
+    storageInstructions: "",
+    heritageStory: "",
     dailyLimit: item?.dailyLimit ?? "",
     soldToday: item?.soldToday ?? 0,
     dietaryTags: [] as string[],
@@ -389,6 +395,9 @@ function ItemModal({
               imageUrl: d.imageUrl ?? "",
               isAvailable: d.isAvailable,
               isFeatured: d.isFeatured,
+              originRegion: d.originRegion ?? "",
+              storageInstructions: d.storageInstructions ?? "",
+              heritageStory: d.heritageStory ?? "",
               dailyLimit: d.dailyLimit ?? "",
               soldToday: d.soldToday ?? 0,
               dietaryTags: d.dietaryTags ?? [],
@@ -409,7 +418,10 @@ function ItemModal({
       ...form,
       price: Number(form.price),
       dailyLimit: form.dailyLimit === "" ? null : Number(form.dailyLimit),
-      imageUrl: form.imageUrl || undefined,
+      imageUrl: form.imageUrl.trim() || (isEdit ? null : undefined),
+      originRegion: form.originRegion || (isEdit ? null : undefined),
+      storageInstructions: form.storageInstructions.trim() || (isEdit ? null : undefined),
+      heritageStory: form.heritageStory.trim() || (isEdit ? null : undefined),
       dietaryTags: form.dietaryTags,
     };
 
@@ -466,6 +478,16 @@ function ItemModal({
               <label className="mb-1 block text-sm font-medium text-[#5d4037]">Price (₱) *</label>
               <input required type="number" step="0.01" min="0" value={form.price} onChange={(e) => set("price", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
             </div>
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-[#5d4037]">Location / Region</label>
+            <select value={form.originRegion} onChange={(e) => set("originRegion", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none">
+              <option value="">Do not show a location</option>
+              <option value="Luzon">Luzon</option>
+              <option value="Visayas">Visayas</option>
+              <option value="Mindanao">Mindanao</option>
+            </select>
           </div>
 
           <div>
@@ -536,6 +558,16 @@ function ItemModal({
               <label className="mb-1 block text-sm font-medium text-[#5d4037]">Sold Today</label>
               <input type="number" min="0" value={form.soldToday} onChange={(e) => set("soldToday", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
             </div>
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-[#5d4037]">Heritage Story</label>
+            <textarea value={form.heritageStory} onChange={(e) => set("heritageStory", e.target.value)} rows={4} placeholder="Share the product's story, roots, or cultural background..." className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-[#5d4037]">Storage Instructions</label>
+            <textarea value={form.storageInstructions} onChange={(e) => set("storageInstructions", e.target.value)} rows={3} placeholder="Example: Refrigerate after opening. Best consumed within 7 days." className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
           </div>
 
           <div>
