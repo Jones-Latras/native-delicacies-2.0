@@ -8,8 +8,6 @@ import type { MenuItem, MenuCategory, OperatingHours } from "@/types";
 
 export const dynamic = "force-dynamic";
 
-const HERO_BACKGROUND_IMAGE_URL = "/hero-background.jpg";
-
 async function getFeaturedItems(): Promise<MenuItem[]> {
   try {
     const items = await prisma.menuItem.findMany({
@@ -136,14 +134,15 @@ export default async function HomePage() {
   return (
     <>
       {/* ── Hero Section ── */}
-      <section
-        className="relative overflow-hidden bg-kape bg-cover bg-center bg-no-repeat px-4 text-asukal sm:px-6 lg:px-8"
-        style={{
-          backgroundImage: `linear-gradient(180deg, rgba(255, 247, 229, 0.14) 0%, rgba(255, 247, 229, 0.02) 20%, rgba(255, 247, 229, 0) 38%), linear-gradient(135deg, rgba(59, 31, 14, 0.86), rgba(91, 48, 16, 0.72), rgba(42, 26, 15, 0.82)), url('${HERO_BACKGROUND_IMAGE_URL}')`,
-        }}
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(194,133,42,0.24),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(74,124,89,0.18),transparent_30%)]" />
-        <div className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-2 pb-24 pt-28 text-center sm:px-4 sm:pb-28 sm:pt-32 lg:px-0 lg:pb-32 lg:pt-36">
+      <section className="relative overflow-hidden px-4 pb-6 pt-4 sm:px-6 lg:px-8">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[78%] bg-[radial-gradient(circle_at_top,rgba(194,133,42,0.18),transparent_54%)]" />
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.8rem] border border-latik/14 bg-[linear-gradient(135deg,rgba(253,246,227,0.98),rgba(245,236,215,0.96),rgba(239,224,195,0.92))] shadow-[0_34px_72px_rgba(59,31,14,0.16)]">
+          <div className="pointer-events-none absolute inset-0 opacity-[0.42] [background-image:linear-gradient(90deg,rgba(124,74,30,0.08)_1px,transparent_1px),linear-gradient(180deg,rgba(124,74,30,0.06)_1px,transparent_1px)] [background-size:28px_28px]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(194,133,42,0.18),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(74,124,89,0.16),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.18),transparent_30%)]" />
+          <div className="pointer-events-none absolute -right-20 top-[-5rem] h-80 w-80 rounded-[40%_60%_52%_48%/52%_40%_60%_48%] border border-pandan/12 bg-[linear-gradient(135deg,rgba(74,124,89,0.16),rgba(74,124,89,0.03))] blur-[1px]" />
+          <div className="pointer-events-none absolute -left-24 bottom-[-3rem] h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(194,133,42,0.22),transparent_64%)] blur-3xl" />
+          <div className="pointer-events-none absolute right-[12%] top-[18%] h-28 w-28 rounded-full border border-pulot/16 bg-pulot/8 blur-sm" />
+          <div className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-6 pb-24 pt-28 text-center sm:px-8 sm:pb-28 sm:pt-32 lg:px-12 lg:pb-32 lg:pt-36">
           {operatingHours && (
             <div className="mb-8">
               <BusinessStatus operatingHours={operatingHours} timezone={timezone} />
@@ -153,13 +152,13 @@ export default async function HomePage() {
           <p className="text-[0.78rem] font-medium uppercase tracking-[0.34em] text-pulot">
             Authentic Filipino Heritage
           </p>
-          <h1 className="mt-5 max-w-5xl font-[family-name:var(--font-display)] text-5xl tracking-[-0.04em] text-asukal sm:text-6xl lg:text-[5.5rem]">
+          <h1 className="mt-5 max-w-5xl font-[family-name:var(--font-display)] text-5xl tracking-[-0.04em] text-kape sm:text-6xl lg:text-[5.5rem]">
             Handcrafted{" "}
-            <span className="bg-gradient-to-r from-pulot via-amber-100 to-asukal bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pulot via-latik to-kape bg-clip-text text-transparent">
               Filipino Delicacies
             </span>
           </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-asukal/78 sm:text-xl">
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-latik/78 sm:text-xl">
             Bibingka warmth, puto bumbong comfort, and heirloom recipes brought together in a storefront that feels like a festive Filipino pasalubong table.
           </p>
 
@@ -177,7 +176,7 @@ export default async function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-asukal/35 px-8 text-asukal hover:bg-asukal/8 hover:text-asukal"
+                className="border-latik/22 bg-asukal/56 px-8 text-latik hover:bg-asukal/84 hover:text-kape"
               >
                 Browse Menu
               </Button>
@@ -188,13 +187,14 @@ export default async function HomePage() {
             href="#homepage-categories"
             className="mt-10 flex flex-col items-center text-center transition-opacity duration-200 hover:opacity-100 sm:absolute sm:bottom-7 sm:left-1/2 sm:mt-0 sm:-translate-x-1/2"
           >
-            <span className="text-[0.68rem] font-medium uppercase tracking-[0.34em] text-asukal/72 sm:text-[0.74rem]">
+            <span className="text-[0.68rem] font-medium uppercase tracking-[0.34em] text-latik/62 sm:text-[0.74rem]">
               Scroll down to see more
             </span>
-            <span className="mt-3 flex h-11 w-11 items-center justify-center rounded-full border border-asukal/25 bg-asukal/10 text-asukal shadow-[0_14px_28px_rgba(59,31,14,0.16)] backdrop-blur-sm">
+            <span className="mt-3 flex h-11 w-11 items-center justify-center rounded-full border border-latik/14 bg-asukal/76 text-pulot shadow-[0_14px_28px_rgba(59,31,14,0.12)] backdrop-blur-sm">
               <ArrowDown className="h-5 w-5 animate-bounce" strokeWidth={1.5} />
             </span>
           </Link>
+        </div>
         </div>
       </section>
 
