@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="100%" height="100%" rx="24" fill="#8b4513"/>
+  <g transform="translate(96,96)" fill="#fff" font-family="Arial,Helvetica,sans-serif" text-anchor="middle">
+    <text y="-6" font-size="56" font-weight="700">J&amp;J</text>
+    <text y="48" font-size="18">Native</text>
+  </g>
+</svg>

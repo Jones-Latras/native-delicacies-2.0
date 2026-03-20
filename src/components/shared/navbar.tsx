@@ -213,13 +213,13 @@ export function Navbar() {
       {/* Mobile menu */}
       <div
         className={cn(
-          "mx-auto w-[calc(100%-1rem)] overflow-hidden transition-all duration-300 ease-out sm:w-[calc(100%-2rem)] md:hidden",
+          "mx-auto w-[calc(100%-1rem)] transition-all duration-300 ease-out sm:w-[calc(100%-2rem)] md:hidden",
           isScrolled
             ? "max-w-6xl rounded-b-[1.85rem] border-x border-b border-latik/15 bg-asukal/95 shadow-[0_20px_36px_rgba(59,31,14,0.14)] backdrop-blur-xl"
             : "max-w-7xl rounded-b-[1.6rem] border border-t-0 border-latik/12 bg-asukal/92 shadow-[0_16px_30px_rgba(59,31,14,0.10)] backdrop-blur-xl",
           isMobileMenuOpen
-            ? "max-h-80 translate-y-0 opacity-100"
-            : "max-h-0 -translate-y-1 opacity-0 pointer-events-none border-transparent"
+            ? "max-h-[calc(100vh-5.5rem)] translate-y-0 overflow-y-auto opacity-100"
+            : "max-h-0 overflow-hidden -translate-y-1 opacity-0 pointer-events-none border-transparent"
         )}
       >
         <nav className="flex flex-col gap-1 px-4 py-3">
