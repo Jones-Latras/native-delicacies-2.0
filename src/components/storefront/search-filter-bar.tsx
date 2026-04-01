@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { SurfaceCard } from "@/components/ui";
 
 const SORT_OPTIONS = [
   { value: "popular", label: "Most Popular" },
@@ -81,12 +80,12 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search delicacies..."
-            className="w-full rounded-[1.15rem] border border-latik/18 bg-asukal/88 py-3 pl-11 pr-4 text-sm text-kape shadow-[0_12px_24px_rgba(59,31,14,0.08)] transition-all duration-300 ease-in-out placeholder:text-latik/45 focus:border-pandan focus:outline-none focus:ring-2 focus:ring-pandan/20"
+            className="w-full border-b border-latik/18 bg-transparent py-3 pl-11 pr-4 text-sm text-kape transition-all duration-300 ease-in-out placeholder:text-latik/45 focus:border-pandan focus:outline-none"
           />
           {searchValue && (
             <button
               onClick={() => setSearchValue("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-latik/45 transition-all duration-300 ease-in-out hover:bg-kape/5 hover:text-kape"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-latik/45 transition-all duration-300 ease-in-out hover:text-kape"
               aria-label="Clear search"
             >
               <X className="h-4 w-4" strokeWidth={1.5} />
@@ -97,10 +96,10 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
         <button
           onClick={() => setShowFilters(!showFilters)}
           className={cn(
-            "flex items-center gap-2 rounded-[1.15rem] border px-4 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] shadow-[0_12px_22px_rgba(59,31,14,0.08)] transition-all duration-300 ease-in-out",
+            "flex items-center gap-2 border-b-2 px-2 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] transition-all duration-300 ease-in-out",
             showFilters || activeFilterCount > 0
-              ? "border-pulot/35 bg-pulot/12 text-pulot"
-              : "border-latik/18 bg-asukal/88 text-latik hover:border-latik/28 hover:bg-gatas/90"
+              ? "border-pulot text-pulot"
+              : "border-transparent text-latik hover:border-latik/28 hover:text-kape"
           )}
         >
           <SlidersHorizontal className="h-4 w-4" strokeWidth={1.5} />
@@ -115,7 +114,7 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
         <select
           value={currentSort}
           onChange={(e) => updateParams({ sort: e.target.value })}
-          className="hidden rounded-[1.15rem] border border-latik/18 bg-asukal/88 px-4 py-3 text-sm text-latik shadow-[0_12px_22px_rgba(59,31,14,0.08)] focus:border-pandan focus:outline-none focus:ring-2 focus:ring-pandan/20 sm:block"
+          className="hidden border-b border-latik/18 bg-transparent px-4 py-3 text-sm text-latik focus:border-pandan focus:outline-none sm:block"
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -127,7 +126,7 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
 
       {/* Expanded Filters */}
       {showFilters && (
-        <SurfaceCard className="p-5">
+        <div className="border-t border-latik/12 pt-5">
           <div className="grid gap-5 sm:grid-cols-2">
             <div>
               <h4 className="mb-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-latik/62">Category</h4>
@@ -197,7 +196,7 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
             <select
               value={currentSort}
               onChange={(e) => updateParams({ sort: e.target.value })}
-              className="w-full rounded-[1.15rem] border border-latik/18 bg-asukal/88 px-4 py-3 text-sm text-latik shadow-[0_12px_22px_rgba(59,31,14,0.08)] focus:border-pandan focus:outline-none focus:ring-2 focus:ring-pandan/20"
+              className="w-full border-b border-latik/18 bg-transparent px-4 py-3 text-sm text-latik focus:border-pandan focus:outline-none"
             >
               {SORT_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -215,7 +214,7 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
               Clear all filters
             </button>
           )}
-        </SurfaceCard>
+        </div>
       )}
     </div>
   );

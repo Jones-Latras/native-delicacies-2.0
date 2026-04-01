@@ -56,6 +56,8 @@ export default function ContactPage() {
     const slot = dayInfo.slots[0];
     return `${slot.open} - ${slot.close}`;
   };
+  const inputClass =
+    "mt-1.5 w-full border-b border-stone-200 bg-transparent px-0 py-2.5 text-sm text-stone-900 focus:border-primary focus:outline-none";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -83,7 +85,7 @@ export default function ContactPage() {
   return (
     <div className="artisan-contact mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="surface-woven rounded-[2rem] border border-latik/15 px-8 py-12 text-center shadow-[var(--shadow-warm)] sm:px-12 sm:py-16">
+      <div className="border-b border-latik/15 px-8 pb-12 text-center sm:px-12 sm:pb-16">
         <p className="text-[0.72rem] font-medium uppercase tracking-[0.3em] text-pulot">Get In Touch</p>
         <h1 className="mt-3 text-4xl font-black tracking-tight text-kape sm:text-5xl">
           Contact Us
@@ -97,7 +99,7 @@ export default function ContactPage() {
         {/* Contact Info */}
         <div className="lg:col-span-2">
           <div className="space-y-5">
-            <div className="surface-woven flex items-start gap-4 rounded-[1.5rem] border border-latik/14 p-5">
+            <div className="flex items-start gap-4 border-t border-latik/14 pt-5">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <MapPin className="h-5 w-5" />
               </div>
@@ -121,7 +123,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="surface-woven flex items-start gap-4 rounded-[1.5rem] border border-latik/14 p-5">
+            <div className="flex items-start gap-4 border-t border-latik/14 pt-5">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Phone className="h-5 w-5" />
               </div>
@@ -133,7 +135,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="surface-woven flex items-start gap-4 rounded-[1.5rem] border border-latik/14 p-5">
+            <div className="flex items-start gap-4 border-t border-latik/14 pt-5">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Mail className="h-5 w-5" />
               </div>
@@ -145,7 +147,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="surface-woven flex items-start gap-4 rounded-[1.5rem] border border-latik/14 p-5">
+            <div className="flex items-start gap-4 border-t border-latik/14 pt-5">
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Clock className="h-5 w-5" />
               </div>
@@ -165,7 +167,7 @@ export default function ContactPage() {
           </div>
 
           {/* Social Links */}
-          <div className="mt-10 rounded-[1.5rem] border border-latik/14 bg-asukal/80 p-5 shadow-[var(--shadow-warm)]">
+          <div className="mt-10 border-t border-latik/14 pt-5">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-stone-900">Follow Us</h3>
             <div className="mt-3 flex gap-3">
               <a
@@ -188,7 +190,7 @@ export default function ContactPage() {
 
         {/* Contact Form */}
         <div className="lg:col-span-3">
-          <div className="surface-woven rounded-[1.85rem] border border-latik/14 p-8 shadow-[var(--shadow-warm)]">
+          <div className="border-t border-latik/14 pt-8">
             {submitted ? (
               <div className="py-12 text-center">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
@@ -211,7 +213,7 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 {error && (
-                  <div className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</div>
+                  <div className="border-l-2 border-red-300 pl-3 text-sm text-red-700">{error}</div>
                 )}
 
                 <div className="grid gap-5 sm:grid-cols-2">
@@ -225,7 +227,7 @@ export default function ContactPage() {
                       required
                       value={form.name}
                       onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                      className="mt-1.5 w-full rounded-lg border border-stone-200 px-4 py-2.5 text-sm text-stone-900 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                      className={inputClass}
                       placeholder="Your name"
                     />
                   </div>
@@ -239,7 +241,7 @@ export default function ContactPage() {
                       required
                       value={form.email}
                       onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                      className="mt-1.5 w-full rounded-lg border border-stone-200 px-4 py-2.5 text-sm text-stone-900 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                      className={inputClass}
                       placeholder="you@example.com"
                     />
                   </div>
@@ -255,7 +257,7 @@ export default function ContactPage() {
                       type="tel"
                       value={form.phone}
                       onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                      className="mt-1.5 w-full rounded-lg border border-stone-200 px-4 py-2.5 text-sm text-stone-900 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                      className={inputClass}
                       placeholder="+63 917 123 4567"
                     />
                   </div>
@@ -269,7 +271,7 @@ export default function ContactPage() {
                       required
                       value={form.subject}
                       onChange={(e) => setForm((f) => ({ ...f, subject: e.target.value }))}
-                      className="mt-1.5 w-full rounded-lg border border-stone-200 px-4 py-2.5 text-sm text-stone-900 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                      className={inputClass}
                       placeholder="What is this about?"
                     />
                   </div>
@@ -285,7 +287,7 @@ export default function ContactPage() {
                     required
                     value={form.message}
                     onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                    className="mt-1.5 w-full rounded-lg border border-stone-200 px-4 py-2.5 text-sm text-stone-900 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                    className={inputClass}
                     placeholder="Tell us how we can help..."
                   />
                 </div>
@@ -306,7 +308,7 @@ export default function ContactPage() {
 
       {/* Map Embed Placeholder */}
       <div className="mt-16">
-        <div className="surface-woven overflow-hidden rounded-[1.85rem] border border-latik/14">
+        <div className="border-t border-latik/14 pt-8">
           <div className="flex h-80 items-center justify-center text-stone-400">
             <div className="text-center">
               <MapPin className="mx-auto h-12 w-12 text-stone-300" />

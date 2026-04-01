@@ -164,7 +164,7 @@ export default async function MenuPage({ searchParams }: MenuPageProps) {
         )}
       </nav>
 
-      <div className="mb-10 rounded-[1.8rem] border border-latik/12 bg-asukal/76 px-6 py-8 shadow-[0_18px_34px_rgba(59,31,14,0.10)]">
+      <div className="mb-10 border-b border-latik/12 pb-8">
         <p className="text-[0.72rem] font-medium uppercase tracking-[0.28em] text-latik/62">Traditional Selection</p>
         <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl text-kape sm:text-5xl">Our Menu</h1>
         <p className="mt-3 max-w-2xl text-latik/70">
@@ -173,7 +173,7 @@ export default async function MenuPage({ searchParams }: MenuPageProps) {
       </div>
 
       <div className="mb-8">
-        <Suspense fallback={<Skeleton className="h-12 w-full rounded-xl" />}>
+        <Suspense fallback={<Skeleton className="h-12 w-full border-b border-latik/12" />}>
           <SearchFilterBar categories={categories} />
         </Suspense>
       </div>
@@ -234,10 +234,10 @@ function PaginationLink({
   return (
     <Link
       href={`/menu?${sp.toString()}`}
-      className={`rounded-full border px-4 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out ${
+      className={`border-b-2 px-3 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out ${
         isActive
-          ? "border-pulot bg-pulot text-asukal shadow-[0_12px_22px_rgba(59,31,14,0.12)]"
-          : "border-latik/16 bg-asukal/80 text-latik hover:border-latik/26 hover:bg-gatas/90"
+          ? "border-pulot text-pulot"
+          : "border-transparent text-latik hover:border-latik/26 hover:text-kape"
       }`}
     >
       {children}

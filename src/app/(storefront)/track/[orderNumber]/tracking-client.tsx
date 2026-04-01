@@ -8,7 +8,6 @@ import {
   CheckCircle2,
   Clock,
   ChefHat,
-  Truck,
   RefreshCw,
   XCircle,
   Search,
@@ -238,7 +237,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
         <div className="flex max-w-[960px] flex-1 flex-col gap-6 px-4 lg:px-0">
           <HeaderSection />
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} onSearch={handleSearch} />
-          <div className="flex flex-col items-center gap-4 rounded-xl border border-primary/10 bg-white p-12">
+          <div className="flex flex-col items-center gap-4 border-t border-primary/10 pt-12">
             <Package className="h-16 w-16 text-slate-300" />
             <h3 className="text-lg font-bold text-slate-900">Enter your order number above</h3>
             <p className="text-sm text-slate-500">Use the search bar to track your order in real time.</p>
@@ -255,7 +254,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
         <div className="flex max-w-[960px] flex-1 flex-col gap-6 px-4 lg:px-0">
           <HeaderSection />
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} onSearch={handleSearch} />
-          <div className="flex flex-col items-center gap-4 rounded-xl border border-primary/10 bg-white p-12">
+          <div className="flex flex-col items-center gap-4 border-t border-primary/10 pt-12">
             <XCircle className="h-16 w-16 text-slate-300" />
             <h3 className="text-lg font-bold text-slate-900">{error}</h3>
             <p className="text-sm text-slate-500">Please check your order number and try again.</p>
@@ -273,6 +272,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
   const currentIndex = steps.findIndex((s) => s.key === order.status);
   const progress = STATUS_PROGRESS[order.status] ?? 0;
   const statusMessage = STATUS_MESSAGES[order.status] ?? "";
+  const sectionClass = "border-t border-primary/10 pt-6";
 
   function getStepTime(stepKey: OrderStatus): string | null {
     const entry = order!.statusHistory.find((h) => h.status === stepKey);
@@ -319,7 +319,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
 
         {/* ── Cancelled State ── */}
         {order.status === "CANCELLED" && (
-          <div className="flex flex-col gap-4 rounded-xl border border-red-200 bg-red-50 p-6">
+          <div className="border-l-2 border-red-300 pl-4">
             <div className="flex items-center gap-3">
               <XCircle className="h-6 w-6 flex-shrink-0 text-red-600" />
               <div>
@@ -335,9 +335,9 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
 
         {/* ── Summary Cards ── */}
         {order.status !== "CANCELLED" && (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Estimated Time */}
-            <div className="flex flex-1 flex-col gap-2 rounded-xl border border-primary/10 bg-white p-6 shadow-sm">
+            <div className={sectionClass}>
               <div className="flex items-center gap-2 text-primary">
                 <Clock className="h-5 w-5" />
                 <p className="text-base font-medium">
@@ -368,7 +368,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
             </div>
 
             {/* Address */}
-            <div className="flex flex-1 flex-col gap-2 rounded-xl border border-primary/10 bg-white p-6 shadow-sm">
+            <div className={sectionClass}>
               <div className="flex items-center gap-2 text-primary">
                 <MapPin className="h-5 w-5" />
                 <p className="text-base font-medium">
@@ -401,7 +401,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
 
         {/* ── Visual Progress Bar ── */}
         {order.status !== "CANCELLED" && order.status !== "COMPLETED" && (
-          <div className="flex flex-col gap-4 rounded-xl border border-primary/10 bg-primary/5 p-6">
+          <div className={sectionClass}>
             <div className="flex items-center justify-between gap-6">
               <div className="flex items-center gap-3">
                 <ChefHat className={`h-6 w-6 text-primary ${order.status === "PREPARING" ? "animate-pulse" : ""}`} />
@@ -428,7 +428,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
 
         {/* ── Completed Banner ── */}
         {order.status === "COMPLETED" && (
-          <div className="flex flex-col gap-4 rounded-xl border border-emerald-200 bg-emerald-50 p-6">
+          <div className="border-t border-emerald-200 pt-6">
             <div className="flex items-center justify-between gap-6">
               <div className="flex items-center gap-3">
                 <CheckCircle2 className="h-6 w-6 text-emerald-600" />
@@ -449,7 +449,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
 
         {/* ── Order Journey Timeline ── */}
         {order.status !== "CANCELLED" && (
-          <div className="rounded-xl border border-primary/10 bg-white p-6">
+          <div className={sectionClass}>
             <h3 className="mb-6 flex items-center gap-2 text-xl font-bold text-slate-900">
               <ClipboardList className="h-5 w-5 text-primary" />
               Order Journey
@@ -504,11 +504,11 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
         )}
 
         {/* ── Order Details ── */}
-        <div className="overflow-hidden rounded-xl border border-primary/10 bg-white">
-          <div className="border-b border-primary/10 p-6">
+        <div className={sectionClass}>
+          <div className="mb-6">
             <h3 className="text-xl font-bold text-slate-900">Order Details</h3>
           </div>
-          <div className="flex flex-col gap-4 p-6">
+          <div className="flex flex-col gap-4">
             {order.items.map((item) => (
               <div key={item.id} className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -570,7 +570,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
           </div>
 
           {/* Payment Info Bar */}
-          <div className="flex items-center justify-between bg-primary/5 px-6 py-4">
+          <div className="mt-4 flex items-center justify-between border-t border-primary/10 pt-4">
             <div className="flex items-center gap-2">
               <CreditCard className="h-5 w-5 text-primary" />
               <span className="text-sm font-medium text-slate-700">
@@ -591,7 +591,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
 
         {/* ── Gift Message ── */}
         {order.isGift && order.giftMessage && (
-          <div className="rounded-xl border border-primary/10 bg-white p-6">
+          <div className={sectionClass}>
             <p className="text-xs font-bold uppercase tracking-widest text-primary">🎁 Gift Message</p>
             <p className="mt-2 italic text-slate-700">&ldquo;{order.giftMessage}&rdquo;</p>
           </div>
@@ -599,7 +599,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
 
         {/* ── Special Instructions ── */}
         {order.specialInstructions && (
-          <div className="rounded-xl border border-primary/10 bg-white p-6">
+          <div className={sectionClass}>
             <p className="text-xs font-bold uppercase tracking-widest text-primary">📝 Special Instructions</p>
             <p className="mt-2 text-sm text-slate-700">{order.specialInstructions}</p>
           </div>
@@ -657,7 +657,7 @@ function SearchBar({
   onSearch: (e: React.FormEvent) => void;
 }) {
   return (
-    <form onSubmit={onSearch} className="flex gap-2">
+    <form onSubmit={onSearch} className="flex gap-2 border-t border-primary/10 pt-4">
       <div className="relative flex-1">
         <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400" />
         <input
@@ -665,7 +665,7 @@ function SearchBar({
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Enter order number (e.g. ND-20250101-ABCD)"
-          className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pr-4 pl-10 text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+          className="w-full border-b border-slate-200 bg-transparent py-2.5 pr-4 pl-10 text-sm text-slate-900 placeholder:text-slate-400 focus:border-primary focus:outline-none"
         />
       </div>
       <Button type="submit" size="sm">

@@ -39,7 +39,7 @@ export default async function AboutPage() {
   if (contentPage) {
     return (
       <div className="artisan-about mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="surface-woven overflow-hidden rounded-[2rem] border border-latik/15 px-7 py-10 shadow-[var(--shadow-warm)] sm:px-10 sm:py-12">
+        <div className="border-b border-latik/15 px-7 pb-10 sm:px-10 sm:pb-12">
           <p className="text-[0.72rem] font-medium uppercase tracking-[0.28em] text-pulot">Our Story</p>
           <h1 className="mt-3 text-4xl font-black tracking-tight text-kape sm:text-5xl">
             {contentPage.title}
@@ -55,7 +55,7 @@ export default async function AboutPage() {
   return (
     <div className="artisan-about mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Hero Section */}
-      <div className="surface-woven overflow-hidden rounded-[2rem] border border-latik/15 px-8 py-12 text-center shadow-[var(--shadow-warm)] sm:px-12 sm:py-16">
+      <div className="border-b border-latik/15 px-8 pb-12 text-center sm:px-12 sm:pb-16">
         <p className="text-[0.72rem] font-medium uppercase tracking-[0.3em] text-pulot">Our Story</p>
         <h1 className="mt-3 text-4xl font-black tracking-tight text-kape sm:text-5xl md:text-6xl">
           Preserving Filipino Culinary Heritage
@@ -68,7 +68,7 @@ export default async function AboutPage() {
       {/* Story */}
       <div className="section-divider mt-16 grid gap-12 pt-10 lg:grid-cols-2 lg:items-center">
         <div className="relative">
-          <div className="aspect-[4/3] overflow-hidden rounded-[2rem] border border-latik/15 bg-[radial-gradient(circle_at_top,rgba(194,133,42,0.28),transparent_42%),linear-gradient(145deg,rgba(253,246,227,0.96),rgba(245,236,215,0.96))] shadow-[var(--shadow-warm)]">
+          <div className="aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_top,rgba(194,133,42,0.28),transparent_42%),linear-gradient(145deg,rgba(253,246,227,0.96),rgba(245,236,215,0.96))]">
             <div className="flex h-full items-center justify-center">
               <div className="text-center">
                 <span className="text-6xl">🍘</span>
@@ -76,7 +76,7 @@ export default async function AboutPage() {
               </div>
             </div>
           </div>
-          <div className="absolute -bottom-6 -right-6 hidden rounded-[1.4rem] border border-latik/12 bg-asukal/95 px-5 py-4 shadow-[var(--shadow-warm)] lg:block">
+          <div className="absolute -bottom-6 right-0 hidden border-l-2 border-pulot/35 pl-5 lg:block">
             <p className="text-3xl font-black text-pulot">15+</p>
             <p className="text-[0.72rem] font-medium uppercase tracking-[0.2em] text-latik/66">Years of Tradition</p>
           </div>
@@ -112,7 +112,7 @@ export default async function AboutPage() {
           {VALUES.map((value) => (
             <div
               key={value.title}
-              className="surface-woven animate-rise rounded-[1.8rem] border border-latik/14 p-6 text-center transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(59,31,14,0.14)]"
+              className="animate-rise border-t border-latik/14 pt-6 text-center"
             >
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-pulot/14 text-pulot">
                 <value.icon className="h-6 w-6" strokeWidth={1.5} />
@@ -125,14 +125,14 @@ export default async function AboutPage() {
       </div>
 
       {/* CTA */}
-      <div className="mt-24 rounded-[2rem] border border-latik/15 bg-[linear-gradient(135deg,rgba(59,31,14,0.94),rgba(124,74,30,0.92),rgba(194,133,42,0.82))] px-8 py-16 text-center text-white shadow-[0_24px_48px_rgba(59,31,14,0.18)]">
-        <h2 className="text-3xl font-black text-asukal">Ready to Taste Tradition?</h2>
-        <p className="mx-auto mt-3 max-w-lg leading-7 text-asukal/82">
+      <div className="mt-24 border-t border-latik/15 px-8 py-16 text-center">
+        <h2 className="text-3xl font-black text-kape">Ready to Taste Tradition?</h2>
+        <p className="mx-auto mt-3 max-w-lg leading-7 text-latik/76">
           Browse our handcrafted selection of J&J Native Delicacies and bring a taste of heritage to your table.
         </p>
         <a
           href="/menu"
-          className="mt-8 inline-flex items-center rounded-full bg-pulot px-8 py-3 text-[0.78rem] font-medium uppercase tracking-[0.2em] text-asukal shadow-[0_18px_34px_rgba(59,31,14,0.16)] transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:bg-amber-500"
+          className="mt-8 inline-flex items-center border-b-2 border-pulot pb-1 text-[0.78rem] font-medium uppercase tracking-[0.2em] text-pulot transition-colors duration-300 ease-in-out hover:text-amber-500"
         >
           Explore Our Menu →
         </a>

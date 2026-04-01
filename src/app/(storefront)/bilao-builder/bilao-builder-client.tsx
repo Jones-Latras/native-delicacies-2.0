@@ -157,7 +157,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
         </nav>
 
         {/* Header */}
-        <div className="mb-8 rounded-[2rem] border border-latik/14 bg-asukal/86 px-7 py-8 shadow-[var(--shadow-warm)]">
+        <div className="mb-8 border-b border-latik/14 px-7 pb-8">
           <p className="text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">Custom Feast</p>
           <h1 className="mt-3 text-4xl font-black text-kape">Build Your Bilao</h1>
           <p className="mt-2 max-w-3xl leading-7 text-latik/76">
@@ -170,7 +170,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
           {/* ─── LEFT COLUMN: Builder + Visualizer ─── */}
           <div className="flex-[1.5]">
             {/* Step 1: Choose Size */}
-            <div className="mb-6 rounded-xl bg-white p-6 shadow-sm">
+            <div className="mb-6 border-t border-stone-200 pt-6">
               <h2 className="mb-4 text-lg font-semibold text-stone-900">
                 Step 1: Choose Your Bilao Size
               </h2>
@@ -183,10 +183,10 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                       type="button"
                       onClick={() => handleSizeSelect(size)}
                       className={cn(
-                        "rounded-xl border-2 p-4 text-center transition-all",
+                        "rounded-lg border p-4 text-center transition-all",
                         isSelected
-                          ? "border-primary bg-primary/5 ring-2 ring-primary/20"
-                          : "border-stone-200 bg-white hover:border-primary/50"
+                          ? "border-primary bg-primary/5"
+                          : "border-stone-200 bg-transparent hover:border-primary/50"
                       )}
                     >
                       <div className="text-lg font-bold text-stone-900">{size.name}</div>
@@ -202,7 +202,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
 
             {/* Visual Bilao Tray */}
             {selectedSize && (
-              <div className="rounded-xl bg-white p-6 shadow-sm">
+              <div className="border-t border-stone-200 pt-6">
                 <div className="mb-4 flex items-center justify-between">
                   <h2 className="text-lg font-semibold text-stone-900">
                     Your Bilao
@@ -294,9 +294,9 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
           {/* ─── RIGHT COLUMN: Product Selection + Summary ─── */}
           {selectedSize && (
             <div className="flex-1">
-              <div className="flex h-[700px] flex-col rounded-xl bg-white shadow-sm">
+              <div className="flex min-h-[700px] flex-col border-t border-stone-200 pt-6">
                 {/* Header */}
-                <div className="border-b border-stone-100 p-4">
+                <div className="pb-4">
                   <h2 className="text-lg font-semibold text-stone-900">
                     Step 2: Add Delicacies
                   </h2>
@@ -311,7 +311,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                       placeholder="Search delicacies..."
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="w-full rounded-lg border border-stone-200 bg-stone-50 py-2 pl-10 pr-8 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                      className="w-full border-b border-stone-200 bg-transparent py-2 pl-10 pr-8 text-sm outline-none focus:border-primary"
                     />
                     {search && (
                       <button
@@ -344,7 +344,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                               "group relative overflow-hidden rounded-xl border-2 transition-all",
                               qty > 0
                                 ? "border-primary/30 bg-primary/5"
-                                : "border-stone-200 bg-white hover:border-stone-300"
+                                : "border-stone-200 bg-transparent hover:border-stone-300"
                             )}
                           >
                             {/* Image area */}
@@ -418,7 +418,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                 </div>
 
                 {/* Footer summary */}
-                <div className="border-t border-stone-100 p-4">
+                <div className="border-t border-stone-100 pt-4">
                   {/* Total */}
                   <div className="mb-3 flex items-center justify-between">
                     <span className="font-semibold text-stone-900">Total</span>

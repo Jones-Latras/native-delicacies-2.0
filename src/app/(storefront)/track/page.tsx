@@ -18,7 +18,7 @@ export default function TrackOrderPage() {
 
   return (
     <div className="artisan-track mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <div className="surface-woven rounded-[2rem] border border-latik/14 px-8 py-12 text-center shadow-[var(--shadow-warm)]">
+      <div className="border-b border-latik/14 px-8 pb-12 text-center">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brown-100">
           <Package className="h-8 w-8 text-brown-600" />
         </div>
@@ -30,7 +30,7 @@ export default function TrackOrderPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8">
-        <div className="surface-woven flex gap-2 rounded-[1.6rem] border border-latik/14 p-3 shadow-[var(--shadow-warm)]">
+        <div className="flex gap-2 border-t border-latik/14 pt-3">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-stone-400" />
             <input
@@ -38,12 +38,12 @@ export default function TrackOrderPage() {
               value={orderNumber}
               onChange={(e) => setOrderNumber(e.target.value)}
               placeholder="e.g. ND-20250101-ABC1"
-              className="w-full rounded-xl border border-stone-200 py-3 pl-10 pr-4 text-sm focus:border-brown-500 focus:outline-none focus:ring-1 focus:ring-brown-500"
+              className="w-full border-b border-stone-200 bg-transparent py-3 pl-10 pr-4 text-sm focus:border-brown-500 focus:outline-none"
             />
           </div>
           <button
             type="submit"
-            className="rounded-[1rem] bg-brown-600 px-6 py-3 text-[0.78rem] font-medium uppercase tracking-[0.18em] text-white transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:bg-brown-700"
+            className="border-b-2 border-brown-600 px-3 py-3 text-[0.78rem] font-medium uppercase tracking-[0.18em] text-brown-600 transition-colors duration-300 ease-in-out hover:text-brown-700"
           >
             Track
           </button>
