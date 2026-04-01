@@ -2,6 +2,7 @@ import { config as loadEnv } from "dotenv";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { hash } from "bcryptjs";
+import { getDefaultAboutPageContent, serializeAboutPageContent } from "../src/lib/about-content";
 
 // Match Next.js env precedence so seed data is written to the active app database.
 loadEnv({ path: ".env.local" });
@@ -16,7 +17,7 @@ async function main() {
 
   // ── Admin user ──
   const adminPassword = await hash("Admin123!", 12);
-  const admin = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { email: "admin@jjnativedelicacies.ph" },
     update: {},
     create: {
@@ -441,6 +442,25 @@ async function main() {
   console.log("  ✓ Business settings created");
 
   // ── Sample Promo Code ──
+  const defaultAboutPage = getDefaultAboutPageContent();
+  const existingAboutPage = await prisma.contentPage.findUnique({
+    where: { slug: "about" },
+    select: { slug: true },
+  });
+
+  if (!existingAboutPage) {
+    await prisma.contentPage.create({
+      data: {
+        slug: "about",
+        title: defaultAboutPage.title,
+        content: serializeAboutPageContent(defaultAboutPage),
+      },
+    });
+    console.log("  âœ“ About page content created");
+  } else {
+    console.log("  âœ“ About page content already exists");
+  }
+
   await prisma.promoCode.upsert({
     where: { code: "WELCOME10" },
     update: {},

@@ -1,7 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { FileText, Save, Plus, Megaphone } from "lucide-react";
+import { FileText, Megaphone, Plus, Save } from "lucide-react";
+import {
+  getDefaultAboutPageContent,
+  parseAboutPageContent,
+  serializeAboutPageContent,
+  type AboutPageContent,
+} from "@/lib/about-content";
 
 interface ContentPage {
   id: string;
@@ -28,12 +34,15 @@ const DEFAULT_PAGES = [
 
 const inputClass =
   "w-full border border-slate-200 bg-transparent px-4 py-2.5 text-sm focus:border-primary focus:outline-none";
+const textareaClass =
+  "w-full border border-slate-200 bg-transparent px-4 py-3 text-sm focus:border-primary focus:outline-none";
 
 export default function AdminContentPage() {
   const [pages, setPages] = useState<ContentPage[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [aboutPage, setAboutPage] = useState<AboutPageContent>(() => getDefaultAboutPageContent());
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState<AnnouncementSettings>({
@@ -66,12 +75,25 @@ export default function AdminContentPage() {
   useEffect(() => {
     fetchPages();
     fetchAnnouncement();
-  }, [fetchPages, fetchAnnouncement]);
+  }, [fetchAnnouncement, fetchPages]);
 
   function selectPage(slug: string) {
     setSelected(slug);
+
     const page = pages.find((entry) => entry.slug === slug);
-    if (page) {
+
+    if (slug === "about") {
+      const nextAboutPage = parseAboutPageContent(
+        page ?? {
+          title: DEFAULT_PAGES.find((entry) => entry.slug === slug)?.title ?? slug,
+          content: "",
+        },
+      );
+
+      setAboutPage(nextAboutPage);
+      setTitle(nextAboutPage.title);
+      setContent(page?.content ?? "");
+    } else if (page) {
       setTitle(page.title);
       setContent(page.content);
     } else {
@@ -79,24 +101,39 @@ export default function AdminContentPage() {
       setTitle(def?.title ?? slug);
       setContent("");
     }
+
     setMsg(null);
   }
 
   async function savePage() {
     if (!selected) return;
+
     setSaving(true);
     setMsg(null);
+
+    const payload =
+      selected === "about"
+        ? {
+            slug: selected,
+            title: aboutPage.title,
+            content: serializeAboutPageContent(aboutPage),
+          }
+        : {
+            slug: selected,
+            title,
+            content,
+          };
 
     try {
       const res = await fetch("/api/admin/content", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug: selected, title, content }),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
         setMsg("Saved successfully.");
-        fetchPages();
+        await fetchPages();
       } else {
         const json = await res.json();
         setMsg(`Error: ${json.error}`);
@@ -122,6 +159,424 @@ export default function AdminContentPage() {
     } finally {
       setSavingAnnouncement(false);
     }
+  }
+
+  function renderAboutEditor() {
+    return (
+      <div className="space-y-8">
+        <div className="border-b border-slate-200 pb-4">
+          <h2 className="text-lg font-semibold text-slate-900">About Page</h2>
+          <p className="mt-1 text-sm text-slate-500">
+            Edit the About page by section so headers, subheaders, and supporting copy stay organized.
+          </p>
+        </div>
+
+        <section className="border-t border-slate-200 pt-6">
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Hero</h3>
+            <p className="mt-1 text-sm text-slate-500">Top eyebrow, headline, and intro copy.</p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="md:col-span-2">
+              <label className="mb-1 block text-sm font-medium text-slate-700">Heading</label>
+              <input
+                type="text"
+                value={aboutPage.title}
+                onChange={(e) => setAboutPage((prev) => ({ ...prev, title: e.target.value }))}
+                className={inputClass}
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="mb-1 block text-sm font-medium text-slate-700">Eyebrow</label>
+              <input
+                type="text"
+                value={aboutPage.hero.eyebrow}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    hero: { ...prev.hero, eyebrow: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="mb-1 block text-sm font-medium text-slate-700">Intro</label>
+              <textarea
+                value={aboutPage.hero.intro}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    hero: { ...prev.hero, intro: e.target.value },
+                  }))
+                }
+                rows={3}
+                className={textareaClass}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-slate-200 pt-6">
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Story</h3>
+            <p className="mt-1 text-sm text-slate-500">Main About section, story paragraphs, and visual callouts.</p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="md:col-span-2">
+              <label className="mb-1 block text-sm font-medium text-slate-700">Section Eyebrow</label>
+              <input
+                type="text"
+                value={aboutPage.story.eyebrow}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    story: { ...prev.story, eyebrow: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="mb-1 block text-sm font-medium text-slate-700">Section Heading</label>
+              <input
+                type="text"
+                value={aboutPage.story.title}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    story: { ...prev.story, title: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Visual Headline</label>
+              <input
+                type="text"
+                value={aboutPage.story.mediaHeadline}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    story: { ...prev.story, mediaHeadline: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Visual Caption</label>
+              <input
+                type="text"
+                value={aboutPage.story.mediaCaption}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    story: { ...prev.story, mediaCaption: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Stat Value</label>
+              <input
+                type="text"
+                value={aboutPage.story.statValue}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    story: { ...prev.story, statValue: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Stat Label</label>
+              <input
+                type="text"
+                value={aboutPage.story.statLabel}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    story: { ...prev.story, statLabel: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            {aboutPage.story.paragraphs.map((paragraph, index) => (
+              <div key={`story-paragraph-${index}`} className="md:col-span-2">
+                <label className="mb-1 block text-sm font-medium text-slate-700">{`Paragraph ${index + 1}`}</label>
+                <textarea
+                  value={paragraph}
+                  onChange={(e) =>
+                    setAboutPage((prev) => ({
+                      ...prev,
+                      story: {
+                        ...prev.story,
+                        paragraphs: prev.story.paragraphs.map((entry, entryIndex) =>
+                          entryIndex === index ? e.target.value : entry,
+                        ),
+                      },
+                    }))
+                  }
+                  rows={4}
+                  className={textareaClass}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-t border-slate-200 pt-6">
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Details</h3>
+            <p className="mt-1 text-sm text-slate-500">Long-form About section. HTML is supported in the body field.</p>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Section Eyebrow</label>
+              <input
+                type="text"
+                value={aboutPage.details.eyebrow}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    details: { ...prev.details, eyebrow: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Section Heading</label>
+              <input
+                type="text"
+                value={aboutPage.details.title}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    details: { ...prev.details, title: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">
+                Content <span className="text-slate-400">(HTML supported)</span>
+              </label>
+              <textarea
+                value={aboutPage.details.contentHtml}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    details: { ...prev.details, contentHtml: e.target.value },
+                  }))
+                }
+                rows={14}
+                className={`${textareaClass} font-mono`}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-slate-200 pt-6">
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Values</h3>
+            <p className="mt-1 text-sm text-slate-500">Section headings plus the value cards shown on the storefront.</p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="md:col-span-2">
+                <label className="mb-1 block text-sm font-medium text-slate-700">Section Eyebrow</label>
+                <input
+                  type="text"
+                  value={aboutPage.values.eyebrow}
+                  onChange={(e) =>
+                    setAboutPage((prev) => ({
+                      ...prev,
+                      values: { ...prev.values, eyebrow: e.target.value },
+                    }))
+                  }
+                  className={inputClass}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="mb-1 block text-sm font-medium text-slate-700">Section Heading</label>
+                <input
+                  type="text"
+                  value={aboutPage.values.title}
+                  onChange={(e) =>
+                    setAboutPage((prev) => ({
+                      ...prev,
+                      values: { ...prev.values, title: e.target.value },
+                    }))
+                  }
+                  className={inputClass}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="mb-1 block text-sm font-medium text-slate-700">Intro</label>
+                <textarea
+                  value={aboutPage.values.intro}
+                  onChange={(e) =>
+                    setAboutPage((prev) => ({
+                      ...prev,
+                      values: { ...prev.values, intro: e.target.value },
+                    }))
+                  }
+                  rows={3}
+                  className={textareaClass}
+                />
+              </div>
+            </div>
+
+            <div className="divide-y divide-slate-200 border-t border-slate-200">
+              {aboutPage.values.items.map((item, index) => (
+                <div key={`value-item-${index}`} className="grid gap-4 py-5 md:grid-cols-2">
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-slate-700">{`Value ${index + 1} Title`}</label>
+                    <input
+                      type="text"
+                      value={item.title}
+                      onChange={(e) =>
+                        setAboutPage((prev) => ({
+                          ...prev,
+                          values: {
+                            ...prev.values,
+                            items: prev.values.items.map((entry, entryIndex) =>
+                              entryIndex === index ? { ...entry, title: e.target.value } : entry,
+                            ),
+                          },
+                        }))
+                      }
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-slate-700">{`Value ${index + 1} Description`}</label>
+                    <textarea
+                      value={item.description}
+                      onChange={(e) =>
+                        setAboutPage((prev) => ({
+                          ...prev,
+                          values: {
+                            ...prev.values,
+                            items: prev.values.items.map((entry, entryIndex) =>
+                              entryIndex === index ? { ...entry, description: e.target.value } : entry,
+                            ),
+                          },
+                        }))
+                      }
+                      rows={4}
+                      className={textareaClass}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-slate-200 pt-6">
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Call To Action</h3>
+            <p className="mt-1 text-sm text-slate-500">Bottom section copy and destination link.</p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="md:col-span-2">
+              <label className="mb-1 block text-sm font-medium text-slate-700">Heading</label>
+              <input
+                type="text"
+                value={aboutPage.cta.title}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    cta: { ...prev.cta, title: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="mb-1 block text-sm font-medium text-slate-700">Text</label>
+              <textarea
+                value={aboutPage.cta.text}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    cta: { ...prev.cta, text: e.target.value },
+                  }))
+                }
+                rows={3}
+                className={textareaClass}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Button Label</label>
+              <input
+                type="text"
+                value={aboutPage.cta.label}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    cta: { ...prev.cta, label: e.target.value },
+                  }))
+                }
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-medium text-slate-700">Button Link</label>
+              <input
+                type="text"
+                value={aboutPage.cta.href}
+                onChange={(e) =>
+                  setAboutPage((prev) => ({
+                    ...prev,
+                    cta: { ...prev.cta, href: e.target.value },
+                  }))
+                }
+                className={inputClass}
+                placeholder="/menu"
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  function renderStandardEditor() {
+    return (
+      <div className="space-y-4">
+        <div>
+          <label className="mb-1 block text-sm font-medium text-slate-700">Page Title</label>
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={inputClass} />
+        </div>
+        <div>
+          <label className="mb-1 block text-sm font-medium text-slate-700">
+            Content <span className="text-slate-400">(HTML supported)</span>
+          </label>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            rows={20}
+            className={`${textareaClass} font-mono`}
+            placeholder="Enter page content here. HTML tags are supported for formatting."
+          />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -217,6 +672,7 @@ export default function AdminContentPage() {
             {DEFAULT_PAGES.map((page) => {
               const exists = pages.find((entry) => entry.slug === page.slug);
               const active = selected === page.slug;
+
               return (
                 <button
                   key={page.slug}
@@ -228,13 +684,13 @@ export default function AdminContentPage() {
                   <FileText className="h-4 w-4 flex-shrink-0" />
                   <div className="min-w-0">
                     <p className="truncate font-medium">{page.title}</p>
-                    {exists && (
+                    {exists ? (
                       <p className={`text-xs ${active ? "text-slate-600" : "text-slate-400"}`}>
                         Last edited {new Date(exists.updatedAt).toLocaleDateString()}
                       </p>
-                    )}
+                    ) : null}
                   </div>
-                  {!exists && <Plus className={`ml-auto h-3.5 w-3.5 ${active ? "text-slate-600" : "text-slate-400"}`} />}
+                  {!exists ? <Plus className={`ml-auto h-3.5 w-3.5 ${active ? "text-slate-600" : "text-slate-400"}`} /> : null}
                 </button>
               );
             })}
@@ -244,28 +700,11 @@ export default function AdminContentPage() {
         <section className="border-t border-slate-200 pt-6">
           {selected ? (
             <div className="space-y-4">
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">Page Title</label>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={inputClass} />
-              </div>
-              <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
-                  Content <span className="text-slate-400">(HTML supported)</span>
-                </label>
-                <textarea
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  rows={20}
-                  className="w-full border border-slate-200 px-4 py-3 font-mono text-sm focus:border-primary focus:outline-none"
-                  placeholder="Enter page content here. HTML tags are supported for formatting."
-                />
-              </div>
+              {selected === "about" ? renderAboutEditor() : renderStandardEditor()}
 
-              {msg && (
-                <p className={`text-sm ${msg.startsWith("Error") ? "text-red-600" : "text-green-600"}`}>
-                  {msg}
-                </p>
-              )}
+              {msg ? (
+                <p className={`text-sm ${msg.startsWith("Error") ? "text-red-600" : "text-green-600"}`}>{msg}</p>
+              ) : null}
 
               <button
                 onClick={savePage}
