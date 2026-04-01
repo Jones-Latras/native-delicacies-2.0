@@ -131,6 +131,8 @@ export default async function HomePage() {
 
   const operatingHours = settings?.operatingHours as unknown as OperatingHours | undefined;
   const timezone = settings?.timezone ?? "Asia/Manila";
+  const sectionActionLinkClass =
+    "hidden items-center gap-2 rounded-[var(--radius-btn)] border-2 bg-asukal/72 px-5 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.16em] text-latik shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-px hover:shadow-[0_14px_24px_rgba(59,31,14,0.10)] sm:flex";
 
   return (
     <>
@@ -288,7 +290,7 @@ export default async function HomePage() {
             </div>
             <Link
               href="/menu"
-              className="hidden items-center gap-2 rounded-full border border-latik/20 bg-asukal/60 px-5 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.16em] text-latik shadow-sm transition-all hover:border-pulot/30 hover:bg-nipa/30 hover:text-pulot sm:flex"
+              className={`${sectionActionLinkClass} border-latik/20 hover:border-pulot/30 hover:bg-nipa/30 hover:text-pulot`}
             >
               View all <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
             </Link>
@@ -330,7 +332,7 @@ export default async function HomePage() {
             </div>
             <Link
               href="/menu?sort=popular"
-              className="hidden items-center gap-2 rounded-full border border-pandan/25 bg-asukal/60 px-5 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.16em] text-latik shadow-sm transition-all hover:border-pandan/40 hover:bg-pandan/10 hover:text-pandan sm:flex"
+              className={`${sectionActionLinkClass} border-pandan/25 hover:border-pandan/40 hover:bg-pandan/10 hover:text-pandan`}
             >
               See all <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
             </Link>
@@ -362,7 +364,7 @@ export default async function HomePage() {
             </div>
             <Link
               href="/menu"
-              className="hidden items-center gap-2 rounded-full border border-latik/20 bg-asukal/60 px-5 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.16em] text-latik shadow-sm transition-all hover:border-latik/35 hover:bg-nipa/30 hover:text-pulot sm:flex"
+              className={`${sectionActionLinkClass} border-latik/20 hover:border-latik/35 hover:bg-nipa/30 hover:text-pulot`}
             >
               View full menu <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
             </Link>

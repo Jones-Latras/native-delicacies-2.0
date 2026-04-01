@@ -25,7 +25,7 @@ export function CategoryCard({ name, slug, description, imageUrl, itemCount }: C
       href={`/menu?category=${slug}`}
       className={cn(
         SURFACE_CARD_BASE_CLASS,
-        "group relative overflow-hidden border-latik/18 bg-asukal/92 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-[0_20px_36px_rgba(59,31,14,0.16)]"
+        "group relative overflow-hidden rounded-[var(--radius-card)] border-2 border-latik/20 bg-asukal/78 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-pulot/22 hover:bg-asukal/88 hover:shadow-[0_18px_30px_rgba(59,31,14,0.14)]"
       )}
     >
       <div className="relative h-40 overflow-hidden bg-[linear-gradient(135deg,rgba(194,133,42,0.34),rgba(253,246,227,0.92),rgba(74,124,89,0.18))]">

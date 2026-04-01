@@ -107,7 +107,7 @@ export function Navbar() {
     >
       <div
         className={cn(
-          "mx-auto flex h-16 w-[calc(100%-1rem)] max-w-7xl items-center justify-between rounded-[1.85rem] border px-3 backdrop-blur-md will-change-transform transition-[transform,box-shadow,background-color,border-color] duration-200 ease-out motion-reduce:transition-none sm:h-[4.65rem] sm:w-[calc(100%-2rem)] sm:px-6 lg:px-8",
+          "mx-auto flex h-16 w-[calc(100%-1rem)] max-w-7xl items-center justify-between rounded-[1rem] border-2 px-3 backdrop-blur-md will-change-transform transition-[transform,box-shadow,background-color,border-color] duration-200 ease-out motion-reduce:transition-none sm:h-[4.65rem] sm:w-[calc(100%-2rem)] sm:px-6 lg:px-8",
           isScrolled
             ? "border-latik/18 bg-asukal/92 shadow-[0_14px_28px_rgba(59,31,14,0.12)] translate-y-0.5"
             : "border-latik/14 bg-asukal/86 shadow-[0_10px_22px_rgba(59,31,14,0.09)]"
@@ -267,8 +267,8 @@ export function Navbar() {
         className={cn(
           "mx-auto w-[calc(100%-1rem)] max-w-7xl origin-top transition-[opacity,transform,max-height,box-shadow,background-color,border-color] duration-200 ease-out motion-reduce:transition-none sm:w-[calc(100%-2rem)] md:hidden",
           isScrolled
-            ? "rounded-b-[1.85rem] border-x border-b border-latik/14 bg-asukal/94 shadow-[0_16px_30px_rgba(59,31,14,0.11)] backdrop-blur-md"
-            : "rounded-b-[1.85rem] border border-t-0 border-latik/12 bg-asukal/90 shadow-[0_12px_24px_rgba(59,31,14,0.09)] backdrop-blur-md",
+            ? "rounded-b-[1rem] border-x-2 border-b-2 border-latik/14 bg-asukal/94 shadow-[0_16px_30px_rgba(59,31,14,0.11)] backdrop-blur-md"
+            : "rounded-b-[1rem] border-2 border-t-0 border-latik/12 bg-asukal/90 shadow-[0_12px_24px_rgba(59,31,14,0.09)] backdrop-blur-md",
           isMobileMenuOpen
             ? "max-h-[calc(100vh-5.5rem)] translate-y-0 overflow-y-auto opacity-100"
             : "max-h-0 overflow-hidden -translate-y-1 opacity-0 pointer-events-none border-transparent"
