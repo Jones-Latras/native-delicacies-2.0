@@ -135,49 +135,46 @@ export default async function HomePage() {
   return (
     <>
       {/* ── Bahay Kubo Hero Section ── */}
-      <section className="relative overflow-hidden px-4 pb-6 pt-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden pb-6 pt-4">
         {/* Ambient warm glow */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[85%] bg-[radial-gradient(ellipse_at_top,rgba(184,114,30,0.12),transparent_60%)]" />
-        
-        {/* Main Hero Card - Bahay Kubo inspired */}
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border-2 border-latik/20 bg-asukal shadow-[0_40px_80px_rgba(44,26,14,0.18),inset_0_1px_0_rgba(255,255,255,0.5)]">
-          
-          {/* Woven Bamboo Pattern Overlay */}
-          <div 
-            className="pointer-events-none absolute inset-0 opacity-[0.08]"
-            style={{
-              backgroundImage: `
-                repeating-linear-gradient(
-                  0deg,
-                  transparent,
-                  transparent 8px,
-                  rgba(107,61,26,0.3) 8px,
-                  rgba(107,61,26,0.3) 10px
-                ),
-                repeating-linear-gradient(
-                  90deg,
-                  transparent,
-                  transparent 8px,
-                  rgba(107,61,26,0.2) 8px,
-                  rgba(107,61,26,0.2) 10px
-                )
-              `,
-            }}
-          />
-          
-          {/* Nipa Thatch Top Border Effect */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-3 bg-[linear-gradient(90deg,rgba(196,154,86,0.4),rgba(212,201,168,0.5),rgba(196,154,86,0.4))]" />
-          
-          {/* Decorative corner bamboo elements */}
-          <div className="pointer-events-none absolute -left-8 -top-8 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(138,154,91,0.2),transparent_70%)]" />
-          <div className="pointer-events-none absolute -bottom-12 -right-12 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(184,114,30,0.15),transparent_70%)]" />
-          
-          {/* Tropical leaf accent */}
-          <div className="pointer-events-none absolute right-[8%] top-[12%] h-20 w-20 rounded-full border border-pandan/20 bg-pandan/8" />
-          <div className="pointer-events-none absolute left-[6%] bottom-[20%] h-16 w-16 rounded-full border border-bambo/15 bg-bambo/10" />
-          
-          {/* Hero Content */}
-          <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col items-center justify-center px-6 pb-28 pt-32 text-center sm:px-8 sm:pb-32 sm:pt-36 lg:px-12 lg:pb-36 lg:pt-40">
+
+        {/* Woven Bamboo Pattern Overlay */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage: `
+              repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 8px,
+                rgba(107,61,26,0.3) 8px,
+                rgba(107,61,26,0.3) 10px
+              ),
+              repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 8px,
+                rgba(107,61,26,0.2) 8px,
+                rgba(107,61,26,0.2) 10px
+              )
+            `,
+          }}
+        />
+
+        {/* Nipa Thatch Top Border Effect */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-3 bg-[linear-gradient(90deg,rgba(196,154,86,0.4),rgba(212,201,168,0.5),rgba(196,154,86,0.4))]" />
+
+        {/* Decorative corner bamboo elements */}
+        <div className="pointer-events-none absolute -left-8 -top-8 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(138,154,91,0.2),transparent_70%)]" />
+        <div className="pointer-events-none absolute -bottom-12 -right-12 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(184,114,30,0.15),transparent_70%)]" />
+
+        {/* Tropical leaf accent */}
+        <div className="pointer-events-none absolute right-[8%] top-[12%] h-20 w-20 rounded-full border border-pandan/20 bg-pandan/8" />
+        <div className="pointer-events-none absolute left-[6%] bottom-[20%] h-16 w-16 rounded-full border border-bambo/15 bg-bambo/10" />
+
+        {/* Hero Content */}
+        <div className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-6 pb-28 pt-32 text-center sm:px-8 sm:pb-32 sm:pt-36 lg:px-12 lg:pb-36 lg:pt-40">
             
             {/* Business Status */}
             {operatingHours && (
@@ -264,7 +261,6 @@ export default async function HomePage() {
                 <ArrowDown className="h-5 w-5 animate-bounce" strokeWidth={1.5} />
               </span>
             </Link>
-          </div>
         </div>
       </section>
 
