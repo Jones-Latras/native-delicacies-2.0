@@ -98,102 +98,80 @@ export default function AdminDashboard() {
   }
 
   return (
-    <>
-      {/* Page Title */}
-      <div className="mb-8">
+    <div className="space-y-10 pb-12">
+      <div className="border-b border-latik/12 pb-6">
         <h2 className="font-[family-name:var(--font-display)] text-4xl text-kape">Dashboard Overview</h2>
-        <p className="mt-2 text-latik/68">
-          Welcome back! Here&apos;s what&apos;s happening today at J&J Native Delicacies.
+        <p className="mt-2 max-w-2xl text-latik/68">
+          Welcome back! Here&apos;s what&apos;s happening today at J&amp;J Native Delicacies.
         </p>
       </div>
 
-      {/* Stats Grid */}
-      <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {/* Revenue */}
-        <div className="rounded-[1.35rem] border border-latik/12 bg-asukal/90 p-6 shadow-[0_16px_30px_rgba(59,31,14,0.10)]">
-          <div className="mb-4 flex items-start justify-between">
-            <div className="rounded-full bg-pandan/12 p-2 text-pandan">
-              <DollarSign className="h-5 w-5" strokeWidth={1.5} />
-            </div>
-            <ChangeBadge value={data.revenueChange} />
-          </div>
-          <p className="text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">Today&apos;s Sales</p>
-          <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-kape">{formatCurrency(data.todayRevenue)}</h3>
+      <section className="border-t border-latik/12 pt-6">
+        <div className="flex flex-wrap gap-x-10 gap-y-6">
+          <MetricInline
+            icon={<DollarSign className="h-4 w-4 text-pandan" strokeWidth={1.5} />}
+            label="Today&apos;s Sales"
+            value={formatCurrency(data.todayRevenue)}
+            badge={<ChangeBadge value={data.revenueChange} />}
+          />
+          <MetricInline
+            icon={<ShoppingCart className="h-4 w-4 text-pulot" strokeWidth={1.5} />}
+            label="Total Orders"
+            value={String(data.todayOrderCount)}
+            badge={<ChangeBadge value={data.orderChange} />}
+          />
+          <MetricInline
+            icon={<Star className="h-4 w-4 text-amber-700" strokeWidth={1.5} />}
+            label="Most Popular"
+            value={data.mostPopular}
+            badge={
+              <span className="rounded-full bg-gatas px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.16em] text-latik/55">
+                Popular
+              </span>
+            }
+          />
+          <MetricInline
+            icon={<Package className="h-4 w-4 text-ube" strokeWidth={1.5} />}
+            label="Active Orders"
+            value={String(
+              (data.statusCounts["NEW"] || 0) +
+                (data.statusCounts["CONFIRMED"] || 0) +
+                (data.statusCounts["PREPARING"] || 0) +
+                (data.statusCounts["READY"] || 0) +
+                (data.statusCounts["OUT_FOR_DELIVERY"] || 0)
+            )}
+          />
         </div>
+      </section>
 
-        {/* Orders */}
-        <div className="rounded-[1.35rem] border border-latik/12 bg-asukal/90 p-6 shadow-[0_16px_30px_rgba(59,31,14,0.10)]">
-          <div className="mb-4 flex items-start justify-between">
-            <div className="rounded-full bg-pulot/12 p-2 text-pulot">
-              <ShoppingCart className="h-5 w-5" strokeWidth={1.5} />
-            </div>
-            <ChangeBadge value={data.orderChange} />
-          </div>
-          <p className="text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">Total Orders</p>
-          <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-kape">{data.todayOrderCount}</h3>
-        </div>
-
-        {/* Popular */}
-        <div className="rounded-[1.35rem] border border-latik/12 bg-asukal/90 p-6 shadow-[0_16px_30px_rgba(59,31,14,0.10)]">
-          <div className="mb-4 flex items-start justify-between">
-            <div className="rounded-full bg-amber-100 p-2 text-amber-700">
-              <Star className="h-5 w-5" strokeWidth={1.5} />
-            </div>
-            <span className="rounded-full bg-gatas px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.16em] text-latik/55">
-              Popular
-            </span>
-          </div>
-          <p className="text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">Most Popular</p>
-          <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-kape">{data.mostPopular}</h3>
-        </div>
-
-        {/* Active Orders */}
-        <div className="rounded-[1.35rem] border border-latik/12 bg-asukal/90 p-6 shadow-[0_16px_30px_rgba(59,31,14,0.10)]">
-          <div className="mb-4 flex items-start justify-between">
-            <div className="rounded-full bg-ube/10 p-2 text-ube">
-              <Package className="h-5 w-5" strokeWidth={1.5} />
-            </div>
-          </div>
-          <p className="text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">Active Orders</p>
-          <h3 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-kape">
-            {(data.statusCounts["NEW"] || 0) +
-              (data.statusCounts["CONFIRMED"] || 0) +
-              (data.statusCounts["PREPARING"] || 0) +
-              (data.statusCounts["READY"] || 0) +
-              (data.statusCounts["OUT_FOR_DELIVERY"] || 0)}
-          </h3>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Recent Orders Table */}
-        <div className="overflow-hidden rounded-[1.5rem] border border-latik/12 bg-asukal/92 shadow-[0_18px_34px_rgba(59,31,14,0.10)] lg:col-span-2">
-          <div className="flex items-center justify-between border-b border-latik/10 p-6">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(320px,1fr)]">
+        <section className="border-t border-latik/12 pt-6">
+          <div className="mb-5 flex items-center justify-between">
             <h3 className="font-[family-name:var(--font-display)] text-2xl text-kape">Recent Orders</h3>
             <Link href="/admin/orders" className="text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik hover:text-pulot">
-              View All
+              View all
             </Link>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left">
               <thead>
-                <tr className="bg-gatas/70">
-                  <th className="px-6 py-4 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">
+                <tr className="border-b border-latik/12">
+                  <th className="px-0 py-4 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">
                     Order ID
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  <th className="px-4 py-4 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">
                     Customer
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  <th className="px-4 py-4 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">
                     Items
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  <th className="px-4 py-4 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">
                     Amount
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  <th className="px-4 py-4 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">
                     Status
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                  <th className="px-4 py-4 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">
                     Actions
                   </th>
                 </tr>
@@ -201,8 +179,8 @@ export default function AdminDashboard() {
               <tbody className="divide-y divide-latik/8">
                 {data.recentOrders.map((order) => (
                   <tr key={order.id} className="transition-colors hover:bg-pulot/6">
-                    <td className="px-6 py-4 text-sm font-medium">{order.orderNumber}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-0 py-4 text-sm font-medium">{order.orderNumber}</td>
+                    <td className="px-4 py-4">
                       <div className="text-sm font-bold">{order.customerName}</div>
                       <div className="text-xs text-latik/58">
                         {order.deliveryAddress
@@ -212,18 +190,18 @@ export default function AdminDashboard() {
                             : "Delivery"}
                       </div>
                     </td>
-                    <td className="max-w-[200px] truncate px-6 py-4 text-sm">
+                    <td className="max-w-[200px] truncate px-4 py-4 text-sm">
                       {order.items.map((i) => `${i.menuItem.name}${i.quantity > 1 ? ` x${i.quantity}` : ""}`).join(", ")}
                     </td>
-                    <td className="px-6 py-4 text-sm font-bold">{formatCurrency(order.total)}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-4 text-sm font-bold">{formatCurrency(order.total)}</td>
+                    <td className="px-4 py-4">
                       <span
                         className={`rounded-full px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.16em] ${STATUS_BADGE[order.status] || "bg-gatas text-latik"}`}
                       >
                         {STATUS_LABEL[order.status] || order.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-4">
                       <Link href={`/admin/orders/${order.id}`} className="text-latik hover:text-pulot">
                         <SquarePen className="h-5 w-5" strokeWidth={1.5} />
                       </Link>
@@ -232,7 +210,7 @@ export default function AdminDashboard() {
                 ))}
                 {data.recentOrders.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-sm text-latik/48">
+                    <td colSpan={6} className="px-0 py-12 text-center text-sm text-latik/48">
                       No orders yet today
                     </td>
                   </tr>
@@ -240,15 +218,14 @@ export default function AdminDashboard() {
               </tbody>
             </table>
           </div>
-        </div>
+        </section>
 
-        {/* Product Quick Look */}
-        <div className="flex flex-col overflow-hidden rounded-[1.5rem] border border-latik/12 bg-asukal/92 shadow-[0_18px_34px_rgba(59,31,14,0.10)]">
-          <div className="border-b border-latik/10 p-6">
+        <section className="border-t border-latik/12 pt-6">
+          <div className="mb-5">
             <h3 className="font-[family-name:var(--font-display)] text-2xl text-kape">Product Quick Look</h3>
             <p className="mt-2 text-[0.68rem] uppercase tracking-[0.18em] text-latik/52">Toggle item availability</p>
           </div>
-          <div className="flex-1 space-y-4 p-6">
+          <div className="divide-y divide-latik/10">
             {data.products.map((product) => (
               <ProductToggle key={product.id} product={product} />
             ))}
@@ -256,24 +233,22 @@ export default function AdminDashboard() {
               <p className="py-4 text-center text-sm text-latik/48">No products found</p>
             )}
           </div>
-          <div className="p-6">
+          <div className="mt-5 border-t border-latik/10 pt-5">
             <Link
               href="/admin/menu"
-              className="block w-full rounded-full border border-latik/18 bg-gatas/75 py-3 text-center text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik transition-all duration-300 ease-in-out hover:bg-gatas"
+              className="text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik transition-colors duration-200 ease-out hover:text-pulot"
             >
               Manage Full Inventory
             </Link>
           </div>
-        </div>
+        </section>
       </div>
 
-      {/* Bottom Section */}
-      <div className="mt-8 grid grid-cols-1 gap-8 pb-12 md:grid-cols-3">
-        {/* Order Hotspots Placeholder */}
-        <div className="rounded-[1.5rem] border border-latik/12 bg-asukal/92 p-6 shadow-[0_18px_34px_rgba(59,31,14,0.10)] md:col-span-2">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.7fr)_minmax(280px,1fr)]">
+        <section className="border-t border-latik/12 pt-6">
           <div className="mb-6 flex items-center justify-between">
             <h3 className="font-[family-name:var(--font-display)] text-2xl text-kape">Order Hotspots</h3>
-            <div className="flex gap-2">
+            <div className="flex gap-4">
               <span className="flex items-center gap-1 text-xs text-latik/55">
                 <span className="h-2 w-2 rounded-full bg-pulot" /> High
               </span>
@@ -282,30 +257,29 @@ export default function AdminDashboard() {
               </span>
             </div>
           </div>
-          <div className="flex aspect-[21/9] items-center justify-center overflow-hidden rounded-[1.25rem] border border-latik/10 bg-gatas/70">
+          <div className="flex aspect-[21/9] items-center justify-center border-y border-latik/10">
             <div className="text-center">
               <Package className="mx-auto mb-2 h-10 w-10 text-latik/28" strokeWidth={1.5} />
               <p className="text-sm font-medium text-latik/52">Interactive Delivery Heatmap</p>
               <p className="text-xs uppercase tracking-[0.16em] text-latik/40">Coming soon</p>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Support Card */}
-        <div className="flex flex-col items-center justify-center rounded-[1.5rem] border border-pulot/20 bg-pulot/10 p-6 text-center shadow-[0_18px_34px_rgba(59,31,14,0.10)]">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-pulot text-asukal">
-            <Headset className="h-8 w-8" strokeWidth={1.5} />
+        <section className="border-t border-latik/12 pt-6">
+          <div className="mb-4 flex items-center gap-3 text-pulot">
+            <Headset className="h-5 w-5" strokeWidth={1.5} />
+            <h4 className="font-[family-name:var(--font-display)] text-2xl text-kape">Need Assistance?</h4>
           </div>
-          <h4 className="mb-2 font-[family-name:var(--font-display)] text-2xl text-kape">Need Assistance?</h4>
-          <p className="mb-6 text-sm leading-6 text-latik/72">
+          <p className="max-w-sm text-sm leading-6 text-latik/72">
             Having trouble with an order or the dashboard? Contact our support team.
           </p>
-          <button className="w-full rounded-full border border-latik bg-asukal py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik transition-all duration-300 ease-in-out hover:-translate-y-px hover:bg-latik hover:text-asukal">
+          <button className="mt-6 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik transition-colors duration-200 ease-out hover:text-pulot">
             Chat with Support
           </button>
-        </div>
+        </section>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -328,6 +302,31 @@ function ChangeBadge({ value }: { value: number }) {
   }
   return (
     <span className="rounded-full bg-gatas px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.16em] text-latik/55">0%</span>
+  );
+}
+
+function MetricInline({
+  icon,
+  label,
+  value,
+  badge,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  badge?: React.ReactNode;
+}) {
+  return (
+    <div className="min-w-[185px] flex-1">
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/55">
+          {icon}
+          <span>{label}</span>
+        </div>
+        {badge ?? null}
+      </div>
+      <p className="font-[family-name:var(--font-display)] text-3xl text-kape">{value}</p>
+    </div>
   );
 }
 
@@ -373,11 +372,9 @@ function ProductToggle({
         : "Available";
 
   return (
-    <div className={`flex items-center justify-between ${!available ? "opacity-60" : ""}`}>
+    <div className={`flex items-center justify-between gap-4 py-4 ${!available ? "opacity-60" : ""}`}>
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-pulot/12">
-          <Package className="h-5 w-5 text-pulot" strokeWidth={1.5} />
-        </div>
+        <Package className="h-4 w-4 text-pulot" strokeWidth={1.5} />
         <div>
           <p className="text-sm font-semibold text-kape">{product.name}</p>
           <p className={`text-xs ${!available ? "text-red-800/75" : "text-latik/60"}`}>{subtitle}</p>

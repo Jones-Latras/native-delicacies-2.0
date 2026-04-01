@@ -122,32 +122,40 @@ export default function MenuManagementPage() {
     fetchCategories();
   };
 
+  const filterFieldClass =
+    "w-full border-b border-[#d7ccc8] bg-transparent py-2 text-sm text-[#3e2723] focus:border-[#8b4513] focus:outline-none";
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-[#3e2723]">Menu Management</h1>
+      <div className="flex items-center justify-between gap-4 border-b border-[#e8e0d8] pb-4">
+        <div>
+          <h1 className="text-2xl font-bold text-[#3e2723]">Menu Management</h1>
+          <p className="mt-1 text-sm text-[#8d6e63]">
+            Manage items and categories in a cleaner, divider-led layout.
+          </p>
+        </div>
         <button
           onClick={() => {
             if (tab === "items") { setEditingItem(null); setShowItemModal(true); }
             else { setEditingCat(null); setShowCatModal(true); }
           }}
-          className="flex items-center gap-2 rounded-lg bg-[#8b4513] px-4 py-2 text-sm font-medium text-white hover:bg-[#a0522d] transition-colors"
+          className="inline-flex items-center gap-2 border-b-2 border-[#8b4513] pb-1 text-sm font-semibold text-[#8b4513] transition-colors hover:border-[#a0522d] hover:text-[#a0522d]"
         >
           <Plus size={16} /> Add {tab === "items" ? "Item" : "Category"}
         </button>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 rounded-lg bg-[#f5f0eb] p-1 w-fit">
+      <div className="flex w-fit gap-6 border-b border-[#e8e0d8]">
         <button
           onClick={() => setTab("items")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${tab === "items" ? "bg-white text-[#8b4513] shadow-sm" : "text-[#6d4c41] hover:text-[#3e2723]"}`}
+          className={`border-b-2 px-1 pb-3 text-sm font-medium transition-colors ${tab === "items" ? "border-[#8b4513] text-[#8b4513]" : "border-transparent text-[#6d4c41] hover:text-[#3e2723]"}`}
         >
           Menu Items ({total})
         </button>
         <button
           onClick={() => setTab("categories")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${tab === "categories" ? "bg-white text-[#8b4513] shadow-sm" : "text-[#6d4c41] hover:text-[#3e2723]"}`}
+          className={`border-b-2 px-1 pb-3 text-sm font-medium transition-colors ${tab === "categories" ? "border-[#8b4513] text-[#8b4513]" : "border-transparent text-[#6d4c41] hover:text-[#3e2723]"}`}
         >
           Categories ({categories.length})
         </button>
@@ -164,13 +172,13 @@ export default function MenuManagementPage() {
                 placeholder="Search items..."
                 value={search}
                 onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-                className="w-full rounded-lg border border-[#d7ccc8] bg-white py-2 pl-9 pr-3 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]"
+                className={`${filterFieldClass} pl-9 pr-3`}
               />
             </div>
             <select
               value={filterCategory}
               onChange={(e) => { setFilterCategory(e.target.value); setPage(1); }}
-              className="rounded-lg border border-[#d7ccc8] bg-white px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none"
+              className="border-b border-[#d7ccc8] bg-transparent px-3 py-2 text-sm text-[#3e2723] focus:border-[#8b4513] focus:outline-none"
             >
               <option value="">All Categories</option>
               {categories.map((c) => (
@@ -180,16 +188,16 @@ export default function MenuManagementPage() {
           </div>
 
           {/* Items Table */}
-          <div className="overflow-hidden rounded-xl border border-[#e8e0d8] bg-white">
+          <div className="overflow-x-auto border-t border-[#e8e0d8] pt-4">
             <table className="w-full text-sm">
-              <thead className="bg-[#f8f7f6] text-left text-xs uppercase text-[#8d6e63]">
+              <thead className="text-left text-xs uppercase text-[#8d6e63]">
                 <tr>
-                  <th className="px-4 py-3">Item</th>
-                  <th className="px-4 py-3">Category</th>
-                  <th className="px-4 py-3 text-right">Price</th>
-                  <th className="px-4 py-3 text-center">Available</th>
-                  <th className="px-4 py-3 text-center">Stock Left</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
+                  <th className="px-4 py-3 font-semibold">Item</th>
+                  <th className="px-4 py-3 font-semibold">Category</th>
+                  <th className="px-4 py-3 text-right font-semibold">Price</th>
+                  <th className="px-4 py-3 text-center font-semibold">Available</th>
+                  <th className="px-4 py-3 text-center font-semibold">Stock Left</th>
+                  <th className="px-4 py-3 text-right font-semibold">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#f0ebe6]">
@@ -274,15 +282,15 @@ export default function MenuManagementPage() {
         </>
       ) : (
         /* Categories Tab */
-        <div className="overflow-hidden rounded-xl border border-[#e8e0d8] bg-white">
+        <div className="overflow-x-auto border-t border-[#e8e0d8] pt-4">
           <table className="w-full text-sm">
-            <thead className="bg-[#f8f7f6] text-left text-xs uppercase text-[#8d6e63]">
+            <thead className="text-left text-xs uppercase text-[#8d6e63]">
               <tr>
-                <th className="px-4 py-3">Order</th>
-                <th className="px-4 py-3">Category</th>
-                <th className="px-4 py-3 text-center">Items</th>
-                <th className="px-4 py-3 text-center">Visible</th>
-                <th className="px-4 py-3 text-right">Actions</th>
+                <th className="px-4 py-3 font-semibold">Order</th>
+                <th className="px-4 py-3 font-semibold">Category</th>
+                <th className="px-4 py-3 text-center font-semibold">Items</th>
+                <th className="px-4 py-3 text-center font-semibold">Visible</th>
+                <th className="px-4 py-3 text-right font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#f0ebe6]">
@@ -378,6 +386,10 @@ function ItemModal({
     soldToday: item?.soldToday ?? 0,
     dietaryTags: [] as string[],
   });
+  const fieldClass =
+    "w-full border-b border-[#d7ccc8] bg-transparent px-0 py-2 text-sm text-[#3e2723] focus:border-[#8b4513] focus:outline-none";
+  const actionClass =
+    "border-b-2 border-transparent px-1 py-2 text-sm font-medium transition-colors";
 
   // Load full item data for edit
   useEffect(() => {
@@ -450,7 +462,7 @@ function ItemModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
-      <div className="w-full max-w-lg rounded-2xl bg-white shadow-xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto border border-[#d7ccc8] bg-[#fffaf2]" onClick={(e) => e.stopPropagation()}>
         <div className="border-b border-[#e8e0d8] px-6 py-4">
           <h2 className="text-lg font-bold text-[#3e2723]">{isEdit ? "Edit" : "Add"} Menu Item</h2>
         </div>
@@ -459,30 +471,30 @@ function ItemModal({
 
           <div>
             <label className="mb-1 block text-sm font-medium text-[#5d4037]">Name *</label>
-            <input required value={form.name} onChange={(e) => set("name", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+            <input required value={form.name} onChange={(e) => set("name", e.target.value)} className={fieldClass} />
           </div>
 
           <div>
             <label className="mb-1 block text-sm font-medium text-[#5d4037]">Description *</label>
-            <textarea required rows={3} value={form.description} onChange={(e) => set("description", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+            <textarea required rows={3} value={form.description} onChange={(e) => set("description", e.target.value)} className={fieldClass} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1 block text-sm font-medium text-[#5d4037]">Category *</label>
-              <select required value={form.categoryId} onChange={(e) => set("categoryId", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none">
+              <select required value={form.categoryId} onChange={(e) => set("categoryId", e.target.value)} className={fieldClass}>
                 {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
               </select>
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-[#5d4037]">Price (₱) *</label>
-              <input required type="number" step="0.01" min="0" value={form.price} onChange={(e) => set("price", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+              <input required type="number" step="0.01" min="0" value={form.price} onChange={(e) => set("price", e.target.value)} className={fieldClass} />
             </div>
           </div>
 
           <div>
             <label className="mb-1 block text-sm font-medium text-[#5d4037]">Location / Region</label>
-            <select value={form.originRegion} onChange={(e) => set("originRegion", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none">
+            <select value={form.originRegion} onChange={(e) => set("originRegion", e.target.value)} className={fieldClass}>
               <option value="">Do not show a location</option>
               <option value="Luzon">Luzon</option>
               <option value="Visayas">Visayas</option>
@@ -499,7 +511,7 @@ function ItemModal({
                 <button
                   type="button"
                   onClick={() => set("imageUrl", "")}
-                  className="absolute -right-2 -top-2 rounded-full bg-red-500 p-0.5 text-white hover:bg-red-600"
+                  className="absolute -right-2 -top-2 border border-red-300 bg-[#fffaf2] p-0.5 text-red-600 transition-colors hover:border-red-500 hover:text-red-700"
                 >
                   <X size={14} />
                 </button>
@@ -507,7 +519,7 @@ function ItemModal({
             )}
             {/* Upload button */}
             <div className="flex items-center gap-2">
-              <label className={`flex cursor-pointer items-center gap-2 rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm font-medium text-[#5d4037] transition-colors hover:bg-[#f5f0eb] ${uploading ? "pointer-events-none opacity-50" : ""}`}>
+              <label className={`flex cursor-pointer items-center gap-2 border-b border-[#d7ccc8] px-1 py-2 text-sm font-medium text-[#5d4037] transition-colors hover:text-[#8b4513] ${uploading ? "pointer-events-none opacity-50" : ""}`}>
                 <Upload size={16} />
                 {uploading ? "Uploading..." : "Upload Photo"}
                 <input
@@ -543,7 +555,7 @@ function ItemModal({
                 value={form.imageUrl}
                 onChange={(e) => set("imageUrl", e.target.value)}
                 placeholder="Paste image URL..."
-                className="flex-1 rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]"
+                className={`flex-1 ${fieldClass}`}
               />
             </div>
             <p className="mt-1 text-xs text-[#a1887f]">JPEG, PNG, WebP or AVIF. Max 5 MB.</p>
@@ -552,22 +564,22 @@ function ItemModal({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1 block text-sm font-medium text-[#5d4037]">Daily Limit</label>
-              <input type="number" min="1" value={form.dailyLimit} onChange={(e) => set("dailyLimit", e.target.value)} placeholder="No limit" className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+              <input type="number" min="1" value={form.dailyLimit} onChange={(e) => set("dailyLimit", e.target.value)} placeholder="No limit" className={fieldClass} />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-[#5d4037]">Sold Today</label>
-              <input type="number" min="0" value={form.soldToday} onChange={(e) => set("soldToday", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+              <input type="number" min="0" value={form.soldToday} onChange={(e) => set("soldToday", e.target.value)} className={fieldClass} />
             </div>
           </div>
 
           <div>
             <label className="mb-1 block text-sm font-medium text-[#5d4037]">Heritage Story</label>
-            <textarea value={form.heritageStory} onChange={(e) => set("heritageStory", e.target.value)} rows={4} placeholder="Share the product's story, roots, or cultural background..." className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+            <textarea value={form.heritageStory} onChange={(e) => set("heritageStory", e.target.value)} rows={4} placeholder="Share the product's story, roots, or cultural background..." className={fieldClass} />
           </div>
 
           <div>
             <label className="mb-1 block text-sm font-medium text-[#5d4037]">Storage Instructions</label>
-            <textarea value={form.storageInstructions} onChange={(e) => set("storageInstructions", e.target.value)} rows={3} placeholder="Example: Refrigerate after opening. Best consumed within 7 days." className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+            <textarea value={form.storageInstructions} onChange={(e) => set("storageInstructions", e.target.value)} rows={3} placeholder="Example: Refrigerate after opening. Best consumed within 7 days." className={fieldClass} />
           </div>
 
           <div>
@@ -605,10 +617,10 @@ function ItemModal({
           </div>
 
           <div className="flex justify-end gap-3 border-t border-[#e8e0d8] pt-4">
-            <button type="button" onClick={onClose} className="rounded-lg border border-[#d7ccc8] px-4 py-2 text-sm font-medium text-[#5d4037] hover:bg-[#f5f0eb]">
+            <button type="button" onClick={onClose} className={`${actionClass} text-[#5d4037] hover:border-[#d7ccc8] hover:text-[#3e2723]`}>
               Cancel
             </button>
-            <button type="submit" disabled={saving} className="rounded-lg bg-[#8b4513] px-4 py-2 text-sm font-medium text-white hover:bg-[#a0522d] disabled:opacity-50">
+            <button type="submit" disabled={saving} className={`${actionClass} border-[#8b4513] text-[#8b4513] hover:border-[#a0522d] hover:text-[#a0522d] disabled:opacity-50`}>
               {saving ? "Saving..." : isEdit ? "Update" : "Create"}
             </button>
           </div>
@@ -635,6 +647,10 @@ function CategoryModal({
     name: category?.name ?? "",
     isVisible: category?.isVisible ?? true,
   });
+  const fieldClass =
+    "w-full border-b border-[#d7ccc8] bg-transparent px-0 py-2 text-sm text-[#3e2723] focus:border-[#8b4513] focus:outline-none";
+  const actionClass =
+    "border-b-2 border-transparent px-1 py-2 text-sm font-medium transition-colors";
 
   const set = (key: string, val: unknown) => setForm((p) => ({ ...p, [key]: val }));
 
@@ -664,7 +680,7 @@ function CategoryModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
-      <div className="w-full max-w-md rounded-2xl bg-white shadow-xl" onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-md border border-[#d7ccc8] bg-[#fffaf2]" onClick={(e) => e.stopPropagation()}>
         <div className="border-b border-[#e8e0d8] px-6 py-4">
           <h2 className="text-lg font-bold text-[#3e2723]">{isEdit ? "Edit" : "Add"} Category</h2>
         </div>
@@ -673,7 +689,7 @@ function CategoryModal({
 
           <div>
             <label className="mb-1 block text-sm font-medium text-[#5d4037]">Name *</label>
-            <input required value={form.name} onChange={(e) => set("name", e.target.value)} className="w-full rounded-lg border border-[#d7ccc8] px-3 py-2 text-sm focus:border-[#8b4513] focus:outline-none focus:ring-1 focus:ring-[#8b4513]" />
+            <input required value={form.name} onChange={(e) => set("name", e.target.value)} className={fieldClass} />
           </div>
 
           <label className="flex items-center gap-2 text-sm text-[#5d4037]">
@@ -682,10 +698,10 @@ function CategoryModal({
           </label>
 
           <div className="flex justify-end gap-3 border-t border-[#e8e0d8] pt-4">
-            <button type="button" onClick={onClose} className="rounded-lg border border-[#d7ccc8] px-4 py-2 text-sm font-medium text-[#5d4037] hover:bg-[#f5f0eb]">
+            <button type="button" onClick={onClose} className={`${actionClass} text-[#5d4037] hover:border-[#d7ccc8] hover:text-[#3e2723]`}>
               Cancel
             </button>
-            <button type="submit" disabled={saving} className="rounded-lg bg-[#8b4513] px-4 py-2 text-sm font-medium text-white hover:bg-[#a0522d] disabled:opacity-50">
+            <button type="submit" disabled={saving} className={`${actionClass} border-[#8b4513] text-[#8b4513] hover:border-[#a0522d] hover:text-[#a0522d] disabled:opacity-50`}>
               {saving ? "Saving..." : isEdit ? "Update" : "Create"}
             </button>
           </div>

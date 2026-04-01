@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginInput } from "@/lib/validators";
-import { Button, Input, Card, CardHeader, CardContent } from "@/components/ui";
+import { Button, Input } from "@/components/ui";
 import { Shield, Eye, EyeOff } from "lucide-react";
 
 export default function AdminLoginPage() {
@@ -50,48 +50,46 @@ export default function AdminLoginPage() {
           <p className="mt-2 text-latik/68">Sign in to manage your business</p>
         </div>
 
-        <Card>
-          <CardContent>
-            {error && (
-              <div className="mb-4 rounded-[1rem] border border-red-900/15 bg-red-900/8 p-3 text-sm text-red-800/85">{error}</div>
-            )}
+        <div className="border-t border-kape/10 pt-6">
+          {error && (
+            <p className="mb-4 border-l-2 border-red-900/30 pl-3 text-sm text-red-800/85">{error}</p>
+          )}
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <Input
+              id="email"
+              label="Email"
+              type="email"
+              autoComplete="email"
+              placeholder="admin@jjnativedelicacies.ph"
+              error={errors.email?.message}
+              {...register("email")}
+            />
+
+            <div className="relative">
               <Input
-                id="email"
-                label="Email"
-                type="email"
-                autoComplete="email"
-                placeholder="admin@jjnativedelicacies.ph"
-                error={errors.email?.message}
-                {...register("email")}
+                id="password"
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                error={errors.password?.message}
+                {...register("password")}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-[38px] text-latik/45 hover:text-latik"
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" strokeWidth={1.5} /> : <Eye className="h-4 w-4" strokeWidth={1.5} />}
+              </button>
+            </div>
 
-              <div className="relative">
-                <Input
-                  id="password"
-                  label="Password"
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="current-password"
-                  error={errors.password?.message}
-                  {...register("password")}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-[38px] text-latik/45 hover:text-latik"
-                  tabIndex={-1}
-                >
-                  {showPassword ? <EyeOff className="h-4 w-4" strokeWidth={1.5} /> : <Eye className="h-4 w-4" strokeWidth={1.5} />}
-                </button>
-              </div>
-
-              <Button type="submit" className="w-full" isLoading={isSubmitting}>
-                Sign In
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+            <Button type="submit" className="w-full" isLoading={isSubmitting}>
+              Sign In
+            </Button>
+          </form>
+        </div>
 
         <p className="mt-6 text-center text-sm text-latik/52">
           This portal is restricted to authorized personnel only.

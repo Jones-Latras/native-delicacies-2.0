@@ -174,11 +174,13 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
 
   const nextStatus = NEXT_STATUS[order.status];
   const canCancel = ["NEW", "CONFIRMED"].includes(order.status);
+  const sectionClass = "border-t border-primary/10 pt-6";
+  const sectionHeadingClass = "mb-4 text-sm font-bold uppercase tracking-wider text-slate-500";
 
   return (
     <>
       {/* Back + Header */}
-      <div className="mb-6">
+      <div className="mb-6 border-b border-primary/10 pb-6">
         <Link
           href="/admin/orders"
           className="mb-3 inline-flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-primary"
@@ -207,16 +209,14 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
         <div className="space-y-6 lg:col-span-2">
           {/* Status Actions */}
           {(nextStatus || canCancel) && (
-            <div className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm">
-              <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-500">
-                Update Status
-              </h3>
+            <div className={sectionClass}>
+              <h3 className={sectionHeadingClass}>Update Status</h3>
               <div className="mb-4">
                 <textarea
                   value={noteText}
                   onChange={(e) => setNoteText(e.target.value)}
                   placeholder="Add a note (optional)..."
-                  className="w-full rounded-lg border border-slate-200 p-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  className="w-full border-b border-slate-200 bg-transparent pb-3 text-sm focus:border-primary focus:outline-none"
                   rows={2}
                 />
               </div>
@@ -246,13 +246,13 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
           )}
 
           {/* Order Items */}
-          <div className="overflow-hidden rounded-xl border border-primary/10 bg-white shadow-sm">
-            <div className="border-b border-primary/10 p-6">
+          <div className={sectionClass}>
+            <div className="mb-4">
               <h3 className="text-lg font-bold">Order Items</h3>
             </div>
             <div className="divide-y divide-primary/5">
               {order.items.map((item) => (
-                <div key={item.id} className="flex items-center justify-between p-6">
+                <div key={item.id} className="flex items-center justify-between py-6">
                   <div className="flex items-center gap-4">
                     <div
                       className="h-14 w-14 flex-shrink-0 rounded-lg bg-primary/5 bg-cover bg-center"
@@ -288,7 +288,7 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
             </div>
 
             {/* Totals */}
-            <div className="border-t border-primary/10 p-6">
+            <div className="border-t border-primary/10 pt-6">
               <div className="space-y-2">
                 <div className="flex justify-between text-sm text-slate-600">
                   <span>Subtotal</span>
@@ -328,7 +328,7 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
           </div>
 
           {/* Status Timeline */}
-          <div className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm">
+          <div className={sectionClass}>
             <h3 className="mb-4 text-lg font-bold">Status Timeline</h3>
             <div className="space-y-4">
               {order.statusHistory.map((entry, i) => (
@@ -367,10 +367,8 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
         {/* Right Column */}
         <div className="space-y-6">
           {/* Customer Info */}
-          <div className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm">
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-500">
-              Customer
-            </h3>
+          <div className={sectionClass}>
+            <h3 className={sectionHeadingClass}>Customer</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <User className="h-4 w-4 text-slate-400" />
@@ -395,8 +393,8 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
           </div>
 
           {/* Delivery Info */}
-          <div className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm">
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-500">
+          <div className={sectionClass}>
+            <h3 className={sectionHeadingClass}>
               {order.orderType === "DELIVERY" ? "Delivery" : "Pickup"} Details
             </h3>
             <div className="space-y-3">
@@ -438,10 +436,8 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
           </div>
 
           {/* Payment Info */}
-          <div className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm">
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-500">
-              Payment
-            </h3>
+          <div className={sectionClass}>
+            <h3 className={sectionHeadingClass}>Payment</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <CreditCard className="h-4 w-4 text-slate-400" />
@@ -476,10 +472,8 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
 
           {/* Notes */}
           {(order.specialInstructions || order.isGift) && (
-            <div className="rounded-xl border border-primary/10 bg-white p-6 shadow-sm">
-              <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-500">
-                Notes
-              </h3>
+            <div className={sectionClass}>
+              <h3 className={sectionHeadingClass}>Notes</h3>
               <div className="space-y-3">
                 {order.specialInstructions && (
                   <div className="flex items-start gap-3">
@@ -488,7 +482,7 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
                   </div>
                 )}
                 {order.isGift && order.giftMessage && (
-                  <div className="rounded-lg bg-primary/5 p-3">
+                  <div className="border-l-2 border-primary/20 pl-4">
                     <p className="text-xs font-bold text-primary">🎁 Gift Message</p>
                     <p className="mt-1 text-sm italic text-slate-700">
                       &ldquo;{order.giftMessage}&rdquo;

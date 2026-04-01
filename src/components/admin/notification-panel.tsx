@@ -104,7 +104,7 @@ export function NotificationPanel() {
     <div ref={panelRef} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="relative rounded-full border border-latik/15 bg-asukal/80 p-2.5 text-latik transition-all duration-300 ease-in-out hover:border-pulot/30 hover:bg-pulot/10 hover:text-pulot"
+        className="relative border border-latik/15 px-2.5 py-2.5 text-latik transition-colors duration-200 ease-out hover:border-pulot/30 hover:text-pulot"
       >
         <Bell className="h-5 w-5" strokeWidth={1.5} />
         {unreadCount > 0 && (
@@ -115,7 +115,7 @@ export function NotificationPanel() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-14 z-50 w-96 overflow-hidden rounded-[1.5rem] border border-latik/15 bg-asukal/96 shadow-[0_24px_44px_rgba(59,31,14,0.18)] backdrop-blur-xl">
+        <div className="absolute right-0 top-14 z-50 w-96 border border-latik/15 bg-[linear-gradient(180deg,rgba(255,250,242,0.96),rgba(245,236,215,0.98))]">
           <div className="flex items-center justify-between border-b border-latik/10 px-5 py-4">
             <h3 className="font-[family-name:var(--font-display)] text-lg text-kape">Notifications</h3>
             {unreadCount > 0 && (
