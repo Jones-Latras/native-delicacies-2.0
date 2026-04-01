@@ -13,10 +13,10 @@ export const UI_NAV_TEXT_LINK_CLASS =
   "group relative rounded-full px-4 py-2.5 text-[0.72rem] font-medium uppercase tracking-[0.24em] transition-[color,background-color,transform,box-shadow] duration-200 ease-out motion-reduce:transition-none after:absolute after:bottom-1 after:left-4 after:right-4 after:h-px after:origin-center after:scale-x-0 after:bg-pulot after:transition-transform after:duration-200 after:ease-out";
 
 export const UI_NAV_ICON_BUTTON_CLASS =
-  "rounded-full border border-transparent p-2.5 transition-[color,background-color,border-color,transform,box-shadow] duration-200 ease-out motion-reduce:transition-none";
+  "rounded-[var(--radius-btn)] border border-transparent p-2.5 transition-[color,background-color,border-color,transform,box-shadow] duration-200 ease-out motion-reduce:transition-none";
 
 export const UI_NAV_MOBILE_TOGGLE_CLASS =
-  "rounded-full border border-transparent p-2.5 transition-[color,background-color,border-color,transform,box-shadow] duration-200 ease-out motion-reduce:transition-none";
+  "rounded-[var(--radius-btn)] border border-transparent p-2.5 transition-[color,background-color,border-color,transform,box-shadow] duration-200 ease-out motion-reduce:transition-none";
 
 export const UI_NAV_MENU_ITEM_CLASS =
   "rounded-2xl px-4 py-3 text-[0.72rem] font-medium uppercase tracking-[0.22em] transition-[color,background-color,transform,box-shadow] duration-200 ease-out motion-reduce:transition-none";

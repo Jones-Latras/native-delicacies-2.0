@@ -44,7 +44,7 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
     <div
       className={cn(
         SURFACE_CARD_BASE_CLASS,
-        "group animate-rise overflow-hidden border-latik/18 bg-asukal/92 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-[0_22px_40px_rgba(59,31,14,0.16)]"
+        "group animate-rise overflow-hidden rounded-[var(--radius-card)] border-2 border-latik/20 bg-asukal/78 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-pulot/22 hover:bg-asukal/88 hover:shadow-[0_18px_30px_rgba(59,31,14,0.14)]"
       )}
     >
       <div className="relative h-52 overflow-hidden bg-[linear-gradient(135deg,rgba(194,133,42,0.32),rgba(253,246,227,0.96),rgba(74,124,89,0.16))]">
@@ -87,7 +87,7 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
         {onViewDetails && (
           <button
             onClick={() => onViewDetails(item)}
-            className="absolute right-3 top-3 rounded-full border border-asukal/30 bg-asukal/88 p-2 text-latik opacity-100 shadow-[0_10px_20px_rgba(59,31,14,0.12)] backdrop-blur-sm transition-all duration-300 ease-in-out hover:bg-asukal hover:text-pulot md:opacity-0 md:group-hover:opacity-100"
+            className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-btn)] border border-asukal/35 bg-asukal/88 p-0 text-latik opacity-100 shadow-[0_10px_20px_rgba(59,31,14,0.12)] backdrop-blur-sm transition-all duration-300 ease-in-out hover:bg-asukal hover:text-pulot md:opacity-0 md:group-hover:opacity-100"
             aria-label={`View details for ${item.name}`}
           >
             <Info className="h-4 w-4" strokeWidth={1.5} />

@@ -48,6 +48,9 @@ export function Navbar() {
     "hover:-translate-y-px hover:bg-kape/5 hover:shadow-[0_14px_26px_rgba(59,31,14,0.08)] focus-visible:bg-kape/5 focus-visible:text-pulot focus-visible:outline-none";
   const navIconInteractionClass =
     "border-latik/10 bg-asukal/70 shadow-[0_8px_18px_rgba(59,31,14,0.06)] hover:border-pulot/30 hover:bg-pulot/10 hover:shadow-[0_14px_24px_rgba(59,31,14,0.12)] focus-visible:border-pulot/40 focus-visible:outline-none active:scale-[0.98]";
+  const navIconBoxClass =
+    "h-10 w-10 rounded-[var(--radius-btn)] p-0 sm:h-[2.65rem] sm:w-[2.65rem]";
+  const navIconPillClass = "rounded-[var(--radius-btn)] px-3 py-2.5";
   const actionIconClass = "h-[18px] w-[18px] sm:h-5 sm:w-5";
 
   const isLoggedIn = status === "authenticated" && session?.user;
@@ -149,7 +152,13 @@ export function Navbar() {
         <div className="flex items-center gap-0 sm:gap-0.5">
           <Link
             href="/menu"
-            className={cn("hidden md:inline-flex", UI_NAV_ICON_BUTTON_CLASS, navIconToneClass, navIconInteractionClass)}
+            className={cn(
+              "hidden md:inline-flex items-center justify-center",
+              UI_NAV_ICON_BUTTON_CLASS,
+              navIconBoxClass,
+              navIconToneClass,
+              navIconInteractionClass
+            )}
             aria-label="Search"
           >
             <Search className={actionIconClass} strokeWidth={1.5} />
@@ -159,7 +168,13 @@ export function Navbar() {
             <div className="relative hidden md:inline-flex" ref={userMenuRef}>
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className={cn("flex items-center gap-2", UI_NAV_ICON_BUTTON_CLASS, navIconToneClass, navIconInteractionClass)}
+                className={cn(
+                  "flex items-center gap-2",
+                  UI_NAV_ICON_BUTTON_CLASS,
+                  navIconPillClass,
+                  navIconToneClass,
+                  navIconInteractionClass
+                )}
                 aria-label="Account menu"
               >
                 <User className={actionIconClass} strokeWidth={1.5} />
@@ -198,16 +213,28 @@ export function Navbar() {
           ) : (
             <Link
               href="/login"
-              className={cn("hidden md:inline-flex", UI_NAV_ICON_BUTTON_CLASS, navIconToneClass, navIconInteractionClass)}
+              className={cn(
+                "hidden md:inline-flex items-center justify-center",
+                UI_NAV_ICON_BUTTON_CLASS,
+                navIconBoxClass,
+                navIconToneClass,
+                navIconInteractionClass
+              )}
               aria-label="Account"
-          >
+            >
               <User className={actionIconClass} strokeWidth={1.5} />
             </Link>
           )}
 
           <button
             onClick={toggleCart}
-            className={cn("relative", UI_NAV_ICON_BUTTON_CLASS, navIconToneClass, navIconInteractionClass)}
+            className={cn(
+              "relative inline-flex items-center justify-center",
+              UI_NAV_ICON_BUTTON_CLASS,
+              navIconBoxClass,
+              navIconToneClass,
+              navIconInteractionClass
+            )}
             aria-label="Shopping cart"
           >
             <ShoppingCart className={actionIconClass} strokeWidth={1.5} />
@@ -221,7 +248,13 @@ export function Navbar() {
           {/* Mobile menu toggle */}
           <button
             onClick={toggleMobileMenu}
-            className={cn("md:hidden", UI_NAV_MOBILE_TOGGLE_CLASS, navIconToneClass, navIconInteractionClass)}
+            className={cn(
+              "inline-flex items-center justify-center md:hidden",
+              UI_NAV_MOBILE_TOGGLE_CLASS,
+              navIconBoxClass,
+              navIconToneClass,
+              navIconInteractionClass
+            )}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X className={actionIconClass} strokeWidth={1.5} /> : <Menu className={actionIconClass} strokeWidth={1.5} />}
