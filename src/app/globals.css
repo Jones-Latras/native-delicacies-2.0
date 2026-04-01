@@ -1,48 +1,62 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-kape: #3b1f0e;
-  --color-latik: #7c4a1e;
-  --color-pandan: #4a7c59;
-  --color-gatas: #f5ecd7;
-  --color-asukal: #fdf6e3;
-  --color-pulot: #c2852a;
-  --color-ube: #6b4fa0;
+  /* ── Bahay Kubo Heritage Palette ── */
+  /* kape  = deep roasted espresso   */
+  --color-kape: #2c1a0e;
+  /* latik = aged rattan / bamboo brown */
+  --color-latik: #6b3d1a;
+  /* pandan = forest fern green */
+  --color-pandan: #3d6b45;
+  /* gatas = sun-bleached nipa cream */
+  --color-gatas: #f0e4c8;
+  /* asukal = hand-pounded rice white */
+  --color-asukal: #faf4e4;
+  /* pulot = raw muscovado amber */
+  --color-pulot: #b8721e;
+  /* ube = talong / yam purple accent */
+  --color-ube: #5c3d7a;
+  /* bambo = fresh bamboo stalk */
+  --color-bambo: #8a9a5b;
+  /* nipa  = dried nipa frond */
+  --color-nipa: #d9ccb4;           /* Dried nipa thatch - warm cream */
+  /* terra = sun-baked terracotta earth */
+  --color-terra: #a04a2a;
 
-  /* Compatibility aliases for existing utilities while the redesign is applied */
+  /* Compatibility aliases */
   --color-primary: var(--color-latik);
 
-  --color-brown-50: #fbf1e3;
-  --color-brown-100: #f4e0c1;
-  --color-brown-200: #e7c28d;
-  --color-brown-300: #d09c56;
-  --color-brown-400: #b87a35;
-  --color-brown-500: #985a23;
+  --color-brown-50: #faf3e8;
+  --color-brown-100: #f2e0c4;
+  --color-brown-200: #e4c696;
+  --color-brown-300: #cfa85e;
+  --color-brown-400: #b58838;
+  --color-brown-500: #926820;
   --color-brown-600: var(--color-latik);
-  --color-brown-700: #653510;
-  --color-brown-800: #4a2710;
+  --color-brown-700: #562e0e;
+  --color-brown-800: #3e210c;
   --color-brown-900: var(--color-kape);
 
-  --color-amber-50: #fff7e5;
-  --color-amber-100: #f6e5b8;
-  --color-amber-200: #ecd08a;
-  --color-amber-300: #ddb562;
-  --color-amber-400: #cf9a3f;
+  --color-amber-50: #fff8e6;
+  --color-amber-100: #f7e6ba;
+  --color-amber-200: #edcf8c;
+  --color-amber-300: #dfb060;
+  --color-amber-400: #cc963c;
   --color-amber-500: var(--color-pulot);
-  --color-amber-600: #9d6a1b;
-  --color-amber-700: #7a4f10;
-  --color-amber-800: #5c390b;
-  --color-amber-900: #412507;
+  --color-amber-600: #9a5c18;
+  --color-amber-700: #78460e;
+  --color-amber-800: #5a330a;
+  --color-amber-900: #3e2106;
 
-  --color-stone-50: #fffaf2;
-  --color-stone-100: #f5ebdb;
-  --color-stone-200: #e7d6bd;
-  --color-stone-300: #d1b89a;
-  --color-stone-400: #b08f73;
-  --color-stone-500: #8b6d56;
-  --color-stone-600: #6e5443;
-  --color-stone-700: #563d2e;
-  --color-stone-800: #3f2b22;
+  --color-stone-50: #fdf8f0;
+  --color-stone-100: #f3e9d8;
+  --color-stone-200: #e5d4b8;
+  --color-stone-300: #ceb894;
+  --color-stone-400: #ae9070;
+  --color-stone-500: #8a6e54;
+  --color-stone-600: #6d5340;
+  --color-stone-700: #543d2e;
+  --color-stone-800: #3d2b20;
   --color-stone-900: var(--color-kape);
 
   --font-display: var(--font-playfair-display);
@@ -51,9 +65,11 @@
   --font-sans: var(--font-body);
   --font-mono: var(--font-geist-mono);
 
-  --radius-card: 1rem;
-  --radius-btn: 0.5rem;
-  --shadow-warm: 0 4px 24px rgba(59, 31, 14, 0.12);
+  /* Tighter radius = hand-hewn, natural feel */
+  --radius-card: 0.5rem;
+  --radius-btn: 0.25rem;
+  --shadow-warm: 0 4px 28px rgba(44, 26, 14, 0.18);
+  --shadow-nipa: 0 8px 40px rgba(44, 26, 14, 0.22);
 }
 
 :root {
@@ -61,14 +77,18 @@
   --font-body: var(--font-lora);
   --font-label: var(--font-dm-sans);
 
-  --surface-page: var(--color-gatas);
-  --surface-page-alt: #efe0c3;
-  --surface-card: color-mix(in srgb, var(--color-asukal) 92%, white 8%);
-  --surface-card-strong: color-mix(in srgb, var(--color-asukal) 78%, var(--color-gatas) 22%);
+  /* ── Bahay Kubo surface system ── */
+  --surface-page: #ede0c4;
+  --surface-page-alt: #e4d3ae;
+  --surface-card: #f5ecda;
+  --surface-card-strong: color-mix(in srgb, #f5ecda 78%, #e4d3ae 22%);
   --text-primary: var(--color-kape);
-  --text-muted: color-mix(in srgb, var(--color-kape) 72%, white 28%);
-  --border-soft: color-mix(in srgb, var(--color-latik) 18%, transparent);
-  --focus-ring: color-mix(in srgb, var(--color-pandan) 58%, transparent);
+  --text-muted: color-mix(in srgb, var(--color-kape) 68%, #a07040 32%);
+  --border-soft: color-mix(in srgb, var(--color-nipa) 32%, transparent);
+  --focus-ring: color-mix(in srgb, var(--color-pandan) 52%, transparent);
+
+  /* Woven bamboo/rattan border */
+  --border-woven: color-mix(in srgb, var(--color-latik) 22%, transparent);
 
   --font-vietnam-pro: var(--font-body);
   --font-be-vietnam-pro: var(--font-label);
@@ -94,14 +114,29 @@ html {
 
 body {
   min-height: 100vh;
+  /* Bahay Kubo: warm earth + subtle woven banig (rattan) grid texture */
   background-color: var(--surface-page);
   background-image:
-    radial-gradient(circle at top, rgba(194, 133, 42, 0.16), transparent 32%),
-    linear-gradient(180deg, rgba(255, 249, 236, 0.88), rgba(245, 236, 215, 0.96)),
-    radial-gradient(rgba(59, 31, 14, 0.045) 0.6px, transparent 0.6px),
-    radial-gradient(rgba(124, 74, 30, 0.03) 0.8px, transparent 0.8px);
-  background-position: center top, center, 0 0, 10px 10px;
-  background-size: auto, auto, 18px 18px, 22px 22px;
+    /* Top golden light — oil lamp glow */
+    radial-gradient(ellipse at top, rgba(184, 114, 30, 0.22), transparent 40%),
+    /* Base warm cream */
+    linear-gradient(180deg, rgba(250, 244, 228, 0.72), rgba(225, 208, 178, 0.88)),
+    /* Horizontal woven warp threads */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 9px,
+      rgba(107, 61, 26, 0.055) 9px,
+      rgba(107, 61, 26, 0.055) 10px
+    ),
+    /* Vertical woven weft threads */
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 9px,
+      rgba(107, 61, 26, 0.04) 9px,
+      rgba(107, 61, 26, 0.04) 10px
+    );
   color: var(--text-primary);
   font-family: var(--font-body), Georgia, serif !important;
   text-rendering: optimizeLegibility;
@@ -156,13 +191,27 @@ a {
 }
 
 .surface-woven {
+  /* Rattan weave surface */
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(124, 74, 30, 0.04)),
+    repeating-linear-gradient(
+      45deg,
+      rgba(107, 61, 26, 0.06) 0px,
+      rgba(107, 61, 26, 0.06) 1px,
+      transparent 1px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(107, 61, 26, 0.04) 0px,
+      rgba(107, 61, 26, 0.04) 1px,
+      transparent 1px,
+      transparent 8px
+    ),
     var(--surface-card);
   box-shadow: var(--shadow-warm);
 }
 
+/* Bamboo stalk divider */
 .section-divider {
   position: relative;
 }
@@ -171,14 +220,34 @@ a {
   content: "";
   position: absolute;
   inset: 0 auto auto 0;
-  width: min(7rem, 32vw);
-  height: 1px;
+  width: min(9rem, 38vw);
+  height: 2px;
   background: linear-gradient(
     90deg,
-    rgba(124, 74, 30, 0.65),
-    rgba(194, 133, 42, 0.28),
+    rgba(107, 61, 26, 0.72),
+    rgba(184, 114, 30, 0.38),
     transparent
   );
+}
+
+/* Nipa leaf cross-hatch section */
+.section-nipa {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 11px,
+      rgba(107, 61, 26, 0.04) 11px,
+      rgba(107, 61, 26, 0.04) 12px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 11px,
+      rgba(107, 61, 26, 0.03) 11px,
+      rgba(107, 61, 26, 0.03) 12px
+    ),
+    var(--surface-page-alt);
 }
 
 .animate-rise {
