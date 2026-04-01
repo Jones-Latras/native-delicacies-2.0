@@ -24,6 +24,7 @@ const navLinks = [
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
+const SCROLL_THRESHOLD = 16;
 
 export function Navbar() {
   const pathname = usePathname();
@@ -63,13 +64,31 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 16);
+    let frameId: number | null = null;
+
+    function updateScrolledState() {
+      frameId = null;
+      const nextIsScrolled = window.scrollY > SCROLL_THRESHOLD;
+      setIsScrolled((current) => (current === nextIsScrolled ? current : nextIsScrolled));
     }
 
-    handleScroll();
+    function handleScroll() {
+      if (frameId !== null) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(updateScrolledState);
+    }
+
+    updateScrolledState();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -79,16 +98,16 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 py-2 transition-all duration-300 ease-out sm:py-3",
+        "sticky top-0 z-40 py-2 sm:py-3",
         pathname === "/" && "-mb-[68px] sm:-mb-20"
       )}
     >
       <div
         className={cn(
-          "mx-auto flex w-[calc(100%-1rem)] items-center justify-between px-3 transition-all duration-300 ease-out sm:w-[calc(100%-2rem)] sm:px-6 lg:px-8",
+          "mx-auto flex h-16 w-[calc(100%-1rem)] max-w-7xl items-center justify-between rounded-[1.85rem] border px-3 backdrop-blur-md will-change-transform transition-[transform,box-shadow,background-color,border-color] duration-200 ease-out motion-reduce:transition-none sm:h-[4.65rem] sm:w-[calc(100%-2rem)] sm:px-6 lg:px-8",
           isScrolled
-            ? "h-14 max-w-6xl rounded-[1.85rem] border border-latik/20 bg-asukal/90 shadow-[0_18px_42px_rgba(59,31,14,0.16)] backdrop-blur-xl sm:h-[4.25rem]"
-            : "h-16 max-w-7xl rounded-[1.7rem] border border-latik/15 bg-asukal/80 shadow-[0_14px_30px_rgba(59,31,14,0.10)] backdrop-blur-xl sm:h-[4.65rem]"
+            ? "border-latik/18 bg-asukal/92 shadow-[0_14px_28px_rgba(59,31,14,0.12)] translate-y-0.5"
+            : "border-latik/14 bg-asukal/86 shadow-[0_10px_22px_rgba(59,31,14,0.09)]"
         )}
       >
         <Link href="/" className="flex items-center gap-3" onClick={closeMobileMenu}>
@@ -169,7 +188,7 @@ export function Navbar() {
                   <hr className="my-2 border-latik/10" />
                   <button
                     onClick={async () => { setUserMenuOpen(false); await signOut({ redirect: false }); window.location.href = "/"; }}
-                    className="flex w-full items-center gap-2 rounded-xl px-4 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-red-800/85 transition-all duration-300 ease-in-out hover:bg-red-900/8"
+                    className="flex w-full items-center gap-2 rounded-xl px-4 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-red-800/85 transition-[color,background-color] duration-200 ease-out motion-reduce:transition-none hover:bg-red-900/8"
                   >
                     <LogOut className="h-4 w-4" strokeWidth={1.5} /> Sign Out
                   </button>
@@ -213,10 +232,10 @@ export function Navbar() {
       {/* Mobile menu */}
       <div
         className={cn(
-          "mx-auto w-[calc(100%-1rem)] transition-all duration-300 ease-out sm:w-[calc(100%-2rem)] md:hidden",
+          "mx-auto w-[calc(100%-1rem)] max-w-7xl origin-top transition-[opacity,transform,max-height,box-shadow,background-color,border-color] duration-200 ease-out motion-reduce:transition-none sm:w-[calc(100%-2rem)] md:hidden",
           isScrolled
-            ? "max-w-6xl rounded-b-[1.85rem] border-x border-b border-latik/15 bg-asukal/95 shadow-[0_20px_36px_rgba(59,31,14,0.14)] backdrop-blur-xl"
-            : "max-w-7xl rounded-b-[1.6rem] border border-t-0 border-latik/12 bg-asukal/92 shadow-[0_16px_30px_rgba(59,31,14,0.10)] backdrop-blur-xl",
+            ? "rounded-b-[1.85rem] border-x border-b border-latik/14 bg-asukal/94 shadow-[0_16px_30px_rgba(59,31,14,0.11)] backdrop-blur-md"
+            : "rounded-b-[1.85rem] border border-t-0 border-latik/12 bg-asukal/90 shadow-[0_12px_24px_rgba(59,31,14,0.09)] backdrop-blur-md",
           isMobileMenuOpen
             ? "max-h-[calc(100vh-5.5rem)] translate-y-0 overflow-y-auto opacity-100"
             : "max-h-0 overflow-hidden -translate-y-1 opacity-0 pointer-events-none border-transparent"
@@ -258,7 +277,7 @@ export function Navbar() {
               )}
               <button
                 onClick={async () => { closeMobileMenu(); await signOut({ redirect: false }); window.location.href = "/"; }}
-                className="rounded-2xl px-4 py-3 text-left text-[0.72rem] font-medium uppercase tracking-[0.22em] text-red-800/85 transition-all duration-300 ease-in-out hover:bg-red-900/8"
+                className="rounded-2xl px-4 py-3 text-left text-[0.72rem] font-medium uppercase tracking-[0.22em] text-red-800/85 transition-[color,background-color] duration-200 ease-out motion-reduce:transition-none hover:bg-red-900/8"
               >
                 Sign Out
               </button>
