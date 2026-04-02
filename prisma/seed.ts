@@ -3,6 +3,8 @@ import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { hash } from "bcryptjs";
 import { getDefaultAboutPageContent, serializeAboutPageContent } from "../src/lib/about-content";
+import { getDefaultContactPageContent, serializeContactPageContent } from "../src/lib/contact-content";
+import { POLICY_SLUGS, getDefaultPolicyPageContent, serializePolicyPageContent } from "../src/lib/policy-content";
 
 // Match Next.js env precedence so seed data is written to the active app database.
 loadEnv({ path: ".env.local" });
@@ -443,23 +445,36 @@ async function main() {
 
   // ── Sample Promo Code ──
   const defaultAboutPage = getDefaultAboutPageContent();
-  const existingAboutPage = await prisma.contentPage.findUnique({
-    where: { slug: "about" },
-    select: { slug: true },
-  });
+  const defaultContactPage = getDefaultContactPageContent();
+  const defaultContentPages = [
+    {
+      slug: "about",
+      title: defaultAboutPage.title,
+      content: serializeAboutPageContent(defaultAboutPage),
+    },
+    {
+      slug: "contact",
+      title: defaultContactPage.hero.title,
+      content: serializeContactPageContent(defaultContactPage),
+    },
+    ...POLICY_SLUGS.map((slug) => {
+      const content = getDefaultPolicyPageContent(slug);
+      return {
+        slug,
+        title: content.hero.title,
+        content: serializePolicyPageContent(content),
+      };
+    }),
+  ];
 
-  if (!existingAboutPage) {
-    await prisma.contentPage.create({
-      data: {
-        slug: "about",
-        title: defaultAboutPage.title,
-        content: serializeAboutPageContent(defaultAboutPage),
-      },
+  for (const page of defaultContentPages) {
+    await prisma.contentPage.upsert({
+      where: { slug: page.slug },
+      update: {},
+      create: page,
     });
-    console.log("  âœ“ About page content created");
-  } else {
-    console.log("  âœ“ About page content already exists");
   }
+  console.log(`  âœ“ ${defaultContentPages.length} content pages ensured`);
 
   await prisma.promoCode.upsert({
     where: { code: "WELCOME10" },
