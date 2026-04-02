@@ -80,8 +80,9 @@ export function XenditPaymentClient() {
       session.checkoutUrl &&
       !error
     ) {
+      const checkoutUrl = session.checkoutUrl;
       const timeout = window.setTimeout(() => {
-        window.location.assign(session.checkoutUrl);
+        window.location.assign(checkoutUrl);
       }, 1200);
 
       return () => window.clearTimeout(timeout);

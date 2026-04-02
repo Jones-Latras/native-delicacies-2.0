@@ -30,7 +30,7 @@ export function ContactClient({ content, contactSettings }: ContactClientProps) 
   const address = contactSettings?.address;
   const addressLines =
     [address?.street, [address?.city, address?.state, address?.postalCode].filter(Boolean).join(", ")]
-      .filter((line) => line && line.trim().length > 0)
+      .filter((line): line is string => typeof line === "string" && line.trim().length > 0)
       .map((line) => line.trim()) || [];
   const resolvedAddressLines =
     addressLines.length > 0 ? addressLines : content.details.fallbackAddressLines.filter((line) => line.trim().length > 0);

@@ -1,5 +1,5 @@
 import { PolicyPageContent } from "@/components/storefront/policy-page-content";
-import { getPolicyPageContent } from "@/lib/policy-content";
+import { getPolicyPageContent } from "@/lib/policy-content.server";
 
 export const dynamic = "force-dynamic";
 

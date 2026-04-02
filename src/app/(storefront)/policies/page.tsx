@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Truck, RefreshCw, Shield, FileText } from "lucide-react";
-import { getPolicyTitles } from "@/lib/policy-content";
+import { getPolicyTitles } from "@/lib/policy-content.server";
 
 export const dynamic = "force-dynamic";
 
