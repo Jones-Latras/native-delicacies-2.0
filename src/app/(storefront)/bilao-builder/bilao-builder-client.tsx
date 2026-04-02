@@ -32,6 +32,8 @@ interface TrayPiece {
   text: string;
   imageUrl?: string;
   name: string;
+  quantity: number;
+  stackDepth: number;
 }
 
 interface ProductThumbProps {
@@ -164,26 +166,21 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
     return Array.from(groups.values()).sort((a, b) => sortCategories(a.category, b.category));
   }, [filteredItems]);
 
-  const trayPieces = useMemo(() => {
-    const pieces: TrayPiece[] = [];
-
-    bilaoItems.forEach((bilaoItem) => {
+  const trayPieces = useMemo<TrayPiece[]>(() => {
+    return bilaoItems.map((bilaoItem) => {
       const color = itemColorMap.get(bilaoItem.menuItem.id) ?? PIECE_COLORS[0];
-      const label = bilaoItem.menuItem.name.slice(0, 2).toUpperCase();
 
-      for (let index = 0; index < bilaoItem.quantity; index += 1) {
-        pieces.push({
-          id: `${bilaoItem.menuItem.id}-${index}`,
-          label,
-          bg: color.bg,
-          text: color.text,
-          imageUrl: bilaoItem.menuItem.imageUrl,
-          name: bilaoItem.menuItem.name,
-        });
-      }
+      return {
+        id: bilaoItem.menuItem.id,
+        label: bilaoItem.menuItem.name.slice(0, 2).toUpperCase(),
+        bg: color.bg,
+        text: color.text,
+        imageUrl: bilaoItem.menuItem.imageUrl,
+        name: bilaoItem.menuItem.name,
+        quantity: bilaoItem.quantity,
+        stackDepth: Math.min(3, bilaoItem.quantity),
+      };
     });
-
-    return pieces;
   }, [bilaoItems, itemColorMap]);
 
   function getItemQuantity(itemId: string) {
@@ -305,9 +302,6 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
         <div className="mb-6 border-b border-latik/14 px-6 pb-6">
           <p className="text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">Custom Feast</p>
           <h1 className="mt-3 text-4xl font-black text-kape">Build Your Bilao</h1>
-          <p className="mt-2 max-w-3xl leading-7 text-latik/76">
-            Choose your bilao size, jump between categories, and build a platter without losing your place in the list.
-          </p>
         </div>
 
         <div
@@ -321,7 +315,6 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
               <div className="mb-4 flex items-center justify-between gap-4">
                 <div>
                   <h2 className="text-lg font-semibold text-stone-900">Step 1: Choose Your Bilao Size</h2>
-                  <p className="mt-1 text-sm text-stone-500">Pick the tray size first so we can track your piece count.</p>
                 </div>
                 {selectedSize ? (
                   <span className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
@@ -357,13 +350,12 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
 
             {selectedSize ? (
               <div className="border-t border-stone-200 pt-6">
-                <div className="mb-4 flex items-center justify-between gap-4">
-                  <div>
-                    <h2 className="text-lg font-semibold text-stone-900">Your Bilao</h2>
-                    <p className="mt-1 text-sm text-stone-500">Each added piece appears here using the product photo.</p>
-                  </div>
-                  {bilaoItems.length > 0 ? (
-                    <button
+              <div className="mb-4 flex items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-lg font-semibold text-stone-900">Your Bilao</h2>
+                </div>
+                {bilaoItems.length > 0 ? (
+                  <button
                       type="button"
                       onClick={handleReset}
                       className="inline-flex items-center gap-1.5 text-sm text-stone-500 hover:text-red-600"
@@ -383,26 +375,37 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                     }}
                   />
 
-                  <div className="relative grid h-full grid-cols-5 place-items-center gap-2 overflow-hidden">
+                  <div className="relative grid h-full grid-cols-4 content-center justify-items-center gap-3 overflow-hidden sm:grid-cols-5">
                     {trayPieces.map((piece) => (
-                      <div
-                        key={piece.id}
-                        className={cn(
-                          "relative h-11 w-11 overflow-hidden rounded-full ring-2 ring-white/80",
-                          piece.imageUrl ? "bg-stone-100" : piece.bg,
-                        )}
-                      >
-                        {piece.imageUrl ? (
-                          <Image src={piece.imageUrl} alt={piece.name} fill className="object-cover" sizes="44px" />
-                        ) : (
-                          <span className={cn("flex h-full w-full items-center justify-center text-[10px] font-bold", piece.text)}>
-                            {piece.label}
+                      <div key={piece.id} className="relative h-14 w-14">
+                        {piece.stackDepth > 2 ? (
+                          <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-full border border-white/70 bg-primary/10" />
+                        ) : null}
+                        {piece.stackDepth > 1 ? (
+                          <div className="absolute inset-0 translate-x-1 translate-y-1 rounded-full border border-white/80 bg-primary/15" />
+                        ) : null}
+
+                        <ProductThumb
+                          imageUrl={piece.imageUrl}
+                          alt={piece.name}
+                          fallback={piece.label}
+                          className={cn(
+                            "absolute inset-0 rounded-full ring-2 ring-white/90",
+                            piece.imageUrl ? "" : piece.bg,
+                          )}
+                          sizes="56px"
+                          fallbackClassName={cn("tracking-normal text-[10px] font-bold", piece.text)}
+                        />
+
+                        {piece.quantity > 1 ? (
+                          <span className="absolute -right-1 -top-1 rounded-full bg-kape px-1.5 py-0.5 text-[10px] font-bold text-white ring-2 ring-white">
+                            x{piece.quantity}
                           </span>
-                        )}
+                        ) : null}
                       </div>
                     ))}
 
-                    {Array.from({ length: Math.max(0, Math.min(30, maxPieces - trayPieces.length)) }, (_, index) => (
+                    {Array.from({ length: Math.max(0, Math.min(30, maxPieces - totalPieces)) }, (_, index) => (
                       <div
                         key={`empty-${index}`}
                         className="flex h-10 w-10 items-center justify-center rounded-full border border-dashed border-stone-300/90 bg-white/35"
@@ -453,9 +456,6 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <h2 className="text-lg font-semibold text-stone-900">Step 2: Add Delicacies</h2>
-                      <p className="mt-1 text-sm text-stone-500">
-                        Browse by category, collapse sections you do not need, and keep this panel scrolling independently.
-                      </p>
                     </div>
                     <span className="rounded-full border border-stone-200 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-stone-600">
                       {filteredItems.length} items
