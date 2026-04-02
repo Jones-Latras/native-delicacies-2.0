@@ -34,7 +34,7 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   }
 
   if (order.paymentMethod !== "CARD") {
-    return errorResponse("This order does not require card payment", 400);
+    return errorResponse("This order does not require GCash payment", 400);
   }
 
   if (order.paymentStatus === "PAID") {
@@ -45,7 +45,7 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
   const amountInCentavos = Math.round(order.total * 100);
 
   if (amountInCentavos < 100) {
-    return errorResponse("Order total is too small for card payment", 400);
+    return errorResponse("Order total is too small for GCash payment", 400);
   }
 
   const paymentIntent = await stripe.paymentIntents.create({

@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import { StripePaymentClient } from "./stripe-payment-client";
 
 export const metadata = {
-  title: "Complete Payment | J&J Native Delicacies",
-  description: "Complete your card payment",
+  title: "Complete GCash Payment | J&J Native Delicacies",
+  description: "Complete your GCash payment",
 };
 
 export default function PayPage() {

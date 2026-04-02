@@ -9,7 +9,7 @@ import {
   Package,
   MapPin,
   Clock,
-  CreditCard,
+  Smartphone,
   Banknote,
   Gift,
   Printer,
@@ -116,14 +116,14 @@ export function ConfirmationClient() {
 
   const paymentIcon =
     order.paymentMethod === "CARD" ? (
-      <CreditCard className="h-4 w-4" />
+      <Smartphone className="h-4 w-4" />
     ) : (
       <Banknote className="h-4 w-4" />
     );
 
   const paymentLabel =
     order.paymentMethod === "CARD"
-      ? "Credit / Debit Card"
+      ? "GCash"
       : order.paymentMethod === "CASH_ON_DELIVERY"
         ? "Cash on Delivery"
         : "Cash at Pickup";

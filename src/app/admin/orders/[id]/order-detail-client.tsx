@@ -13,7 +13,7 @@ import {
   CheckCircle2,
   XCircle,
   User,
-  CreditCard,
+  Smartphone,
   ChefHat,
   Bike,
   MessageSquare,
@@ -440,10 +440,10 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
             <h3 className={sectionHeadingClass}>Payment</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <CreditCard className="h-4 w-4 text-slate-400" />
+                <Smartphone className="h-4 w-4 text-slate-400" />
                 <span className="text-sm font-bold">
                   {order.paymentMethod === "CARD"
-                    ? "Card"
+                    ? "GCash"
                     : order.paymentMethod === "CASH_ON_DELIVERY"
                       ? "Cash on Delivery"
                       : "Cash at Pickup"}

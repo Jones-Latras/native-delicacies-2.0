@@ -12,7 +12,7 @@ import {
   XCircle,
   Search,
   MapPin,
-  CreditCard,
+  Smartphone,
   ClipboardList,
   Bike,
   Headset,
@@ -138,7 +138,7 @@ function formatDate(dateStr: string) {
 
 function paymentLabel(method: string) {
   switch (method) {
-    case "CARD": return "Card Payment";
+    case "CARD": return "GCash";
     case "CASH_ON_DELIVERY": return "Cash on Delivery";
     case "CASH_AT_PICKUP": return "Cash at Pickup";
     default: return method;
@@ -572,7 +572,7 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
           {/* Payment Info Bar */}
           <div className="mt-4 flex items-center justify-between border-t border-primary/10 pt-4">
             <div className="flex items-center gap-2">
-              <CreditCard className="h-5 w-5 text-primary" />
+              <Smartphone className="h-5 w-5 text-primary" />
               <span className="text-sm font-medium text-slate-700">
                 {paymentLabel(order.paymentMethod)}
                 {order.paymentStatus === "PAID" && " — Paid ✓"}

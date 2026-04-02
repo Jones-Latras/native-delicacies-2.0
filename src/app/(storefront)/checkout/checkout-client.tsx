@@ -1,20 +1,19 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
   MapPin,
   Clock,
   Gift,
-  CreditCard,
+  Smartphone,
   Banknote,
   Truck,
   Store,
   ShoppingBag,
   AlertCircle,
   ChevronRight,
-  Tag,
   Loader2,
 } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
@@ -83,8 +82,6 @@ export function CheckoutClient() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [customTip, setCustomTip] = useState("");
-  const [stripeReady, setStripeReady] = useState(false);
-
   // Fetch business settings
   useEffect(() => {
     fetch("/api/settings")
@@ -457,13 +454,13 @@ export function CheckoutClient() {
           </Section>
 
           {/* 7. Payment Method */}
-          <Section title="Payment Method" icon={<CreditCard className="h-5 w-5" />}>
+          <Section title="Payment Method" icon={<Smartphone className="h-5 w-5" />}>
             <div className="space-y-3">
               <PaymentOption
                 active={form.paymentMethod === "CARD"}
-                icon={<CreditCard className="h-5 w-5" />}
-                label="Credit / Debit Card"
-                description="Pay securely with Stripe"
+                icon={<Smartphone className="h-5 w-5" />}
+                label="GCash"
+                description="Complete your payment securely online"
                 onClick={() => updateField("paymentMethod", "CARD")}
               />
               {form.orderType === "DELIVERY" && (
@@ -628,7 +625,7 @@ export function CheckoutClient() {
 
             <p className="mt-3 text-center text-xs text-stone-400">
               {form.paymentMethod === "CARD"
-                ? "You'll be redirected to complete payment"
+                ? "You'll be redirected to complete your GCash payment"
                 : "Your order will be confirmed shortly"}
             </p>
           </SurfaceCard>

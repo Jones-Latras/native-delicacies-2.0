@@ -123,7 +123,7 @@ export async function sendOrderConfirmationEmail(order: OrderWithItems) {
       <!-- Payment Status -->
       <div style="margin-top:16px;padding:12px;background:${order.paymentStatus === "PAID" ? "#f0fdf4" : "#fffbeb"};border-radius:8px;">
         <p style="margin:0;font-size:13px;color:${order.paymentStatus === "PAID" ? "#16a34a" : "#d97706"};">
-          💳 ${order.paymentMethod === "CARD" ? "Card Payment" : order.paymentMethod === "CASH_ON_DELIVERY" ? "Cash on Delivery" : "Cash at Pickup"} — 
+          💳 ${order.paymentMethod === "CARD" ? "GCash" : order.paymentMethod === "CASH_ON_DELIVERY" ? "Cash on Delivery" : "Cash at Pickup"} — 
           ${order.paymentStatus === "PAID" ? "Payment Confirmed ✓" : "Payment Pending"}
         </p>
       </div>

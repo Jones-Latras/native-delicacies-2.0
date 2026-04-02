@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Elements,
@@ -41,10 +41,10 @@ export function StripePaymentClient() {
       <div className="text-center">
         <ShieldCheck className="mx-auto h-10 w-10 text-green-600" />
         <h1 className="mt-3 text-2xl font-bold text-stone-900">
-          Complete Payment
+          Complete GCash Payment
         </h1>
         <p className="mt-1 text-stone-500">
-          Enter your card details to finish your order
+          Finish your payment to complete the order
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export function StripePaymentClient() {
       </SurfaceCard>
 
       <p className="mt-4 text-center text-xs text-stone-400">
-        Secured by Stripe. Your card info never touches our servers.
+        Secured by Stripe. Your payment details never touch our servers.
       </p>
     </div>
   );
