@@ -164,6 +164,7 @@ export async function createGcashPaymentRequest(
         reference_id: item.id,
         type: "PHYSICAL_PRODUCT",
         name: item.name,
+        currency: "PHP",
         net_unit_amount: Number(item.priceAtOrder.toFixed(2)),
         quantity: item.quantity,
         image_url: item.imageUrl ?? undefined,
