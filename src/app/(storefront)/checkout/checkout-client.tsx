@@ -233,12 +233,9 @@ export function CheckoutClient() {
 
       const order = data.data;
 
-      // For card payments, handle Stripe
-      if (form.paymentMethod === "CARD" && order.clientSecret) {
-        // Redirect to stripe confirmation — handled by StripePayment component
-        router.push(
-          `/checkout/pay?orderId=${order.id}&clientSecret=${encodeURIComponent(order.clientSecret)}`
-        );
+      // For GCash payments, continue in the hosted checkout flow.
+      if (form.paymentMethod === "CARD") {
+        router.push(`/checkout/pay?orderId=${order.id}`);
         return;
       }
 

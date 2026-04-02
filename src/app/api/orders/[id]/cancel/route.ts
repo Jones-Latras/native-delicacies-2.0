@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { successResponse, errorResponse } from "@/lib/api-utils";
 import { requireAuth } from "@/lib/auth-guards";
 import { sendOrderStatusEmail } from "@/lib/order-emails";
-import { stripe } from "@/lib/stripe";
+import { createXenditRefund } from "@/lib/xendit";
 
 const CANCELLATION_WINDOW_MINUTES = 15;
 
@@ -67,22 +67,34 @@ export async function POST(
       }
     }
 
-    // Process Stripe refund if paid by card
+    // Process Xendit refund if paid by GCash
     let refundId: string | undefined;
+    let refundStatus: string | undefined;
     if (
       order.paymentMethod === "CARD" &&
       order.paymentStatus === "PAID" &&
       order.stripePaymentIntentId
     ) {
       try {
-        const refund = await stripe.refunds.create({
-          payment_intent: order.stripePaymentIntentId,
+        const refund = await createXenditRefund({
+          paymentRequestId: order.stripePaymentIntentId,
+          referenceId: `${order.orderNumber}-cancel-${Date.now()}`,
+          amount: order.total,
         });
+
+        if (refund.status === "FAILED" || refund.status === "CANCELLED") {
+          return errorResponse(
+            "Failed to process GCash refund. Please contact support.",
+            500
+          );
+        }
+
         refundId = refund.id;
+        refundStatus = refund.status;
       } catch (refundError) {
-        console.error("[Cancel] Stripe refund failed:", refundError);
+        console.error("[Cancel] Xendit refund failed:", refundError);
         return errorResponse(
-          "Failed to process refund. Please contact support.",
+          "Failed to process GCash refund. Please contact support.",
           500
         );
       }
@@ -95,7 +107,9 @@ export async function POST(
         data: {
           status: "CANCELLED",
           paymentStatus:
-            order.paymentStatus === "PAID" ? "REFUNDED" : order.paymentStatus,
+            refundStatus === "SUCCEEDED"
+              ? "REFUNDED"
+              : order.paymentStatus,
         },
       });
 
@@ -105,7 +119,7 @@ export async function POST(
           status: "CANCELLED",
           changedBy: auth.user.id,
           note: refundId
-            ? `Cancelled by customer. Refund: ${refundId}`
+            ? `Cancelled by customer. GCash refund ${refundStatus?.toLowerCase() ?? "requested"}: ${refundId}`
             : "Cancelled by customer",
         },
       });

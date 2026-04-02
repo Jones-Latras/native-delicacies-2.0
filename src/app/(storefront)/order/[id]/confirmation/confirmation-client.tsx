@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCartStore } from "@/stores/cart-store";
 import {
   CheckCircle2,
@@ -62,12 +62,15 @@ interface OrderData {
 
 export function ConfirmationClient() {
   const params = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
+  const paymentReturn = searchParams.get("paymentReturn");
   const [order, setOrder] = useState<OrderData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [resumeCheckoutUrl, setResumeCheckoutUrl] = useState<string | null>(null);
   const clearCart = useCartStore((s) => s.clearCart);
 
-  // Clear cart when confirmation page loads (handles Stripe 3DS redirect)
+  // Clear the cart after the order flow completes.
   useEffect(() => {
     clearCart();
   }, [clearCart]);
@@ -75,18 +78,61 @@ export function ConfirmationClient() {
   useEffect(() => {
     if (!params.id) return;
 
-    fetch(`/api/orders/${params.id}`)
-      .then((r) => r.json())
-      .then((res) => {
-        if (res.success) {
-          setOrder(res.data);
-        } else {
-          setError(res.error || "Failed to load order");
+    async function loadOrder() {
+      try {
+        const orderResponse = await fetch(`/api/orders/${params.id}`, {
+          cache: "no-store",
+        });
+        const orderResult = await orderResponse.json();
+
+        if (!orderResponse.ok || !orderResult.success) {
+          setError(orderResult.error || "Failed to load order");
+          return;
         }
-      })
-      .catch(() => setError("Failed to load order"))
-      .finally(() => setLoading(false));
-  }, [params.id]);
+
+        let nextOrder = orderResult.data as OrderData;
+        setOrder(nextOrder);
+
+        if (
+          nextOrder.paymentMethod === "CARD" &&
+          nextOrder.paymentStatus !== "PAID" &&
+          nextOrder.paymentStatus !== "REFUNDED"
+        ) {
+          const paymentResponse = await fetch(
+            `/api/orders/${params.id}/payment-status`,
+            {
+              cache: "no-store",
+            }
+          );
+          const paymentResult = await paymentResponse.json();
+
+          if (paymentResponse.ok && paymentResult.success) {
+            setResumeCheckoutUrl(
+              typeof paymentResult.data.checkoutUrl === "string"
+                ? paymentResult.data.checkoutUrl
+                : null
+            );
+
+            const refreshedOrderResponse = await fetch(`/api/orders/${params.id}`, {
+              cache: "no-store",
+            });
+            const refreshedOrderResult = await refreshedOrderResponse.json();
+
+            if (refreshedOrderResponse.ok && refreshedOrderResult.success) {
+              nextOrder = refreshedOrderResult.data as OrderData;
+              setOrder(nextOrder);
+            }
+          }
+        }
+      } catch {
+        setError("Failed to load order");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadOrder();
+  }, [params.id, paymentReturn]);
 
   if (loading) {
     return (
@@ -128,19 +174,61 @@ export function ConfirmationClient() {
         ? "Cash on Delivery"
         : "Cash at Pickup";
 
+  const isOnlinePayment = order.paymentMethod === "CARD";
+  const isPaymentPaid = order.paymentStatus === "PAID";
+  const isPaymentFailed = order.paymentStatus === "FAILED";
+  const isAwaitingPayment = isOnlinePayment && !isPaymentPaid && !isPaymentFailed;
+  const pageHeading = isPaymentFailed
+    ? "GCash Payment Failed"
+    : isAwaitingPayment
+      ? "Complete Your GCash Payment"
+      : "Order Confirmed!";
+  const pageMessage = isPaymentFailed
+    ? `Your order ${order.orderNumber} was created, but the GCash payment did not go through.`
+    : isAwaitingPayment
+      ? `Your order ${order.orderNumber} is waiting for GCash payment confirmation.`
+      : `Thank you, ${order.customerName}. Your order has been placed successfully.`;
+  const headerIcon = isPaymentFailed ? (
+    <AlertCircle className="h-8 w-8 text-red-600" />
+  ) : isAwaitingPayment ? (
+    <Clock className="h-8 w-8 text-amber-600" />
+  ) : (
+    <CheckCircle2 className="h-8 w-8 text-green-600" />
+  );
+  const headerIconBg = isPaymentFailed
+    ? "bg-red-100"
+    : isAwaitingPayment
+      ? "bg-amber-100"
+      : "bg-green-100";
+  const paymentStatusLabel =
+    order.paymentStatus === "PAID"
+      ? "Paid"
+      : order.paymentStatus === "FAILED"
+        ? "Payment Failed"
+        : order.paymentStatus === "REFUNDED"
+          ? "Refunded"
+          : "Payment Pending";
+  const paymentStatusClass =
+    order.paymentStatus === "PAID"
+      ? "text-green-600 font-medium"
+      : order.paymentStatus === "FAILED"
+        ? "text-red-600 font-medium"
+        : order.paymentStatus === "REFUNDED"
+          ? "text-stone-600 font-medium"
+          : "text-amber-600 font-medium";
+
   return (
     <div className="artisan-confirmation mx-auto max-w-3xl px-4 py-8 sm:px-6">
       {/* Success Header */}
       <div className="text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-          <CheckCircle2 className="h-8 w-8 text-green-600" />
+        <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${headerIconBg}`}>
+          {headerIcon}
         </div>
         <h1 className="mt-4 text-3xl font-bold text-stone-900">
-          Order Confirmed!
+          {pageHeading}
         </h1>
         <p className="mt-2 text-stone-500">
-          Thank you, {order.customerName}. Your order has been placed
-          successfully.
+          {pageMessage}
         </p>
       </div>
 
@@ -151,7 +239,9 @@ export function ConfirmationClient() {
           {order.orderNumber}
         </p>
         <p className="mt-2 text-sm text-brown-600">
-          A confirmation email has been sent to{" "}
+          {isPaymentPaid
+            ? "A confirmation email has been sent to "
+            : "We'll email updates to "}
           <span className="font-medium">{order.customerEmail}</span>
         </p>
       </div>
@@ -210,7 +300,7 @@ export function ConfirmationClient() {
           <p className="mt-3 text-sm text-stone-600">
             {order.scheduledTime
               ? `Scheduled: ${new Date(order.scheduledTime).toLocaleString("en-PH", { dateStyle: "medium", timeStyle: "short" })}`
-              : "ASAP — As soon as possible"}
+              : "ASAP - As soon as possible"}
           </p>
           {order.estimatedReadyTime && (
             <p className="mt-1 text-sm text-brown-600">
@@ -230,15 +320,7 @@ export function ConfirmationClient() {
           </div>
           <p className="mt-3 text-sm text-stone-600">{paymentLabel}</p>
           <p className="mt-1 text-sm">
-            <span
-              className={
-                order.paymentStatus === "PAID"
-                  ? "text-green-600 font-medium"
-                  : "text-amber-600 font-medium"
-              }
-            >
-              {order.paymentStatus === "PAID" ? "Paid" : "Payment Pending"}
-            </span>
+            <span className={paymentStatusClass}>{paymentStatusLabel}</span>
           </p>
         </div>
 
@@ -327,13 +409,32 @@ export function ConfirmationClient() {
 
       {/* Actions */}
       <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-        <Link
-          href={`/track/${order.orderNumber}`}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-brown-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brown-700"
-        >
-          Track Your Order
-          <ChevronRight className="h-4 w-4" />
-        </Link>
+        {isOnlinePayment && !isPaymentPaid && (
+          <Link
+            href={`/checkout/pay?orderId=${order.id}`}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-brown-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brown-700"
+          >
+            Continue GCash Payment
+            <ChevronRight className="h-4 w-4" />
+          </Link>
+        )}
+        {!isOnlinePayment || isPaymentPaid ? (
+          <Link
+            href={`/track/${order.orderNumber}`}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-brown-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-brown-700"
+          >
+            Track Your Order
+            <ChevronRight className="h-4 w-4" />
+          </Link>
+        ) : null}
+        {resumeCheckoutUrl && isAwaitingPayment && (
+          <a
+            href={resumeCheckoutUrl}
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-200 px-6 py-3 font-semibold text-stone-700 transition-colors hover:bg-stone-50"
+          >
+            Open Xendit Checkout
+          </a>
+        )}
         <Link
           href="/menu"
           className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-200 px-6 py-3 font-semibold text-stone-700 transition-colors hover:bg-stone-50"

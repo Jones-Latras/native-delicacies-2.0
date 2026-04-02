@@ -464,7 +464,7 @@ export default function OrderDetailClient({ orderId }: { orderId: string }) {
               </div>
               {order.stripePaymentIntentId && (
                 <p className="break-all text-xs text-slate-400">
-                  Stripe PI: {order.stripePaymentIntentId}
+                  Payment Reference: {order.stripePaymentIntentId}
                 </p>
               )}
             </div>

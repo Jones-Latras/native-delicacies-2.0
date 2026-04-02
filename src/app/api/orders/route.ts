@@ -1,6 +1,5 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { stripe } from "@/lib/stripe";
 import {
   successResponse,
   errorResponse,
@@ -273,33 +272,15 @@ export const POST = withErrorHandler(async (request: NextRequest) => {
     return newOrder;
   });
 
-  // For card payments: create Stripe PaymentIntent
+  // Online GCash payments continue in the hosted checkout step.
   if (input.paymentMethod === "CARD") {
-    const amountInCentavos = Math.round(total * 100);
-
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amountInCentavos,
-      currency: "php",
-      metadata: {
-        orderId: order.id,
-        orderNumber: order.orderNumber,
-        customerEmail: order.customerEmail,
-      },
-      receipt_email: order.customerEmail,
-    });
-
-    await prisma.order.update({
-      where: { id: order.id },
-      data: { stripePaymentIntentId: paymentIntent.id },
-    });
-
     return successResponse(
       {
         id: order.id,
         orderNumber: order.orderNumber,
         total: order.total,
         paymentMethod: order.paymentMethod,
-        clientSecret: paymentIntent.client_secret,
+        requiresOnlinePayment: true,
       },
       201
     );

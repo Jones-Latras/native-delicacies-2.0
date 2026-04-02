@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import { StripePaymentClient } from "./stripe-payment-client";
+import { XenditPaymentClient } from "./xendit-payment-client";
 
 export const metadata = {
   title: "Complete GCash Payment | J&J Native Delicacies",
-  description: "Complete your GCash payment",
+  description: "Continue to Xendit to complete your GCash payment",
 };
 
 export default function PayPage() {
@@ -15,7 +15,7 @@ export default function PayPage() {
         </div>
       }
     >
-      <StripePaymentClient />
+      <XenditPaymentClient />
     </Suspense>
   );
 }
