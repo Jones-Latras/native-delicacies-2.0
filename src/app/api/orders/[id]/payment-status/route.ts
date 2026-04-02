@@ -9,6 +9,7 @@ import {
   extractXenditRedirectUrl,
   getXenditPaymentRequestStatus,
   type XenditPaymentRequest,
+  XenditApiError,
 } from "@/lib/xendit";
 
 export const GET = withErrorHandler(
@@ -84,6 +85,13 @@ export const GET = withErrorHandler(
         return errorResponse(
           "GCash payments are not configured yet. Add XENDIT_SECRET_KEY and try again.",
           503
+        );
+      }
+
+      if (error instanceof XenditApiError) {
+        return errorResponse(
+          error.code ? `${error.message} (${error.code})` : error.message,
+          error.status >= 400 && error.status < 500 ? error.status : 502
         );
       }
 

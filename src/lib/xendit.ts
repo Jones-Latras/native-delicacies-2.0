@@ -1,6 +1,18 @@
 const XENDIT_API_BASE_URL = "https://api.xendit.co";
 const XENDIT_API_VERSION = "2024-11-11";
 
+export class XenditApiError extends Error {
+  status: number;
+  code?: string | null;
+
+  constructor(message: string, status: number, code?: string | null) {
+    super(message);
+    this.name = "XenditApiError";
+    this.status = status;
+    this.code = code;
+  }
+}
+
 export interface XenditPaymentAction {
   type: string;
   descriptor: string;
@@ -90,14 +102,23 @@ async function xenditRequest<TResponse>(
   });
 
   const bodyText = await response.text();
-  const body = bodyText ? (JSON.parse(bodyText) as Record<string, unknown>) : {};
+  let body: Record<string, unknown> = {};
+
+  if (bodyText) {
+    try {
+      body = JSON.parse(bodyText) as Record<string, unknown>;
+    } catch {
+      body = {};
+    }
+  }
 
   if (!response.ok) {
     const message =
       typeof body.message === "string"
         ? body.message
         : `Xendit request failed with status ${response.status}`;
-    throw new Error(message);
+    const code = typeof body.error_code === "string" ? body.error_code : null;
+    throw new XenditApiError(message, response.status, code);
   }
 
   return body as TResponse;
