@@ -30,6 +30,7 @@ async function getBilaoBuilderItems(): Promise<MenuItem[]> {
   }
 
   return items
+    .filter((item) => item.dailyLimit == null || item.soldToday < item.dailyLimit)
     .map((item) => ({
       id: item.id,
       name: item.name,
@@ -56,6 +57,8 @@ async function getBilaoBuilderItems(): Promise<MenuItem[]> {
       ingredients: item.ingredients ?? undefined,
       allergenInfo: item.allergenInfo ?? undefined,
       dailyLimit: item.dailyLimit,
+      soldToday: item.soldToday,
+      stockLeft: item.dailyLimit == null ? null : Math.max(item.dailyLimit - item.soldToday, 0),
       options: item.options.map((opt) => ({
         id: opt.id,
         optionGroup: opt.optionGroup,

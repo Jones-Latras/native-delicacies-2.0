@@ -166,6 +166,11 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
     return Array.from(groups.values()).sort((a, b) => sortCategories(a.category, b.category));
   }, [filteredItems]);
 
+  function isItemSelectable(item: MenuItem) {
+    const stockLeft = item.dailyLimit == null ? null : Math.max(item.dailyLimit - (item.soldToday ?? 0), 0);
+    return item.isAvailable && stockLeft !== 0;
+  }
+
   const trayPieces = useMemo<TrayPiece[]>(() => {
     return bilaoItems.map((bilaoItem) => {
       const color = itemColorMap.get(bilaoItem.menuItem.id) ?? PIECE_COLORS[0];
@@ -188,7 +193,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
   }
 
   function handleAddToBilao(item: MenuItem) {
-    if (!canAddMore) return;
+    if (!canAddMore || !isItemSelectable(item)) return;
 
     setBilaoItems((prev) => {
       const existing = prev.find((bilaoItem) => bilaoItem.menuItem.id === item.id);
@@ -572,6 +577,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                               <div className="mt-3 grid gap-2 sm:grid-cols-2">
                                 {group.items.map((item) => {
                                   const qty = getItemQuantity(item.id);
+                                  const isSelectable = isItemSelectable(item);
                                   const color = itemColorMap.get(item.id) ?? PIECE_COLORS[0];
 
                                   return (
@@ -630,17 +636,17 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                                           <button
                                             type="button"
                                             onClick={() => handleAddToBilao(item)}
-                                            disabled={!canAddMore}
+                                            disabled={!canAddMore || !isSelectable}
                                             className={cn(
                                               "inline-flex min-w-[5.5rem] items-center justify-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors",
-                                              canAddMore
+                                              canAddMore && isSelectable
                                                 ? "bg-primary text-white hover:bg-brown-700"
                                                 : "cursor-not-allowed bg-stone-200 text-stone-400",
                                             )}
                                             aria-label={`Add ${item.name} to bilao`}
                                           >
                                             <Plus className="h-3.5 w-3.5" />
-                                            Add
+                                            {isSelectable ? "Add" : "Sold out"}
                                           </button>
                                         </div>
                                       </div>
