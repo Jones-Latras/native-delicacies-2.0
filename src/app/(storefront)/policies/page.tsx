@@ -16,10 +16,13 @@ export default async function PoliciesIndexPage() {
 
   return (
     <div className="space-y-10">
-      <div className="surface-woven rounded-[2rem] border border-latik/14 px-7 py-8 shadow-[var(--shadow-warm)] sm:px-10 sm:py-10">
-        <p className="text-[0.72rem] font-medium uppercase tracking-[0.28em] text-pulot">Shop Information</p>
-        <h1 className="mt-3 text-4xl font-black text-kape">Our Policies</h1>
-        <p className="mt-4 max-w-2xl leading-8 text-latik/76">
+      <div className="surface-woven rounded-[2rem] border border-[#C9A87C]/70 bg-[#FFF8EE]/96 px-7 py-8 shadow-[0_24px_44px_rgba(62,32,18,0.12)] backdrop-blur-sm sm:px-10 sm:py-10">
+        <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#A0522D]">Shop Information</p>
+        <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl text-[#3E2012] sm:text-[2.85rem]">
+          Our Policies
+        </h1>
+        <div className="mt-4 h-0.5 w-16 rounded-full bg-[#A0522D]" />
+        <p className="mt-5 max-w-2xl text-[1rem] italic leading-8 text-[#7A6A55]">
           Transparency is important to us. Please review our policies below.
         </p>
       </div>
@@ -28,14 +31,16 @@ export default async function PoliciesIndexPage() {
           <Link
             key={p.href}
             href={p.href}
-            className="surface-woven flex items-start gap-4 rounded-[1.6rem] border border-latik/14 p-6 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(59,31,14,0.14)]"
+            className="surface-woven flex items-start gap-4 rounded-[1.6rem] border border-[#C9A87C]/65 bg-[#FFFDF8]/96 p-6 shadow-[0_16px_30px_rgba(62,32,18,0.08)] transition-all duration-200 ease-out hover:-translate-y-1 hover:border-[#A0522D] hover:shadow-[0_20px_38px_rgba(59,31,14,0.14)]"
           >
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-pulot/12 text-pulot">
+            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#F5E6C8] text-[#A0522D]">
               <p.icon className="h-5 w-5" strokeWidth={1.5} />
             </div>
             <div>
-              <h3 className="font-semibold text-kape">{titles[p.slug]}</h3>
-              <p className="mt-1 text-sm leading-7 text-latik/72">{p.description}</p>
+              <h3 className="font-[family-name:var(--font-display)] text-[1.2rem] text-[#3E2012]">
+                {titles[p.slug]}
+              </h3>
+              <p className="mt-2 text-sm leading-7 text-[#7A6A55]">{p.description}</p>
             </div>
           </Link>
         ))}
