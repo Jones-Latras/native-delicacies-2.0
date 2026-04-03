@@ -58,14 +58,14 @@ function ProductThumb({
   fallbackClassName,
 }: ProductThumbProps) {
   return (
-    <div className={cn("relative overflow-hidden bg-stone-100", className)}>
+    <div className={cn("relative overflow-hidden bg-[#F5E6C8]", className)}>
       {imageUrl ? (
         <Image src={imageUrl} alt={alt} fill className="object-cover" sizes={sizes} />
       ) : (
         <span
           className={cn(
-            "flex h-full w-full items-center justify-center text-sm font-semibold uppercase tracking-[0.18em] text-stone-500",
-            fallbackClassName,
+            "flex h-full w-full items-center justify-center text-sm font-semibold uppercase tracking-[0.18em] text-[#7A6A55]",
+            fallbackClassName
           )}
         >
           {fallback}
@@ -143,7 +143,10 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
 
       if (!query) return true;
 
-      return [item.name, item.description, item.category.name].join(" ").toLowerCase().includes(query);
+      return [item.name, item.description, item.category.name]
+        .join(" ")
+        .toLowerCase()
+        .includes(query);
     });
   }, [activeCategory, items, search]);
 
@@ -167,7 +170,8 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
   }, [filteredItems]);
 
   function isItemSelectable(item: MenuItem) {
-    const stockLeft = item.dailyLimit == null ? null : Math.max(item.dailyLimit - (item.soldToday ?? 0), 0);
+    const stockLeft =
+      item.dailyLimit == null ? null : Math.max(item.dailyLimit - (item.soldToday ?? 0), 0);
     return item.isAvailable && stockLeft !== 0;
   }
 
@@ -200,7 +204,9 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
 
       if (existing) {
         return prev.map((bilaoItem) =>
-          bilaoItem.menuItem.id === item.id ? { ...bilaoItem, quantity: bilaoItem.quantity + 1 } : bilaoItem,
+          bilaoItem.menuItem.id === item.id
+            ? { ...bilaoItem, quantity: bilaoItem.quantity + 1 }
+            : bilaoItem
         );
       }
 
@@ -215,10 +221,13 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
     setBilaoItems((prev) => {
       const existing = prev.find((bilaoItem) => bilaoItem.menuItem.id === itemId);
       if (!existing) return prev;
-      if (existing.quantity <= 1) return prev.filter((bilaoItem) => bilaoItem.menuItem.id !== itemId);
+      if (existing.quantity <= 1)
+        return prev.filter((bilaoItem) => bilaoItem.menuItem.id !== itemId);
 
       return prev.map((bilaoItem) =>
-        bilaoItem.menuItem.id === itemId ? { ...bilaoItem, quantity: bilaoItem.quantity - 1 } : bilaoItem,
+        bilaoItem.menuItem.id === itemId
+          ? { ...bilaoItem, quantity: bilaoItem.quantity - 1 }
+          : bilaoItem
       );
     });
 
@@ -290,39 +299,61 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
   }
 
   return (
-    <div className="artisan-bilao min-h-screen bg-[linear-gradient(180deg,rgba(255,250,242,0.9),rgba(245,236,215,0.95))]">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <nav className="mb-5 flex items-center gap-2 text-sm text-stone-500">
-          <Link href="/" className="hover:text-brown-600">
+    <section className="relative min-h-screen overflow-hidden bg-[linear-gradient(180deg,#FFFDF8_0%,#FAF6F0_100%)]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#C9A87C]/60" />
+      <div className="pointer-events-none absolute left-[8%] top-16 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(245,230,200,0.65),transparent_72%)]" />
+      <div className="pointer-events-none absolute bottom-10 right-[8%] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(160,82,45,0.10),transparent_72%)]" />
+
+      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <nav className="mb-6 flex flex-wrap items-center gap-2 font-[family-name:var(--font-label)] text-[11px] uppercase tracking-[0.12em] text-[#7A6A55]">
+          <Link
+            href="/"
+            className="transition-colors duration-200 ease-in-out hover:text-[#A0522D]"
+          >
             Home
           </Link>
           <ChevronRight className="h-3.5 w-3.5" />
-          <Link href="/menu" className="hover:text-brown-600">
+          <Link
+            href="/menu"
+            className="transition-colors duration-200 ease-in-out hover:text-[#A0522D]"
+          >
             Menu
           </Link>
           <ChevronRight className="h-3.5 w-3.5" />
-          <span className="font-medium text-stone-900">Bilao Builder</span>
+          <span className="font-medium text-[#3E2012]">Bilao Builder</span>
         </nav>
 
-        <div className="mb-6 border-b border-latik/14 px-6 pb-6">
-          <p className="text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">Custom Feast</p>
-          <h1 className="mt-3 text-4xl font-black text-kape">Build Your Bilao</h1>
+        <div className="mb-10 text-center">
+          <p className="font-[family-name:var(--font-label)] text-xs font-medium uppercase tracking-[0.1em] text-[#A0522D]">
+            Custom Feast
+          </p>
+          <h1 className="mt-3 font-[family-name:var(--font-display)] text-[2.25rem] leading-tight text-[#3E2012] sm:text-[3rem]">
+            Build Your Bilao
+          </h1>
+          <div className="mx-auto mt-4 h-[2px] w-[60px] rounded-full bg-[#A0522D]" />
+          <p className="mx-auto mt-5 max-w-2xl font-[family-name:var(--font-label)] text-base italic leading-7 text-[#7A6A55]">
+            Choose a bilao size, mix heritage delicacies, and compose a platter that feels prepared
+            for salu-salo.
+          </p>
         </div>
 
         <div
           className={cn(
             "flex flex-col gap-8",
-            selectedSize && "lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(25rem,32rem)] lg:items-start",
+            selectedSize &&
+              "lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(25rem,32rem)] lg:items-start"
           )}
         >
           <div className={cn("space-y-6", selectedSize && "lg:sticky lg:top-24")}>
-            <div className="border-t border-stone-200 pt-6">
+            <div className="rounded-[24px] border border-[#C9A87C] bg-[#FFFDF8] p-6 shadow-[0_18px_40px_rgba(90,50,20,0.06)]">
               <div className="mb-4 flex items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-lg font-semibold text-stone-900">Step 1: Choose Your Bilao Size</h2>
+                  <h2 className="font-[family-name:var(--font-display)] text-2xl text-[#3E2012]">
+                    Step 1: Choose Your Bilao Size
+                  </h2>
                 </div>
                 {selectedSize ? (
-                  <span className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                  <span className="rounded-full bg-[#F5E6C8] px-3 py-1 font-[family-name:var(--font-label)] text-[11px] font-medium uppercase tracking-[0.1em] text-[#A0522D]">
                     {selectedSize.name}
                   </span>
                 ) : null}
@@ -338,15 +369,21 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                       type="button"
                       onClick={() => handleSizeSelect(size)}
                       className={cn(
-                        "rounded-xl border px-3 py-4 text-center transition-colors",
+                        "rounded-[18px] border px-3 py-4 text-center transition-all duration-200 ease-in-out",
                         isSelected
-                          ? "border-primary bg-primary/5"
-                          : "border-stone-200 bg-transparent hover:border-primary/40",
+                          ? "border-[#A0522D] bg-[#F5E6C8]"
+                          : "border-[#C9A87C] bg-[#FAF6F0] hover:border-[#A0522D]"
                       )}
                     >
-                      <div className="text-base font-bold text-stone-900 sm:text-lg">{size.name}</div>
-                      <div className="mt-1 text-sm text-stone-500">{size.pieces} pieces</div>
-                      <div className="mt-2 text-xs uppercase tracking-[0.14em] text-stone-400">Mix and match</div>
+                      <div className="font-[family-name:var(--font-display)] text-lg text-[#3E2012]">
+                        {size.name}
+                      </div>
+                      <div className="mt-1 font-[family-name:var(--font-label)] text-sm text-[#7A6A55]">
+                        {size.pieces} pieces
+                      </div>
+                      <div className="mt-2 font-[family-name:var(--font-label)] text-[11px] uppercase tracking-[0.1em] text-[#A58A69]">
+                        Mix and match
+                      </div>
                     </button>
                   );
                 })}
@@ -354,16 +391,18 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
             </div>
 
             {selectedSize ? (
-              <div className="border-t border-stone-200 pt-6">
-              <div className="mb-4 flex items-center justify-between gap-4">
-                <div>
-                  <h2 className="text-lg font-semibold text-stone-900">Your Bilao</h2>
-                </div>
-                {bilaoItems.length > 0 ? (
-                  <button
+              <div className="rounded-[24px] border border-[#C9A87C] bg-[#FFFDF8] p-6 shadow-[0_18px_40px_rgba(90,50,20,0.06)]">
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <div>
+                    <h2 className="font-[family-name:var(--font-display)] text-2xl text-[#3E2012]">
+                      Your Bilao
+                    </h2>
+                  </div>
+                  {bilaoItems.length > 0 ? (
+                    <button
                       type="button"
                       onClick={handleReset}
-                      className="inline-flex items-center gap-1.5 text-sm text-stone-500 hover:text-red-600"
+                      className="inline-flex items-center gap-1.5 font-[family-name:var(--font-label)] text-sm text-[#7A6A55] transition-colors duration-200 ease-in-out hover:text-[#A0522D]"
                     >
                       <RotateCcw className="h-3.5 w-3.5" />
                       Reset
@@ -371,7 +410,7 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                   ) : null}
                 </div>
 
-                <div className="relative mx-auto aspect-square w-full max-w-[26rem] rounded-full border-[10px] border-primary/20 bg-primary/5 p-5">
+                <div className="relative mx-auto aspect-square w-full max-w-[26rem] rounded-full border-[10px] border-[#C9A87C] bg-[#F5EFE6] p-5">
                   <div
                     className="absolute inset-0 rounded-full opacity-10"
                     style={{
@@ -384,10 +423,10 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                     {trayPieces.map((piece) => (
                       <div key={piece.id} className="relative h-14 w-14">
                         {piece.stackDepth > 2 ? (
-                          <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-full border border-white/70 bg-primary/10" />
+                          <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-full border border-white/70 bg-[#F5E6C8]" />
                         ) : null}
                         {piece.stackDepth > 1 ? (
-                          <div className="absolute inset-0 translate-x-1 translate-y-1 rounded-full border border-white/80 bg-primary/15" />
+                          <div className="absolute inset-0 translate-x-1 translate-y-1 rounded-full border border-white/80 bg-[#EED4AF]" />
                         ) : null}
 
                         <ProductThumb
@@ -396,42 +435,48 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                           fallback={piece.label}
                           className={cn(
                             "absolute inset-0 rounded-full ring-2 ring-white/90",
-                            piece.imageUrl ? "" : piece.bg,
+                            piece.imageUrl ? "" : piece.bg
                           )}
                           sizes="56px"
-                          fallbackClassName={cn("tracking-normal text-[10px] font-bold", piece.text)}
+                          fallbackClassName={cn(
+                            "tracking-normal text-[10px] font-bold",
+                            piece.text
+                          )}
                         />
 
                         {piece.quantity > 1 ? (
-                          <span className="absolute -right-1 -top-1 rounded-full bg-kape px-1.5 py-0.5 text-[10px] font-bold text-white ring-2 ring-white">
+                          <span className="absolute -right-1 -top-1 rounded-full bg-[#3E2012] px-1.5 py-0.5 text-[10px] font-bold text-white ring-2 ring-white">
                             x{piece.quantity}
                           </span>
                         ) : null}
                       </div>
                     ))}
 
-                    {Array.from({ length: Math.max(0, Math.min(30, maxPieces - totalPieces)) }, (_, index) => (
-                      <div
-                        key={`empty-${index}`}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-dashed border-stone-300/90 bg-white/35"
-                      />
-                    ))}
+                    {Array.from(
+                      { length: Math.max(0, Math.min(30, maxPieces - totalPieces)) },
+                      (_, index) => (
+                        <div
+                          key={`empty-${index}`}
+                          className="flex h-10 w-10 items-center justify-center rounded-full border border-dashed border-[#C9A87C] bg-white/35"
+                        />
+                      )
+                    )}
                   </div>
 
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-stone-200 bg-white/90 px-4 py-1.5 text-sm font-semibold text-stone-700">
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-[#C9A87C] bg-white/90 px-4 py-1.5 font-[family-name:var(--font-label)] text-sm font-medium text-[#5C3D1E]">
                     {totalPieces} / {maxPieces} pieces selected
                   </div>
                 </div>
 
                 {bilaoItems.length > 0 ? (
-                  <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5 border-t border-stone-200/80 pt-5">
+                  <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5 border-t border-[#E8D8BD] pt-5">
                     {bilaoItems.map((bilaoItem) => {
                       const color = itemColorMap.get(bilaoItem.menuItem.id) ?? PIECE_COLORS[0];
 
                       return (
                         <span
                           key={bilaoItem.menuItem.id}
-                          className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white/80 px-2.5 py-1.5 text-xs font-medium text-stone-700"
+                          className="inline-flex items-center gap-2 rounded-full border border-[#C9A87C] bg-[#FAF6F0] px-2.5 py-1.5 font-[family-name:var(--font-label)] text-xs font-medium text-[#5C3D1E]"
                         >
                           <ProductThumb
                             imageUrl={bilaoItem.menuItem.imageUrl}
@@ -442,7 +487,13 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                             fallbackClassName="tracking-normal"
                           />
                           <span className="max-w-[10rem] truncate">{bilaoItem.menuItem.name}</span>
-                          <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-semibold", color.bg, color.text)}>
+                          <span
+                            className={cn(
+                              "rounded-full px-2 py-0.5 text-[11px] font-semibold",
+                              color.bg,
+                              color.text
+                            )}
+                          >
                             x{bilaoItem.quantity}
                           </span>
                         </span>
@@ -456,31 +507,33 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
 
           {selectedSize ? (
             <div className="lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)]">
-              <div className="flex min-h-[34rem] flex-col border-t border-stone-200 pt-6 lg:h-full">
-                <div className="space-y-4 border-b border-stone-200 pb-4">
+              <div className="flex min-h-[34rem] flex-col rounded-[24px] border border-[#C9A87C] bg-[#FFFDF8] p-6 shadow-[0_18px_40px_rgba(90,50,20,0.06)] lg:h-full">
+                <div className="space-y-4 border-b border-[#E8D8BD] pb-4">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h2 className="text-lg font-semibold text-stone-900">Step 2: Add Delicacies</h2>
+                      <h2 className="font-[family-name:var(--font-display)] text-2xl text-[#3E2012]">
+                        Step 2: Add Delicacies
+                      </h2>
                     </div>
-                    <span className="rounded-full border border-stone-200 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-stone-600">
+                    <span className="rounded-full border border-[#C9A87C] bg-[#FAF6F0] px-3 py-1 font-[family-name:var(--font-label)] text-[11px] font-medium uppercase tracking-[0.1em] text-[#7A6A55]">
                       {filteredItems.length} items
                     </span>
                   </div>
 
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#7A6A55]" />
                     <input
                       type="text"
                       placeholder="Search delicacies or categories..."
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="w-full rounded-full border border-stone-200 bg-white/70 py-2.5 pl-10 pr-10 text-sm outline-none transition-colors focus:border-primary"
+                      className="w-full rounded-full border border-[#C9A87C] bg-[#FAF6F0] py-2.5 pl-10 pr-10 font-[family-name:var(--font-label)] text-sm text-[#3E2012] outline-none transition-colors duration-200 ease-in-out placeholder:text-[#7A6A55] focus:border-[#A0522D]"
                     />
                     {search ? (
                       <button
                         type="button"
                         onClick={() => setSearch("")}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7A6A55] transition-colors duration-200 ease-in-out hover:text-[#A0522D]"
                         aria-label="Clear search"
                       >
                         <X className="h-4 w-4" />
@@ -493,14 +546,16 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                       type="button"
                       onClick={() => handleCategorySelect("all")}
                       className={cn(
-                        "inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium transition-colors",
+                        "inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 font-[family-name:var(--font-label)] text-xs font-medium transition-all duration-200 ease-in-out",
                         activeCategory === "all"
-                          ? "border-primary bg-primary/5 text-primary"
-                          : "border-stone-200 bg-white/60 text-stone-600 hover:border-primary/25 hover:text-stone-900",
+                          ? "border-[#A0522D] bg-[#A0522D] text-white"
+                          : "border-[#C9A87C] bg-[#FAF6F0] text-[#5C3D1E] hover:border-[#A0522D] hover:text-[#A0522D]"
                       )}
                     >
                       <span>All Categories</span>
-                      <span className="rounded-full bg-stone-100 px-2 py-0.5 text-[11px] text-stone-500">{items.length}</span>
+                      <span className="rounded-full bg-[#F5E6C8] px-2 py-0.5 text-[11px] text-[#7A6A55]">
+                        {items.length}
+                      </span>
                     </button>
 
                     {categorySummaries.map((summary) => (
@@ -509,28 +564,33 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                         type="button"
                         onClick={() => handleCategorySelect(summary.category.slug)}
                         className={cn(
-                          "inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium transition-colors",
+                          "inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 font-[family-name:var(--font-label)] text-xs font-medium transition-all duration-200 ease-in-out",
                           activeCategory === summary.category.slug
-                            ? "border-primary bg-primary/5 text-primary"
-                            : "border-stone-200 bg-white/60 text-stone-600 hover:border-primary/25 hover:text-stone-900",
+                            ? "border-[#A0522D] bg-[#A0522D] text-white"
+                            : "border-[#C9A87C] bg-[#FAF6F0] text-[#5C3D1E] hover:border-[#A0522D] hover:text-[#A0522D]"
                         )}
                       >
                         <span>{summary.category.name}</span>
-                        <span className="rounded-full bg-stone-100 px-2 py-0.5 text-[11px] text-stone-500">{summary.itemCount}</span>
-                        {summary.selectedCount > 0 ? <span className="h-2 w-2 rounded-full bg-primary" /> : null}
+                        <span className="rounded-full bg-[#F5E6C8] px-2 py-0.5 text-[11px] text-[#7A6A55]">
+                          {summary.itemCount}
+                        </span>
+                        {summary.selectedCount > 0 ? (
+                          <span className="h-2 w-2 rounded-full bg-[#F0C66E]" />
+                        ) : null}
                       </button>
                     ))}
                   </div>
 
                   {hasFilters ? (
-                    <div className="flex items-center justify-between gap-3 text-xs text-stone-500">
+                    <div className="flex items-center justify-between gap-3 font-[family-name:var(--font-label)] text-xs text-[#7A6A55]">
                       <span>
-                        Showing {filteredItems.length} matching item{filteredItems.length !== 1 ? "s" : ""}
+                        Showing {filteredItems.length} matching item
+                        {filteredItems.length !== 1 ? "s" : ""}
                       </span>
                       <button
                         type="button"
                         onClick={handleClearFilters}
-                        className="font-medium text-primary hover:text-brown-700"
+                        className="font-medium text-[#A0522D] transition-colors duration-200 ease-in-out hover:text-[#7D3D1A]"
                       >
                         Clear filters
                       </button>
@@ -541,34 +601,46 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                 <div className="flex-1 overflow-hidden">
                   <div className="h-full overflow-y-auto overscroll-contain pr-1">
                     {groupedItems.length === 0 ? (
-                      <div className="flex h-full flex-col items-center justify-center text-center text-stone-400">
+                      <div className="flex h-full flex-col items-center justify-center text-center text-[#7A6A55]">
                         <Search className="mb-2 h-8 w-8" />
-                        <p className="text-sm font-medium text-stone-500">No items found</p>
-                        <p className="mt-1 max-w-xs text-xs text-stone-400">Try a different search or switch back to all categories.</p>
+                        <p className="font-[family-name:var(--font-display)] text-xl text-[#3E2012]">
+                          No items found
+                        </p>
+                        <p className="mt-1 max-w-xs font-[family-name:var(--font-label)] text-xs text-[#7A6A55]">
+                          Try a different search or switch back to all categories.
+                        </p>
                       </div>
                     ) : (
                       groupedItems.map((group) => {
                         const isCollapsed = collapsedCategories[group.category.slug] ?? false;
-                        const selectedCount = selectedPiecesByCategory.get(group.category.slug) ?? 0;
+                        const selectedCount =
+                          selectedPiecesByCategory.get(group.category.slug) ?? 0;
 
                         return (
-                          <section key={group.category.id} className="border-b border-stone-100 py-4 last:border-b-0">
+                          <section
+                            key={group.category.id}
+                            className="border-b border-[#E8D8BD] py-4 last:border-b-0"
+                          >
                             <button
                               type="button"
                               onClick={() => toggleCategoryCollapse(group.category.slug)}
                               className="flex w-full items-center justify-between gap-4 text-left"
                             >
                               <div>
-                                <h3 className="text-sm font-semibold text-stone-900">{group.category.name}</h3>
-                                <p className="mt-1 text-xs text-stone-500">
+                                <h3 className="font-[family-name:var(--font-display)] text-xl text-[#3E2012]">
+                                  {group.category.name}
+                                </h3>
+                                <p className="mt-1 font-[family-name:var(--font-label)] text-xs text-[#7A6A55]">
                                   {group.items.length} item{group.items.length !== 1 ? "s" : ""}
-                                  {selectedCount > 0 ? ` - ${selectedCount} piece${selectedCount !== 1 ? "s" : ""} selected` : ""}
+                                  {selectedCount > 0
+                                    ? ` - ${selectedCount} piece${selectedCount !== 1 ? "s" : ""} selected`
+                                    : ""}
                                 </p>
                               </div>
                               <ChevronDown
                                 className={cn(
-                                  "h-4 w-4 flex-shrink-0 text-stone-400 transition-transform",
-                                  isCollapsed ? "-rotate-90" : "rotate-0",
+                                  "h-4 w-4 flex-shrink-0 text-[#7A6A55] transition-transform",
+                                  isCollapsed ? "-rotate-90" : "rotate-0"
                                 )}
                               />
                             </button>
@@ -584,10 +656,10 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                                     <div
                                       key={item.id}
                                       className={cn(
-                                        "grid grid-cols-[4.75rem_minmax(0,1fr)] gap-3 rounded-2xl border p-2.5 transition-colors",
+                                        "grid grid-cols-[4.75rem_minmax(0,1fr)] gap-3 rounded-[18px] border p-2.5 transition-all duration-200 ease-in-out",
                                         qty > 0
-                                          ? "border-primary/30 bg-primary/5"
-                                          : "border-stone-200 bg-white/70 hover:border-primary/20",
+                                          ? "border-[#A0522D] bg-[#F5E6C8]"
+                                          : "border-[#C9A87C] bg-[#FAF6F0] hover:border-[#A0522D]"
                                       )}
                                     >
                                       <ProductThumb
@@ -601,15 +673,19 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                                       <div className="min-w-0">
                                         <div className="flex items-start justify-between gap-2">
                                           <div className="min-w-0">
-                                            <h4 className="line-clamp-2 text-sm font-semibold text-stone-900">{item.name}</h4>
-                                            <p className="mt-1 text-xs text-stone-500">{formatCurrency(item.price)} per piece</p>
+                                            <h4 className="line-clamp-2 font-[family-name:var(--font-display)] text-lg text-[#3E2012]">
+                                              {item.name}
+                                            </h4>
+                                            <p className="mt-1 font-[family-name:var(--font-label)] text-xs text-[#7A6A55]">
+                                              {formatCurrency(item.price)} per piece
+                                            </p>
                                           </div>
                                           {qty > 0 ? (
                                             <span
                                               className={cn(
                                                 "rounded-full px-2 py-0.5 text-[11px] font-semibold",
                                                 color.bg,
-                                                color.text,
+                                                color.text
                                               )}
                                             >
                                               {qty}
@@ -625,8 +701,8 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                                             className={cn(
                                               "inline-flex h-8 w-8 items-center justify-center rounded-full border transition-colors",
                                               qty > 0
-                                                ? "border-stone-200 text-stone-600 hover:border-red-200 hover:text-red-600"
-                                                : "cursor-not-allowed border-stone-200 text-stone-300",
+                                                ? "border-[#C9A87C] bg-white text-[#7A6A55] hover:border-red-200 hover:text-red-600"
+                                                : "cursor-not-allowed border-[#E8D8BD] bg-white/60 text-[#C9B6A2]"
                                             )}
                                             aria-label={`Remove ${item.name} from bilao`}
                                           >
@@ -638,10 +714,10 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                                             onClick={() => handleAddToBilao(item)}
                                             disabled={!canAddMore || !isSelectable}
                                             className={cn(
-                                              "inline-flex min-w-[5.5rem] items-center justify-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors",
+                                              "inline-flex min-w-[5.5rem] items-center justify-center gap-1 rounded-full px-3 py-1.5 font-[family-name:var(--font-label)] text-xs font-medium transition-all duration-200 ease-in-out",
                                               canAddMore && isSelectable
-                                                ? "bg-primary text-white hover:bg-brown-700"
-                                                : "cursor-not-allowed bg-stone-200 text-stone-400",
+                                                ? "bg-[#A0522D] text-white hover:bg-[#7D3D1A]"
+                                                : "cursor-not-allowed bg-[#C9A87C] text-white/80"
                                             )}
                                             aria-label={`Add ${item.name} to bilao`}
                                           >
@@ -662,24 +738,28 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                   </div>
                 </div>
 
-                <div className="border-t border-stone-200 pt-4">
+                <div className="border-t border-[#E8D8BD] pt-4">
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="font-semibold text-stone-900">Total</span>
-                    <span className="text-xl font-bold text-primary">{formatCurrency(bilaoTotal)}</span>
+                    <span className="font-[family-name:var(--font-display)] text-2xl text-[#3E2012]">
+                      Total
+                    </span>
+                    <span className="font-[family-name:var(--font-display)] text-2xl text-[#A0522D]">
+                      {formatCurrency(bilaoTotal)}
+                    </span>
                   </div>
 
                   <div className="mb-3">
-                    <div className="mb-1 flex items-center justify-between text-xs text-stone-500">
+                    <div className="mb-1 flex items-center justify-between font-[family-name:var(--font-label)] text-xs text-[#7A6A55]">
                       <span>
                         {totalPieces} / {maxPieces} pieces
                       </span>
                       <span>{progress}%</span>
                     </div>
-                    <div className="h-2 overflow-hidden rounded-full bg-stone-200">
+                    <div className="h-2 overflow-hidden rounded-full bg-[#F5E6C8]">
                       <div
                         className={cn(
                           "h-full rounded-full transition-all duration-300",
-                          isFull ? "bg-green-500" : "bg-primary",
+                          isFull ? "bg-[#3A6A1E]" : "bg-[#A0522D]"
                         )}
                         style={{ width: `${progress}%` }}
                       />
@@ -691,8 +771,12 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                     onClick={handleAddToCart}
                     disabled={!isFull || added}
                     className={cn(
-                      "flex w-full items-center justify-center gap-2 rounded-xl py-3 font-semibold text-white transition-all",
-                      added ? "bg-green-600" : isFull ? "bg-primary hover:bg-brown-700" : "cursor-not-allowed bg-stone-300",
+                      "flex w-full items-center justify-center gap-2 rounded-[12px] py-3 font-[family-name:var(--font-label)] text-sm font-medium text-white transition-all duration-200 ease-in-out",
+                      added
+                        ? "bg-[#3A6A1E]"
+                        : isFull
+                          ? "bg-[#A0522D] hover:bg-[#7D3D1A]"
+                          : "cursor-not-allowed bg-[#C9A87C]"
                     )}
                   >
                     {added ? (
@@ -709,8 +793,9 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
                   </button>
 
                   {!isFull && totalPieces > 0 ? (
-                    <p className="mt-2 text-center text-xs text-stone-400">
-                      Add {maxPieces - totalPieces} more piece{maxPieces - totalPieces !== 1 ? "s" : ""} to complete your bilao
+                    <p className="mt-2 text-center font-[family-name:var(--font-label)] text-xs text-[#7A6A55]">
+                      Add {maxPieces - totalPieces} more piece
+                      {maxPieces - totalPieces !== 1 ? "s" : ""} to complete your bilao
                     </p>
                   ) : null}
                 </div>
@@ -722,13 +807,13 @@ export function BilaoBuilderClient({ items }: { items: MenuItem[] }) {
         <div className="mt-8">
           <Link
             href="/menu"
-            className="inline-flex items-center gap-2 text-sm font-medium text-brown-600 hover:text-brown-700"
+            className="inline-flex items-center gap-2 font-[family-name:var(--font-label)] text-sm text-[#A0522D] underline decoration-[#A0522D]/45 underline-offset-4 transition-colors duration-200 ease-in-out hover:text-[#7D3D1A]"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Menu
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

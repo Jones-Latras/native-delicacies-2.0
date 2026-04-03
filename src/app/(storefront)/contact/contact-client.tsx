@@ -29,11 +29,16 @@ export function ContactClient({ content, contactSettings }: ContactClientProps) 
 
   const address = contactSettings?.address;
   const addressLines =
-    [address?.street, [address?.city, address?.state, address?.postalCode].filter(Boolean).join(", ")]
+    [
+      address?.street,
+      [address?.city, address?.state, address?.postalCode].filter(Boolean).join(", "),
+    ]
       .filter((line): line is string => typeof line === "string" && line.trim().length > 0)
       .map((line) => line.trim()) || [];
   const resolvedAddressLines =
-    addressLines.length > 0 ? addressLines : content.details.fallbackAddressLines.filter((line) => line.trim().length > 0);
+    addressLines.length > 0
+      ? addressLines
+      : content.details.fallbackAddressLines.filter((line) => line.trim().length > 0);
 
   const formatDayHours = (day: string) => {
     const dayInfo = contactSettings?.operatingHours?.[day];
@@ -58,7 +63,7 @@ export function ContactClient({ content, contactSettings }: ContactClientProps) 
       : content.details.fallbackHoursLines.filter((line) => line.trim().length > 0);
 
   const inputClass =
-    "mt-1.5 w-full border-b border-stone-200 bg-transparent px-0 py-2.5 text-sm text-stone-900 focus:border-primary focus:outline-none";
+    "mt-2 w-full rounded-[12px] border border-[#C9A87C] bg-[#FFFDF8] px-4 py-3 font-[family-name:var(--font-label)] text-sm text-[#3E2012] transition-colors duration-200 ease-in-out placeholder:text-[#7A6A55] focus:border-[#A0522D] focus:outline-none";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -86,238 +91,320 @@ export function ContactClient({ content, contactSettings }: ContactClientProps) 
   }
 
   return (
-    <div className="artisan-contact mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="border-b border-latik/15 px-8 pb-12 text-center sm:px-12 sm:pb-16">
-        <p className="text-[0.72rem] font-medium uppercase tracking-[0.3em] text-pulot">{content.hero.eyebrow}</p>
-        <h1 className="mt-3 text-4xl font-black tracking-tight text-kape sm:text-5xl">{content.hero.title}</h1>
-        <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-latik/76">{content.hero.intro}</p>
-      </div>
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#FFFDF8_0%,#FAF6F0_100%)] px-4 py-12 sm:px-6 lg:px-8">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#C9A87C]/60" />
+      <div className="pointer-events-none absolute left-[10%] top-20 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(245,230,200,0.65),transparent_72%)]" />
+      <div className="pointer-events-none absolute bottom-10 right-[8%] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(160,82,45,0.10),transparent_72%)]" />
 
-      <div className="section-divider mt-16 grid gap-12 pt-10 lg:grid-cols-5">
-        <div className="lg:col-span-2">
-          <div className="border-t border-latik/14 pt-5">
-            <p className="text-[0.72rem] font-medium uppercase tracking-[0.24em] text-pulot">{content.details.eyebrow}</p>
-            <h2 className="mt-3 text-2xl font-black text-kape">{content.details.title}</h2>
-            <p className="mt-3 text-sm leading-7 text-latik/72">{content.details.intro}</p>
-          </div>
+      <div className="relative mx-auto max-w-7xl">
+        <div className="text-center">
+          <p className="font-[family-name:var(--font-label)] text-xs font-medium uppercase tracking-[0.1em] text-[#A0522D]">
+            {content.hero.eyebrow}
+          </p>
+          <h1 className="mt-3 font-[family-name:var(--font-display)] text-[2.25rem] leading-tight text-[#3E2012] sm:text-[3rem]">
+            {content.hero.title}
+          </h1>
+          <div className="mx-auto mt-4 h-[2px] w-[60px] rounded-full bg-[#A0522D]" />
+          <p className="mx-auto mt-5 max-w-xl font-[family-name:var(--font-label)] text-base italic leading-7 text-[#7A6A55]">
+            {content.hero.intro}
+          </p>
+        </div>
 
-          <div className="mt-6 space-y-5">
-            <div className="flex items-start gap-4 border-t border-latik/14 pt-5">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <MapPin className="h-5 w-5" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-stone-900">{content.details.visitTitle}</h3>
-                <p className="mt-1 text-sm leading-7 text-stone-500">{content.details.visitText}</p>
-                <div className="mt-2 text-sm text-stone-500">
+        <div className="mt-16 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="space-y-6">
+            <div className="rounded-[24px] border border-[#C9A87C] bg-[#FFFDF8] p-8 shadow-[0_18px_40px_rgba(90,50,20,0.06)]">
+              <p className="font-[family-name:var(--font-label)] text-xs font-medium uppercase tracking-[0.1em] text-[#A0522D]">
+                {content.details.eyebrow}
+              </p>
+              <h2 className="mt-3 font-[family-name:var(--font-display)] text-[2rem] leading-tight text-[#3E2012]">
+                {content.details.title}
+              </h2>
+              <p className="mt-3 font-[family-name:var(--font-label)] text-sm leading-7 text-[#7A6A55]">
+                {content.details.intro}
+              </p>
+
+              <div className="mt-6 space-y-4">
+                <ContactInfoBlock
+                  icon={<MapPin className="h-5 w-5" />}
+                  title={content.details.visitTitle}
+                  text={content.details.visitText}
+                >
                   {resolvedAddressLines.map((line) => (
                     <div key={line}>{line}</div>
                   ))}
-                </div>
-              </div>
-            </div>
+                </ContactInfoBlock>
 
-            <div className="flex items-start gap-4 border-t border-latik/14 pt-5">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Phone className="h-5 w-5" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-stone-900">{content.details.callTitle}</h3>
-                <p className="mt-1 text-sm leading-7 text-stone-500">{content.details.callText}</p>
-                <p className="mt-2 text-sm text-stone-500">{contactSettings?.phone || content.details.fallbackPhone}</p>
-              </div>
-            </div>
+                <ContactInfoBlock
+                  icon={<Phone className="h-5 w-5" />}
+                  title={content.details.callTitle}
+                  text={content.details.callText}
+                >
+                  <span>{contactSettings?.phone || content.details.fallbackPhone}</span>
+                </ContactInfoBlock>
 
-            <div className="flex items-start gap-4 border-t border-latik/14 pt-5">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Mail className="h-5 w-5" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-stone-900">{content.details.emailTitle}</h3>
-                <p className="mt-1 text-sm leading-7 text-stone-500">{content.details.emailText}</p>
-                <p className="mt-2 text-sm text-stone-500">{contactSettings?.email || content.details.fallbackEmail}</p>
-              </div>
-            </div>
+                <ContactInfoBlock
+                  icon={<Mail className="h-5 w-5" />}
+                  title={content.details.emailTitle}
+                  text={content.details.emailText}
+                >
+                  <span>{contactSettings?.email || content.details.fallbackEmail}</span>
+                </ContactInfoBlock>
 
-            <div className="flex items-start gap-4 border-t border-latik/14 pt-5">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Clock className="h-5 w-5" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-stone-900">{content.details.hoursTitle}</h3>
-                <p className="mt-1 text-sm leading-7 text-stone-500">{content.details.hoursText}</p>
-                <div className="mt-2 text-sm text-stone-500">
+                <ContactInfoBlock
+                  icon={<Clock className="h-5 w-5" />}
+                  title={content.details.hoursTitle}
+                  text={content.details.hoursText}
+                >
                   {hoursLines.map((line) => (
                     <div key={line}>{line}</div>
                   ))}
-                </div>
+                </ContactInfoBlock>
+              </div>
+            </div>
+
+            <div className="rounded-[24px] border border-[#C9A87C] bg-[linear-gradient(135deg,#F5EFE6_0%,#FFFDF8_100%)] p-8 shadow-[0_18px_40px_rgba(90,50,20,0.06)]">
+              <h3 className="font-[family-name:var(--font-display)] text-2xl text-[#3E2012]">
+                {content.details.followTitle}
+              </h3>
+              <p className="mt-3 font-[family-name:var(--font-label)] text-sm leading-7 text-[#7A6A55]">
+                {content.details.followText}
+              </p>
+              <div className="mt-4 flex gap-3">
+                {content.details.facebookUrl.trim().length > 0 ? (
+                  <a
+                    href={content.details.facebookUrl}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-[#C9A87C] bg-[#FFFDF8] text-[#A0522D] transition-all duration-200 ease-in-out hover:border-[#A0522D] hover:bg-[#A0522D] hover:text-white"
+                    aria-label="Facebook"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                ) : null}
+                {content.details.instagramUrl.trim().length > 0 ? (
+                  <a
+                    href={content.details.instagramUrl}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-[#C9A87C] bg-[#FFFDF8] text-[#A0522D] transition-all duration-200 ease-in-out hover:border-[#A0522D] hover:bg-[#A0522D] hover:text-white"
+                    aria-label="Instagram"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Instagram className="h-5 w-5" />
+                  </a>
+                ) : null}
               </div>
             </div>
           </div>
 
-          <div className="mt-10 border-t border-latik/14 pt-5">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-stone-900">{content.details.followTitle}</h3>
-            <p className="mt-2 text-sm leading-7 text-stone-500">{content.details.followText}</p>
-            <div className="mt-3 flex gap-3">
-              {content.details.facebookUrl.trim().length > 0 ? (
-                <a
-                  href={content.details.facebookUrl}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary hover:text-white"
-                  aria-label="Facebook"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Facebook className="h-5 w-5" />
-                </a>
-              ) : null}
-              {content.details.instagramUrl.trim().length > 0 ? (
-                <a
-                  href={content.details.instagramUrl}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary hover:text-white"
-                  aria-label="Instagram"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Instagram className="h-5 w-5" />
-                </a>
-              ) : null}
-            </div>
-          </div>
-        </div>
+          <div className="space-y-6">
+            <div className="rounded-[24px] border border-[#C9A87C] bg-[#FFFDF8] p-8 shadow-[0_18px_40px_rgba(90,50,20,0.06)]">
+              <p className="font-[family-name:var(--font-label)] text-xs font-medium uppercase tracking-[0.1em] text-[#A0522D]">
+                {content.form.eyebrow}
+              </p>
+              <h2 className="mt-3 font-[family-name:var(--font-display)] text-[2rem] leading-tight text-[#3E2012]">
+                {content.form.title}
+              </h2>
+              <p className="mt-3 max-w-2xl font-[family-name:var(--font-label)] text-sm leading-7 text-[#7A6A55]">
+                {content.form.intro}
+              </p>
 
-        <div className="lg:col-span-3">
-          <div className="border-t border-latik/14 pt-8">
-            <p className="text-[0.72rem] font-medium uppercase tracking-[0.24em] text-pulot">{content.form.eyebrow}</p>
-            <h2 className="mt-3 text-2xl font-black text-kape">{content.form.title}</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-latik/72">{content.form.intro}</p>
-
-            {submitted ? (
-              <div className="py-12 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                  <CheckCircle className="h-8 w-8 text-green-600" />
+              {submitted ? (
+                <div className="py-12 text-center">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF5E7] text-[#3A6A1E]">
+                    <CheckCircle className="h-8 w-8" />
+                  </div>
+                  <h3 className="mt-4 font-[family-name:var(--font-display)] text-2xl text-[#3E2012]">
+                    {content.form.successTitle}
+                  </h3>
+                  <p className="mt-2 font-[family-name:var(--font-label)] text-[#7A6A55]">
+                    {content.form.successText}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setForm({ name: "", email: "", phone: "", subject: "", message: "" });
+                    }}
+                    className="mt-6 font-[family-name:var(--font-label)] text-sm text-[#A0522D] underline decoration-[#A0522D]/45 underline-offset-4 transition-colors duration-200 ease-in-out hover:text-[#7D3D1A]"
+                  >
+                    {content.form.sendAnotherLabel}
+                  </button>
                 </div>
-                <h3 className="mt-4 text-xl font-semibold text-stone-900">{content.form.successTitle}</h3>
-                <p className="mt-2 text-stone-500">{content.form.successText}</p>
-                <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setForm({ name: "", email: "", phone: "", subject: "", message: "" });
-                  }}
-                  className="mt-6 text-sm font-medium text-primary hover:underline"
-                >
-                  {content.form.sendAnotherLabel}
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-                {error ? <div className="border-l-2 border-red-300 pl-3 text-sm text-red-700">{error}</div> : null}
+              ) : (
+                <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+                  {error ? (
+                    <div className="rounded-[12px] border border-red-200 bg-red-50 px-4 py-3 font-[family-name:var(--font-label)] text-sm text-red-700">
+                      {error}
+                    </div>
+                  ) : null}
 
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-stone-700">
-                      {content.form.nameLabel}
-                    </label>
-                    <input
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field
                       id="name"
-                      type="text"
-                      required
+                      label={content.form.nameLabel}
                       value={form.name}
-                      onChange={(e) => setForm((current) => ({ ...current, name: e.target.value }))}
-                      className={inputClass}
+                      required
                       placeholder={content.form.namePlaceholder}
+                      className={inputClass}
+                      onChange={(value) => setForm((current) => ({ ...current, name: value }))}
                     />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-stone-700">
-                      {content.form.emailLabel}
-                    </label>
-                    <input
+                    <Field
                       id="email"
+                      label={content.form.emailLabel}
                       type="email"
-                      required
                       value={form.email}
-                      onChange={(e) => setForm((current) => ({ ...current, email: e.target.value }))}
-                      className={inputClass}
-                      placeholder={content.form.emailPlaceholder}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-stone-700">
-                      {content.form.phoneLabel}{" "}
-                      {content.form.phoneOptionalText.trim().length > 0 ? (
-                        <span className="text-stone-400">{content.form.phoneOptionalText}</span>
-                      ) : null}
-                    </label>
-                    <input
-                      id="phone"
-                      type="tel"
-                      value={form.phone}
-                      onChange={(e) => setForm((current) => ({ ...current, phone: e.target.value }))}
-                      className={inputClass}
-                      placeholder={content.form.phonePlaceholder}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-stone-700">
-                      {content.form.subjectLabel}
-                    </label>
-                    <input
-                      id="subject"
-                      type="text"
                       required
-                      value={form.subject}
-                      onChange={(e) => setForm((current) => ({ ...current, subject: e.target.value }))}
+                      placeholder={content.form.emailPlaceholder}
                       className={inputClass}
-                      placeholder={content.form.subjectPlaceholder}
+                      onChange={(value) => setForm((current) => ({ ...current, email: value }))}
                     />
                   </div>
-                </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-stone-700">
-                    {content.form.messageLabel}
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={5}
-                    required
-                    value={form.message}
-                    onChange={(e) => setForm((current) => ({ ...current, message: e.target.value }))}
-                    className={inputClass}
-                    placeholder={content.form.messagePlaceholder}
-                  />
-                </div>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field
+                      id="phone"
+                      label={`${content.form.phoneLabel}${content.form.phoneOptionalText.trim().length > 0 ? ` ${content.form.phoneOptionalText}` : ""}`}
+                      value={form.phone}
+                      placeholder={content.form.phonePlaceholder}
+                      className={inputClass}
+                      onChange={(value) => setForm((current) => ({ ...current, phone: value }))}
+                    />
+                    <Field
+                      id="subject"
+                      label={content.form.subjectLabel}
+                      value={form.subject}
+                      required
+                      placeholder={content.form.subjectPlaceholder}
+                      className={inputClass}
+                      onChange={(value) => setForm((current) => ({ ...current, subject: value }))}
+                    />
+                  </div>
 
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90 disabled:opacity-50"
-                >
-                  <Send className="h-4 w-4" />
-                  {submitting ? content.form.submittingLabel : content.form.submitLabel}
-                </button>
-              </form>
-            )}
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="font-[family-name:var(--font-label)] text-sm font-medium text-[#5C3D1E]"
+                    >
+                      {content.form.messageLabel}
+                    </label>
+                    <textarea
+                      id="message"
+                      rows={5}
+                      required
+                      value={form.message}
+                      onChange={(e) =>
+                        setForm((current) => ({ ...current, message: e.target.value }))
+                      }
+                      className={inputClass}
+                      placeholder={content.form.messagePlaceholder}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="inline-flex items-center gap-2 rounded-full bg-[#A0522D] px-6 py-3 font-[family-name:var(--font-label)] text-sm font-medium text-white transition-all duration-200 ease-in-out hover:bg-[#7D3D1A] disabled:cursor-not-allowed disabled:bg-[#C9A87C]"
+                  >
+                    <Send className="h-4 w-4" />
+                    {submitting ? content.form.submittingLabel : content.form.submitLabel}
+                  </button>
+                </form>
+              )}
+            </div>
+
+            <div className="rounded-[24px] border border-[#C9A87C] bg-[#FFFDF8] p-8 text-center shadow-[0_18px_40px_rgba(90,50,20,0.06)]">
+              <p className="font-[family-name:var(--font-label)] text-xs font-medium uppercase tracking-[0.1em] text-[#A0522D]">
+                {content.map.eyebrow}
+              </p>
+              <h2 className="mt-3 font-[family-name:var(--font-display)] text-[2rem] leading-tight text-[#3E2012]">
+                {content.map.title}
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl font-[family-name:var(--font-label)] text-sm leading-7 text-[#7A6A55]">
+                {content.map.intro}
+              </p>
+              <div className="mt-8 flex h-72 items-center justify-center rounded-[20px] border border-dashed border-[#C9A87C] bg-[#F5EFE6] text-[#7A6A55]">
+                <div className="text-center">
+                  <MapPin className="mx-auto h-12 w-12 text-[#A0522D]" />
+                  <p className="mt-3 font-[family-name:var(--font-label)] text-sm">
+                    {content.map.placeholderText}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </section>
+  );
+}
 
-      <div className="mt-16 border-t border-latik/14 pt-8">
-        <div className="text-center">
-          <p className="text-[0.72rem] font-medium uppercase tracking-[0.24em] text-pulot">{content.map.eyebrow}</p>
-          <h2 className="mt-3 text-2xl font-black text-kape">{content.map.title}</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-latik/72">{content.map.intro}</p>
+function ContactInfoBlock({
+  icon,
+  title,
+  text,
+  children,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  text: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-[18px] border border-[#C9A87C] bg-[#FAF6F0] p-5">
+      <div className="flex items-start gap-4">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F5E6C8] text-[#A0522D]">
+          {icon}
         </div>
-        <div className="mt-8 flex h-80 items-center justify-center text-stone-400">
-          <div className="text-center">
-            <MapPin className="mx-auto h-12 w-12 text-stone-300" />
-            <p className="mt-2 text-sm">{content.map.placeholderText}</p>
+        <div>
+          <h3 className="font-[family-name:var(--font-display)] text-xl text-[#3E2012]">{title}</h3>
+          <p className="mt-1 font-[family-name:var(--font-label)] text-sm leading-7 text-[#7A6A55]">
+            {text}
+          </p>
+          <div className="mt-2 font-[family-name:var(--font-label)] text-sm text-[#7A6A55]">
+            {children}
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function Field({
+  id,
+  label,
+  value,
+  onChange,
+  className,
+  placeholder,
+  required,
+  type = "text",
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  className: string;
+  placeholder?: string;
+  required?: boolean;
+  type?: string;
+}) {
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="font-[family-name:var(--font-label)] text-sm font-medium text-[#5C3D1E]"
+      >
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        required={required}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={className}
+        placeholder={placeholder}
+      />
     </div>
   );
 }
