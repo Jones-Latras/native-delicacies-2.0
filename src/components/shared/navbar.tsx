@@ -7,6 +7,7 @@ import { useSession, signOut } from "next-auth/react";
 import { ShoppingCart, Menu, X, User, Search, LogOut, Settings, ShieldCheck } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
 import { useUIStore } from "@/stores/ui-store";
+import { useHasMounted } from "@/hooks/use-has-mounted";
 import { cn } from "@/lib/utils";
 import {
   UI_NAV_DROPDOWN_ITEM_CLASS,
@@ -28,6 +29,7 @@ const SCROLL_THRESHOLD = 16;
 
 export function Navbar() {
   const pathname = usePathname();
+  const hasMounted = useHasMounted();
   const itemCount = useCartStore((s) => s.getItemCount());
   const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu, toggleCart } = useUIStore();
   const { data: session, status } = useSession();
@@ -52,6 +54,7 @@ export function Navbar() {
     "h-10 w-10 rounded-[var(--radius-btn)] p-0 sm:h-[2.65rem] sm:w-[2.65rem]";
   const navIconPillClass = "rounded-[var(--radius-btn)] px-3 py-2.5";
   const actionIconClass = "h-[18px] w-[18px] sm:h-5 sm:w-5";
+  const displayItemCount = hasMounted ? itemCount : 0;
 
   const isLoggedIn = status === "authenticated" && session?.user;
   const isAdmin = session?.user?.role === "ADMIN" || session?.user?.role === "MANAGER" || session?.user?.role === "STAFF";
@@ -238,9 +241,9 @@ export function Navbar() {
             aria-label="Shopping cart"
           >
             <ShoppingCart className={actionIconClass} strokeWidth={1.5} />
-            {itemCount > 0 && (
+            {displayItemCount > 0 && (
               <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-pulot px-1 text-[9px] font-bold text-asukal shadow-[0_6px_14px_rgba(59,31,14,0.2)] sm:h-5 sm:min-w-5 sm:text-[10px]">
-                {itemCount > 99 ? "99+" : itemCount}
+                {displayItemCount > 99 ? "99+" : displayItemCount}
               </span>
             )}
           </button>

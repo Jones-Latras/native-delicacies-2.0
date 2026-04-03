@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import type { UserRole } from "@/types";
 import { errorResponse } from "./api-utils";
 
@@ -12,17 +13,30 @@ interface SessionUser {
 
 /**
  * Extract the authenticated user from the session.
- * Returns null if unauthenticated.
+ * Returns null if unauthenticated or if the backing user record no longer exists.
  */
 export async function getSessionUser(_request: NextRequest): Promise<SessionUser | null> {
+  void _request;
   const session = await auth();
   if (!session?.user?.id) return null;
 
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      role: true,
+    },
+  });
+
+  if (!user) return null;
+
   return {
-    id: session.user.id,
-    email: session.user.email ?? "",
-    name: session.user.name ?? "",
-    role: (session.user.role as UserRole) ?? "CUSTOMER",
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role as UserRole,
   };
 }
 

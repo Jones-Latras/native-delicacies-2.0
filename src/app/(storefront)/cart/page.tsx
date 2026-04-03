@@ -15,11 +15,13 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
+import { useHasMounted } from "@/hooks/use-has-mounted";
 import { formatCurrency } from "@/lib/utils";
 import type { CartItem } from "@/types";
 
 import { SurfaceCard } from "@/components/ui";
 export default function CartPage() {
+  const hasMounted = useHasMounted();
   const items = useCartStore((s) => s.items);
   const subtotal = useCartStore((s) => s.getSubtotal());
   const itemCount = useCartStore((s) => s.getItemCount());
@@ -36,6 +38,10 @@ export default function CartPage() {
   const [promoError, setPromoError] = useState("");
   const [promoMessage, setPromoMessage] = useState("");
   const [clearConfirm, setClearConfirm] = useState(false);
+
+  if (!hasMounted) {
+    return null;
+  }
 
   async function handleApplyPromo() {
     if (!promoInput.trim()) return;

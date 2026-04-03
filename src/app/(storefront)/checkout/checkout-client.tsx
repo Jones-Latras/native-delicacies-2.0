@@ -17,6 +17,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
+import { useHasMounted } from "@/hooks/use-has-mounted";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { BusinessSettings, CartItem } from "@/types";
 import { SurfaceCard } from "@/components/ui";
@@ -50,6 +51,7 @@ const TIP_PRESETS = [0, 20, 50, 100];
 
 export function CheckoutClient() {
   const router = useRouter();
+  const hasMounted = useHasMounted();
   const { data: session } = useSession();
   const items = useCartStore((s) => s.items);
   const subtotal = useCartStore((s) => s.getSubtotal());
@@ -105,10 +107,10 @@ export function CheckoutClient() {
 
   // Redirect if cart empty
   useEffect(() => {
-    if (items.length === 0) {
+    if (hasMounted && items.length === 0) {
       router.push("/menu");
     }
-  }, [items.length, router]);
+  }, [hasMounted, items.length, router]);
 
   // ── Calculate totals ──
   const deliveryFee =
@@ -249,7 +251,7 @@ export function CheckoutClient() {
     }
   }
 
-  if (items.length === 0) {
+  if (!hasMounted || items.length === 0) {
     return null;
   }
 

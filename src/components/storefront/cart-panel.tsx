@@ -15,10 +15,12 @@ import {
 } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
 import { useUIStore } from "@/stores/ui-store";
+import { useHasMounted } from "@/hooks/use-has-mounted";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { CartItem } from "@/types";
 
 export function CartPanel() {
+  const hasMounted = useHasMounted();
   const { isCartOpen, closeCart } = useUIStore();
   const items = useCartStore((s) => s.items);
   const subtotal = useCartStore((s) => s.getSubtotal());
@@ -34,6 +36,12 @@ export function CartPanel() {
   const [promoLoading, setPromoLoading] = useState(false);
   const [promoError, setPromoError] = useState("");
   const [promoMessage, setPromoMessage] = useState("");
+  const displayItems = hasMounted ? items : [];
+  const displaySubtotal = hasMounted ? subtotal : 0;
+  const displayItemCount = hasMounted ? itemCount : 0;
+  const displayTotal = hasMounted ? total : 0;
+  const displayPromoCode = hasMounted ? promoCode : null;
+  const displayPromoDiscount = hasMounted ? promoDiscount : 0;
 
   async function handleApplyPromo() {
     if (!promoInput.trim()) return;
@@ -71,7 +79,7 @@ export function CartPanel() {
   }
 
   // Estimate prep time (max among items)
-  const estimatedPrepTime = items.reduce((max, item) => {
+  const estimatedPrepTime = displayItems.reduce((max) => {
     return max; // Will be enhanced when item data includes prep time
   }, 15);
 
@@ -97,9 +105,9 @@ export function CartPanel() {
             <ShoppingBag className="h-5 w-5 text-pulot" strokeWidth={1.5} />
             <h2 className="font-[family-name:var(--font-display)] text-2xl text-kape">
               Your Cart
-              {itemCount > 0 && (
+              {displayItemCount > 0 && (
                 <span className="ml-2 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-latik/55">
-                  ({itemCount} {itemCount === 1 ? "item" : "items"})
+                  ({displayItemCount} {displayItemCount === 1 ? "item" : "items"})
                 </span>
               )}
             </h2>
@@ -113,7 +121,7 @@ export function CartPanel() {
           </button>
         </div>
 
-        {items.length === 0 ? (
+        {displayItems.length === 0 ? (
           /* Empty State */
           <div className="flex flex-1 flex-col items-center justify-center px-6">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-pulot/12">
@@ -139,7 +147,7 @@ export function CartPanel() {
             {/* Items List */}
             <div className="flex-1 overflow-y-auto px-6 py-4">
               <div className="space-y-4">
-                {items.map((item) => (
+                {displayItems.map((item) => (
                   <CartItemRow
                     key={item.id}
                     item={item}
@@ -151,12 +159,12 @@ export function CartPanel() {
             </div>
 
             <div className="border-t border-latik/10 px-6 py-4">
-              {promoCode ? (
+              {displayPromoCode ? (
                 <div className="mb-4 flex items-center justify-between rounded-[1rem] border border-pandan/20 bg-pandan/10 px-3 py-3">
                   <div className="flex items-center gap-2">
                     <Tag className="h-4 w-4 text-pandan" strokeWidth={1.5} />
                     <span className="text-sm font-medium text-pandan">
-                      {promoCode}
+                      {displayPromoCode}
                     </span>
                     {promoMessage && (
                       <span className="text-xs text-pandan/75">
@@ -202,17 +210,17 @@ export function CartPanel() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between text-latik/72">
                   <span>Subtotal</span>
-                  <span>{formatCurrency(subtotal)}</span>
+                  <span>{formatCurrency(displaySubtotal)}</span>
                 </div>
-                {promoDiscount > 0 && (
+                {displayPromoDiscount > 0 && (
                   <div className="flex justify-between text-pandan">
                     <span>Promo Discount</span>
-                    <span>-{formatCurrency(promoDiscount)}</span>
+                    <span>-{formatCurrency(displayPromoDiscount)}</span>
                   </div>
                 )}
                 <div className="flex justify-between border-t border-latik/10 pt-3 font-[family-name:var(--font-display)] text-xl text-kape">
                   <span>Total</span>
-                  <span>{formatCurrency(total)}</span>
+                  <span>{formatCurrency(displayTotal)}</span>
                 </div>
               </div>
 
