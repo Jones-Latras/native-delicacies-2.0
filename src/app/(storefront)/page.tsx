@@ -185,14 +185,6 @@ export default async function HomePage() {
               </div>
             )}
 
-            {/* Heritage Badge */}
-            <div className="mb-6 flex items-center gap-2 rounded-full border border-nipa bg-nipa/30 px-4 py-2 shadow-sm">
-              <Home className="h-4 w-4 text-latik" strokeWidth={1.5} />
-              <span className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-latik">
-                Bahay Kubo Heritage
-              </span>
-            </div>
-
             {/* Main Headline */}
             <h1 className="max-w-4xl font-[family-name:var(--font-display)] text-5xl tracking-[-0.03em] text-kape sm:text-6xl lg:text-7xl">
               From Our{" "}
@@ -278,10 +270,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-pulot">
-                Mga Kategorya
-              </p>
-              <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
+              <h2 className="font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
                 Shop by Category
               </h2>
               <p className="mt-3 max-w-lg text-latik/70">
@@ -320,10 +309,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-pandan">
-                Paboritong Kakanin
-              </p>
-              <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
+              <h2 className="font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
                 Popular Delicacies
               </h2>
               <p className="mt-3 max-w-lg text-latik/70">
@@ -352,10 +338,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-latik/60">
-                Lahat ng Produkto
-              </p>
-              <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
+              <h2 className="font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
                 All Products
               </h2>
               <p className="mt-3 max-w-lg text-latik/70">
@@ -391,12 +374,6 @@ export default async function HomePage() {
           
           <div className="relative p-8 sm:p-12 lg:flex lg:items-center lg:gap-16 lg:p-16">
             <div className="flex-1">
-              <div className="flex items-center gap-2">
-                <Home className="h-5 w-5 text-pulot" strokeWidth={1.5} />
-                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-pulot">
-                  Ang Aming Kwento
-                </p>
-              </div>
               <h2 className="mt-4 font-[family-name:var(--font-display)] text-3xl text-kape sm:text-4xl">
                 A Taste of Filipino Tradition
               </h2>
