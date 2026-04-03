@@ -137,7 +137,7 @@ export default async function HomePage() {
   return (
     <>
       {/* ── Bahay Kubo Hero Section ── */}
-      <section className="relative overflow-hidden pb-6 pt-4">
+      <section className="relative overflow-hidden pb-6 pt-2">
         {/* Ambient warm glow */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[85%] bg-[radial-gradient(ellipse_at_top,rgba(184,114,30,0.12),transparent_60%)]" />
 
@@ -164,9 +164,6 @@ export default async function HomePage() {
           }}
         />
 
-        {/* Nipa Thatch Top Border Effect */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-3 bg-[linear-gradient(90deg,rgba(196,154,86,0.4),rgba(212,201,168,0.5),rgba(196,154,86,0.4))]" />
-
         {/* Decorative corner bamboo elements */}
         <div className="pointer-events-none absolute -left-8 -top-8 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(138,154,91,0.2),transparent_70%)]" />
         <div className="pointer-events-none absolute -bottom-12 -right-12 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(184,114,30,0.15),transparent_70%)]" />
@@ -176,7 +173,7 @@ export default async function HomePage() {
         <div className="pointer-events-none absolute left-[6%] bottom-[20%] h-16 w-16 rounded-full border border-bambo/15 bg-bambo/10" />
 
         {/* Hero Content */}
-        <div className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col items-center justify-center px-6 pb-28 pt-32 text-center sm:px-8 sm:pb-32 sm:pt-36 lg:px-12 lg:pb-36 lg:pt-40">
+        <div className="relative mx-auto flex min-h-[92svh] max-w-7xl flex-col items-center justify-center px-6 pb-24 pt-16 text-center sm:px-8 sm:pb-28 sm:pt-20 lg:min-h-[90svh] lg:px-12 lg:pb-32 lg:pt-24">
             
             {/* Business Status */}
             {operatingHours && (
