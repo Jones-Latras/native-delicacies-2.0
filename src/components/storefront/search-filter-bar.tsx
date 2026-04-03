@@ -10,7 +10,7 @@ const SORT_OPTIONS = [
   { value: "newest", label: "Newest" },
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
-  { value: "name", label: "Name A–Z" },
+  { value: "name", label: "Name A-Z" },
 ];
 
 const DIETARY_OPTIONS = [
@@ -49,7 +49,8 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
           params.delete(key);
         }
       });
-      params.delete("page"); // reset pagination on filter change
+
+      params.delete("page");
       startTransition(() => {
         router.push(`/menu?${params.toString()}`, { scroll: false });
       });
@@ -57,7 +58,6 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
     [router, searchParams, startTransition]
   );
 
-  // Debounced search
   useEffect(() => {
     const timer = setTimeout(() => {
       const current = searchParams.get("search") ?? "";
@@ -65,110 +65,121 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
         updateParams({ search: searchValue });
       }
     }, 400);
+
     return () => clearTimeout(timer);
   }, [searchValue, searchParams, updateParams]);
 
   const activeFilterCount = [currentCategory, currentDietary].filter(Boolean).length;
+  const pillBaseClass =
+    "shrink-0 whitespace-nowrap rounded-full px-4 py-1.5 font-[family-name:var(--font-label)] text-[13px] transition-all duration-200 ease-in-out";
 
   return (
-    <div className="space-y-5">
-      <div className="flex gap-3">
-        <div className="relative flex-1">
-          <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-latik/45" strokeWidth={1.5} />
+    <div className="space-y-4 rounded-[12px] bg-[#F5EFE6] p-4 sm:p-5">
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto_auto]">
+        <div className="relative">
+          <Search
+            className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#7A6A55]"
+            strokeWidth={1.7}
+          />
           <input
-            type="text"
+            type="search"
             value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search delicacies..."
-            className="w-full border-b border-latik/18 bg-transparent py-3 pl-11 pr-4 text-sm text-kape transition-all duration-300 ease-in-out placeholder:text-latik/45 focus:border-pandan focus:outline-none"
+            onChange={(event) => setSearchValue(event.target.value)}
+            placeholder="Search delicacies, e.g. Hopia"
+            className="w-full rounded-[12px] border border-[#C9A87C] bg-[#FFFDF8] py-3 pl-11 pr-11 font-[family-name:var(--font-label)] text-sm text-[#3E2012] transition-colors duration-200 ease-in-out placeholder:text-[#7A6A55] focus:border-[#A0522D] focus:outline-none"
           />
           {searchValue && (
             <button
+              type="button"
               onClick={() => setSearchValue("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-latik/45 transition-all duration-300 ease-in-out hover:text-kape"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-[#7A6A55] transition-colors duration-200 ease-in-out hover:text-[#A0522D]"
               aria-label="Clear search"
             >
-              <X className="h-4 w-4" strokeWidth={1.5} />
+              <X className="h-4 w-4" strokeWidth={1.7} />
             </button>
           )}
         </div>
 
+        <div className="relative">
+          <select
+            value={currentSort}
+            onChange={(event) => updateParams({ sort: event.target.value })}
+            className="w-full appearance-none rounded-[12px] border border-[#C9A87C] bg-[#FFFDF8] px-4 py-3 pr-10 font-[family-name:var(--font-label)] text-sm text-[#5C3D1E] transition-colors duration-200 ease-in-out focus:border-[#A0522D] focus:outline-none lg:min-w-[190px]"
+          >
+            {SORT_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <button
-          onClick={() => setShowFilters(!showFilters)}
+          type="button"
+          onClick={() => setShowFilters((current) => !current)}
           className={cn(
-            "flex items-center gap-2 border-b-2 px-2 py-3 text-[0.72rem] font-medium uppercase tracking-[0.18em] transition-all duration-300 ease-in-out",
+            "inline-flex items-center justify-center gap-2 rounded-[999px] border px-4 py-3 font-[family-name:var(--font-label)] text-[13px] font-medium transition-all duration-200 ease-in-out",
             showFilters || activeFilterCount > 0
-              ? "border-pulot text-pulot"
-              : "border-transparent text-latik hover:border-latik/28 hover:text-kape"
+              ? "border-[#A0522D] bg-[#A0522D] text-white"
+              : "border-[#C9A87C] bg-[#FAF6F0] text-[#5C3D1E] hover:border-[#A0522D] hover:text-[#A0522D]"
           )}
         >
-          <SlidersHorizontal className="h-4 w-4" strokeWidth={1.5} />
+          <SlidersHorizontal className="h-4 w-4" strokeWidth={1.7} />
           Filters
           {activeFilterCount > 0 && (
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-pulot px-1 text-[10px] font-bold text-asukal">
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1 text-[10px] font-bold text-[#A0522D]">
               {activeFilterCount}
             </span>
           )}
         </button>
-
-        <select
-          value={currentSort}
-          onChange={(e) => updateParams({ sort: e.target.value })}
-          className="hidden border-b border-latik/18 bg-transparent px-4 py-3 text-sm text-latik focus:border-pandan focus:outline-none sm:block"
-        >
-          {SORT_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
       </div>
 
-      {/* Expanded Filters */}
-      {showFilters && (
-        <div className="border-t border-latik/12 pt-5">
-          <div className="grid gap-5 sm:grid-cols-2">
-            <div>
-              <h4 className="mb-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-latik/62">Category</h4>
-              <div className="flex flex-wrap gap-1.5">
-                <button
-                  onClick={() => updateParams({ category: "" })}
-                  className={cn(
-                    "rounded-full border px-3 py-1.5 text-[0.64rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out",
-                    !currentCategory
-                      ? "border-pulot bg-pulot text-asukal"
-                      : "border-latik/16 bg-gatas/75 text-latik/72 hover:border-latik/24 hover:bg-gatas"
-                  )}
-                >
-                  All
-                </button>
-                {categories.map((cat) => (
-                  <button
-                    key={cat.slug}
-                    onClick={() => updateParams({ category: cat.slug })}
-                    className={cn(
-                      "rounded-full border px-3 py-1.5 text-[0.64rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out",
-                      currentCategory === cat.slug
-                        ? "border-pulot bg-pulot text-asukal"
-                        : "border-latik/16 bg-gatas/75 text-latik/72 hover:border-latik/24 hover:bg-gatas"
-                    )}
-                  >
-                    {cat.name}
-                  </button>
-                ))}
-              </div>
-            </div>
+      <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+        <button
+          type="button"
+          onClick={() => updateParams({ category: "" })}
+          className={cn(
+            pillBaseClass,
+            !currentCategory
+              ? "bg-[#A0522D] text-white"
+              : "border border-[#C9A87C] bg-[#FAF6F0] text-[#5C3D1E] hover:border-[#A0522D] hover:text-[#A0522D]"
+          )}
+        >
+          All
+        </button>
+        {categories.map((cat) => (
+          <button
+            key={cat.slug}
+            type="button"
+            onClick={() => updateParams({ category: cat.slug })}
+            className={cn(
+              pillBaseClass,
+              currentCategory === cat.slug
+                ? "bg-[#A0522D] text-white"
+                : "border border-[#C9A87C] bg-[#FAF6F0] text-[#5C3D1E] hover:border-[#A0522D] hover:text-[#A0522D]"
+            )}
+          >
+            {cat.name}
+          </button>
+        ))}
+      </div>
 
+      {showFilters && (
+        <div className="rounded-[12px] border border-[#C9A87C] bg-[#FFFDF8] p-4">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_220px]">
             <div>
-              <h4 className="mb-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-latik/62">Dietary</h4>
-              <div className="flex flex-wrap gap-1.5">
+              <h4 className="mb-3 font-[family-name:var(--font-label)] text-xs font-medium uppercase tracking-[0.1em] text-[#A0522D]">
+                Dietary Preferences
+              </h4>
+              <div className="flex flex-wrap gap-2">
                 <button
+                  type="button"
                   onClick={() => updateParams({ dietary: "" })}
                   className={cn(
-                    "rounded-full border px-3 py-1.5 text-[0.64rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out",
+                    pillBaseClass,
                     !currentDietary
-                      ? "border-pulot bg-pulot text-asukal"
-                      : "border-latik/16 bg-gatas/75 text-latik/72 hover:border-latik/24 hover:bg-gatas"
+                      ? "bg-[#A0522D] text-white"
+                      : "border border-[#C9A87C] bg-[#FAF6F0] text-[#5C3D1E] hover:border-[#A0522D] hover:text-[#A0522D]"
                   )}
                 >
                   All
@@ -176,12 +187,13 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
                 {DIETARY_OPTIONS.map((tag) => (
                   <button
                     key={tag}
+                    type="button"
                     onClick={() => updateParams({ dietary: tag })}
                     className={cn(
-                      "rounded-full border px-3 py-1.5 text-[0.64rem] font-medium uppercase tracking-[0.16em] transition-all duration-300 ease-in-out",
+                      pillBaseClass,
                       currentDietary === tag
-                        ? "border-pulot bg-pulot text-asukal"
-                        : "border-latik/16 bg-gatas/75 text-latik/72 hover:border-latik/24 hover:bg-gatas"
+                        ? "bg-[#A0522D] text-white"
+                        : "border border-[#C9A87C] bg-[#FAF6F0] text-[#5C3D1E] hover:border-[#A0522D] hover:text-[#A0522D]"
                     )}
                   >
                     {tag}
@@ -189,27 +201,30 @@ export function SearchFilterBar({ categories }: SearchFilterBarProps) {
                 ))}
               </div>
             </div>
+
+            <div>
+              <h4 className="mb-3 font-[family-name:var(--font-label)] text-xs font-medium uppercase tracking-[0.1em] text-[#A0522D]">
+                Sort Order
+              </h4>
+              <select
+                value={currentSort}
+                onChange={(event) => updateParams({ sort: event.target.value })}
+                className="w-full rounded-[12px] border border-[#C9A87C] bg-[#FAF6F0] px-4 py-3 font-[family-name:var(--font-label)] text-sm text-[#5C3D1E] transition-colors duration-200 ease-in-out focus:border-[#A0522D] focus:outline-none"
+              >
+                {SORT_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          <div className="mt-4 sm:hidden">
-            <h4 className="mb-3 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-latik/62">Sort By</h4>
-            <select
-              value={currentSort}
-              onChange={(e) => updateParams({ sort: e.target.value })}
-              className="w-full border-b border-latik/18 bg-transparent px-4 py-3 text-sm text-latik focus:border-pandan focus:outline-none"
-            >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {activeFilterCount > 0 && (
+          {(activeFilterCount > 0 || searchValue) && (
             <button
+              type="button"
               onClick={() => updateParams({ category: "", dietary: "", search: "" })}
-              className="mt-4 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik transition-colors duration-300 hover:text-pulot"
+              className="mt-4 font-[family-name:var(--font-label)] text-[13px] text-[#A0522D] underline decoration-[#A0522D]/45 underline-offset-4 transition-colors duration-200 ease-in-out hover:text-[#7D3D1A]"
             >
               Clear all filters
             </button>
