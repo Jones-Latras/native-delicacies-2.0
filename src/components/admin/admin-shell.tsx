@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import {
+  ArrowLeft,
   LayoutDashboard,
   ShoppingBag,
   Package,
@@ -84,6 +85,14 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       </div>
 
       <div className="border-t border-latik/12 px-8 pt-5">
+        <Link
+          href="/"
+          onClick={() => setSidebarOpen(false)}
+          className="mb-4 flex items-center gap-2 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik/72 transition-colors duration-200 ease-out hover:text-kape"
+        >
+          <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
+          <span>Back to Shop</span>
+        </Link>
         <button
           onClick={async () => { await signOut({ redirect: false }); window.location.href = "/admin/login"; }}
           className="flex items-center gap-2 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-latik/72 transition-colors duration-200 ease-out hover:text-kape"
@@ -135,6 +144,14 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="flex items-center gap-4">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-full border border-latik/15 bg-white/55 px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-latik/80 transition-all duration-200 ease-out hover:border-pulot/35 hover:text-kape"
+            >
+              <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
+              <span className="hidden sm:inline">Back to Shop</span>
+              <span className="sm:hidden">Shop</span>
+            </Link>
             <NotificationPanel />
             <div className="mx-2 hidden h-10 w-px bg-latik/10 sm:block" />
             <div className="hidden items-center gap-3 sm:flex">
