@@ -1,7 +1,6 @@
-import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { SURFACE_CARD_BASE_CLASS } from "@/components/ui";
+import Link from "next/link";
+import { Candy, Cookie, Croissant, Gift, type LucideIcon, Wheat } from "lucide-react";
 
 interface CategoryCardProps {
   name: string;
@@ -11,52 +10,46 @@ interface CategoryCardProps {
   itemCount: number;
 }
 
-const CATEGORY_ICONS: Record<string, string> = {
-  kakanin: "🍘",
-  pastries: "🥐",
-  "biscuits-cookies": "🍪",
-  "sweets-preserves": "🍬",
-  "pasalubong-bundles": "🎁",
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  kakanin: Wheat,
+  pastries: Croissant,
+  "biscuits-cookies": Cookie,
+  "sweets-preserves": Candy,
+  "pasalubong-bundles": Gift,
 };
 
 export function CategoryCard({ name, slug, description, imageUrl, itemCount }: CategoryCardProps) {
+  const Icon = CATEGORY_ICONS[slug] ?? Wheat;
+
   return (
     <Link
       href={`/menu?category=${slug}`}
-      className={cn(
-        SURFACE_CARD_BASE_CLASS,
-        "group relative overflow-hidden rounded-[var(--radius-card)] border-2 border-latik/20 bg-asukal/78 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-pulot/22 hover:bg-asukal/88 hover:shadow-[0_18px_30px_rgba(59,31,14,0.14)]"
-      )}
+      aria-label={description ? `${name}: ${description}` : name}
+      title={description ?? name}
+      className="group relative min-w-[176px] shrink-0 cursor-pointer overflow-hidden rounded-[12px] border-[1.5px] border-[#C9A87C] bg-[#FAF6F0] px-4 py-6 text-center shadow-[0_2px_10px_rgba(90,50,20,0.04)] transition-all duration-200 ease-in-out hover:-translate-y-[5px] hover:border-[#A0522D] hover:shadow-[0_8px_24px_rgba(90,50,20,0.10)] sm:min-w-[190px] lg:min-w-0"
     >
-      <div className="relative h-40 overflow-hidden bg-[linear-gradient(135deg,rgba(194,133,42,0.34),rgba(253,246,227,0.92),rgba(74,124,89,0.18))]">
-        {imageUrl ? (
+      <div className="relative mx-auto flex h-14 w-14 items-center justify-center overflow-hidden rounded-full bg-[#F5E6C8]">
+        {imageUrl && (
           <Image
             src={imageUrl}
-            alt={name}
+            alt=""
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
+            aria-hidden="true"
+            className="object-cover opacity-20 transition-transform duration-200 ease-in-out group-hover:scale-110"
+            sizes="56px"
           />
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <span className="text-5xl transition-transform duration-300 group-hover:scale-110">
-              {CATEGORY_ICONS[slug] ?? "🍽️"}
-            </span>
-          </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-kape/72 via-kape/18 to-transparent" />
-        <div className="absolute bottom-3 left-3 right-3">
-          <h3 className="font-[family-name:var(--font-display)] text-xl text-asukal drop-shadow-sm">{name}</h3>
-          <p className="mt-1 text-[0.68rem] font-medium uppercase tracking-[0.18em] text-asukal/78">
-            {itemCount} items
-          </p>
+        <div className="relative flex h-full w-full items-center justify-center">
+          <Icon className="h-7 w-7 text-[#5C3D1E]" strokeWidth={1.7} />
         </div>
       </div>
-      {description && (
-        <div className="p-4">
-          <p className="line-clamp-2 text-sm leading-6 text-latik/72">{description}</p>
-        </div>
-      )}
+
+      <h3 className="mt-3 font-[family-name:var(--font-display)] text-[15px] font-semibold text-[#3E2012]">
+        {name}
+      </h3>
+      <p className="mt-1 font-[family-name:var(--font-label)] text-[12px] text-[#7A6A55]">
+        {itemCount} items
+      </p>
     </Link>
   );
 }

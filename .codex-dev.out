@@ -1,0 +1,14 @@
+
+> jj-native-delicacies-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://10.153.53.41:3001
+- Environments: .env.local, .env
+- Experiments (use with caution):
+  ✓ optimizeCss
+
+✓ Starting...
+  Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+[?25h
