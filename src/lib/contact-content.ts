@@ -118,7 +118,8 @@ const DEFAULT_CONTACT_PAGE_CONTENT: ContactPageContent = {
     eyebrow: "Find The Store",
     title: "Location",
     intro: "Use the map below to plan pickups, coordinate rider instructions, or confirm travel time before your visit.",
-    placeholderText: "Google Maps embed - configure this section with your live map link or embed.",
+    placeholderText:
+      "Map unavailable right now. Add a business address in settings or use the location details above.",
   },
 };
 

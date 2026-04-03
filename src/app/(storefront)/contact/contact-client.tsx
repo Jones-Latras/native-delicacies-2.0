@@ -39,6 +39,13 @@ export function ContactClient({ content, contactSettings }: ContactClientProps) 
     addressLines.length > 0
       ? addressLines
       : content.details.fallbackAddressLines.filter((line) => line.trim().length > 0);
+  const mapQuery = resolvedAddressLines.join(", ").trim();
+  const googleMapsEmbedUrl = mapQuery
+    ? `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=15&output=embed`
+    : null;
+  const googleMapsDirectionsUrl = mapQuery
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`
+    : null;
 
   const formatDayHours = (day: string) => {
     const dayInfo = contactSettings?.operatingHours?.[day];
@@ -322,14 +329,44 @@ export function ContactClient({ content, contactSettings }: ContactClientProps) 
               <p className="mx-auto mt-3 max-w-2xl font-[family-name:var(--font-label)] text-sm leading-7 text-[#7A6A55]">
                 {content.map.intro}
               </p>
-              <div className="mt-8 flex h-72 items-center justify-center rounded-[20px] border border-dashed border-[#C9A87C] bg-[#F5EFE6] text-[#7A6A55]">
-                <div className="text-center">
-                  <MapPin className="mx-auto h-12 w-12 text-[#A0522D]" />
-                  <p className="mt-3 font-[family-name:var(--font-label)] text-sm">
-                    {content.map.placeholderText}
-                  </p>
+              {googleMapsEmbedUrl ? (
+                <>
+                  <div className="mt-8 overflow-hidden rounded-[20px] border border-[#C9A87C] bg-[#F5EFE6] shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]">
+                    <iframe
+                      title={`${content.map.title} - Google Maps`}
+                      src={googleMapsEmbedUrl}
+                      className="h-72 w-full border-0"
+                      loading="lazy"
+                      allowFullScreen
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  </div>
+
+                  <div className="mt-5 flex flex-col items-center gap-3">
+                    <p className="font-[family-name:var(--font-label)] text-sm text-[#7A6A55]">
+                      {mapQuery}
+                    </p>
+                    <a
+                      href={googleMapsDirectionsUrl ?? "#"}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-[#A0522D] px-5 py-2.5 font-[family-name:var(--font-label)] text-sm font-medium text-[#A0522D] transition-all duration-200 ease-in-out hover:bg-[#A0522D] hover:text-white"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Open in Google Maps
+                    </a>
+                  </div>
+                </>
+              ) : (
+                <div className="mt-8 flex h-72 items-center justify-center rounded-[20px] border border-dashed border-[#C9A87C] bg-[#F5EFE6] text-[#7A6A55]">
+                  <div className="text-center">
+                    <MapPin className="mx-auto h-12 w-12 text-[#A0522D]" />
+                    <p className="mt-3 font-[family-name:var(--font-label)] text-sm">
+                      {content.map.placeholderText}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
