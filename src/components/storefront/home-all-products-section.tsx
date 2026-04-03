@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Search } from "lucide-react";
+import { useDeferredValue, useState } from "react";
 import { ItemDetailModal } from "@/components/storefront";
 import { HomeProductCard } from "@/components/storefront/home-product-card";
 import type { MenuItem } from "@/types";
@@ -12,17 +13,47 @@ interface HomeAllProductsSectionProps {
 
 export function HomeAllProductsSection({ items, categories }: HomeAllProductsSectionProps) {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [detailItem, setDetailItem] = useState<MenuItem | null>(null);
 
-  const filteredItems =
-    activeCategory === "all"
-      ? items
-      : items.filter((item) => item.category.slug === activeCategory);
+  const deferredSearchQuery = useDeferredValue(searchQuery);
+  const normalizedSearch = deferredSearchQuery.trim().toLowerCase();
+
+  const filteredItems = items.filter((item) => {
+    const matchesCategory = activeCategory === "all" || item.category.slug === activeCategory;
+    const matchesSearch =
+      normalizedSearch.length === 0 ||
+      item.name.toLowerCase().includes(normalizedSearch) ||
+      item.description.toLowerCase().includes(normalizedSearch) ||
+      item.category.name.toLowerCase().includes(normalizedSearch);
+
+    return matchesCategory && matchesSearch;
+  });
+
+  const emptyMessage =
+    normalizedSearch.length > 0
+      ? "Walang tumugma sa hinahanap mo"
+      : "Wala pang produkto sa kategoryang ito";
 
   return (
     <>
       <div className="rounded-[12px] bg-[#F5EFE6] px-4 py-3 sm:px-4">
-        <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+        <div className="relative">
+          <Search
+            className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#7A6A55]"
+            strokeWidth={1.7}
+          />
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Search delicacies, e.g. Hopia"
+            className="w-full rounded-[12px] border border-[#C9A87C] bg-[#FFFDF8] py-3 pl-11 pr-4 font-[family-name:var(--font-label)] text-sm text-[#3E2012] transition-colors duration-200 ease-in-out placeholder:text-[#7A6A55] focus:border-[#A0522D] focus:outline-none"
+            aria-label="Search products"
+          />
+        </div>
+
+        <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1">
           <button
             type="button"
             onClick={() => setActiveCategory("all")}
@@ -58,7 +89,7 @@ export function HomeAllProductsSection({ items, categories }: HomeAllProductsSec
             {"\u{1F343}"}
           </div>
           <p className="mt-4 font-[family-name:var(--font-label)] text-base text-[#7A6A55]">
-            Wala pang produkto sa kategoryang ito
+            {emptyMessage}
           </p>
         </div>
       ) : (

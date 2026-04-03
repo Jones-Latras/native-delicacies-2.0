@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { ShoppingCart, Info, Clock, MapPin } from "lucide-react";
+import { Bell, Clock, Info, MapPin, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
 import { formatCurrency } from "@/lib/utils";
 import { cn } from "@/lib/utils";
@@ -19,9 +19,10 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
   const [quantity, setQuantity] = useState(1);
 
   const stockLeft = useMemo(() => {
+    if (item.stockLeft !== null && item.stockLeft !== undefined) return item.stockLeft;
     if (item.dailyLimit === null || item.dailyLimit === undefined) return null;
     return Math.max(item.dailyLimit - (item.soldToday ?? 0), 0);
-  }, [item.dailyLimit, item.soldToday]);
+  }, [item.dailyLimit, item.soldToday, item.stockLeft]);
 
   const isOutOfStock = !item.isAvailable || stockLeft === 0;
 
@@ -78,7 +79,10 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
             </Badge>
           )}
           {!isOutOfStock && stockLeft !== null && (
-            <Badge variant="default" className="border-kape/20 bg-kape/88 text-[0.6rem] text-asukal">
+            <Badge
+              variant="default"
+              className="border-kape/20 bg-kape/88 text-[0.6rem] text-asukal"
+            >
               {stockLeft} left
             </Badge>
           )}
@@ -136,9 +140,7 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
 
         <div className="mt-4 border-t border-latik/10 pt-4">
           <div className="mb-3 flex items-center justify-between text-[0.68rem] uppercase tracking-[0.18em] text-latik/55">
-            <span>
-              {stockLeft === null ? "In stock" : `${stockLeft} remaining today`}
-            </span>
+            <span>{stockLeft === null ? "In stock" : `${stockLeft} remaining today`}</span>
           </div>
           <div className="flex items-center justify-between gap-2">
             <span className="font-[family-name:var(--font-display)] text-[1.45rem] text-pulot">
@@ -163,10 +165,14 @@ export function MenuItemCard({ item, onViewDetails }: MenuItemCardProps) {
               <button
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="flex items-center gap-1.5 rounded-[var(--radius-btn)] border border-pulot bg-pulot px-4 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-asukal shadow-[0_14px_24px_rgba(59,31,14,0.14)] transition-all duration-300 ease-in-out hover:-translate-y-px hover:brightness-110 hover:shadow-[0_18px_30px_rgba(59,31,14,0.18)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-[var(--radius-btn)] border border-pulot bg-pulot px-4 py-2.5 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-asukal shadow-[0_14px_24px_rgba(59,31,14,0.14)] transition-all duration-300 ease-in-out hover:-translate-y-px hover:brightness-110 hover:shadow-[0_18px_30px_rgba(59,31,14,0.18)] disabled:cursor-not-allowed disabled:border-latik/15 disabled:bg-gatas/80 disabled:text-latik/60 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:brightness-100"
               >
-                <ShoppingCart className="h-4 w-4" strokeWidth={1.5} />
-                Add
+                {isOutOfStock ? (
+                  <Bell className="h-4 w-4" strokeWidth={1.5} />
+                ) : (
+                  <ShoppingCart className="h-4 w-4" strokeWidth={1.5} />
+                )}
+                {isOutOfStock ? "Notify Me" : "Add"}
               </button>
             </div>
           </div>

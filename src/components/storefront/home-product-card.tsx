@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Clock3, Info, ShoppingCart } from "lucide-react";
+import { Bell, Clock3, Info, ShoppingCart } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useCartStore } from "@/stores/cart-store";
 import type { MenuItem } from "@/types";
@@ -17,9 +17,11 @@ export function HomeProductCard({ item, onViewDetails }: HomeProductCardProps) {
   const [quantity, setQuantity] = useState(1);
 
   const stockLeft =
-    item.dailyLimit === null || item.dailyLimit === undefined
-      ? null
-      : Math.max(item.dailyLimit - (item.soldToday ?? 0), 0);
+    item.stockLeft !== null && item.stockLeft !== undefined
+      ? item.stockLeft
+      : item.dailyLimit === null || item.dailyLimit === undefined
+        ? null
+        : Math.max(item.dailyLimit - (item.soldToday ?? 0), 0);
   const isOutOfStock = !item.isAvailable || stockLeft === 0;
   const maxOrderable = stockLeft ?? undefined;
   const regionLabel = item.originRegion
@@ -154,8 +156,12 @@ export function HomeProductCard({ item, onViewDetails }: HomeProductCardProps) {
           disabled={isOutOfStock}
           className="mt-4 flex w-full items-center justify-center gap-2 rounded-[8px] bg-[#A0522D] px-4 py-2 font-[family-name:var(--font-label)] text-sm font-medium text-white transition-all duration-200 ease-in-out hover:bg-[#7D3D1A] disabled:cursor-not-allowed disabled:bg-[#C9A87C]"
         >
-          {!isOutOfStock && <ShoppingCart className="h-4 w-4" strokeWidth={1.7} />}
-          {isOutOfStock ? "Out of Stock" : "Add to Cart"}
+          {isOutOfStock ? (
+            <Bell className="h-4 w-4" strokeWidth={1.7} />
+          ) : (
+            <ShoppingCart className="h-4 w-4" strokeWidth={1.7} />
+          )}
+          {isOutOfStock ? "Notify Me" : "Add to Cart"}
         </button>
       </div>
     </div>
