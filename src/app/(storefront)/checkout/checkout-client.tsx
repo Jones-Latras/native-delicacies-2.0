@@ -1,28 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
-  MapPin,
+  AlertCircle,
+  Banknote,
+  ChevronRight,
   Clock,
   Gift,
-  Smartphone,
-  Banknote,
-  Truck,
-  Store,
-  ShoppingBag,
-  AlertCircle,
-  ChevronRight,
   Loader2,
+  MapPin,
+  ShoppingBag,
+  Smartphone,
+  Store,
+  Truck,
 } from "lucide-react";
 import { useCartStore } from "@/stores/cart-store";
 import { useHasMounted } from "@/hooks/use-has-mounted";
-import { formatCurrency, cn } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 import type { BusinessSettings, CartItem } from "@/types";
-import { SurfaceCard } from "@/components/ui";
 
-// ── Types ──
 interface CheckoutForm {
   orderType: "DELIVERY" | "PICKUP";
   customerName: string;
@@ -84,7 +82,7 @@ export function CheckoutClient() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [customTip, setCustomTip] = useState("");
-  // Fetch business settings
+
   useEffect(() => {
     fetch("/api/settings")
       .then((r) => r.json())
@@ -94,7 +92,6 @@ export function CheckoutClient() {
       .catch(() => {});
   }, []);
 
-  // Pre-fill for logged in users
   useEffect(() => {
     if (session?.user) {
       setForm((f) => ({
@@ -105,14 +102,12 @@ export function CheckoutClient() {
     }
   }, [session]);
 
-  // Redirect if cart empty
   useEffect(() => {
     if (hasMounted && items.length === 0) {
       router.push("/menu");
     }
   }, [hasMounted, items.length, router]);
 
-  // ── Calculate totals ──
   const deliveryFee =
     form.orderType === "DELIVERY"
       ? settings?.freeDeliveryThreshold && subtotal >= settings.freeDeliveryThreshold
@@ -125,7 +120,6 @@ export function CheckoutClient() {
   const tipAmount = form.tip;
   const total = subtotal - promoDiscount + deliveryFee + taxAmount + tipAmount;
 
-  // ── Helpers ──
   function updateField<K extends keyof CheckoutForm>(key: K, value: CheckoutForm[K]) {
     setForm((f) => ({ ...f, [key]: value }));
     setErrors((e) => {
@@ -147,23 +141,27 @@ export function CheckoutClient() {
     });
   }
 
-  // ── Validation ──
   function validate(): boolean {
     const e: FieldErrors = {};
 
     if (!form.customerName.trim()) e.customerName = "Name is required";
-    if (!form.customerEmail.trim() || !/\S+@\S+\.\S+/.test(form.customerEmail))
+    if (!form.customerEmail.trim() || !/\S+@\S+\.\S+/.test(form.customerEmail)) {
       e.customerEmail = "Valid email is required";
-    if (!form.customerPhone.trim() || form.customerPhone.replace(/\D/g, "").length < 10)
+    }
+    if (!form.customerPhone.trim() || form.customerPhone.replace(/\D/g, "").length < 10) {
       e.customerPhone = "Valid phone number is required";
+    }
 
     if (form.orderType === "DELIVERY") {
-      if (!form.deliveryAddress.street.trim())
+      if (!form.deliveryAddress.street.trim()) {
         e["deliveryAddress.street"] = "Street address is required";
-      if (!form.deliveryAddress.city.trim())
+      }
+      if (!form.deliveryAddress.city.trim()) {
         e["deliveryAddress.city"] = "City is required";
-      if (!form.deliveryAddress.postalCode.trim())
+      }
+      if (!form.deliveryAddress.postalCode.trim()) {
         e["deliveryAddress.postalCode"] = "Postal code is required";
+      }
     }
 
     if (settings?.minimumOrder && subtotal < settings.minimumOrder) {
@@ -181,7 +179,6 @@ export function CheckoutClient() {
     return Object.keys(e).length === 0;
   }
 
-  // ── Submit ──
   async function handleSubmit() {
     if (!validate()) return;
 
@@ -235,13 +232,11 @@ export function CheckoutClient() {
 
       const order = data.data;
 
-      // For GCash payments, continue in the hosted checkout flow.
       if (form.paymentMethod === "CARD") {
         router.push(`/checkout/pay?orderId=${order.id}`);
         return;
       }
 
-      // For cash payments, go straight to confirmation
       clearCart();
       router.push(`/order/${order.id}/confirmation`);
     } catch {
@@ -257,18 +252,31 @@ export function CheckoutClient() {
 
   return (
     <div className="artisan-checkout mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="rounded-[2rem] border border-latik/14 bg-asukal/88 px-7 py-8 shadow-[var(--shadow-warm)]">
-        <p className="text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">Final Step</p>
-        <h1 className="mt-3 text-4xl font-black text-kape">Checkout</h1>
-        <p className="mt-2 max-w-2xl leading-7 text-latik/76">Complete your order details below</p>
+      <div className="border-b border-latik/14 pb-6">
+        <p className="text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">
+          Final Step
+        </p>
+        <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <h1 className="text-4xl font-black text-kape">Checkout</h1>
+            <p className="mt-2 max-w-2xl leading-relaxed text-latik/76">
+              Complete your order details below.
+            </p>
+          </div>
+          <div className="flex items-center gap-3 text-sm text-latik/60">
+            <span>
+              {items.length} item{items.length === 1 ? "" : "s"}
+            </span>
+            <span className="h-px w-8 bg-latik/18" />
+            <span>{form.orderType === "DELIVERY" ? "Delivery" : "Pickup"}</span>
+          </div>
+        </div>
       </div>
 
-      <div className="mt-8 gap-8 lg:grid lg:grid-cols-3">
-        {/* ── Left: Form Sections ── */}
-        <div className="space-y-6 lg:col-span-2">
-          {/* 1. Order Type */}
-          <Section title="Order Type" icon={<Truck className="h-5 w-5" />}>
-            <div className="grid grid-cols-2 gap-3">
+      <div className="mt-8 gap-12 lg:grid lg:grid-cols-[minmax(0,1fr)_20rem]">
+        <div>
+          <Section first title="Order Type" icon={<Truck className="h-5 w-5" />}>
+            <div className="grid gap-3 sm:grid-cols-2">
               <OrderTypeButton
                 active={form.orderType === "DELIVERY"}
                 icon={<Truck className="h-5 w-5" />}
@@ -276,8 +284,9 @@ export function CheckoutClient() {
                 description="We'll deliver to your address"
                 onClick={() => {
                   updateField("orderType", "DELIVERY");
-                  if (form.paymentMethod === "CASH_AT_PICKUP")
+                  if (form.paymentMethod === "CASH_AT_PICKUP") {
                     updateField("paymentMethod", "CARD");
+                  }
                 }}
               />
               <OrderTypeButton
@@ -287,14 +296,14 @@ export function CheckoutClient() {
                 description="Pick up at our store"
                 onClick={() => {
                   updateField("orderType", "PICKUP");
-                  if (form.paymentMethod === "CASH_ON_DELIVERY")
+                  if (form.paymentMethod === "CASH_ON_DELIVERY") {
                     updateField("paymentMethod", "CARD");
+                  }
                 }}
               />
             </div>
           </Section>
 
-          {/* 2. Contact Information */}
           <Section title="Contact Information" icon={<MapPin className="h-5 w-5" />}>
             <div className="grid gap-4 sm:grid-cols-2">
               <FormField
@@ -325,7 +334,6 @@ export function CheckoutClient() {
             </div>
           </Section>
 
-          {/* 3. Delivery Address (conditional) */}
           {form.orderType === "DELIVERY" && (
             <Section title="Delivery Address" icon={<MapPin className="h-5 w-5" />}>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -370,10 +378,14 @@ export function CheckoutClient() {
             </Section>
           )}
 
-          {/* 4. Order Timing */}
           <Section title="Order Timing" icon={<Clock className="h-5 w-5" />}>
-            <div className="space-y-3">
-              <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-stone-200 p-3 transition-colors has-[:checked]:border-brown-500 has-[:checked]:bg-brown-50">
+            <div className="divide-y divide-latik/12 border-y border-latik/12">
+              <label
+                className={cn(
+                  "flex cursor-pointer items-center gap-3 py-4 transition-colors",
+                  !form.scheduledTime ? "text-kape" : "text-stone-700"
+                )}
+              >
                 <input
                   type="radio"
                   name="timing"
@@ -386,29 +398,29 @@ export function CheckoutClient() {
                   <p className="text-xs text-stone-500">As soon as possible</p>
                 </div>
               </label>
-              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-stone-200 p-3 transition-colors has-[:checked]:border-brown-500 has-[:checked]:bg-brown-50">
+
+              <label
+                className={cn(
+                  "flex cursor-pointer items-start gap-3 py-4 transition-colors",
+                  form.scheduledTime ? "text-kape" : "text-stone-700"
+                )}
+              >
                 <input
                   type="radio"
                   name="timing"
                   checked={!!form.scheduledTime}
-                  onChange={() =>
-                    updateField("scheduledTime", getDefaultScheduleTime())
-                  }
+                  onChange={() => updateField("scheduledTime", getDefaultScheduleTime())}
                   className="mt-0.5 h-4 w-4 text-brown-600 focus:ring-brown-500"
                 />
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-stone-900">
-                    Schedule for later
-                  </p>
+                  <p className="text-sm font-medium text-stone-900">Schedule for later</p>
                   {form.scheduledTime && (
                     <input
                       type="datetime-local"
                       value={form.scheduledTime}
                       min={getMinScheduleTime()}
-                      onChange={(e) =>
-                        updateField("scheduledTime", e.target.value)
-                      }
-                      className="mt-2 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-brown-500 focus:outline-none focus:ring-2 focus:ring-brown-500/20"
+                      onChange={(e) => updateField("scheduledTime", e.target.value)}
+                      className="mt-3 w-full rounded-xl border border-latik/16 bg-white/70 px-3 py-2 text-sm focus:border-brown-500 focus:outline-none focus:ring-2 focus:ring-brown-500/20"
                     />
                   )}
                 </div>
@@ -416,7 +428,6 @@ export function CheckoutClient() {
             </div>
           </Section>
 
-          {/* 5. Gift Options */}
           <Section title="Gift Options" icon={<Gift className="h-5 w-5" />}>
             <label className="flex cursor-pointer items-center gap-3">
               <input
@@ -425,12 +436,10 @@ export function CheckoutClient() {
                 onChange={(e) => updateField("isGift", e.target.checked)}
                 className="h-4 w-4 rounded border-stone-300 text-brown-600 focus:ring-brown-500"
               />
-              <span className="text-sm font-medium text-stone-700">
-                This is a gift
-              </span>
+              <span className="text-sm font-medium text-stone-700">This is a gift</span>
             </label>
             {form.isGift && (
-              <div className="mt-3">
+              <div className="mt-4 border-t border-latik/12 pt-4">
                 <FormField
                   label="Gift Message"
                   value={form.giftMessage}
@@ -442,7 +451,6 @@ export function CheckoutClient() {
             )}
           </Section>
 
-          {/* 6. Special Instructions */}
           <Section title="Special Instructions">
             <FormField
               value={form.specialInstructions}
@@ -452,9 +460,8 @@ export function CheckoutClient() {
             />
           </Section>
 
-          {/* 7. Payment Method */}
           <Section title="Payment Method" icon={<Smartphone className="h-5 w-5" />}>
-            <div className="space-y-3">
+            <div className="divide-y divide-latik/12 border-y border-latik/12">
               <PaymentOption
                 active={form.paymentMethod === "CARD"}
                 icon={<Smartphone className="h-5 w-5" />}
@@ -468,9 +475,7 @@ export function CheckoutClient() {
                   icon={<Banknote className="h-5 w-5" />}
                   label="Cash on Delivery"
                   description="Pay when your order arrives"
-                  onClick={() =>
-                    updateField("paymentMethod", "CASH_ON_DELIVERY")
-                  }
+                  onClick={() => updateField("paymentMethod", "CASH_ON_DELIVERY")}
                 />
               )}
               {form.orderType === "PICKUP" && (
@@ -479,9 +484,7 @@ export function CheckoutClient() {
                   icon={<Banknote className="h-5 w-5" />}
                   label="Cash at Pickup"
                   description="Pay when you pick up your order"
-                  onClick={() =>
-                    updateField("paymentMethod", "CASH_AT_PICKUP")
-                  }
+                  onClick={() => updateField("paymentMethod", "CASH_AT_PICKUP")}
                 />
               )}
             </div>
@@ -490,21 +493,21 @@ export function CheckoutClient() {
             )}
           </Section>
 
-          {/* 8. Tip */}
           <Section title="Add a Tip">
             <div className="flex flex-wrap gap-2">
               {TIP_PRESETS.map((preset) => (
                 <button
                   key={preset}
+                  type="button"
                   onClick={() => {
                     updateField("tip", preset);
                     setCustomTip("");
                   }}
                   className={cn(
-                    "rounded-lg border px-4 py-2 text-sm font-medium transition-colors",
+                    "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
                     form.tip === preset && !customTip
                       ? "border-brown-500 bg-brown-50 text-brown-700"
-                      : "border-stone-200 text-stone-600 hover:border-stone-300"
+                      : "border-latik/14 bg-white/60 text-stone-600 hover:border-latik/24"
                   )}
                 >
                   {preset === 0 ? "No Tip" : formatCurrency(preset)}
@@ -512,7 +515,7 @@ export function CheckoutClient() {
               ))}
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-stone-400">
-                  ₱
+                  PHP
                 </span>
                 <input
                   type="number"
@@ -523,7 +526,7 @@ export function CheckoutClient() {
                     updateField("tip", Math.max(0, val));
                   }}
                   placeholder="Custom"
-                  className="h-10 w-28 rounded-lg border border-stone-200 pl-7 pr-3 text-sm focus:border-brown-500 focus:outline-none focus:ring-2 focus:ring-brown-500/20"
+                  className="h-10 w-32 rounded-full border border-latik/14 bg-white/60 pl-11 pr-3 text-sm focus:border-brown-500 focus:outline-none focus:ring-2 focus:ring-brown-500/20"
                   min="0"
                 />
               </div>
@@ -531,23 +534,21 @@ export function CheckoutClient() {
           </Section>
         </div>
 
-        {/* ── Right: Order Summary ── */}
-        <div className="mt-8 lg:mt-0">
-          <SurfaceCard className="sticky top-24 p-6">
-            <h2 className="flex items-center gap-2 text-lg font-bold text-stone-900">
+        <aside className="mt-10 border-t border-latik/12 pt-8 lg:sticky lg:top-24 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+          <div>
+            <div className="flex items-center gap-3">
               <ShoppingBag className="h-5 w-5 text-brown-600" />
-              Order Summary
-            </h2>
+              <h2 className="text-lg font-bold text-stone-900">Order Summary</h2>
+              <div className="h-px flex-1 bg-latik/12" />
+            </div>
 
-            {/* Items */}
-            <div className="mt-4 max-h-64 space-y-3 overflow-y-auto">
+            <div className="mt-5 max-h-72 divide-y divide-latik/10 overflow-y-auto border-y border-latik/10">
               {items.map((item) => (
                 <OrderSummaryItem key={item.id} item={item} />
               ))}
             </div>
 
-            {/* Price breakdown */}
-            <div className="mt-4 space-y-2 border-t border-stone-200 pt-4 text-sm">
+            <div className="mt-5 space-y-2 text-sm">
               <PriceLine label="Subtotal" amount={subtotal} />
               {promoDiscount > 0 && (
                 <PriceLine
@@ -561,62 +562,41 @@ export function CheckoutClient() {
                   label="Delivery Fee"
                   amount={deliveryFee}
                   note={
-                    deliveryFee === 0 && settings?.freeDeliveryThreshold
-                      ? "Free!"
-                      : undefined
+                    deliveryFee === 0 && settings?.freeDeliveryThreshold ? "Free!" : undefined
                   }
                 />
               )}
-              {taxAmount > 0 && (
-                <PriceLine label={`Tax (${taxRate}%)`} amount={taxAmount} />
-              )}
+              {taxAmount > 0 && <PriceLine label={`Tax (${taxRate}%)`} amount={taxAmount} />}
               {tipAmount > 0 && <PriceLine label="Tip" amount={tipAmount} />}
-              <div className="flex justify-between border-t border-stone-200 pt-2 text-base font-bold text-stone-900">
+              <div className="flex justify-between border-t border-latik/12 pt-3 text-base font-bold text-stone-900">
                 <span>Total</span>
                 <span>{formatCurrency(total)}</span>
               </div>
             </div>
 
-            {/* Minimum order warning */}
             {errors.minimumOrder && (
-              <div className="mt-3 flex items-start gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-700">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>{errors.minimumOrder}</span>
-              </div>
+              <InlineAlert tone="error">{errors.minimumOrder}</InlineAlert>
             )}
 
-            {/* Submit error */}
-            {submitError && (
-              <div className="mt-3 flex items-start gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-700">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>{submitError}</span>
-              </div>
-            )}
+            {submitError && <InlineAlert tone="error">{submitError}</InlineAlert>}
 
-            {/* Not accepting orders warning */}
             {settings && !settings.isAcceptingOrders && (
-              <div className="mt-3 flex items-start gap-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-700">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>
-                  We&apos;re not accepting orders right now. Please try again
-                  later.
-                </span>
-              </div>
+              <InlineAlert tone="warning">
+                We&apos;re not accepting orders right now. Please try again later.
+              </InlineAlert>
             )}
 
-            {/* Place Order */}
             <button
+              type="button"
               onClick={handleSubmit}
-              disabled={
-                submitting || (settings !== null && !settings.isAcceptingOrders)
-              }
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3.5 font-semibold text-white transition-colors hover:bg-brown-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={submitting || (settings !== null && !settings.isAcceptingOrders)}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3.5 font-semibold text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {submitting ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
               ) : (
                 <>
-                  Place Order — {formatCurrency(total)}
+                  Place Order - {formatCurrency(total)}
                   <ChevronRight className="h-4 w-4" />
                 </>
               )}
@@ -627,32 +607,33 @@ export function CheckoutClient() {
                 ? "You'll be redirected to complete your GCash payment"
                 : "Your order will be confirmed shortly"}
             </p>
-          </SurfaceCard>
-        </div>
+          </div>
+        </aside>
       </div>
     </div>
   );
 }
 
-// ── Sub-components ──
-
 function Section({
+  first = false,
   title,
   icon,
   children,
 }: {
+  first?: boolean;
   title: string;
   icon?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
-    <SurfaceCard className="p-6">
-      <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-stone-900">
+    <section className={cn("border-t border-latik/12 py-7", first && "border-t-0 pt-0")}>
+      <div className="mb-5 flex items-center gap-3">
         {icon && <span className="text-brown-600">{icon}</span>}
-        {title}
-      </h2>
+        <h2 className="text-lg font-bold text-stone-900">{title}</h2>
+        <div className="h-px flex-1 bg-latik/12" />
+      </div>
       {children}
-    </SurfaceCard>
+    </section>
   );
 }
 
@@ -671,17 +652,29 @@ function OrderTypeButton({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       className={cn(
-        "flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-colors",
+        "flex min-h-[120px] flex-col items-start justify-between gap-3 rounded-2xl border px-4 py-4 text-left transition-colors",
         active
           ? "border-brown-500 bg-brown-50 text-brown-700"
-          : "border-stone-200 text-stone-500 hover:border-stone-300"
+          : "border-latik/14 bg-white/55 text-stone-600 hover:border-latik/24 hover:bg-white/70"
       )}
     >
-      {icon}
-      <span className="text-sm font-semibold">{label}</span>
-      <span className="text-xs opacity-70">{description}</span>
+      <span
+        className={cn(
+          "flex h-10 w-10 items-center justify-center rounded-full border",
+          active
+            ? "border-brown-200 bg-brown-100 text-brown-700"
+            : "border-latik/12 bg-white text-stone-500"
+        )}
+      >
+        {icon}
+      </span>
+      <div className="space-y-1">
+        <span className="block text-sm font-semibold">{label}</span>
+        <span className="block text-xs opacity-75">{description}</span>
+      </div>
     </button>
   );
 }
@@ -701,29 +694,25 @@ function PaymentOption({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       className={cn(
-        "flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-colors",
-        active
-          ? "border-brown-500 bg-brown-50"
-          : "border-stone-200 hover:border-stone-300"
+        "flex w-full items-center gap-3 py-4 text-left transition-colors",
+        active ? "text-brown-700" : "text-stone-700 hover:text-stone-900"
       )}
     >
       <span
         className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-lg",
-          active ? "bg-brown-100 text-brown-700" : "bg-stone-100 text-stone-500"
+          "flex h-10 w-10 items-center justify-center rounded-full border",
+          active
+            ? "border-brown-200 bg-brown-100 text-brown-700"
+            : "border-latik/12 bg-white text-stone-500"
         )}
       >
         {icon}
       </span>
       <div>
-        <p
-          className={cn(
-            "text-sm font-semibold",
-            active ? "text-brown-700" : "text-stone-900"
-          )}
-        >
+        <p className={cn("text-sm font-semibold", active ? "text-brown-700" : "text-stone-900")}>
           {label}
         </p>
         <p className="text-xs text-stone-500">{description}</p>
@@ -732,9 +721,7 @@ function PaymentOption({
         <div
           className={cn(
             "h-5 w-5 rounded-full border-2",
-            active
-              ? "border-brown-500 bg-brown-500"
-              : "border-stone-300"
+            active ? "border-brown-500 bg-brown-500" : "border-stone-300"
           )}
         >
           {active && (
@@ -773,23 +760,23 @@ function FormField({
   className?: string;
   textarea?: boolean;
 }) {
+  const inputId = useId();
   const inputClass = cn(
-    "w-full rounded-lg border px-3 py-2 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-brown-500/20",
-    error
-      ? "border-red-500 focus:border-red-500"
-      : "border-stone-300 focus:border-brown-500"
+    "w-full rounded-xl border bg-white/70 px-3 py-2 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-brown-500/20",
+    error ? "border-red-500 focus:border-red-500" : "border-latik/16 focus:border-brown-500"
   );
 
   return (
     <div className={cn("w-full", className)}>
       {label && (
-        <label className="mb-1.5 block text-sm font-medium text-stone-700">
+        <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-stone-700">
           {label}
           {required && <span className="ml-0.5 text-red-500">*</span>}
         </label>
       )}
       {textarea ? (
         <textarea
+          id={inputId}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
@@ -798,6 +785,7 @@ function FormField({
         />
       ) : (
         <input
+          id={inputId}
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -818,15 +806,13 @@ function OrderSummaryItem({ item }: { item: CartItem }) {
   }
 
   return (
-    <div className="flex items-start justify-between gap-2">
+    <div className="flex items-start justify-between gap-3 py-3">
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium text-stone-900">
           {item.quantity}x {item.name}
         </p>
         {customizations.length > 0 && (
-          <p className="truncate text-xs text-stone-500">
-            {customizations.join(", ")}
-          </p>
+          <p className="truncate text-xs text-stone-500">{customizations.join(", ")}</p>
         )}
       </div>
       <p className="shrink-0 text-sm font-medium text-stone-700">
@@ -850,18 +836,32 @@ function PriceLine({
   return (
     <div className={cn("flex justify-between text-stone-600", className)}>
       <span>{label}</span>
-      <span>
-        {note ? (
-          <span className="font-medium text-green-600">{note}</span>
-        ) : (
-          formatCurrency(amount)
-        )}
-      </span>
+      <span>{note ? <span className="font-medium text-green-600">{note}</span> : formatCurrency(amount)}</span>
     </div>
   );
 }
 
-// ── Helpers ──
+function InlineAlert({
+  tone,
+  children,
+}: {
+  tone: "error" | "warning";
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        "mt-4 flex items-start gap-2 border-l-2 px-4 py-3 text-sm",
+        tone === "error"
+          ? "border-red-300 bg-red-50/80 text-red-700"
+          : "border-amber-300 bg-amber-50/80 text-amber-700"
+      )}
+    >
+      <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+      <span>{children}</span>
+    </div>
+  );
+}
 
 function getDefaultScheduleTime(): string {
   const d = new Date();
