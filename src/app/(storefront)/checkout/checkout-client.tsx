@@ -251,7 +251,7 @@ export function CheckoutClient() {
   }
 
   return (
-    <div className="artisan-checkout mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="artisan-checkout mx-auto max-w-7xl px-4 py-8 pb-32 sm:px-6 lg:px-8 lg:pb-8">
       <div className="border-b border-latik/14 pb-6">
         <p className="text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">
           Final Step
@@ -590,25 +590,68 @@ export function CheckoutClient() {
               type="button"
               onClick={handleSubmit}
               disabled={submitting || (settings !== null && !settings.isAcceptingOrders)}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3.5 font-semibold text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="mt-6 hidden w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3.5 font-semibold text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50 lg:flex"
             >
               {submitting ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
               ) : (
                 <>
-                  Place Order - {formatCurrency(total)}
+                  Place Order
                   <ChevronRight className="h-4 w-4" />
                 </>
               )}
             </button>
 
-            <p className="mt-3 text-center text-xs text-stone-400">
+            <p className="mt-3 hidden text-center text-xs text-stone-400 lg:block">
               {form.paymentMethod === "CARD"
                 ? "You'll be redirected to complete your GCash payment"
                 : "Your order will be confirmed shortly"}
             </p>
           </div>
         </aside>
+      </div>
+
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-latik/14 bg-asukal/96 px-4 py-3 shadow-[0_-14px_28px_rgba(59,31,14,0.12)] backdrop-blur-sm sm:px-6 lg:hidden">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/58">
+                Order Summary
+              </p>
+              <p className="mt-1 text-sm text-latik/72">
+                {items.length} item{items.length === 1 ? "" : "s"} • {form.orderType === "DELIVERY" ? "Delivery" : "Pickup"}
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-[0.68rem] uppercase tracking-[0.16em] text-latik/52">Total</p>
+              <p className="font-[family-name:var(--font-display)] text-2xl text-kape">
+                {formatCurrency(total)}
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={submitting || (settings !== null && !settings.isAcceptingOrders)}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3.5 font-semibold text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {submitting ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <>
+                Place Order
+                <ChevronRight className="h-4 w-4" />
+              </>
+            )}
+          </button>
+
+          <p className="mt-2 text-center text-xs text-stone-400">
+            {form.paymentMethod === "CARD"
+              ? "You'll be redirected to complete your GCash payment"
+              : "Your order will be confirmed shortly"}
+          </p>
+        </div>
       </div>
     </div>
   );
