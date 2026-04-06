@@ -26,8 +26,6 @@
     "@once-ui-system/core": "^1.6.4",
     "@prisma/adapter-pg": "^7.5.0",
     "@prisma/client": "^7.5.0",
-    "@stripe/react-stripe-js": "^5.6.1",
-    "@stripe/stripe-js": "^8.9.0",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
@@ -40,7 +38,6 @@
     "react-hook-form": "^7.71.2",
     "resend": "^6.9.3",
     "sharp": "0.33.5",
-    "stripe": "^20.4.1",
     "tailwind-merge": "^3.5.0",
     "zod": "^4.3.6",
     "zustand": "^5.0.11"

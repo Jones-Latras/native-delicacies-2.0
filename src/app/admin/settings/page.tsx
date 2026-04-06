@@ -329,7 +329,7 @@ export default function SettingsPage() {
               />
             </div>
             <p className="text-sm text-[#a1887f]">
-              Payment methods (Card, Cash on Delivery, Cash at Pickup) are system defaults. Stripe configuration is managed via
+              Payment methods (Card, Cash on Delivery, Cash at Pickup) are system defaults. Provider configuration is managed via
               environment variables.
             </p>
           </div>

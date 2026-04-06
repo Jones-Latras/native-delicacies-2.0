@@ -1,6 +1,6 @@
 # J&J Native Delicacies — Filipino Heritage Treats
 
-A full-stack e-commerce platform for ordering authentic J&J Native Delicacies online. Customers can browse a curated menu of traditional kakanin, pastries, sweets, and regional specialties — build custom bilao trays, checkout with Stripe, track orders in real time, and more.
+A full-stack e-commerce platform for ordering authentic J&J Native Delicacies online. Customers can browse a curated menu of traditional kakanin, pastries, sweets, and regional specialties — build custom bilao trays, checkout online, track orders in real time, and more.
 
 ## Features
 
@@ -9,7 +9,7 @@ A full-stack e-commerce platform for ordering authentic J&J Native Delicacies on
 - **Bilao Builder** — Build your own custom bilao tray by selecting from available items
 - **Shopping Cart** — Persistent cart with Zustand, item customization, quantity management
 - **Checkout** — Guest or authenticated, delivery/pickup, scheduled orders, gift messages, promo codes
-- **Stripe Payments** — Secure card payments with real-time webhook processing
+- **Online Payments** — Secure payment processing with real-time webhook handling
 - **Order Tracking** — Track order status by order number with live status updates
 - **User Profiles** — Saved addresses, order history, password management
 - **PWA** — Installable progressive web app with offline support
@@ -39,7 +39,7 @@ A full-stack e-commerce platform for ordering authentic J&J Native Delicacies on
 | Language | TypeScript |
 | Database | PostgreSQL + Prisma 7 |
 | Auth | NextAuth v5 (JWT) |
-| Payments | Stripe |
+| Payments | Xendit |
 | Email | Resend |
 | State | Zustand |
 | Forms | React Hook Form + Zod |
@@ -53,7 +53,7 @@ A full-stack e-commerce platform for ordering authentic J&J Native Delicacies on
 
 - Node.js 20+
 - PostgreSQL database
-- Stripe account (test keys for development)
+- Xendit account (test keys for development)
 - Resend account (for email)
 
 ### Installation
@@ -121,7 +121,7 @@ src/
 │   ├── shared/              # Shared components (auth, PWA, announcements)
 │   ├── storefront/          # Storefront components (menu, cart, etc.)
 │   └── ui/                  # Base UI components (Button, Input, etc.)
-├── lib/                     # Utilities (auth, email, Stripe, Prisma, etc.)
+├── lib/                     # Utilities (auth, email, payments, Prisma, etc.)
 ├── stores/                  # Zustand state stores
 └── types/                   # TypeScript type definitions
 prisma/
@@ -133,10 +133,9 @@ e2e/                         # Playwright E2E tests
 
 ## Deployment
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for the full production deployment guide covering Vercel, database provisioning, Stripe live mode, email setup, and monitoring.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the full production deployment guide covering Vercel, database provisioning, payment setup, email setup, and monitoring.
 
 ## License
 
 This project is private and not licensed for redistribution.
-
 
