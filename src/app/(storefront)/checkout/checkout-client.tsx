@@ -251,7 +251,7 @@ export function CheckoutClient() {
   }
 
   return (
-    <div className="artisan-checkout mx-auto max-w-7xl px-4 py-8 pb-32 sm:px-6 lg:px-8 lg:pb-8">
+    <div className="artisan-checkout mx-auto max-w-7xl px-4 py-8 pb-[36rem] sm:px-6 lg:px-8 lg:pb-8">
       <div className="border-b border-latik/14 pb-6">
         <p className="text-[0.72rem] font-medium uppercase tracking-[0.26em] text-pulot">
           Final Step
@@ -534,123 +534,51 @@ export function CheckoutClient() {
           </Section>
         </div>
 
-        <aside className="mt-10 border-t border-latik/12 pt-8 lg:sticky lg:top-24 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
-          <div>
-            <div className="flex items-center gap-3">
-              <ShoppingBag className="h-5 w-5 text-brown-600" />
-              <h2 className="text-lg font-bold text-stone-900">Order Summary</h2>
-              <div className="h-px flex-1 bg-latik/12" />
-            </div>
-
-            <div className="mt-5 max-h-72 divide-y divide-latik/10 overflow-y-auto border-y border-latik/10">
-              {items.map((item) => (
-                <OrderSummaryItem key={item.id} item={item} />
-              ))}
-            </div>
-
-            <div className="mt-5 space-y-2 text-sm">
-              <PriceLine label="Subtotal" amount={subtotal} />
-              {promoDiscount > 0 && (
-                <PriceLine
-                  label={`Promo (${promoCode})`}
-                  amount={-promoDiscount}
-                  className="text-green-600"
-                />
-              )}
-              {form.orderType === "DELIVERY" && (
-                <PriceLine
-                  label="Delivery Fee"
-                  amount={deliveryFee}
-                  note={
-                    deliveryFee === 0 && settings?.freeDeliveryThreshold ? "Free!" : undefined
-                  }
-                />
-              )}
-              {taxAmount > 0 && <PriceLine label={`Tax (${taxRate}%)`} amount={taxAmount} />}
-              {tipAmount > 0 && <PriceLine label="Tip" amount={tipAmount} />}
-              <div className="flex justify-between border-t border-latik/12 pt-3 text-base font-bold text-stone-900">
-                <span>Total</span>
-                <span>{formatCurrency(total)}</span>
-              </div>
-            </div>
-
-            {errors.minimumOrder && (
-              <InlineAlert tone="error">{errors.minimumOrder}</InlineAlert>
-            )}
-
-            {submitError && <InlineAlert tone="error">{submitError}</InlineAlert>}
-
-            {settings && !settings.isAcceptingOrders && (
-              <InlineAlert tone="warning">
-                We&apos;re not accepting orders right now. Please try again later.
-              </InlineAlert>
-            )}
-
-            <button
-              type="button"
-              onClick={handleSubmit}
-              disabled={submitting || (settings !== null && !settings.isAcceptingOrders)}
-              className="mt-6 hidden w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3.5 font-semibold text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50 lg:flex"
-            >
-              {submitting ? (
-                <Loader2 className="h-5 w-5 animate-spin" />
-              ) : (
-                <>
-                  Place Order
-                  <ChevronRight className="h-4 w-4" />
-                </>
-              )}
-            </button>
-
-            <p className="mt-3 hidden text-center text-xs text-stone-400 lg:block">
-              {form.paymentMethod === "CARD"
-                ? "You'll be redirected to complete your GCash payment"
-                : "Your order will be confirmed shortly"}
-            </p>
-          </div>
+        <aside className="mt-10 hidden border-t border-latik/12 pt-8 lg:sticky lg:top-24 lg:mt-0 lg:block lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+          <SummaryPanel
+            items={items}
+            promoCode={promoCode}
+            promoDiscount={promoDiscount}
+            orderType={form.orderType}
+            deliveryFee={deliveryFee}
+            freeDeliveryThreshold={settings?.freeDeliveryThreshold}
+            taxRate={taxRate}
+            taxAmount={taxAmount}
+            tipAmount={tipAmount}
+            total={total}
+            minimumOrderError={errors.minimumOrder}
+            submitError={submitError}
+            isAcceptingOrders={settings?.isAcceptingOrders ?? true}
+            paymentMethod={form.paymentMethod}
+            submitting={submitting}
+            onSubmit={handleSubmit}
+          />
         </aside>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-latik/14 bg-asukal/96 px-4 py-3 shadow-[0_-14px_28px_rgba(59,31,14,0.12)] backdrop-blur-sm sm:px-6 lg:hidden">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <div>
-              <p className="text-[0.68rem] font-medium uppercase tracking-[0.18em] text-latik/58">
-                Order Summary
-              </p>
-              <p className="mt-1 text-sm text-latik/72">
-                {items.length} item{items.length === 1 ? "" : "s"} • {form.orderType === "DELIVERY" ? "Delivery" : "Pickup"}
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="text-[0.68rem] uppercase tracking-[0.16em] text-latik/52">Total</p>
-              <p className="font-[family-name:var(--font-display)] text-2xl text-kape">
-                {formatCurrency(total)}
-              </p>
-            </div>
+      <div className="fixed inset-x-0 bottom-0 z-40 px-3 pb-3 pt-10 lg:hidden">
+        <div className="mx-auto max-w-md overflow-hidden rounded-t-[1.6rem] border border-latik/14 bg-asukal/97 shadow-[0_-20px_36px_rgba(59,31,14,0.16)] backdrop-blur-sm">
+          <div className="max-h-[78vh] overflow-y-auto px-4 pb-4 pt-4">
+            <SummaryPanel
+              items={items}
+              promoCode={promoCode}
+              promoDiscount={promoDiscount}
+              orderType={form.orderType}
+              deliveryFee={deliveryFee}
+              freeDeliveryThreshold={settings?.freeDeliveryThreshold}
+              taxRate={taxRate}
+              taxAmount={taxAmount}
+              tipAmount={tipAmount}
+              total={total}
+              minimumOrderError={errors.minimumOrder}
+              submitError={submitError}
+              isAcceptingOrders={settings?.isAcceptingOrders ?? true}
+              paymentMethod={form.paymentMethod}
+              submitting={submitting}
+              onSubmit={handleSubmit}
+              mobile
+            />
           </div>
-
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={submitting || (settings !== null && !settings.isAcceptingOrders)}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3.5 font-semibold text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {submitting ? (
-              <Loader2 className="h-5 w-5 animate-spin" />
-            ) : (
-              <>
-                Place Order
-                <ChevronRight className="h-4 w-4" />
-              </>
-            )}
-          </button>
-
-          <p className="mt-2 text-center text-xs text-stone-400">
-            {form.paymentMethod === "CARD"
-              ? "You'll be redirected to complete your GCash payment"
-              : "Your order will be confirmed shortly"}
-          </p>
         </div>
       </div>
     </div>
@@ -860,6 +788,121 @@ function OrderSummaryItem({ item }: { item: CartItem }) {
       </div>
       <p className="shrink-0 text-sm font-medium text-stone-700">
         {formatCurrency(item.lineTotal)}
+      </p>
+    </div>
+  );
+}
+
+function SummaryPanel({
+  items,
+  promoCode,
+  promoDiscount,
+  orderType,
+  deliveryFee,
+  freeDeliveryThreshold,
+  taxRate,
+  taxAmount,
+  tipAmount,
+  total,
+  minimumOrderError,
+  submitError,
+  isAcceptingOrders,
+  paymentMethod,
+  submitting,
+  onSubmit,
+  mobile = false,
+}: {
+  items: CartItem[];
+  promoCode: string | null;
+  promoDiscount: number;
+  orderType: "DELIVERY" | "PICKUP";
+  deliveryFee: number;
+  freeDeliveryThreshold?: number | null;
+  taxRate: number;
+  taxAmount: number;
+  tipAmount: number;
+  total: number;
+  minimumOrderError?: string;
+  submitError: string;
+  isAcceptingOrders: boolean;
+  paymentMethod: CheckoutForm["paymentMethod"];
+  submitting: boolean;
+  onSubmit: () => void;
+  mobile?: boolean;
+}) {
+  return (
+    <div>
+      <div className="flex items-center gap-3">
+        <ShoppingBag className="h-5 w-5 text-brown-600" />
+        <h2 className="text-lg font-bold text-stone-900">Order Summary</h2>
+        <div className="h-px flex-1 bg-latik/12" />
+      </div>
+
+      <div
+        className={cn(
+          "mt-5 divide-y divide-latik/10 overflow-y-auto border-y border-latik/10",
+          mobile ? "max-h-64" : "max-h-72"
+        )}
+      >
+        {items.map((item) => (
+          <OrderSummaryItem key={item.id} item={item} />
+        ))}
+      </div>
+
+      <div className="mt-5 space-y-2 text-sm">
+        <PriceLine label="Subtotal" amount={items.reduce((sum, item) => sum + item.lineTotal, 0)} />
+        {promoDiscount > 0 && (
+          <PriceLine
+            label={`Promo (${promoCode})`}
+            amount={-promoDiscount}
+            className="text-green-600"
+          />
+        )}
+        {orderType === "DELIVERY" && (
+          <PriceLine
+            label="Delivery Fee"
+            amount={deliveryFee}
+            note={deliveryFee === 0 && freeDeliveryThreshold ? "Free!" : undefined}
+          />
+        )}
+        {taxAmount > 0 && <PriceLine label={`Tax (${taxRate}%)`} amount={taxAmount} />}
+        {tipAmount > 0 && <PriceLine label="Tip" amount={tipAmount} />}
+        <div className="flex justify-between border-t border-latik/12 pt-3 text-base font-bold text-stone-900">
+          <span>Total</span>
+          <span>{formatCurrency(total)}</span>
+        </div>
+      </div>
+
+      {minimumOrderError && <InlineAlert tone="error">{minimumOrderError}</InlineAlert>}
+
+      {submitError && <InlineAlert tone="error">{submitError}</InlineAlert>}
+
+      {!isAcceptingOrders && (
+        <InlineAlert tone="warning">
+          We&apos;re not accepting orders right now. Please try again later.
+        </InlineAlert>
+      )}
+
+      <button
+        type="button"
+        onClick={onSubmit}
+        disabled={submitting || !isAcceptingOrders}
+        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-brown-600 py-3.5 font-semibold text-white transition-colors hover:bg-brown-700 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {submitting ? (
+          <Loader2 className="h-5 w-5 animate-spin" />
+        ) : (
+          <>
+            Place Order
+            <ChevronRight className="h-4 w-4" />
+          </>
+        )}
+      </button>
+
+      <p className="mt-3 text-center text-xs text-stone-400">
+        {paymentMethod === "CARD"
+          ? "You'll be redirected to complete your GCash payment"
+          : "Your order will be confirmed shortly"}
       </p>
     </div>
   );
