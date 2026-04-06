@@ -11,23 +11,20 @@ import { useCartStore } from "@/stores/cart-store";
 export function CartSync() {
   const { data: session, status } = useSession();
 
-  // Cross-tab sync via storage event
   useEffect(() => {
     function handleStorageChange(e: StorageEvent) {
       if (e.key === "jj-native-delicacies-cart" && e.newValue) {
         try {
           const parsed = JSON.parse(e.newValue);
           if (parsed?.state) {
-            // Zustand persist stores state under { state, version }
             const { items, promoCode, promoDiscount } = parsed.state;
             const store = useCartStore.getState();
-            // Only update if different to prevent loops
             if (JSON.stringify(store.items) !== JSON.stringify(items)) {
               useCartStore.setState({ items, promoCode, promoDiscount });
             }
           }
         } catch {
-          // Ignore parse errors
+          // Ignore parse errors.
         }
       }
     }
@@ -36,11 +33,9 @@ export function CartSync() {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // Sync cart to server when user is logged in
   useEffect(() => {
     if (status !== "authenticated" || !session?.user) return;
 
-    // On login: merge server cart with local cart
     async function mergeCartOnLogin() {
       try {
         const res = await fetch("/api/cart");
@@ -50,39 +45,48 @@ export function CartSync() {
         if (!data.success || !data.data) return;
 
         const serverCart = data.data;
-        const localItems = useCartStore.getState().items;
+        const localState = useCartStore.getState();
+        const hasLocalSnapshot =
+          window.localStorage.getItem("jj-native-delicacies-cart") !== null;
 
-        // If local cart is empty but server has items, restore server cart
-        if (localItems.length === 0 && serverCart.items?.length > 0) {
+        // Only restore server cart for a browser that has never stored a local cart.
+        if (!hasLocalSnapshot && localState.items.length === 0 && serverCart.items?.length > 0) {
           useCartStore.setState({
             items: serverCart.items,
             promoCode: serverCart.promoCode ?? null,
             promoDiscount: serverCart.promoDiscount ?? 0,
           });
+          return;
         }
-        // If local has items, save to server (local takes priority)
-        else if (localItems.length > 0) {
+
+        // Otherwise local state is the source of truth, even when intentionally empty.
+        if (localState.items.length > 0) {
           await saveCartToServer();
+        } else {
+          await clearCartOnServer();
         }
       } catch {
-        // Silently fail — cart still works via localStorage
+        // Silently fail. Cart still works via localStorage.
       }
     }
 
     mergeCartOnLogin();
 
-    // Set up periodic save (every 30 seconds if cart changes)
     let lastSavedJson = "";
     const interval = setInterval(() => {
       const state = useCartStore.getState();
-      const currentJson = JSON.stringify({ items: state.items, promoCode: state.promoCode, promoDiscount: state.promoDiscount });
+      const currentJson = JSON.stringify({
+        items: state.items,
+        promoCode: state.promoCode,
+        promoDiscount: state.promoDiscount,
+      });
+
       if (currentJson !== lastSavedJson) {
         lastSavedJson = currentJson;
         if (state.items.length > 0) {
           saveCartToServer();
         } else {
-          // Sync empty cart to server so cleared carts stay cleared
-          fetch("/api/cart", { method: "DELETE" }).catch(() => {});
+          clearCartOnServer();
         }
       }
     }, 30000);
@@ -106,6 +110,14 @@ async function saveCartToServer() {
       }),
     });
   } catch {
-    // Silently fail
+    // Silently fail.
+  }
+}
+
+async function clearCartOnServer() {
+  try {
+    await fetch("/api/cart", { method: "DELETE" });
+  } catch {
+    // Silently fail.
   }
 }
