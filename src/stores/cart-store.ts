@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { CartItem, CartItemCustomization } from "@/types";
+import { toast } from "@/components/ui/toast";
 
 interface CartStore {
   items: CartItem[];
@@ -59,6 +60,9 @@ export const useCartStore = create<CartStore>()(
 
       addItem: (item) => {
         const nextKey = buildStackKey(item);
+        let addedQuantity = 0;
+        let cappedByMax = false;
+
         set((state) => {
           const existing = state.items.find((i) =>
             buildStackKey({
@@ -75,9 +79,12 @@ export const useCartStore = create<CartStore>()(
 
           if (existing) {
             const maxQuantity = existing.maxQuantity ?? item.maxQuantity;
+            const previousQuantity = existing.quantity;
             const nextQuantity = maxQuantity
               ? Math.min(existing.quantity + item.quantity, maxQuantity)
               : existing.quantity + item.quantity;
+            addedQuantity = Math.max(0, nextQuantity - previousQuantity);
+            cappedByMax = !!maxQuantity && nextQuantity >= maxQuantity;
 
             return {
               items: state.items.map((i) => {
@@ -96,6 +103,8 @@ export const useCartStore = create<CartStore>()(
           const cappedQuantity = item.maxQuantity
             ? Math.min(item.quantity, item.maxQuantity)
             : item.quantity;
+          addedQuantity = cappedQuantity;
+          cappedByMax = !!item.maxQuantity && cappedQuantity >= item.maxQuantity;
           const nextItem = { ...item, quantity: cappedQuantity };
           const lineTotal = calculateLineTotal(nextItem);
 
@@ -103,6 +112,15 @@ export const useCartStore = create<CartStore>()(
             items: [...state.items, { ...nextItem, id, lineTotal }],
           };
         });
+
+        if (addedQuantity > 0) {
+          toast(
+            `${addedQuantity} ${item.name}${addedQuantity === 1 ? "" : "s"} added to cart`,
+            "success"
+          );
+        } else if (cappedByMax) {
+          toast(`You already have the maximum allowed ${item.name} in your cart`, "info");
+        }
       },
 
       removeItem: (id) => {
