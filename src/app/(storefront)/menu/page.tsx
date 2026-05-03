@@ -144,12 +144,12 @@ export default async function MenuPage({ searchParams }: MenuPageProps) {
   const totalPages = Math.ceil(total / pageSize);
 
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#FFFDF8_0%,#FAF6F0_100%)] px-4 py-12 sm:px-6 lg:px-8">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#C9A87C]/60" />
-      <div className="pointer-events-none absolute left-[8%] top-16 h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(245,230,200,0.55),transparent_72%)]" />
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#FFFDF8_0%,#FAF6F0_100%)] px-4 pb-12 pt-0 sm:px-6 lg:px-8">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[url('/menu-hero-background.png')] bg-cover bg-center" />
+      <div className="pointer-events-none absolute inset-x-0 top-[13rem] h-80 bg-[linear-gradient(180deg,rgba(255,253,248,0)_0%,rgba(255,253,248,0.72)_34%,#FFFDF8_64%,#FAF6F0_100%)]" />
       <div className="pointer-events-none absolute bottom-8 right-[10%] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(201,168,124,0.15),transparent_72%)]" />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-7xl pt-28 sm:pt-32">
         <nav className="mb-8 flex flex-wrap items-center gap-1.5 font-[family-name:var(--font-label)] text-[11px] uppercase tracking-[0.12em] text-[#7A6A55]">
           <Link
             href="/"

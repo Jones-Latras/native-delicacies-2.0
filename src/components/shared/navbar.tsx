@@ -29,6 +29,7 @@ const SCROLL_THRESHOLD = 16;
 
 export function Navbar() {
   const pathname = usePathname();
+  const shouldOverlapHero = pathname === "/" || pathname.startsWith("/menu");
   const hasMounted = useHasMounted();
   const itemCount = useCartStore((s) => s.getItemCount());
   const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu, toggleCart } = useUIStore();
@@ -105,7 +106,7 @@ export function Navbar() {
     <header
       className={cn(
         "sticky top-0 z-40 py-2 sm:py-3",
-        pathname === "/" && "-mb-[68px] sm:-mb-20"
+        shouldOverlapHero && "-mb-20 sm:-mb-[6.15rem]"
       )}
     >
       <div

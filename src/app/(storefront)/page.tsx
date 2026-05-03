@@ -135,9 +135,12 @@ export default async function HomePage() {
   return (
     <>
       {/* ── Bahay Kubo Hero Section ── */}
-      <section className="relative overflow-hidden pb-6 pt-2">
+      <section className="relative overflow-hidden bg-asukal pb-6 pt-2">
+        <div className="pointer-events-none absolute inset-0 bg-[url('/hero-delicacies-table.png')] bg-cover bg-center opacity-80 saturate-[0.9]" />
+        <div className="pointer-events-none absolute inset-0 bg-asukal/70" />
+
         {/* Ambient warm glow */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[85%] bg-[radial-gradient(ellipse_at_top,rgba(184,114,30,0.12),transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[85%] bg-[radial-gradient(ellipse_at_top,rgba(184,114,30,0.18),transparent_60%)]" />
 
         {/* Woven Bamboo Pattern Overlay */}
         <div
