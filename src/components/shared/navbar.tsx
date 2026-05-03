@@ -29,7 +29,8 @@ const SCROLL_THRESHOLD = 16;
 
 export function Navbar() {
   const pathname = usePathname();
-  const shouldOverlapHero = pathname === "/" || pathname.startsWith("/menu");
+  const shouldOverlapHero =
+    pathname === "/" || pathname.startsWith("/menu") || pathname.startsWith("/track");
   const hasMounted = useHasMounted();
   const itemCount = useCartStore((s) => s.getItemCount());
   const { isMobileMenuOpen, toggleMobileMenu, closeMobileMenu, toggleCart } = useUIStore();
@@ -105,15 +106,15 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 py-2 sm:py-3",
-        shouldOverlapHero && "-mb-20 sm:-mb-[6.15rem]"
+        "sticky top-0 z-40",
+        shouldOverlapHero && "-mb-16 sm:-mb-[4.65rem]"
       )}
     >
       <div
         className={cn(
-          "mx-auto flex h-16 w-[calc(100%-1rem)] max-w-7xl items-center justify-between rounded-[1rem] border-2 px-3 backdrop-blur-md will-change-transform transition-[transform,box-shadow,background-color,border-color] duration-200 ease-out motion-reduce:transition-none sm:h-[4.65rem] sm:w-[calc(100%-2rem)] sm:px-6 lg:px-8",
+          "mx-auto flex h-16 w-full max-w-none items-center justify-between rounded-none border-x-0 border-t-0 border-b-2 px-4 backdrop-blur-md will-change-transform transition-[transform,box-shadow,background-color,border-color] duration-200 ease-out motion-reduce:transition-none sm:h-[4.65rem] sm:px-8 lg:px-12",
           isScrolled
-            ? "border-latik/18 bg-asukal/92 shadow-[0_14px_28px_rgba(59,31,14,0.12)] translate-y-0.5"
+            ? "border-latik/18 bg-asukal/92 shadow-[0_10px_24px_rgba(59,31,14,0.11)]"
             : "border-latik/14 bg-asukal/86 shadow-[0_10px_22px_rgba(59,31,14,0.09)]"
         )}
       >
@@ -269,10 +270,10 @@ export function Navbar() {
       {/* Mobile menu */}
       <div
         className={cn(
-          "mx-auto w-[calc(100%-1rem)] max-w-7xl origin-top transition-[opacity,transform,max-height,box-shadow,background-color,border-color] duration-200 ease-out motion-reduce:transition-none sm:w-[calc(100%-2rem)] md:hidden",
+          "mx-auto w-full max-w-none origin-top transition-[opacity,transform,max-height,box-shadow,background-color,border-color] duration-200 ease-out motion-reduce:transition-none md:hidden",
           isScrolled
-            ? "rounded-b-[1rem] border-x-2 border-b-2 border-latik/14 bg-asukal/94 shadow-[0_16px_30px_rgba(59,31,14,0.11)] backdrop-blur-md"
-            : "rounded-b-[1rem] border-2 border-t-0 border-latik/12 bg-asukal/90 shadow-[0_12px_24px_rgba(59,31,14,0.09)] backdrop-blur-md",
+            ? "border-x-0 border-b-2 border-latik/14 bg-asukal/94 shadow-[0_16px_30px_rgba(59,31,14,0.11)] backdrop-blur-md"
+            : "border-x-0 border-b-2 border-t-0 border-latik/12 bg-asukal/90 shadow-[0_12px_24px_rgba(59,31,14,0.09)] backdrop-blur-md",
           isMobileMenuOpen
             ? "max-h-[calc(100vh-5.5rem)] translate-y-0 overflow-y-auto opacity-100"
             : "max-h-0 overflow-hidden -translate-y-1 opacity-0 pointer-events-none border-transparent"

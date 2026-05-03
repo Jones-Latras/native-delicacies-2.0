@@ -747,9 +747,9 @@ export default function TrackingClient({ orderNumber }: { orderNumber: string })
 
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#FFFDF8_0%,#FAF6F0_100%)] px-4 py-12 sm:px-6 lg:px-8">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#C9A87C]/60" />
-      <div className="pointer-events-none absolute left-[10%] top-20 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(245,230,200,0.65),transparent_72%)]" />
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#FFFDF8_0%,#FAF6F0_100%)] px-4 pb-12 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[34rem] bg-[url('/track-hero-background.png')] bg-cover bg-center" />
+      <div className="pointer-events-none absolute inset-x-0 top-[16rem] h-80 bg-[linear-gradient(180deg,rgba(255,253,248,0)_0%,rgba(255,253,248,0.7)_34%,#FFFDF8_66%,#FAF6F0_100%)]" />
       <div className="pointer-events-none absolute bottom-10 right-[8%] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(160,82,45,0.10),transparent_72%)]" />
       <div className="relative mx-auto flex max-w-[960px] flex-col gap-6">{children}</div>
     </section>

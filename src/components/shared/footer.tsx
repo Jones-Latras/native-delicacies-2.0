@@ -16,10 +16,10 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-[#8C6038] bg-[linear-gradient(180deg,#4A2816_0%,#341A0E_100%)] text-[#F8EBDD]">
+    <footer className="relative overflow-hidden border-t border-[#5C3521] bg-[linear-gradient(180deg,#3A1E11_0%,#2A130A_100%)] text-[#F8EBDD]">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,rgba(201,168,124,0.24),transparent_65%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(255,253,248,0.05),transparent_78%)]"
       />
       <div
         aria-hidden="true"
@@ -31,7 +31,7 @@ export function Footer() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-24 top-10 h-56 w-56 rounded-full bg-[#C9A87C]/10 blur-3xl"
+        className="pointer-events-none absolute -right-24 top-10 h-56 w-56 rounded-full bg-[#A0522D]/8 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-10">

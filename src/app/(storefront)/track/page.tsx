@@ -17,9 +17,9 @@ export default function TrackOrderPage() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#FFFDF8_0%,#FAF6F0_100%)] px-4 py-16 sm:px-6">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#C9A87C]/60" />
-      <div className="pointer-events-none absolute left-[12%] top-16 h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(245,230,200,0.65),transparent_72%)]" />
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#FFFDF8_0%,#FAF6F0_100%)] px-4 pb-16 pt-28 sm:px-6 sm:pt-32">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[34rem] bg-[url('/track-hero-background.png')] bg-cover bg-center" />
+      <div className="pointer-events-none absolute inset-x-0 top-[16rem] h-80 bg-[linear-gradient(180deg,rgba(255,253,248,0)_0%,rgba(255,253,248,0.7)_34%,#FFFDF8_66%,#FAF6F0_100%)]" />
       <div className="pointer-events-none absolute bottom-8 right-[12%] h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(160,82,45,0.10),transparent_72%)]" />
 
       <div className="relative mx-auto max-w-3xl">
